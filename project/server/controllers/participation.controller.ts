@@ -1,4 +1,3 @@
-import type { IParticipation } from "@/@types/IParticipation";
 import { PrismaClient } from "@/prisma";
 import { Request, Response, NextFunction } from "express";
 import { createHttpError } from "@/utils/httpError";
@@ -7,7 +6,7 @@ const prisma = new PrismaClient();
 
 // Créer une nouvelle participation
 export const createParticipation = async (
-  req: Request<IParticipation>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -60,7 +59,7 @@ export const getParticipationById = async (
 
 // Mettre à jour une participation existante
 export const updateParticipation = async (
-  req: Request<IParticipation>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {

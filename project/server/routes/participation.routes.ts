@@ -1,6 +1,8 @@
 import { Router } from "express";
 import errorHandler from "@/middlewares/errorHandler";
 import { createParticipation, deleteParticipation, getAllParticipations, getParticipationById, updateParticipation } from "@/controllers/participation.controller";
+import { validate } from "@/middlewares/validate";
+import { participationSchema } from "@/validators/participation.validator";
 
 const participationRouter = Router();
 
@@ -33,7 +35,7 @@ const participationRouter = Router();
  *       400:
  *         description: Données invalides
  */
-participationRouter.post('/', createParticipation);
+participationRouter.post('/', validate(participationSchema), errorHandler, createParticipation);
 
 
 /**
@@ -104,7 +106,7 @@ participationRouter.get('/:id', errorHandler, getParticipationById);
  *       404:
  *         description: Participation non trouvée
  */
-participationRouter.put('/:id', updateParticipation);
+participationRouter.put('/:id', validate(participationSchema), errorHandler, updateParticipation);
 
 /**
  * @swagger

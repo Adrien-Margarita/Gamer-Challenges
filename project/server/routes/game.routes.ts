@@ -7,6 +7,8 @@ import {
   updateGame,
   deleteGame,
 } from "@/controllers/game.controller";
+import { validate } from "@/middlewares/validate";
+import { gameSchema } from "@/validators/game.validator";
 
 const gameRouter = Router();
 
@@ -39,7 +41,7 @@ const gameRouter = Router();
  *       400:
  *         description: Données invalides
  */
-gameRouter.post("/", createGame);
+gameRouter.post("/", validate(gameSchema), errorHandler, createGame);
 
 /**
  * @swagger
@@ -109,7 +111,7 @@ gameRouter.get("/:id", errorHandler, getGameById);
  *       404:
  *         description: Jeu non trouvé
  */
-gameRouter.put("/:id", updateGame);
+gameRouter.put("/:id", validate(gameSchema), errorHandler, updateGame);
 
 /**
  * @swagger

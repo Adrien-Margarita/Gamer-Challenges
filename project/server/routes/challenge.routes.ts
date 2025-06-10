@@ -8,7 +8,9 @@ import {
   deleteChallenge
 } from "@/controllers/challenge.controller";
 
+import { challengeSchema } from "@/validators/challenge.validator";
 import errorHandler from "@/middlewares/errorHandler";
+import { validate } from "@/middlewares/validate";
 
 const challengeRouter = Router();
 
@@ -41,7 +43,7 @@ const challengeRouter = Router();
  *       400:
  *         description: Données invalides
  */
-challengeRouter.post("/", createChallenge);
+challengeRouter.post("/", validate(challengeSchema), errorHandler, createChallenge);
 
 /**
  * @swagger
@@ -99,7 +101,7 @@ challengeRouter.get("/:id", errorHandler, getChallengeById);
  *       200:
  *         description: Challenge mis à jour avec succès
  */
-challengeRouter.put("/:id", updateChallenge);
+challengeRouter.put("/:id",validate(challengeSchema), errorHandler, updateChallenge);
 
 /**
  * @swagger

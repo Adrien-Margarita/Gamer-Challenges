@@ -1,12 +1,11 @@
 import { PrismaClient } from "@/prisma";
 import { Request, Response, NextFunction } from "express";
-import { IChallenge } from "@/@types/IChallenge";
 import { createHttpError } from "@/utils/httpError";
 
 const prisma = new PrismaClient();
 
 // Créer un nouvel challenge
-export const createChallenge = async (req: Request<IChallenge>, res: Response, next: NextFunction) => {
+export const createChallenge = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     const newChallenge = await prisma.challenge.create({
@@ -34,7 +33,7 @@ export const getAllChallenges = async (req: Request, res: Response, next: NextFu
 };
 
 // Récupérer un challenge par son ID
-export const getChallengeById = async (req: Request<{ challenge_id: string }>, res: Response, next: NextFunction) => {
+export const getChallengeById = async (req: Request, res: Response, next: NextFunction) => {
 
   const { challenge_id } = req.params;
 
@@ -50,7 +49,7 @@ export const getChallengeById = async (req: Request<{ challenge_id: string }>, r
 };
 
 // Mettre à jour un challenge existant
-export const updateChallenge = async (req: Request<IChallenge>, res: Response, next: NextFunction) => {
+export const updateChallenge = async (req: Request, res: Response, next: NextFunction) => {
   const { challenge_id } = req.params;
 
   try {
