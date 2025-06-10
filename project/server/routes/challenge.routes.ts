@@ -14,6 +14,13 @@ const challengeRouter = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Challenges
+ *   description: API pour gérer les challenges
+ */
+
+/**
+ * @swagger
  * /api/challenges:
  *   post:
  *     summary: Créer un nouveau challenge

@@ -67,8 +67,8 @@ const options: SwaggerOptions = {
   },
 
   apis: [
-    './routes/**/*.ts',
-    './swagger/**/*.ts'
+    './routes/*.ts',
+    './swagger/*.ts'
   ],
 };
 

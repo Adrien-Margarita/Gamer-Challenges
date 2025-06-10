@@ -12,6 +12,13 @@ const gameRouter = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Games
+ *   description: API pour gérer les jeux
+ */
+
+/**
+ * @swagger
  * /api/games:
  *   post:
  *     summary: Créer un nouveau jeu
