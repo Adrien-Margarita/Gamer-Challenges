@@ -6,7 +6,7 @@ const errorHandler = (
   res: Response, 
   next: NextFunction
 ): void => {
-  console.error(err); // utile pour le debug en dev
+  console.error(err);
 
   const status = err.status || 500;
   const message = err.message || 'Une erreur est survenue sur le serveur';

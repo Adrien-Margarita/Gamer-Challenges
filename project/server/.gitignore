@@ -27,3 +27,5 @@ pnpm-workspace.yaml
 pnpm-lock.yaml
 
 /src/generated/prisma
+.idea
+coverage/
