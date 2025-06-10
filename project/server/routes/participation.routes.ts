@@ -6,6 +6,13 @@ const participationRouter = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Participations
+ *   description: API pour gérer les participations
+ */
+
+/**
+ * @swagger
  * /api/participations:
  *   post:
  *     summary: Créer une nouvelle participation
@@ -104,7 +111,7 @@ participationRouter.put('/:id', updateParticipation);
  * /api/participations/{id}:
  *   delete:
  *     summary: Supprimer une participation
- *     tags: [participations]
+ *     tags: [Participations]
  *     parameters:
  *       - in: path
  *         name: id

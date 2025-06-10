@@ -6,6 +6,13 @@ const userRouter = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Users
+ *   description: API pour gérer les utilisateurs
+ */
+
+/**
+ * @swagger
  * /api/users:
  *   post:
  *     summary: Créer un nouvel utilisateur
