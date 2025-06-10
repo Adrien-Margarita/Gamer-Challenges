@@ -33,11 +33,6 @@ export type participation = $Result.DefaultSelection<Prisma.$participationPayloa
  * 
  */
 export type user = $Result.DefaultSelection<Prisma.$userPayload>
-/**
- * Model user_challenge
- * 
- */
-export type user_challenge = $Result.DefaultSelection<Prisma.$user_challengePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -203,16 +198,6 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.userDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.user_challenge`: Exposes CRUD operations for the **user_challenge** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more User_challenges
-    * const user_challenges = await prisma.user_challenge.findMany()
-    * ```
-    */
-  get user_challenge(): Prisma.user_challengeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -656,8 +641,7 @@ export namespace Prisma {
     challenge: 'challenge',
     game: 'game',
     participation: 'participation',
-    user: 'user',
-    user_challenge: 'user_challenge'
+    user: 'user'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -676,7 +660,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "challenge" | "game" | "participation" | "user" | "user_challenge"
+      modelProps: "challenge" | "game" | "participation" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -976,80 +960,6 @@ export namespace Prisma {
           }
         }
       }
-      user_challenge: {
-        payload: Prisma.$user_challengePayload<ExtArgs>
-        fields: Prisma.user_challengeFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.user_challengeFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.user_challengeFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload>
-          }
-          findFirst: {
-            args: Prisma.user_challengeFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.user_challengeFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload>
-          }
-          findMany: {
-            args: Prisma.user_challengeFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload>[]
-          }
-          create: {
-            args: Prisma.user_challengeCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload>
-          }
-          createMany: {
-            args: Prisma.user_challengeCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.user_challengeCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload>[]
-          }
-          delete: {
-            args: Prisma.user_challengeDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload>
-          }
-          update: {
-            args: Prisma.user_challengeUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload>
-          }
-          deleteMany: {
-            args: Prisma.user_challengeDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.user_challengeUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.user_challengeUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload>[]
-          }
-          upsert: {
-            args: Prisma.user_challengeUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$user_challengePayload>
-          }
-          aggregate: {
-            args: Prisma.User_challengeAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUser_challenge>
-          }
-          groupBy: {
-            args: Prisma.user_challengeGroupByArgs<ExtArgs>
-            result: $Utils.Optional<User_challengeGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.user_challengeCountArgs<ExtArgs>
-            result: $Utils.Optional<User_challengeCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1138,7 +1048,6 @@ export namespace Prisma {
     game?: gameOmit
     participation?: participationOmit
     user?: userOmit
-    user_challenge?: user_challengeOmit
   }
 
   /* Types for Logging */
@@ -1227,6 +1136,98 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type ChallengeCountOutputType
+   */
+
+  export type ChallengeCountOutputType = {
+    participation: number
+  }
+
+  export type ChallengeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participation?: boolean | ChallengeCountOutputTypeCountParticipationArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ChallengeCountOutputType without action
+   */
+  export type ChallengeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeCountOutputType
+     */
+    select?: ChallengeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ChallengeCountOutputType without action
+   */
+  export type ChallengeCountOutputTypeCountParticipationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: participationWhereInput
+  }
+
+
+  /**
+   * Count Type GameCountOutputType
+   */
+
+  export type GameCountOutputType = {
+    challenge: number
+  }
+
+  export type GameCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | GameCountOutputTypeCountChallengeArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GameCountOutputType without action
+   */
+  export type GameCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCountOutputType
+     */
+    select?: GameCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GameCountOutputType without action
+   */
+  export type GameCountOutputTypeCountChallengeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: challengeWhereInput
+  }
+
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    participation: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participation?: boolean | UserCountOutputTypeCountParticipationArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountParticipationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: participationWhereInput
+  }
 
 
   /**
@@ -1421,6 +1422,9 @@ export namespace Prisma {
     game_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    game?: boolean | gameDefaultArgs<ExtArgs>
+    participation?: boolean | challenge$participationArgs<ExtArgs>
+    _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["challenge"]>
 
   export type challengeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1432,6 +1436,7 @@ export namespace Prisma {
     game_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    game?: boolean | gameDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["challenge"]>
 
   export type challengeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1443,6 +1448,7 @@ export namespace Prisma {
     game_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    game?: boolean | gameDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["challenge"]>
 
   export type challengeSelectScalar = {
@@ -1457,10 +1463,24 @@ export namespace Prisma {
   }
 
   export type challengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"challenge_id" | "title" | "description" | "rules" | "user_id" | "game_id" | "created_at" | "updated_at", ExtArgs["result"]["challenge"]>
+  export type challengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    game?: boolean | gameDefaultArgs<ExtArgs>
+    participation?: boolean | challenge$participationArgs<ExtArgs>
+    _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type challengeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    game?: boolean | gameDefaultArgs<ExtArgs>
+  }
+  export type challengeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    game?: boolean | gameDefaultArgs<ExtArgs>
+  }
 
   export type $challengePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "challenge"
-    objects: {}
+    objects: {
+      game: Prisma.$gamePayload<ExtArgs>
+      participation: Prisma.$participationPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       challenge_id: string
       title: string
@@ -1864,6 +1884,8 @@ export namespace Prisma {
    */
   export interface Prisma__challengeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    game<T extends gameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, gameDefaultArgs<ExtArgs>>): Prisma__gameClient<$Result.GetResult<Prisma.$gamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    participation<T extends challenge$participationArgs<ExtArgs> = {}>(args?: Subset<T, challenge$participationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$participationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1918,6 +1940,10 @@ export namespace Prisma {
      */
     omit?: challengeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
+    /**
      * Filter, which challenge to fetch.
      */
     where: challengeWhereUniqueInput
@@ -1936,6 +1962,10 @@ export namespace Prisma {
      */
     omit?: challengeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
+    /**
      * Filter, which challenge to fetch.
      */
     where: challengeWhereUniqueInput
@@ -1953,6 +1983,10 @@ export namespace Prisma {
      * Omit specific fields from the challenge
      */
     omit?: challengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
     /**
      * Filter, which challenge to fetch.
      */
@@ -2002,6 +2036,10 @@ export namespace Prisma {
      */
     omit?: challengeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
+    /**
      * Filter, which challenge to fetch.
      */
     where?: challengeWhereInput
@@ -2050,6 +2088,10 @@ export namespace Prisma {
      */
     omit?: challengeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
+    /**
      * Filter, which challenges to fetch.
      */
     where?: challengeWhereInput
@@ -2093,6 +2135,10 @@ export namespace Prisma {
      */
     omit?: challengeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
+    /**
      * The data needed to create a challenge.
      */
     data: XOR<challengeCreateInput, challengeUncheckedCreateInput>
@@ -2126,6 +2172,10 @@ export namespace Prisma {
      */
     data: challengeCreateManyInput | challengeCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2140,6 +2190,10 @@ export namespace Prisma {
      * Omit specific fields from the challenge
      */
     omit?: challengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
     /**
      * The data needed to update a challenge.
      */
@@ -2192,6 +2246,10 @@ export namespace Prisma {
      * Limit how many challenges to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2206,6 +2264,10 @@ export namespace Prisma {
      * Omit specific fields from the challenge
      */
     omit?: challengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
     /**
      * The filter to search for the challenge to update in case it exists.
      */
@@ -2233,6 +2295,10 @@ export namespace Prisma {
      */
     omit?: challengeOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
+    /**
      * Filter which challenge to delete.
      */
     where: challengeWhereUniqueInput
@@ -2253,6 +2319,30 @@ export namespace Prisma {
   }
 
   /**
+   * challenge.participation
+   */
+  export type challenge$participationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation
+     */
+    select?: participationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation
+     */
+    omit?: participationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
+    where?: participationWhereInput
+    orderBy?: participationOrderByWithRelationInput | participationOrderByWithRelationInput[]
+    cursor?: participationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ParticipationScalarFieldEnum | ParticipationScalarFieldEnum[]
+  }
+
+  /**
    * challenge without action
    */
   export type challengeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2264,6 +2354,10 @@ export namespace Prisma {
      * Omit specific fields from the challenge
      */
     omit?: challengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
   }
 
 
@@ -2463,6 +2557,8 @@ export namespace Prisma {
     platform?: boolean
     created_at?: boolean
     updated_at?: boolean
+    challenge?: boolean | game$challengeArgs<ExtArgs>
+    _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["game"]>
 
   export type gameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2502,10 +2598,18 @@ export namespace Prisma {
   }
 
   export type gameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"game_id" | "title" | "category" | "description" | "release_date" | "image_url" | "platform" | "created_at" | "updated_at", ExtArgs["result"]["game"]>
+  export type gameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | game$challengeArgs<ExtArgs>
+    _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type gameIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type gameIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $gamePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "game"
-    objects: {}
+    objects: {
+      challenge: Prisma.$challengePayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       game_id: string
       title: string
@@ -2910,6 +3014,7 @@ export namespace Prisma {
    */
   export interface Prisma__gameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    challenge<T extends game$challengeArgs<ExtArgs> = {}>(args?: Subset<T, game$challengeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$challengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2965,6 +3070,10 @@ export namespace Prisma {
      */
     omit?: gameOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
+    /**
      * Filter, which game to fetch.
      */
     where: gameWhereUniqueInput
@@ -2983,6 +3092,10 @@ export namespace Prisma {
      */
     omit?: gameOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
+    /**
      * Filter, which game to fetch.
      */
     where: gameWhereUniqueInput
@@ -3000,6 +3113,10 @@ export namespace Prisma {
      * Omit specific fields from the game
      */
     omit?: gameOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
     /**
      * Filter, which game to fetch.
      */
@@ -3049,6 +3166,10 @@ export namespace Prisma {
      */
     omit?: gameOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
+    /**
      * Filter, which game to fetch.
      */
     where?: gameWhereInput
@@ -3097,6 +3218,10 @@ export namespace Prisma {
      */
     omit?: gameOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
+    /**
      * Filter, which games to fetch.
      */
     where?: gameWhereInput
@@ -3139,6 +3264,10 @@ export namespace Prisma {
      * Omit specific fields from the game
      */
     omit?: gameOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
     /**
      * The data needed to create a game.
      */
@@ -3187,6 +3316,10 @@ export namespace Prisma {
      * Omit specific fields from the game
      */
     omit?: gameOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
     /**
      * The data needed to update a game.
      */
@@ -3254,6 +3387,10 @@ export namespace Prisma {
      */
     omit?: gameOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
+    /**
      * The filter to search for the game to update in case it exists.
      */
     where: gameWhereUniqueInput
@@ -3280,6 +3417,10 @@ export namespace Prisma {
      */
     omit?: gameOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
+    /**
      * Filter which game to delete.
      */
     where: gameWhereUniqueInput
@@ -3300,6 +3441,30 @@ export namespace Prisma {
   }
 
   /**
+   * game.challenge
+   */
+  export type game$challengeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge
+     */
+    select?: challengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge
+     */
+    omit?: challengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challengeInclude<ExtArgs> | null
+    where?: challengeWhereInput
+    orderBy?: challengeOrderByWithRelationInput | challengeOrderByWithRelationInput[]
+    cursor?: challengeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChallengeScalarFieldEnum | ChallengeScalarFieldEnum[]
+  }
+
+  /**
    * game without action
    */
   export type gameDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3311,6 +3476,10 @@ export namespace Prisma {
      * Omit specific fields from the game
      */
     omit?: gameOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: gameInclude<ExtArgs> | null
   }
 
 
@@ -3502,6 +3671,8 @@ export namespace Prisma {
     challenge_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+    user?: boolean | userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["participation"]>
 
   export type participationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3513,6 +3684,8 @@ export namespace Prisma {
     challenge_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+    user?: boolean | userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["participation"]>
 
   export type participationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3524,6 +3697,8 @@ export namespace Prisma {
     challenge_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+    user?: boolean | userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["participation"]>
 
   export type participationSelectScalar = {
@@ -3538,10 +3713,25 @@ export namespace Prisma {
   }
 
   export type participationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"participation_id" | "user_id" | "video_url" | "image_url" | "description" | "challenge_id" | "created_at" | "updated_at", ExtArgs["result"]["participation"]>
+  export type participationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+    user?: boolean | userDefaultArgs<ExtArgs>
+  }
+  export type participationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+    user?: boolean | userDefaultArgs<ExtArgs>
+  }
+  export type participationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+    user?: boolean | userDefaultArgs<ExtArgs>
+  }
 
   export type $participationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "participation"
-    objects: {}
+    objects: {
+      challenge: Prisma.$challengePayload<ExtArgs>
+      user: Prisma.$userPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       participation_id: string
       user_id: string
@@ -3945,6 +4135,8 @@ export namespace Prisma {
    */
   export interface Prisma__participationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    challenge<T extends challengeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, challengeDefaultArgs<ExtArgs>>): Prisma__challengeClient<$Result.GetResult<Prisma.$challengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3999,6 +4191,10 @@ export namespace Prisma {
      */
     omit?: participationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
+    /**
      * Filter, which participation to fetch.
      */
     where: participationWhereUniqueInput
@@ -4017,6 +4213,10 @@ export namespace Prisma {
      */
     omit?: participationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
+    /**
      * Filter, which participation to fetch.
      */
     where: participationWhereUniqueInput
@@ -4034,6 +4234,10 @@ export namespace Prisma {
      * Omit specific fields from the participation
      */
     omit?: participationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
     /**
      * Filter, which participation to fetch.
      */
@@ -4083,6 +4287,10 @@ export namespace Prisma {
      */
     omit?: participationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
+    /**
      * Filter, which participation to fetch.
      */
     where?: participationWhereInput
@@ -4131,6 +4339,10 @@ export namespace Prisma {
      */
     omit?: participationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
+    /**
      * Filter, which participations to fetch.
      */
     where?: participationWhereInput
@@ -4174,6 +4386,10 @@ export namespace Prisma {
      */
     omit?: participationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
+    /**
      * The data needed to create a participation.
      */
     data: XOR<participationCreateInput, participationUncheckedCreateInput>
@@ -4207,6 +4423,10 @@ export namespace Prisma {
      */
     data: participationCreateManyInput | participationCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4221,6 +4441,10 @@ export namespace Prisma {
      * Omit specific fields from the participation
      */
     omit?: participationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
     /**
      * The data needed to update a participation.
      */
@@ -4273,6 +4497,10 @@ export namespace Prisma {
      * Limit how many participations to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4287,6 +4515,10 @@ export namespace Prisma {
      * Omit specific fields from the participation
      */
     omit?: participationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
     /**
      * The filter to search for the participation to update in case it exists.
      */
@@ -4313,6 +4545,10 @@ export namespace Prisma {
      * Omit specific fields from the participation
      */
     omit?: participationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
     /**
      * Filter which participation to delete.
      */
@@ -4345,6 +4581,10 @@ export namespace Prisma {
      * Omit specific fields from the participation
      */
     omit?: participationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
   }
 
 
@@ -4528,6 +4768,8 @@ export namespace Prisma {
     avatar_url?: boolean
     created_at?: boolean
     updated_at?: boolean
+    participation?: boolean | user$participationArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type userSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4561,10 +4803,18 @@ export namespace Prisma {
   }
 
   export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "pseudonym" | "email" | "password_hash" | "avatar_url" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+  export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participation?: boolean | user$participationArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type userIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type userIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $userPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "user"
-    objects: {}
+    objects: {
+      participation: Prisma.$participationPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       user_id: string
       pseudonym: string
@@ -4967,6 +5217,7 @@ export namespace Prisma {
    */
   export interface Prisma__userClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    participation<T extends user$participationArgs<ExtArgs> = {}>(args?: Subset<T, user$participationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$participationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5020,6 +5271,10 @@ export namespace Prisma {
      */
     omit?: userOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
      * Filter, which user to fetch.
      */
     where: userWhereUniqueInput
@@ -5038,6 +5293,10 @@ export namespace Prisma {
      */
     omit?: userOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
      * Filter, which user to fetch.
      */
     where: userWhereUniqueInput
@@ -5055,6 +5314,10 @@ export namespace Prisma {
      * Omit specific fields from the user
      */
     omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
     /**
      * Filter, which user to fetch.
      */
@@ -5104,6 +5367,10 @@ export namespace Prisma {
      */
     omit?: userOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
      * Filter, which user to fetch.
      */
     where?: userWhereInput
@@ -5152,6 +5419,10 @@ export namespace Prisma {
      */
     omit?: userOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
      * Filter, which users to fetch.
      */
     where?: userWhereInput
@@ -5194,6 +5465,10 @@ export namespace Prisma {
      * Omit specific fields from the user
      */
     omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
     /**
      * The data needed to create a user.
      */
@@ -5242,6 +5517,10 @@ export namespace Prisma {
      * Omit specific fields from the user
      */
     omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
     /**
      * The data needed to update a user.
      */
@@ -5309,6 +5588,10 @@ export namespace Prisma {
      */
     omit?: userOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
      * The filter to search for the user to update in case it exists.
      */
     where: userWhereUniqueInput
@@ -5335,6 +5618,10 @@ export namespace Prisma {
      */
     omit?: userOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    /**
      * Filter which user to delete.
      */
     where: userWhereUniqueInput
@@ -5355,6 +5642,30 @@ export namespace Prisma {
   }
 
   /**
+   * user.participation
+   */
+  export type user$participationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation
+     */
+    select?: participationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation
+     */
+    omit?: participationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participationInclude<ExtArgs> | null
+    where?: participationWhereInput
+    orderBy?: participationOrderByWithRelationInput | participationOrderByWithRelationInput[]
+    cursor?: participationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ParticipationScalarFieldEnum | ParticipationScalarFieldEnum[]
+  }
+
+  /**
    * user without action
    */
   export type userDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5366,975 +5677,10 @@ export namespace Prisma {
      * Omit specific fields from the user
      */
     omit?: userOmit<ExtArgs> | null
-  }
-
-
-  /**
-   * Model user_challenge
-   */
-
-  export type AggregateUser_challenge = {
-    _count: User_challengeCountAggregateOutputType | null
-    _min: User_challengeMinAggregateOutputType | null
-    _max: User_challengeMaxAggregateOutputType | null
-  }
-
-  export type User_challengeMinAggregateOutputType = {
-    user_challenge_id: string | null
-    user_id: string | null
-    challenge_id: string | null
-  }
-
-  export type User_challengeMaxAggregateOutputType = {
-    user_challenge_id: string | null
-    user_id: string | null
-    challenge_id: string | null
-  }
-
-  export type User_challengeCountAggregateOutputType = {
-    user_challenge_id: number
-    user_id: number
-    challenge_id: number
-    _all: number
-  }
-
-
-  export type User_challengeMinAggregateInputType = {
-    user_challenge_id?: true
-    user_id?: true
-    challenge_id?: true
-  }
-
-  export type User_challengeMaxAggregateInputType = {
-    user_challenge_id?: true
-    user_id?: true
-    challenge_id?: true
-  }
-
-  export type User_challengeCountAggregateInputType = {
-    user_challenge_id?: true
-    user_id?: true
-    challenge_id?: true
-    _all?: true
-  }
-
-  export type User_challengeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which user_challenge to aggregate.
+     * Choose, which related nodes to fetch as well
      */
-    where?: user_challengeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of user_challenges to fetch.
-     */
-    orderBy?: user_challengeOrderByWithRelationInput | user_challengeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: user_challengeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` user_challenges from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` user_challenges.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned user_challenges
-    **/
-    _count?: true | User_challengeCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: User_challengeMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: User_challengeMaxAggregateInputType
-  }
-
-  export type GetUser_challengeAggregateType<T extends User_challengeAggregateArgs> = {
-        [P in keyof T & keyof AggregateUser_challenge]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateUser_challenge[P]>
-      : GetScalarType<T[P], AggregateUser_challenge[P]>
-  }
-
-
-
-
-  export type user_challengeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: user_challengeWhereInput
-    orderBy?: user_challengeOrderByWithAggregationInput | user_challengeOrderByWithAggregationInput[]
-    by: User_challengeScalarFieldEnum[] | User_challengeScalarFieldEnum
-    having?: user_challengeScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: User_challengeCountAggregateInputType | true
-    _min?: User_challengeMinAggregateInputType
-    _max?: User_challengeMaxAggregateInputType
-  }
-
-  export type User_challengeGroupByOutputType = {
-    user_challenge_id: string
-    user_id: string
-    challenge_id: string
-    _count: User_challengeCountAggregateOutputType | null
-    _min: User_challengeMinAggregateOutputType | null
-    _max: User_challengeMaxAggregateOutputType | null
-  }
-
-  type GetUser_challengeGroupByPayload<T extends user_challengeGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<User_challengeGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof User_challengeGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], User_challengeGroupByOutputType[P]>
-            : GetScalarType<T[P], User_challengeGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type user_challengeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_challenge_id?: boolean
-    user_id?: boolean
-    challenge_id?: boolean
-  }, ExtArgs["result"]["user_challenge"]>
-
-  export type user_challengeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_challenge_id?: boolean
-    user_id?: boolean
-    challenge_id?: boolean
-  }, ExtArgs["result"]["user_challenge"]>
-
-  export type user_challengeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_challenge_id?: boolean
-    user_id?: boolean
-    challenge_id?: boolean
-  }, ExtArgs["result"]["user_challenge"]>
-
-  export type user_challengeSelectScalar = {
-    user_challenge_id?: boolean
-    user_id?: boolean
-    challenge_id?: boolean
-  }
-
-  export type user_challengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_challenge_id" | "user_id" | "challenge_id", ExtArgs["result"]["user_challenge"]>
-
-  export type $user_challengePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "user_challenge"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      user_challenge_id: string
-      user_id: string
-      challenge_id: string
-    }, ExtArgs["result"]["user_challenge"]>
-    composites: {}
-  }
-
-  type user_challengeGetPayload<S extends boolean | null | undefined | user_challengeDefaultArgs> = $Result.GetResult<Prisma.$user_challengePayload, S>
-
-  type user_challengeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<user_challengeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: User_challengeCountAggregateInputType | true
-    }
-
-  export interface user_challengeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['user_challenge'], meta: { name: 'user_challenge' } }
-    /**
-     * Find zero or one User_challenge that matches the filter.
-     * @param {user_challengeFindUniqueArgs} args - Arguments to find a User_challenge
-     * @example
-     * // Get one User_challenge
-     * const user_challenge = await prisma.user_challenge.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends user_challengeFindUniqueArgs>(args: SelectSubset<T, user_challengeFindUniqueArgs<ExtArgs>>): Prisma__user_challengeClient<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one User_challenge that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {user_challengeFindUniqueOrThrowArgs} args - Arguments to find a User_challenge
-     * @example
-     * // Get one User_challenge
-     * const user_challenge = await prisma.user_challenge.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends user_challengeFindUniqueOrThrowArgs>(args: SelectSubset<T, user_challengeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__user_challengeClient<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first User_challenge that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_challengeFindFirstArgs} args - Arguments to find a User_challenge
-     * @example
-     * // Get one User_challenge
-     * const user_challenge = await prisma.user_challenge.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends user_challengeFindFirstArgs>(args?: SelectSubset<T, user_challengeFindFirstArgs<ExtArgs>>): Prisma__user_challengeClient<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first User_challenge that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_challengeFindFirstOrThrowArgs} args - Arguments to find a User_challenge
-     * @example
-     * // Get one User_challenge
-     * const user_challenge = await prisma.user_challenge.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends user_challengeFindFirstOrThrowArgs>(args?: SelectSubset<T, user_challengeFindFirstOrThrowArgs<ExtArgs>>): Prisma__user_challengeClient<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more User_challenges that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_challengeFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all User_challenges
-     * const user_challenges = await prisma.user_challenge.findMany()
-     * 
-     * // Get first 10 User_challenges
-     * const user_challenges = await prisma.user_challenge.findMany({ take: 10 })
-     * 
-     * // Only select the `user_challenge_id`
-     * const user_challengeWithUser_challenge_idOnly = await prisma.user_challenge.findMany({ select: { user_challenge_id: true } })
-     * 
-     */
-    findMany<T extends user_challengeFindManyArgs>(args?: SelectSubset<T, user_challengeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a User_challenge.
-     * @param {user_challengeCreateArgs} args - Arguments to create a User_challenge.
-     * @example
-     * // Create one User_challenge
-     * const User_challenge = await prisma.user_challenge.create({
-     *   data: {
-     *     // ... data to create a User_challenge
-     *   }
-     * })
-     * 
-     */
-    create<T extends user_challengeCreateArgs>(args: SelectSubset<T, user_challengeCreateArgs<ExtArgs>>): Prisma__user_challengeClient<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many User_challenges.
-     * @param {user_challengeCreateManyArgs} args - Arguments to create many User_challenges.
-     * @example
-     * // Create many User_challenges
-     * const user_challenge = await prisma.user_challenge.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends user_challengeCreateManyArgs>(args?: SelectSubset<T, user_challengeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many User_challenges and returns the data saved in the database.
-     * @param {user_challengeCreateManyAndReturnArgs} args - Arguments to create many User_challenges.
-     * @example
-     * // Create many User_challenges
-     * const user_challenge = await prisma.user_challenge.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many User_challenges and only return the `user_challenge_id`
-     * const user_challengeWithUser_challenge_idOnly = await prisma.user_challenge.createManyAndReturn({
-     *   select: { user_challenge_id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends user_challengeCreateManyAndReturnArgs>(args?: SelectSubset<T, user_challengeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a User_challenge.
-     * @param {user_challengeDeleteArgs} args - Arguments to delete one User_challenge.
-     * @example
-     * // Delete one User_challenge
-     * const User_challenge = await prisma.user_challenge.delete({
-     *   where: {
-     *     // ... filter to delete one User_challenge
-     *   }
-     * })
-     * 
-     */
-    delete<T extends user_challengeDeleteArgs>(args: SelectSubset<T, user_challengeDeleteArgs<ExtArgs>>): Prisma__user_challengeClient<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one User_challenge.
-     * @param {user_challengeUpdateArgs} args - Arguments to update one User_challenge.
-     * @example
-     * // Update one User_challenge
-     * const user_challenge = await prisma.user_challenge.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends user_challengeUpdateArgs>(args: SelectSubset<T, user_challengeUpdateArgs<ExtArgs>>): Prisma__user_challengeClient<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more User_challenges.
-     * @param {user_challengeDeleteManyArgs} args - Arguments to filter User_challenges to delete.
-     * @example
-     * // Delete a few User_challenges
-     * const { count } = await prisma.user_challenge.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends user_challengeDeleteManyArgs>(args?: SelectSubset<T, user_challengeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more User_challenges.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_challengeUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many User_challenges
-     * const user_challenge = await prisma.user_challenge.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends user_challengeUpdateManyArgs>(args: SelectSubset<T, user_challengeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more User_challenges and returns the data updated in the database.
-     * @param {user_challengeUpdateManyAndReturnArgs} args - Arguments to update many User_challenges.
-     * @example
-     * // Update many User_challenges
-     * const user_challenge = await prisma.user_challenge.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more User_challenges and only return the `user_challenge_id`
-     * const user_challengeWithUser_challenge_idOnly = await prisma.user_challenge.updateManyAndReturn({
-     *   select: { user_challenge_id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends user_challengeUpdateManyAndReturnArgs>(args: SelectSubset<T, user_challengeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one User_challenge.
-     * @param {user_challengeUpsertArgs} args - Arguments to update or create a User_challenge.
-     * @example
-     * // Update or create a User_challenge
-     * const user_challenge = await prisma.user_challenge.upsert({
-     *   create: {
-     *     // ... data to create a User_challenge
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the User_challenge we want to update
-     *   }
-     * })
-     */
-    upsert<T extends user_challengeUpsertArgs>(args: SelectSubset<T, user_challengeUpsertArgs<ExtArgs>>): Prisma__user_challengeClient<$Result.GetResult<Prisma.$user_challengePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of User_challenges.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_challengeCountArgs} args - Arguments to filter User_challenges to count.
-     * @example
-     * // Count the number of User_challenges
-     * const count = await prisma.user_challenge.count({
-     *   where: {
-     *     // ... the filter for the User_challenges we want to count
-     *   }
-     * })
-    **/
-    count<T extends user_challengeCountArgs>(
-      args?: Subset<T, user_challengeCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], User_challengeCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a User_challenge.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {User_challengeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends User_challengeAggregateArgs>(args: Subset<T, User_challengeAggregateArgs>): Prisma.PrismaPromise<GetUser_challengeAggregateType<T>>
-
-    /**
-     * Group by User_challenge.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {user_challengeGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends user_challengeGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: user_challengeGroupByArgs['orderBy'] }
-        : { orderBy?: user_challengeGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, user_challengeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUser_challengeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the user_challenge model
-   */
-  readonly fields: user_challengeFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for user_challenge.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__user_challengeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the user_challenge model
-   */
-  interface user_challengeFieldRefs {
-    readonly user_challenge_id: FieldRef<"user_challenge", 'String'>
-    readonly user_id: FieldRef<"user_challenge", 'String'>
-    readonly challenge_id: FieldRef<"user_challenge", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * user_challenge findUnique
-   */
-  export type user_challengeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * Filter, which user_challenge to fetch.
-     */
-    where: user_challengeWhereUniqueInput
-  }
-
-  /**
-   * user_challenge findUniqueOrThrow
-   */
-  export type user_challengeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * Filter, which user_challenge to fetch.
-     */
-    where: user_challengeWhereUniqueInput
-  }
-
-  /**
-   * user_challenge findFirst
-   */
-  export type user_challengeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * Filter, which user_challenge to fetch.
-     */
-    where?: user_challengeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of user_challenges to fetch.
-     */
-    orderBy?: user_challengeOrderByWithRelationInput | user_challengeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for user_challenges.
-     */
-    cursor?: user_challengeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` user_challenges from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` user_challenges.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of user_challenges.
-     */
-    distinct?: User_challengeScalarFieldEnum | User_challengeScalarFieldEnum[]
-  }
-
-  /**
-   * user_challenge findFirstOrThrow
-   */
-  export type user_challengeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * Filter, which user_challenge to fetch.
-     */
-    where?: user_challengeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of user_challenges to fetch.
-     */
-    orderBy?: user_challengeOrderByWithRelationInput | user_challengeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for user_challenges.
-     */
-    cursor?: user_challengeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` user_challenges from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` user_challenges.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of user_challenges.
-     */
-    distinct?: User_challengeScalarFieldEnum | User_challengeScalarFieldEnum[]
-  }
-
-  /**
-   * user_challenge findMany
-   */
-  export type user_challengeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * Filter, which user_challenges to fetch.
-     */
-    where?: user_challengeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of user_challenges to fetch.
-     */
-    orderBy?: user_challengeOrderByWithRelationInput | user_challengeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing user_challenges.
-     */
-    cursor?: user_challengeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` user_challenges from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` user_challenges.
-     */
-    skip?: number
-    distinct?: User_challengeScalarFieldEnum | User_challengeScalarFieldEnum[]
-  }
-
-  /**
-   * user_challenge create
-   */
-  export type user_challengeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * The data needed to create a user_challenge.
-     */
-    data: XOR<user_challengeCreateInput, user_challengeUncheckedCreateInput>
-  }
-
-  /**
-   * user_challenge createMany
-   */
-  export type user_challengeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many user_challenges.
-     */
-    data: user_challengeCreateManyInput | user_challengeCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * user_challenge createManyAndReturn
-   */
-  export type user_challengeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * The data used to create many user_challenges.
-     */
-    data: user_challengeCreateManyInput | user_challengeCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * user_challenge update
-   */
-  export type user_challengeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * The data needed to update a user_challenge.
-     */
-    data: XOR<user_challengeUpdateInput, user_challengeUncheckedUpdateInput>
-    /**
-     * Choose, which user_challenge to update.
-     */
-    where: user_challengeWhereUniqueInput
-  }
-
-  /**
-   * user_challenge updateMany
-   */
-  export type user_challengeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update user_challenges.
-     */
-    data: XOR<user_challengeUpdateManyMutationInput, user_challengeUncheckedUpdateManyInput>
-    /**
-     * Filter which user_challenges to update
-     */
-    where?: user_challengeWhereInput
-    /**
-     * Limit how many user_challenges to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * user_challenge updateManyAndReturn
-   */
-  export type user_challengeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * The data used to update user_challenges.
-     */
-    data: XOR<user_challengeUpdateManyMutationInput, user_challengeUncheckedUpdateManyInput>
-    /**
-     * Filter which user_challenges to update
-     */
-    where?: user_challengeWhereInput
-    /**
-     * Limit how many user_challenges to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * user_challenge upsert
-   */
-  export type user_challengeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * The filter to search for the user_challenge to update in case it exists.
-     */
-    where: user_challengeWhereUniqueInput
-    /**
-     * In case the user_challenge found by the `where` argument doesn't exist, create a new user_challenge with this data.
-     */
-    create: XOR<user_challengeCreateInput, user_challengeUncheckedCreateInput>
-    /**
-     * In case the user_challenge was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<user_challengeUpdateInput, user_challengeUncheckedUpdateInput>
-  }
-
-  /**
-   * user_challenge delete
-   */
-  export type user_challengeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
-    /**
-     * Filter which user_challenge to delete.
-     */
-    where: user_challengeWhereUniqueInput
-  }
-
-  /**
-   * user_challenge deleteMany
-   */
-  export type user_challengeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which user_challenges to delete
-     */
-    where?: user_challengeWhereInput
-    /**
-     * Limit how many user_challenges to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * user_challenge without action
-   */
-  export type user_challengeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_challenge
-     */
-    select?: user_challengeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_challenge
-     */
-    omit?: user_challengeOmit<ExtArgs> | null
+    include?: userInclude<ExtArgs> | null
   }
 
 
@@ -6406,15 +5752,6 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-  export const User_challengeScalarFieldEnum: {
-    user_challenge_id: 'user_challenge_id',
-    user_id: 'user_id',
-    challenge_id: 'challenge_id'
-  };
-
-  export type User_challengeScalarFieldEnum = (typeof User_challengeScalarFieldEnum)[keyof typeof User_challengeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6503,6 +5840,8 @@ export namespace Prisma {
     game_id?: UuidFilter<"challenge"> | string
     created_at?: DateTimeNullableFilter<"challenge"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"challenge"> | Date | string | null
+    game?: XOR<GameScalarRelationFilter, gameWhereInput>
+    participation?: ParticipationListRelationFilter
   }
 
   export type challengeOrderByWithRelationInput = {
@@ -6514,6 +5853,8 @@ export namespace Prisma {
     game_id?: SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    game?: gameOrderByWithRelationInput
+    participation?: participationOrderByRelationAggregateInput
   }
 
   export type challengeWhereUniqueInput = Prisma.AtLeast<{
@@ -6528,6 +5869,8 @@ export namespace Prisma {
     game_id?: UuidFilter<"challenge"> | string
     created_at?: DateTimeNullableFilter<"challenge"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"challenge"> | Date | string | null
+    game?: XOR<GameScalarRelationFilter, gameWhereInput>
+    participation?: ParticipationListRelationFilter
   }, "challenge_id" | "title">
 
   export type challengeOrderByWithAggregationInput = {
@@ -6571,6 +5914,7 @@ export namespace Prisma {
     platform?: StringFilter<"game"> | string
     created_at?: DateTimeNullableFilter<"game"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"game"> | Date | string | null
+    challenge?: ChallengeListRelationFilter
   }
 
   export type gameOrderByWithRelationInput = {
@@ -6583,22 +5927,24 @@ export namespace Prisma {
     platform?: SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    challenge?: challengeOrderByRelationAggregateInput
   }
 
   export type gameWhereUniqueInput = Prisma.AtLeast<{
     game_id?: string
     title?: string
-    category?: string
     AND?: gameWhereInput | gameWhereInput[]
     OR?: gameWhereInput[]
     NOT?: gameWhereInput | gameWhereInput[]
+    category?: StringFilter<"game"> | string
     description?: StringFilter<"game"> | string
     release_date?: DateTimeFilter<"game"> | Date | string
     image_url?: StringNullableFilter<"game"> | string | null
     platform?: StringFilter<"game"> | string
     created_at?: DateTimeNullableFilter<"game"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"game"> | Date | string | null
-  }, "game_id" | "title" | "category">
+    challenge?: ChallengeListRelationFilter
+  }, "game_id" | "title">
 
   export type gameOrderByWithAggregationInput = {
     game_id?: SortOrder
@@ -6642,6 +5988,8 @@ export namespace Prisma {
     challenge_id?: UuidFilter<"participation"> | string
     created_at?: DateTimeNullableFilter<"participation"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"participation"> | Date | string | null
+    challenge?: XOR<ChallengeScalarRelationFilter, challengeWhereInput>
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }
 
   export type participationOrderByWithRelationInput = {
@@ -6653,6 +6001,8 @@ export namespace Prisma {
     challenge_id?: SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    challenge?: challengeOrderByWithRelationInput
+    user?: userOrderByWithRelationInput
   }
 
   export type participationWhereUniqueInput = Prisma.AtLeast<{
@@ -6667,6 +6017,8 @@ export namespace Prisma {
     challenge_id?: UuidFilter<"participation"> | string
     created_at?: DateTimeNullableFilter<"participation"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"participation"> | Date | string | null
+    challenge?: XOR<ChallengeScalarRelationFilter, challengeWhereInput>
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }, "participation_id">
 
   export type participationOrderByWithAggregationInput = {
@@ -6708,6 +6060,7 @@ export namespace Prisma {
     avatar_url?: StringNullableFilter<"user"> | string | null
     created_at?: DateTimeNullableFilter<"user"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"user"> | Date | string | null
+    participation?: ParticipationListRelationFilter
   }
 
   export type userOrderByWithRelationInput = {
@@ -6718,6 +6071,7 @@ export namespace Prisma {
     avatar_url?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    participation?: participationOrderByRelationAggregateInput
   }
 
   export type userWhereUniqueInput = Prisma.AtLeast<{
@@ -6731,6 +6085,7 @@ export namespace Prisma {
     avatar_url?: StringNullableFilter<"user"> | string | null
     created_at?: DateTimeNullableFilter<"user"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"user"> | Date | string | null
+    participation?: ParticipationListRelationFilter
   }, "user_id" | "pseudonym" | "email">
 
   export type userOrderByWithAggregationInput = {
@@ -6759,57 +6114,16 @@ export namespace Prisma {
     updated_at?: DateTimeNullableWithAggregatesFilter<"user"> | Date | string | null
   }
 
-  export type user_challengeWhereInput = {
-    AND?: user_challengeWhereInput | user_challengeWhereInput[]
-    OR?: user_challengeWhereInput[]
-    NOT?: user_challengeWhereInput | user_challengeWhereInput[]
-    user_challenge_id?: UuidFilter<"user_challenge"> | string
-    user_id?: UuidFilter<"user_challenge"> | string
-    challenge_id?: UuidFilter<"user_challenge"> | string
-  }
-
-  export type user_challengeOrderByWithRelationInput = {
-    user_challenge_id?: SortOrder
-    user_id?: SortOrder
-    challenge_id?: SortOrder
-  }
-
-  export type user_challengeWhereUniqueInput = Prisma.AtLeast<{
-    user_challenge_id?: string
-    AND?: user_challengeWhereInput | user_challengeWhereInput[]
-    OR?: user_challengeWhereInput[]
-    NOT?: user_challengeWhereInput | user_challengeWhereInput[]
-    user_id?: UuidFilter<"user_challenge"> | string
-    challenge_id?: UuidFilter<"user_challenge"> | string
-  }, "user_challenge_id">
-
-  export type user_challengeOrderByWithAggregationInput = {
-    user_challenge_id?: SortOrder
-    user_id?: SortOrder
-    challenge_id?: SortOrder
-    _count?: user_challengeCountOrderByAggregateInput
-    _max?: user_challengeMaxOrderByAggregateInput
-    _min?: user_challengeMinOrderByAggregateInput
-  }
-
-  export type user_challengeScalarWhereWithAggregatesInput = {
-    AND?: user_challengeScalarWhereWithAggregatesInput | user_challengeScalarWhereWithAggregatesInput[]
-    OR?: user_challengeScalarWhereWithAggregatesInput[]
-    NOT?: user_challengeScalarWhereWithAggregatesInput | user_challengeScalarWhereWithAggregatesInput[]
-    user_challenge_id?: UuidWithAggregatesFilter<"user_challenge"> | string
-    user_id?: UuidWithAggregatesFilter<"user_challenge"> | string
-    challenge_id?: UuidWithAggregatesFilter<"user_challenge"> | string
-  }
-
   export type challengeCreateInput = {
     challenge_id: string
     title: string
     description: string
     rules: string
     user_id: string
-    game_id: string
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    game: gameCreateNestedOneWithoutChallengeInput
+    participation?: participationCreateNestedManyWithoutChallengeInput
   }
 
   export type challengeUncheckedCreateInput = {
@@ -6821,6 +6135,7 @@ export namespace Prisma {
     game_id: string
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    participation?: participationUncheckedCreateNestedManyWithoutChallengeInput
   }
 
   export type challengeUpdateInput = {
@@ -6829,9 +6144,10 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     rules?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
-    game_id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    game?: gameUpdateOneRequiredWithoutChallengeNestedInput
+    participation?: participationUpdateManyWithoutChallengeNestedInput
   }
 
   export type challengeUncheckedUpdateInput = {
@@ -6843,6 +6159,7 @@ export namespace Prisma {
     game_id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUncheckedUpdateManyWithoutChallengeNestedInput
   }
 
   export type challengeCreateManyInput = {
@@ -6862,7 +6179,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     rules?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
-    game_id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -6888,6 +6204,7 @@ export namespace Prisma {
     platform: string
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    challenge?: challengeCreateNestedManyWithoutGameInput
   }
 
   export type gameUncheckedCreateInput = {
@@ -6900,6 +6217,7 @@ export namespace Prisma {
     platform: string
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    challenge?: challengeUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type gameUpdateInput = {
@@ -6912,6 +6230,7 @@ export namespace Prisma {
     platform?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge?: challengeUpdateManyWithoutGameNestedInput
   }
 
   export type gameUncheckedUpdateInput = {
@@ -6924,6 +6243,7 @@ export namespace Prisma {
     platform?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge?: challengeUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type gameCreateManyInput = {
@@ -6964,13 +6284,13 @@ export namespace Prisma {
 
   export type participationCreateInput = {
     participation_id: string
-    user_id: string
     video_url?: string | null
     image_url?: string | null
     description: string
-    challenge_id: string
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    challenge: challengeCreateNestedOneWithoutParticipationInput
+    user: userCreateNestedOneWithoutParticipationInput
   }
 
   export type participationUncheckedCreateInput = {
@@ -6986,13 +6306,13 @@ export namespace Prisma {
 
   export type participationUpdateInput = {
     participation_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
     video_url?: NullableStringFieldUpdateOperationsInput | string | null
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    challenge_id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge?: challengeUpdateOneRequiredWithoutParticipationNestedInput
+    user?: userUpdateOneRequiredWithoutParticipationNestedInput
   }
 
   export type participationUncheckedUpdateInput = {
@@ -7019,11 +6339,9 @@ export namespace Prisma {
 
   export type participationUpdateManyMutationInput = {
     participation_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
     video_url?: NullableStringFieldUpdateOperationsInput | string | null
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    challenge_id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -7047,6 +6365,7 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    participation?: participationCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateInput = {
@@ -7057,6 +6376,7 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    participation?: participationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userUpdateInput = {
@@ -7067,6 +6387,7 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateInput = {
@@ -7077,6 +6398,7 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type userCreateManyInput = {
@@ -7107,48 +6429,6 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type user_challengeCreateInput = {
-    user_challenge_id: string
-    user_id: string
-    challenge_id: string
-  }
-
-  export type user_challengeUncheckedCreateInput = {
-    user_challenge_id: string
-    user_id: string
-    challenge_id: string
-  }
-
-  export type user_challengeUpdateInput = {
-    user_challenge_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    challenge_id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type user_challengeUncheckedUpdateInput = {
-    user_challenge_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    challenge_id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type user_challengeCreateManyInput = {
-    user_challenge_id: string
-    user_id: string
-    challenge_id: string
-  }
-
-  export type user_challengeUpdateManyMutationInput = {
-    user_challenge_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    challenge_id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type user_challengeUncheckedUpdateManyInput = {
-    user_challenge_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    challenge_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -7189,9 +6469,24 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type GameScalarRelationFilter = {
+    is?: gameWhereInput
+    isNot?: gameWhereInput
+  }
+
+  export type ParticipationListRelationFilter = {
+    every?: participationWhereInput
+    some?: participationWhereInput
+    none?: participationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type participationOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type challengeCountOrderByAggregateInput = {
@@ -7300,6 +6595,16 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type ChallengeListRelationFilter = {
+    every?: challengeWhereInput
+    some?: challengeWhereInput
+    none?: challengeWhereInput
+  }
+
+  export type challengeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type gameCountOrderByAggregateInput = {
     game_id?: SortOrder
     title?: SortOrder
@@ -7368,6 +6673,16 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type ChallengeScalarRelationFilter = {
+    is?: challengeWhereInput
+    isNot?: challengeWhereInput
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: userWhereInput
+    isNot?: userWhereInput
+  }
+
   export type participationCountOrderByAggregateInput = {
     participation_id?: SortOrder
     user_id?: SortOrder
@@ -7431,22 +6746,24 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
-  export type user_challengeCountOrderByAggregateInput = {
-    user_challenge_id?: SortOrder
-    user_id?: SortOrder
-    challenge_id?: SortOrder
+  export type gameCreateNestedOneWithoutChallengeInput = {
+    create?: XOR<gameCreateWithoutChallengeInput, gameUncheckedCreateWithoutChallengeInput>
+    connectOrCreate?: gameCreateOrConnectWithoutChallengeInput
+    connect?: gameWhereUniqueInput
   }
 
-  export type user_challengeMaxOrderByAggregateInput = {
-    user_challenge_id?: SortOrder
-    user_id?: SortOrder
-    challenge_id?: SortOrder
+  export type participationCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<participationCreateWithoutChallengeInput, participationUncheckedCreateWithoutChallengeInput> | participationCreateWithoutChallengeInput[] | participationUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: participationCreateOrConnectWithoutChallengeInput | participationCreateOrConnectWithoutChallengeInput[]
+    createMany?: participationCreateManyChallengeInputEnvelope
+    connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
   }
 
-  export type user_challengeMinOrderByAggregateInput = {
-    user_challenge_id?: SortOrder
-    user_id?: SortOrder
-    challenge_id?: SortOrder
+  export type participationUncheckedCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<participationCreateWithoutChallengeInput, participationUncheckedCreateWithoutChallengeInput> | participationCreateWithoutChallengeInput[] | participationUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: participationCreateOrConnectWithoutChallengeInput | participationCreateOrConnectWithoutChallengeInput[]
+    createMany?: participationCreateManyChallengeInputEnvelope
+    connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -7457,12 +6774,160 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type gameUpdateOneRequiredWithoutChallengeNestedInput = {
+    create?: XOR<gameCreateWithoutChallengeInput, gameUncheckedCreateWithoutChallengeInput>
+    connectOrCreate?: gameCreateOrConnectWithoutChallengeInput
+    upsert?: gameUpsertWithoutChallengeInput
+    connect?: gameWhereUniqueInput
+    update?: XOR<XOR<gameUpdateToOneWithWhereWithoutChallengeInput, gameUpdateWithoutChallengeInput>, gameUncheckedUpdateWithoutChallengeInput>
+  }
+
+  export type participationUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<participationCreateWithoutChallengeInput, participationUncheckedCreateWithoutChallengeInput> | participationCreateWithoutChallengeInput[] | participationUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: participationCreateOrConnectWithoutChallengeInput | participationCreateOrConnectWithoutChallengeInput[]
+    upsert?: participationUpsertWithWhereUniqueWithoutChallengeInput | participationUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: participationCreateManyChallengeInputEnvelope
+    set?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    disconnect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    delete?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    update?: participationUpdateWithWhereUniqueWithoutChallengeInput | participationUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: participationUpdateManyWithWhereWithoutChallengeInput | participationUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: participationScalarWhereInput | participationScalarWhereInput[]
+  }
+
+  export type participationUncheckedUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<participationCreateWithoutChallengeInput, participationUncheckedCreateWithoutChallengeInput> | participationCreateWithoutChallengeInput[] | participationUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: participationCreateOrConnectWithoutChallengeInput | participationCreateOrConnectWithoutChallengeInput[]
+    upsert?: participationUpsertWithWhereUniqueWithoutChallengeInput | participationUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: participationCreateManyChallengeInputEnvelope
+    set?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    disconnect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    delete?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    update?: participationUpdateWithWhereUniqueWithoutChallengeInput | participationUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: participationUpdateManyWithWhereWithoutChallengeInput | participationUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: participationScalarWhereInput | participationScalarWhereInput[]
+  }
+
+  export type challengeCreateNestedManyWithoutGameInput = {
+    create?: XOR<challengeCreateWithoutGameInput, challengeUncheckedCreateWithoutGameInput> | challengeCreateWithoutGameInput[] | challengeUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: challengeCreateOrConnectWithoutGameInput | challengeCreateOrConnectWithoutGameInput[]
+    createMany?: challengeCreateManyGameInputEnvelope
+    connect?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+  }
+
+  export type challengeUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<challengeCreateWithoutGameInput, challengeUncheckedCreateWithoutGameInput> | challengeCreateWithoutGameInput[] | challengeUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: challengeCreateOrConnectWithoutGameInput | challengeCreateOrConnectWithoutGameInput[]
+    createMany?: challengeCreateManyGameInputEnvelope
+    connect?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type challengeUpdateManyWithoutGameNestedInput = {
+    create?: XOR<challengeCreateWithoutGameInput, challengeUncheckedCreateWithoutGameInput> | challengeCreateWithoutGameInput[] | challengeUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: challengeCreateOrConnectWithoutGameInput | challengeCreateOrConnectWithoutGameInput[]
+    upsert?: challengeUpsertWithWhereUniqueWithoutGameInput | challengeUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: challengeCreateManyGameInputEnvelope
+    set?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+    disconnect?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+    delete?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+    connect?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+    update?: challengeUpdateWithWhereUniqueWithoutGameInput | challengeUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: challengeUpdateManyWithWhereWithoutGameInput | challengeUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: challengeScalarWhereInput | challengeScalarWhereInput[]
+  }
+
+  export type challengeUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<challengeCreateWithoutGameInput, challengeUncheckedCreateWithoutGameInput> | challengeCreateWithoutGameInput[] | challengeUncheckedCreateWithoutGameInput[]
+    connectOrCreate?: challengeCreateOrConnectWithoutGameInput | challengeCreateOrConnectWithoutGameInput[]
+    upsert?: challengeUpsertWithWhereUniqueWithoutGameInput | challengeUpsertWithWhereUniqueWithoutGameInput[]
+    createMany?: challengeCreateManyGameInputEnvelope
+    set?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+    disconnect?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+    delete?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+    connect?: challengeWhereUniqueInput | challengeWhereUniqueInput[]
+    update?: challengeUpdateWithWhereUniqueWithoutGameInput | challengeUpdateWithWhereUniqueWithoutGameInput[]
+    updateMany?: challengeUpdateManyWithWhereWithoutGameInput | challengeUpdateManyWithWhereWithoutGameInput[]
+    deleteMany?: challengeScalarWhereInput | challengeScalarWhereInput[]
+  }
+
+  export type challengeCreateNestedOneWithoutParticipationInput = {
+    create?: XOR<challengeCreateWithoutParticipationInput, challengeUncheckedCreateWithoutParticipationInput>
+    connectOrCreate?: challengeCreateOrConnectWithoutParticipationInput
+    connect?: challengeWhereUniqueInput
+  }
+
+  export type userCreateNestedOneWithoutParticipationInput = {
+    create?: XOR<userCreateWithoutParticipationInput, userUncheckedCreateWithoutParticipationInput>
+    connectOrCreate?: userCreateOrConnectWithoutParticipationInput
+    connect?: userWhereUniqueInput
+  }
+
+  export type challengeUpdateOneRequiredWithoutParticipationNestedInput = {
+    create?: XOR<challengeCreateWithoutParticipationInput, challengeUncheckedCreateWithoutParticipationInput>
+    connectOrCreate?: challengeCreateOrConnectWithoutParticipationInput
+    upsert?: challengeUpsertWithoutParticipationInput
+    connect?: challengeWhereUniqueInput
+    update?: XOR<XOR<challengeUpdateToOneWithWhereWithoutParticipationInput, challengeUpdateWithoutParticipationInput>, challengeUncheckedUpdateWithoutParticipationInput>
+  }
+
+  export type userUpdateOneRequiredWithoutParticipationNestedInput = {
+    create?: XOR<userCreateWithoutParticipationInput, userUncheckedCreateWithoutParticipationInput>
+    connectOrCreate?: userCreateOrConnectWithoutParticipationInput
+    upsert?: userUpsertWithoutParticipationInput
+    connect?: userWhereUniqueInput
+    update?: XOR<XOR<userUpdateToOneWithWhereWithoutParticipationInput, userUpdateWithoutParticipationInput>, userUncheckedUpdateWithoutParticipationInput>
+  }
+
+  export type participationCreateNestedManyWithoutUserInput = {
+    create?: XOR<participationCreateWithoutUserInput, participationUncheckedCreateWithoutUserInput> | participationCreateWithoutUserInput[] | participationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: participationCreateOrConnectWithoutUserInput | participationCreateOrConnectWithoutUserInput[]
+    createMany?: participationCreateManyUserInputEnvelope
+    connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+  }
+
+  export type participationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<participationCreateWithoutUserInput, participationUncheckedCreateWithoutUserInput> | participationCreateWithoutUserInput[] | participationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: participationCreateOrConnectWithoutUserInput | participationCreateOrConnectWithoutUserInput[]
+    createMany?: participationCreateManyUserInputEnvelope
+    connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+  }
+
+  export type participationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<participationCreateWithoutUserInput, participationUncheckedCreateWithoutUserInput> | participationCreateWithoutUserInput[] | participationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: participationCreateOrConnectWithoutUserInput | participationCreateOrConnectWithoutUserInput[]
+    upsert?: participationUpsertWithWhereUniqueWithoutUserInput | participationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: participationCreateManyUserInputEnvelope
+    set?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    disconnect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    delete?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    update?: participationUpdateWithWhereUniqueWithoutUserInput | participationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: participationUpdateManyWithWhereWithoutUserInput | participationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: participationScalarWhereInput | participationScalarWhereInput[]
+  }
+
+  export type participationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<participationCreateWithoutUserInput, participationUncheckedCreateWithoutUserInput> | participationCreateWithoutUserInput[] | participationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: participationCreateOrConnectWithoutUserInput | participationCreateOrConnectWithoutUserInput[]
+    upsert?: participationUpsertWithWhereUniqueWithoutUserInput | participationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: participationCreateManyUserInputEnvelope
+    set?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    disconnect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    delete?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+    update?: participationUpdateWithWhereUniqueWithoutUserInput | participationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: participationUpdateManyWithWhereWithoutUserInput | participationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: participationScalarWhereInput | participationScalarWhereInput[]
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -7622,6 +7087,476 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type gameCreateWithoutChallengeInput = {
+    game_id: string
+    title: string
+    category: string
+    description: string
+    release_date: Date | string
+    image_url?: string | null
+    platform: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type gameUncheckedCreateWithoutChallengeInput = {
+    game_id: string
+    title: string
+    category: string
+    description: string
+    release_date: Date | string
+    image_url?: string | null
+    platform: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type gameCreateOrConnectWithoutChallengeInput = {
+    where: gameWhereUniqueInput
+    create: XOR<gameCreateWithoutChallengeInput, gameUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type participationCreateWithoutChallengeInput = {
+    participation_id: string
+    video_url?: string | null
+    image_url?: string | null
+    description: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    user: userCreateNestedOneWithoutParticipationInput
+  }
+
+  export type participationUncheckedCreateWithoutChallengeInput = {
+    participation_id: string
+    user_id: string
+    video_url?: string | null
+    image_url?: string | null
+    description: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type participationCreateOrConnectWithoutChallengeInput = {
+    where: participationWhereUniqueInput
+    create: XOR<participationCreateWithoutChallengeInput, participationUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type participationCreateManyChallengeInputEnvelope = {
+    data: participationCreateManyChallengeInput | participationCreateManyChallengeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type gameUpsertWithoutChallengeInput = {
+    update: XOR<gameUpdateWithoutChallengeInput, gameUncheckedUpdateWithoutChallengeInput>
+    create: XOR<gameCreateWithoutChallengeInput, gameUncheckedCreateWithoutChallengeInput>
+    where?: gameWhereInput
+  }
+
+  export type gameUpdateToOneWithWhereWithoutChallengeInput = {
+    where?: gameWhereInput
+    data: XOR<gameUpdateWithoutChallengeInput, gameUncheckedUpdateWithoutChallengeInput>
+  }
+
+  export type gameUpdateWithoutChallengeInput = {
+    game_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    release_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    platform?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type gameUncheckedUpdateWithoutChallengeInput = {
+    game_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    release_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    platform?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type participationUpsertWithWhereUniqueWithoutChallengeInput = {
+    where: participationWhereUniqueInput
+    update: XOR<participationUpdateWithoutChallengeInput, participationUncheckedUpdateWithoutChallengeInput>
+    create: XOR<participationCreateWithoutChallengeInput, participationUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type participationUpdateWithWhereUniqueWithoutChallengeInput = {
+    where: participationWhereUniqueInput
+    data: XOR<participationUpdateWithoutChallengeInput, participationUncheckedUpdateWithoutChallengeInput>
+  }
+
+  export type participationUpdateManyWithWhereWithoutChallengeInput = {
+    where: participationScalarWhereInput
+    data: XOR<participationUpdateManyMutationInput, participationUncheckedUpdateManyWithoutChallengeInput>
+  }
+
+  export type participationScalarWhereInput = {
+    AND?: participationScalarWhereInput | participationScalarWhereInput[]
+    OR?: participationScalarWhereInput[]
+    NOT?: participationScalarWhereInput | participationScalarWhereInput[]
+    participation_id?: UuidFilter<"participation"> | string
+    user_id?: UuidFilter<"participation"> | string
+    video_url?: StringNullableFilter<"participation"> | string | null
+    image_url?: StringNullableFilter<"participation"> | string | null
+    description?: StringFilter<"participation"> | string
+    challenge_id?: UuidFilter<"participation"> | string
+    created_at?: DateTimeNullableFilter<"participation"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"participation"> | Date | string | null
+  }
+
+  export type challengeCreateWithoutGameInput = {
+    challenge_id: string
+    title: string
+    description: string
+    rules: string
+    user_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    participation?: participationCreateNestedManyWithoutChallengeInput
+  }
+
+  export type challengeUncheckedCreateWithoutGameInput = {
+    challenge_id: string
+    title: string
+    description: string
+    rules: string
+    user_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    participation?: participationUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type challengeCreateOrConnectWithoutGameInput = {
+    where: challengeWhereUniqueInput
+    create: XOR<challengeCreateWithoutGameInput, challengeUncheckedCreateWithoutGameInput>
+  }
+
+  export type challengeCreateManyGameInputEnvelope = {
+    data: challengeCreateManyGameInput | challengeCreateManyGameInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type challengeUpsertWithWhereUniqueWithoutGameInput = {
+    where: challengeWhereUniqueInput
+    update: XOR<challengeUpdateWithoutGameInput, challengeUncheckedUpdateWithoutGameInput>
+    create: XOR<challengeCreateWithoutGameInput, challengeUncheckedCreateWithoutGameInput>
+  }
+
+  export type challengeUpdateWithWhereUniqueWithoutGameInput = {
+    where: challengeWhereUniqueInput
+    data: XOR<challengeUpdateWithoutGameInput, challengeUncheckedUpdateWithoutGameInput>
+  }
+
+  export type challengeUpdateManyWithWhereWithoutGameInput = {
+    where: challengeScalarWhereInput
+    data: XOR<challengeUpdateManyMutationInput, challengeUncheckedUpdateManyWithoutGameInput>
+  }
+
+  export type challengeScalarWhereInput = {
+    AND?: challengeScalarWhereInput | challengeScalarWhereInput[]
+    OR?: challengeScalarWhereInput[]
+    NOT?: challengeScalarWhereInput | challengeScalarWhereInput[]
+    challenge_id?: UuidFilter<"challenge"> | string
+    title?: StringFilter<"challenge"> | string
+    description?: StringFilter<"challenge"> | string
+    rules?: StringFilter<"challenge"> | string
+    user_id?: UuidFilter<"challenge"> | string
+    game_id?: UuidFilter<"challenge"> | string
+    created_at?: DateTimeNullableFilter<"challenge"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"challenge"> | Date | string | null
+  }
+
+  export type challengeCreateWithoutParticipationInput = {
+    challenge_id: string
+    title: string
+    description: string
+    rules: string
+    user_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    game: gameCreateNestedOneWithoutChallengeInput
+  }
+
+  export type challengeUncheckedCreateWithoutParticipationInput = {
+    challenge_id: string
+    title: string
+    description: string
+    rules: string
+    user_id: string
+    game_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type challengeCreateOrConnectWithoutParticipationInput = {
+    where: challengeWhereUniqueInput
+    create: XOR<challengeCreateWithoutParticipationInput, challengeUncheckedCreateWithoutParticipationInput>
+  }
+
+  export type userCreateWithoutParticipationInput = {
+    user_id: string
+    pseudonym: string
+    email: string
+    password_hash: string
+    avatar_url?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type userUncheckedCreateWithoutParticipationInput = {
+    user_id: string
+    pseudonym: string
+    email: string
+    password_hash: string
+    avatar_url?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type userCreateOrConnectWithoutParticipationInput = {
+    where: userWhereUniqueInput
+    create: XOR<userCreateWithoutParticipationInput, userUncheckedCreateWithoutParticipationInput>
+  }
+
+  export type challengeUpsertWithoutParticipationInput = {
+    update: XOR<challengeUpdateWithoutParticipationInput, challengeUncheckedUpdateWithoutParticipationInput>
+    create: XOR<challengeCreateWithoutParticipationInput, challengeUncheckedCreateWithoutParticipationInput>
+    where?: challengeWhereInput
+  }
+
+  export type challengeUpdateToOneWithWhereWithoutParticipationInput = {
+    where?: challengeWhereInput
+    data: XOR<challengeUpdateWithoutParticipationInput, challengeUncheckedUpdateWithoutParticipationInput>
+  }
+
+  export type challengeUpdateWithoutParticipationInput = {
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    game?: gameUpdateOneRequiredWithoutChallengeNestedInput
+  }
+
+  export type challengeUncheckedUpdateWithoutParticipationInput = {
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    game_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type userUpsertWithoutParticipationInput = {
+    update: XOR<userUpdateWithoutParticipationInput, userUncheckedUpdateWithoutParticipationInput>
+    create: XOR<userCreateWithoutParticipationInput, userUncheckedCreateWithoutParticipationInput>
+    where?: userWhereInput
+  }
+
+  export type userUpdateToOneWithWhereWithoutParticipationInput = {
+    where?: userWhereInput
+    data: XOR<userUpdateWithoutParticipationInput, userUncheckedUpdateWithoutParticipationInput>
+  }
+
+  export type userUpdateWithoutParticipationInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    pseudonym?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type userUncheckedUpdateWithoutParticipationInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    pseudonym?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type participationCreateWithoutUserInput = {
+    participation_id: string
+    video_url?: string | null
+    image_url?: string | null
+    description: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    challenge: challengeCreateNestedOneWithoutParticipationInput
+  }
+
+  export type participationUncheckedCreateWithoutUserInput = {
+    participation_id: string
+    video_url?: string | null
+    image_url?: string | null
+    description: string
+    challenge_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type participationCreateOrConnectWithoutUserInput = {
+    where: participationWhereUniqueInput
+    create: XOR<participationCreateWithoutUserInput, participationUncheckedCreateWithoutUserInput>
+  }
+
+  export type participationCreateManyUserInputEnvelope = {
+    data: participationCreateManyUserInput | participationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type participationUpsertWithWhereUniqueWithoutUserInput = {
+    where: participationWhereUniqueInput
+    update: XOR<participationUpdateWithoutUserInput, participationUncheckedUpdateWithoutUserInput>
+    create: XOR<participationCreateWithoutUserInput, participationUncheckedCreateWithoutUserInput>
+  }
+
+  export type participationUpdateWithWhereUniqueWithoutUserInput = {
+    where: participationWhereUniqueInput
+    data: XOR<participationUpdateWithoutUserInput, participationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type participationUpdateManyWithWhereWithoutUserInput = {
+    where: participationScalarWhereInput
+    data: XOR<participationUpdateManyMutationInput, participationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type participationCreateManyChallengeInput = {
+    participation_id: string
+    user_id: string
+    video_url?: string | null
+    image_url?: string | null
+    description: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type participationUpdateWithoutChallengeInput = {
+    participation_id?: StringFieldUpdateOperationsInput | string
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: userUpdateOneRequiredWithoutParticipationNestedInput
+  }
+
+  export type participationUncheckedUpdateWithoutChallengeInput = {
+    participation_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type participationUncheckedUpdateManyWithoutChallengeInput = {
+    participation_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type challengeCreateManyGameInput = {
+    challenge_id: string
+    title: string
+    description: string
+    rules: string
+    user_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type challengeUpdateWithoutGameInput = {
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type challengeUncheckedUpdateWithoutGameInput = {
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type challengeUncheckedUpdateManyWithoutGameInput = {
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type participationCreateManyUserInput = {
+    participation_id: string
+    video_url?: string | null
+    image_url?: string | null
+    description: string
+    challenge_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type participationUpdateWithoutUserInput = {
+    participation_id?: StringFieldUpdateOperationsInput | string
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge?: challengeUpdateOneRequiredWithoutParticipationNestedInput
+  }
+
+  export type participationUncheckedUpdateWithoutUserInput = {
+    participation_id?: StringFieldUpdateOperationsInput | string
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type participationUncheckedUpdateManyWithoutUserInput = {
+    participation_id?: StringFieldUpdateOperationsInput | string
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

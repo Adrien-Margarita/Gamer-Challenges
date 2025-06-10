@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model challenge {
+  challenge_id  String          @id @db.Uuid
+  title         String          @unique
+  description   String
+  rules         String
+  user_id       String          @db.Uuid
+  game_id       String          @db.Uuid
+  created_at    DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?       @default(now()) @db.Timestamp(6)
+  game          game            @relation(fields: [game_id], references: [game_id])
+  participation participation[]
+}
+
+model game {
+  game_id      String      @id @db.Uuid
+  title        String      @unique
+  category     String
+  description  String
+  release_date DateTime    @db.Timestamp(6)
+  image_url    String?
+  platform     String
+  created_at   DateTime?   @default(now()) @db.Timestamp(6)
+  updated_at   DateTime?   @default(now()) @db.Timestamp(6)
+  challenge    challenge[]
+}
+
+model participation {
+  participation_id String    @id @db.Uuid
+  user_id          String    @db.Uuid
+  video_url        String?
+  image_url        String?
+  description      String
+  challenge_id     String    @db.Uuid
+  created_at       DateTime? @default(now()) @db.Timestamp(6)
+  updated_at       DateTime? @default(now()) @db.Timestamp(6)
+  challenge        challenge @relation(fields: [challenge_id], references: [challenge_id])
+  user             user      @relation(fields: [user_id], references: [user_id])
+}
+
+model user {
+  user_id       String          @id @db.Uuid
+  pseudonym     String          @unique
+  email         String          @unique
+  password_hash String
+  avatar_url    String?
+  created_at    DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?       @default(now()) @db.Timestamp(6)
+  participation participation[]
+}
