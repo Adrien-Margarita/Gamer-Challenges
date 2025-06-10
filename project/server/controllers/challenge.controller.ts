@@ -76,7 +76,7 @@ export const updateChallenge = async (req: Request<IChallenge>, res: Response, n
 };
 
 // Supprimer un challenge
-export const deletechallenge = async (req: Request<{ challenge_id: string }>, res: Response, next: NextFunction) => {
+export const deleteChallenge = async (req: Request<{ challenge_id: string }>, res: Response, next: NextFunction) => {
   const { challenge_id } = req.params;
 
   try {
