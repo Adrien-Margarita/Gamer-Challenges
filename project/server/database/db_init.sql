@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS "game";
 CREATE TABLE IF NOT EXISTS "game" (
 	game_id UUID PRIMARY KEY NOT NULL, -- identifiant unique du jeu
 	title TEXT NOT NULL UNIQUE, -- Titre
-	category TEXT NOT NULL UNIQUE, -- categorie
+	category TEXT NOT NULL, -- categorie
 	description TEXT NOT NULL, -- Description
   release_date TIMESTAMP NOT NULL, -- Date de sortie
 	image_url TEXT, -- Image (jaquette ou fanart)
@@ -54,11 +54,4 @@ CREATE TABLE IF NOT EXISTS "participation" (
   challenge_id UUID NOT NULL,  -- Clé étrangère vers challenge_id
   created_at TIMESTAMP DEFAULT NOW(), -- Date de création
 	updated_at TIMESTAMP DEFAULT NOW() -- Date de modification
-);
-
--- USER_CHALLENGE
-DROP TABLE IF EXISTS "user_challenge";
-CREATE TABLE IF NOT EXISTS "user_challenge" (
-  user_id UUID NOT NULL, -- Clé étrangère vers user_id
-  challenge_id UUID NOT NULL -- Clé étrangère vers challenge_id
 );
