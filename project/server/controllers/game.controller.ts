@@ -1,5 +1,5 @@
 import type { IGame } from "@/@types/IGame";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@/prisma";
 import { Request, Response, NextFunction } from "express";
 import { createHttpError } from "@/utils/httpError";
 
@@ -72,7 +72,7 @@ export const updateGame = async (
     });
 
     if (!game) {
-      throw createHttpError(404, `Utilisateur non trouvé`);
+      throw createHttpError(404, `Jeu non trouvé`);
     }
 
     const gameToUpdate = await prisma.game.update({
