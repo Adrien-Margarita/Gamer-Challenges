@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { createUser, getAllUsers, getUserById, updateUser, deleteUser } from "@/controllers/user.controller";
 import errorHandler from "@/middlewares/errorHandler";
+import { validate } from "@/middlewares/validate";
+import { userSchema } from "@/validators/user.validator";
+import { valid } from "joi";
 
 const userRouter = Router();
 
@@ -33,7 +36,7 @@ const userRouter = Router();
  *       400:
  *         description: Données invalides
  */
-userRouter.post('/', createUser);
+userRouter.post('/', validate(userSchema), errorHandler, createUser);
 
 
 /**
@@ -104,7 +107,7 @@ userRouter.get('/:id', errorHandler, getUserById);
  *       404:
  *         description: Utilisateur non trouvé
  */
-userRouter.put('/:id', updateUser);
+userRouter.put('/:id', validate(userSchema), errorHandler, updateUser);
 
 /**
  * @swagger

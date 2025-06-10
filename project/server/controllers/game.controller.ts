@@ -1,4 +1,3 @@
-import type { IGame } from "@/@types/IGame";
 import { PrismaClient } from "@/prisma";
 import { Request, Response, NextFunction } from "express";
 import { createHttpError } from "@/utils/httpError";
@@ -7,7 +6,7 @@ const prisma = new PrismaClient();
 
 // Créer un nouveau jeu
 export const createGame = async (
-  req: Request<IGame>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -60,7 +59,7 @@ export const getGameById = async (
 
 // Mettre à jour un jeu existant
 export const updateGame = async (
-  req: Request<IGame>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {

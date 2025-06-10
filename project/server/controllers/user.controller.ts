@@ -1,13 +1,12 @@
 import { PrismaClient } from "@/prisma";
 import { Request, Response, NextFunction } from "express";
-import type { IUser } from "@/@types/IUser";
 import { createHttpError } from "@/utils/httpError";
 
 const prisma = new PrismaClient();
 
 // Créer un nouvel utilisateur
 export const createUser = async (
-  req: Request<IUser>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -66,7 +65,7 @@ export const getUserById = async (
 
 // Mettre à jour un utilisateur existant
 export const updateUser = async (
-  req: Request<IUser>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
