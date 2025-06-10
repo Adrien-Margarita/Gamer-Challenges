@@ -164,6 +164,18 @@ exports.Prisma.UserScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.Participation_voteScalarFieldEnum = {
+  participation_vote_id: 'participation_vote_id',
+  user_id: 'user_id',
+  participation_id: 'participation_id'
+};
+
+exports.Prisma.Challenge_voteScalarFieldEnum = {
+  challenge_vote_id: 'challenge_vote_id',
+  user_id: 'user_id',
+  challenge_id: 'challenge_id'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -184,7 +196,9 @@ exports.Prisma.ModelName = {
   challenge: 'challenge',
   game: 'game',
   participation: 'participation',
-  user: 'user'
+  user: 'user',
+  participation_vote: 'participation_vote',
+  challenge_vote: 'challenge_vote'
 };
 
 /**

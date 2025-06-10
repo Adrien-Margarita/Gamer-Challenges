@@ -33,6 +33,16 @@ export type participation = $Result.DefaultSelection<Prisma.$participationPayloa
  * 
  */
 export type user = $Result.DefaultSelection<Prisma.$userPayload>
+/**
+ * Model participation_vote
+ * 
+ */
+export type participation_vote = $Result.DefaultSelection<Prisma.$participation_votePayload>
+/**
+ * Model challenge_vote
+ * 
+ */
+export type challenge_vote = $Result.DefaultSelection<Prisma.$challenge_votePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -198,6 +208,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.userDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.participation_vote`: Exposes CRUD operations for the **participation_vote** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Participation_votes
+    * const participation_votes = await prisma.participation_vote.findMany()
+    * ```
+    */
+  get participation_vote(): Prisma.participation_voteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.challenge_vote`: Exposes CRUD operations for the **challenge_vote** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Challenge_votes
+    * const challenge_votes = await prisma.challenge_vote.findMany()
+    * ```
+    */
+  get challenge_vote(): Prisma.challenge_voteDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -641,7 +671,9 @@ export namespace Prisma {
     challenge: 'challenge',
     game: 'game',
     participation: 'participation',
-    user: 'user'
+    user: 'user',
+    participation_vote: 'participation_vote',
+    challenge_vote: 'challenge_vote'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -660,7 +692,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "challenge" | "game" | "participation" | "user"
+      modelProps: "challenge" | "game" | "participation" | "user" | "participation_vote" | "challenge_vote"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -960,6 +992,154 @@ export namespace Prisma {
           }
         }
       }
+      participation_vote: {
+        payload: Prisma.$participation_votePayload<ExtArgs>
+        fields: Prisma.participation_voteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.participation_voteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.participation_voteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload>
+          }
+          findFirst: {
+            args: Prisma.participation_voteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.participation_voteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload>
+          }
+          findMany: {
+            args: Prisma.participation_voteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload>[]
+          }
+          create: {
+            args: Prisma.participation_voteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload>
+          }
+          createMany: {
+            args: Prisma.participation_voteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.participation_voteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload>[]
+          }
+          delete: {
+            args: Prisma.participation_voteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload>
+          }
+          update: {
+            args: Prisma.participation_voteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload>
+          }
+          deleteMany: {
+            args: Prisma.participation_voteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.participation_voteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.participation_voteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload>[]
+          }
+          upsert: {
+            args: Prisma.participation_voteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$participation_votePayload>
+          }
+          aggregate: {
+            args: Prisma.Participation_voteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateParticipation_vote>
+          }
+          groupBy: {
+            args: Prisma.participation_voteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Participation_voteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.participation_voteCountArgs<ExtArgs>
+            result: $Utils.Optional<Participation_voteCountAggregateOutputType> | number
+          }
+        }
+      }
+      challenge_vote: {
+        payload: Prisma.$challenge_votePayload<ExtArgs>
+        fields: Prisma.challenge_voteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.challenge_voteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.challenge_voteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload>
+          }
+          findFirst: {
+            args: Prisma.challenge_voteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.challenge_voteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload>
+          }
+          findMany: {
+            args: Prisma.challenge_voteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload>[]
+          }
+          create: {
+            args: Prisma.challenge_voteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload>
+          }
+          createMany: {
+            args: Prisma.challenge_voteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.challenge_voteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload>[]
+          }
+          delete: {
+            args: Prisma.challenge_voteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload>
+          }
+          update: {
+            args: Prisma.challenge_voteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload>
+          }
+          deleteMany: {
+            args: Prisma.challenge_voteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.challenge_voteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.challenge_voteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload>[]
+          }
+          upsert: {
+            args: Prisma.challenge_voteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$challenge_votePayload>
+          }
+          aggregate: {
+            args: Prisma.Challenge_voteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChallenge_vote>
+          }
+          groupBy: {
+            args: Prisma.challenge_voteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Challenge_voteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.challenge_voteCountArgs<ExtArgs>
+            result: $Utils.Optional<Challenge_voteCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1048,6 +1228,8 @@ export namespace Prisma {
     game?: gameOmit
     participation?: participationOmit
     user?: userOmit
+    participation_vote?: participation_voteOmit
+    challenge_vote?: challenge_voteOmit
   }
 
   /* Types for Logging */
@@ -1143,10 +1325,12 @@ export namespace Prisma {
 
   export type ChallengeCountOutputType = {
     participation: number
+    challenge_vote: number
   }
 
   export type ChallengeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     participation?: boolean | ChallengeCountOutputTypeCountParticipationArgs
+    challenge_vote?: boolean | ChallengeCountOutputTypeCountChallenge_voteArgs
   }
 
   // Custom InputTypes
@@ -1165,6 +1349,13 @@ export namespace Prisma {
    */
   export type ChallengeCountOutputTypeCountParticipationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: participationWhereInput
+  }
+
+  /**
+   * ChallengeCountOutputType without action
+   */
+  export type ChallengeCountOutputTypeCountChallenge_voteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: challenge_voteWhereInput
   }
 
 
@@ -1200,15 +1391,50 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ParticipationCountOutputType
+   */
+
+  export type ParticipationCountOutputType = {
+    participation_vote: number
+  }
+
+  export type ParticipationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participation_vote?: boolean | ParticipationCountOutputTypeCountParticipation_voteArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ParticipationCountOutputType without action
+   */
+  export type ParticipationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParticipationCountOutputType
+     */
+    select?: ParticipationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ParticipationCountOutputType without action
+   */
+  export type ParticipationCountOutputTypeCountParticipation_voteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: participation_voteWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
   export type UserCountOutputType = {
     participation: number
+    challenge_vote: number
+    participation_vote: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     participation?: boolean | UserCountOutputTypeCountParticipationArgs
+    challenge_vote?: boolean | UserCountOutputTypeCountChallenge_voteArgs
+    participation_vote?: boolean | UserCountOutputTypeCountParticipation_voteArgs
   }
 
   // Custom InputTypes
@@ -1227,6 +1453,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountParticipationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: participationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountChallenge_voteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: challenge_voteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountParticipation_voteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: participation_voteWhereInput
   }
 
 
@@ -1424,6 +1664,7 @@ export namespace Prisma {
     updated_at?: boolean
     game?: boolean | gameDefaultArgs<ExtArgs>
     participation?: boolean | challenge$participationArgs<ExtArgs>
+    challenge_vote?: boolean | challenge$challenge_voteArgs<ExtArgs>
     _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["challenge"]>
 
@@ -1466,6 +1707,7 @@ export namespace Prisma {
   export type challengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     game?: boolean | gameDefaultArgs<ExtArgs>
     participation?: boolean | challenge$participationArgs<ExtArgs>
+    challenge_vote?: boolean | challenge$challenge_voteArgs<ExtArgs>
     _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type challengeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1480,6 +1722,7 @@ export namespace Prisma {
     objects: {
       game: Prisma.$gamePayload<ExtArgs>
       participation: Prisma.$participationPayload<ExtArgs>[]
+      challenge_vote: Prisma.$challenge_votePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       challenge_id: string
@@ -1886,6 +2129,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     game<T extends gameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, gameDefaultArgs<ExtArgs>>): Prisma__gameClient<$Result.GetResult<Prisma.$gamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     participation<T extends challenge$participationArgs<ExtArgs> = {}>(args?: Subset<T, challenge$participationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$participationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    challenge_vote<T extends challenge$challenge_voteArgs<ExtArgs> = {}>(args?: Subset<T, challenge$challenge_voteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2340,6 +2584,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ParticipationScalarFieldEnum | ParticipationScalarFieldEnum[]
+  }
+
+  /**
+   * challenge.challenge_vote
+   */
+  export type challenge$challenge_voteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    where?: challenge_voteWhereInput
+    orderBy?: challenge_voteOrderByWithRelationInput | challenge_voteOrderByWithRelationInput[]
+    cursor?: challenge_voteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Challenge_voteScalarFieldEnum | Challenge_voteScalarFieldEnum[]
   }
 
   /**
@@ -3673,6 +3941,8 @@ export namespace Prisma {
     updated_at?: boolean
     challenge?: boolean | challengeDefaultArgs<ExtArgs>
     user?: boolean | userDefaultArgs<ExtArgs>
+    participation_vote?: boolean | participation$participation_voteArgs<ExtArgs>
+    _count?: boolean | ParticipationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["participation"]>
 
   export type participationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3716,6 +3986,8 @@ export namespace Prisma {
   export type participationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     challenge?: boolean | challengeDefaultArgs<ExtArgs>
     user?: boolean | userDefaultArgs<ExtArgs>
+    participation_vote?: boolean | participation$participation_voteArgs<ExtArgs>
+    _count?: boolean | ParticipationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type participationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     challenge?: boolean | challengeDefaultArgs<ExtArgs>
@@ -3731,6 +4003,7 @@ export namespace Prisma {
     objects: {
       challenge: Prisma.$challengePayload<ExtArgs>
       user: Prisma.$userPayload<ExtArgs>
+      participation_vote: Prisma.$participation_votePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       participation_id: string
@@ -4137,6 +4410,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     challenge<T extends challengeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, challengeDefaultArgs<ExtArgs>>): Prisma__challengeClient<$Result.GetResult<Prisma.$challengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    participation_vote<T extends participation$participation_voteArgs<ExtArgs> = {}>(args?: Subset<T, participation$participation_voteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4570,6 +4844,30 @@ export namespace Prisma {
   }
 
   /**
+   * participation.participation_vote
+   */
+  export type participation$participation_voteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    where?: participation_voteWhereInput
+    orderBy?: participation_voteOrderByWithRelationInput | participation_voteOrderByWithRelationInput[]
+    cursor?: participation_voteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Participation_voteScalarFieldEnum | Participation_voteScalarFieldEnum[]
+  }
+
+  /**
    * participation without action
    */
   export type participationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4769,6 +5067,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     participation?: boolean | user$participationArgs<ExtArgs>
+    challenge_vote?: boolean | user$challenge_voteArgs<ExtArgs>
+    participation_vote?: boolean | user$participation_voteArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4805,6 +5105,8 @@ export namespace Prisma {
   export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "pseudonym" | "email" | "password_hash" | "avatar_url" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
   export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     participation?: boolean | user$participationArgs<ExtArgs>
+    challenge_vote?: boolean | user$challenge_voteArgs<ExtArgs>
+    participation_vote?: boolean | user$participation_voteArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type userIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4814,6 +5116,8 @@ export namespace Prisma {
     name: "user"
     objects: {
       participation: Prisma.$participationPayload<ExtArgs>[]
+      challenge_vote: Prisma.$challenge_votePayload<ExtArgs>[]
+      participation_vote: Prisma.$participation_votePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       user_id: string
@@ -5218,6 +5522,8 @@ export namespace Prisma {
   export interface Prisma__userClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     participation<T extends user$participationArgs<ExtArgs> = {}>(args?: Subset<T, user$participationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$participationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    challenge_vote<T extends user$challenge_voteArgs<ExtArgs> = {}>(args?: Subset<T, user$challenge_voteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    participation_vote<T extends user$participation_voteArgs<ExtArgs> = {}>(args?: Subset<T, user$participation_voteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5666,6 +5972,54 @@ export namespace Prisma {
   }
 
   /**
+   * user.challenge_vote
+   */
+  export type user$challenge_voteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    where?: challenge_voteWhereInput
+    orderBy?: challenge_voteOrderByWithRelationInput | challenge_voteOrderByWithRelationInput[]
+    cursor?: challenge_voteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Challenge_voteScalarFieldEnum | Challenge_voteScalarFieldEnum[]
+  }
+
+  /**
+   * user.participation_vote
+   */
+  export type user$participation_voteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    where?: participation_voteWhereInput
+    orderBy?: participation_voteOrderByWithRelationInput | participation_voteOrderByWithRelationInput[]
+    cursor?: participation_voteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Participation_voteScalarFieldEnum | Participation_voteScalarFieldEnum[]
+  }
+
+  /**
    * user without action
    */
   export type userDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5681,6 +6035,2086 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: userInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model participation_vote
+   */
+
+  export type AggregateParticipation_vote = {
+    _count: Participation_voteCountAggregateOutputType | null
+    _min: Participation_voteMinAggregateOutputType | null
+    _max: Participation_voteMaxAggregateOutputType | null
+  }
+
+  export type Participation_voteMinAggregateOutputType = {
+    participation_vote_id: string | null
+    user_id: string | null
+    participation_id: string | null
+  }
+
+  export type Participation_voteMaxAggregateOutputType = {
+    participation_vote_id: string | null
+    user_id: string | null
+    participation_id: string | null
+  }
+
+  export type Participation_voteCountAggregateOutputType = {
+    participation_vote_id: number
+    user_id: number
+    participation_id: number
+    _all: number
+  }
+
+
+  export type Participation_voteMinAggregateInputType = {
+    participation_vote_id?: true
+    user_id?: true
+    participation_id?: true
+  }
+
+  export type Participation_voteMaxAggregateInputType = {
+    participation_vote_id?: true
+    user_id?: true
+    participation_id?: true
+  }
+
+  export type Participation_voteCountAggregateInputType = {
+    participation_vote_id?: true
+    user_id?: true
+    participation_id?: true
+    _all?: true
+  }
+
+  export type Participation_voteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which participation_vote to aggregate.
+     */
+    where?: participation_voteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of participation_votes to fetch.
+     */
+    orderBy?: participation_voteOrderByWithRelationInput | participation_voteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: participation_voteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` participation_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` participation_votes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned participation_votes
+    **/
+    _count?: true | Participation_voteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Participation_voteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Participation_voteMaxAggregateInputType
+  }
+
+  export type GetParticipation_voteAggregateType<T extends Participation_voteAggregateArgs> = {
+        [P in keyof T & keyof AggregateParticipation_vote]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateParticipation_vote[P]>
+      : GetScalarType<T[P], AggregateParticipation_vote[P]>
+  }
+
+
+
+
+  export type participation_voteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: participation_voteWhereInput
+    orderBy?: participation_voteOrderByWithAggregationInput | participation_voteOrderByWithAggregationInput[]
+    by: Participation_voteScalarFieldEnum[] | Participation_voteScalarFieldEnum
+    having?: participation_voteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Participation_voteCountAggregateInputType | true
+    _min?: Participation_voteMinAggregateInputType
+    _max?: Participation_voteMaxAggregateInputType
+  }
+
+  export type Participation_voteGroupByOutputType = {
+    participation_vote_id: string
+    user_id: string
+    participation_id: string
+    _count: Participation_voteCountAggregateOutputType | null
+    _min: Participation_voteMinAggregateOutputType | null
+    _max: Participation_voteMaxAggregateOutputType | null
+  }
+
+  type GetParticipation_voteGroupByPayload<T extends participation_voteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Participation_voteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Participation_voteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Participation_voteGroupByOutputType[P]>
+            : GetScalarType<T[P], Participation_voteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type participation_voteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    participation_vote_id?: boolean
+    user_id?: boolean
+    participation_id?: boolean
+    user?: boolean | userDefaultArgs<ExtArgs>
+    participation?: boolean | participationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["participation_vote"]>
+
+  export type participation_voteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    participation_vote_id?: boolean
+    user_id?: boolean
+    participation_id?: boolean
+    user?: boolean | userDefaultArgs<ExtArgs>
+    participation?: boolean | participationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["participation_vote"]>
+
+  export type participation_voteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    participation_vote_id?: boolean
+    user_id?: boolean
+    participation_id?: boolean
+    user?: boolean | userDefaultArgs<ExtArgs>
+    participation?: boolean | participationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["participation_vote"]>
+
+  export type participation_voteSelectScalar = {
+    participation_vote_id?: boolean
+    user_id?: boolean
+    participation_id?: boolean
+  }
+
+  export type participation_voteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"participation_vote_id" | "user_id" | "participation_id", ExtArgs["result"]["participation_vote"]>
+  export type participation_voteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | userDefaultArgs<ExtArgs>
+    participation?: boolean | participationDefaultArgs<ExtArgs>
+  }
+  export type participation_voteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | userDefaultArgs<ExtArgs>
+    participation?: boolean | participationDefaultArgs<ExtArgs>
+  }
+  export type participation_voteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | userDefaultArgs<ExtArgs>
+    participation?: boolean | participationDefaultArgs<ExtArgs>
+  }
+
+  export type $participation_votePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "participation_vote"
+    objects: {
+      user: Prisma.$userPayload<ExtArgs>
+      participation: Prisma.$participationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      participation_vote_id: string
+      user_id: string
+      participation_id: string
+    }, ExtArgs["result"]["participation_vote"]>
+    composites: {}
+  }
+
+  type participation_voteGetPayload<S extends boolean | null | undefined | participation_voteDefaultArgs> = $Result.GetResult<Prisma.$participation_votePayload, S>
+
+  type participation_voteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<participation_voteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Participation_voteCountAggregateInputType | true
+    }
+
+  export interface participation_voteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['participation_vote'], meta: { name: 'participation_vote' } }
+    /**
+     * Find zero or one Participation_vote that matches the filter.
+     * @param {participation_voteFindUniqueArgs} args - Arguments to find a Participation_vote
+     * @example
+     * // Get one Participation_vote
+     * const participation_vote = await prisma.participation_vote.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends participation_voteFindUniqueArgs>(args: SelectSubset<T, participation_voteFindUniqueArgs<ExtArgs>>): Prisma__participation_voteClient<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Participation_vote that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {participation_voteFindUniqueOrThrowArgs} args - Arguments to find a Participation_vote
+     * @example
+     * // Get one Participation_vote
+     * const participation_vote = await prisma.participation_vote.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends participation_voteFindUniqueOrThrowArgs>(args: SelectSubset<T, participation_voteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__participation_voteClient<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Participation_vote that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {participation_voteFindFirstArgs} args - Arguments to find a Participation_vote
+     * @example
+     * // Get one Participation_vote
+     * const participation_vote = await prisma.participation_vote.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends participation_voteFindFirstArgs>(args?: SelectSubset<T, participation_voteFindFirstArgs<ExtArgs>>): Prisma__participation_voteClient<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Participation_vote that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {participation_voteFindFirstOrThrowArgs} args - Arguments to find a Participation_vote
+     * @example
+     * // Get one Participation_vote
+     * const participation_vote = await prisma.participation_vote.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends participation_voteFindFirstOrThrowArgs>(args?: SelectSubset<T, participation_voteFindFirstOrThrowArgs<ExtArgs>>): Prisma__participation_voteClient<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Participation_votes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {participation_voteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Participation_votes
+     * const participation_votes = await prisma.participation_vote.findMany()
+     * 
+     * // Get first 10 Participation_votes
+     * const participation_votes = await prisma.participation_vote.findMany({ take: 10 })
+     * 
+     * // Only select the `participation_vote_id`
+     * const participation_voteWithParticipation_vote_idOnly = await prisma.participation_vote.findMany({ select: { participation_vote_id: true } })
+     * 
+     */
+    findMany<T extends participation_voteFindManyArgs>(args?: SelectSubset<T, participation_voteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Participation_vote.
+     * @param {participation_voteCreateArgs} args - Arguments to create a Participation_vote.
+     * @example
+     * // Create one Participation_vote
+     * const Participation_vote = await prisma.participation_vote.create({
+     *   data: {
+     *     // ... data to create a Participation_vote
+     *   }
+     * })
+     * 
+     */
+    create<T extends participation_voteCreateArgs>(args: SelectSubset<T, participation_voteCreateArgs<ExtArgs>>): Prisma__participation_voteClient<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Participation_votes.
+     * @param {participation_voteCreateManyArgs} args - Arguments to create many Participation_votes.
+     * @example
+     * // Create many Participation_votes
+     * const participation_vote = await prisma.participation_vote.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends participation_voteCreateManyArgs>(args?: SelectSubset<T, participation_voteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Participation_votes and returns the data saved in the database.
+     * @param {participation_voteCreateManyAndReturnArgs} args - Arguments to create many Participation_votes.
+     * @example
+     * // Create many Participation_votes
+     * const participation_vote = await prisma.participation_vote.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Participation_votes and only return the `participation_vote_id`
+     * const participation_voteWithParticipation_vote_idOnly = await prisma.participation_vote.createManyAndReturn({
+     *   select: { participation_vote_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends participation_voteCreateManyAndReturnArgs>(args?: SelectSubset<T, participation_voteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Participation_vote.
+     * @param {participation_voteDeleteArgs} args - Arguments to delete one Participation_vote.
+     * @example
+     * // Delete one Participation_vote
+     * const Participation_vote = await prisma.participation_vote.delete({
+     *   where: {
+     *     // ... filter to delete one Participation_vote
+     *   }
+     * })
+     * 
+     */
+    delete<T extends participation_voteDeleteArgs>(args: SelectSubset<T, participation_voteDeleteArgs<ExtArgs>>): Prisma__participation_voteClient<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Participation_vote.
+     * @param {participation_voteUpdateArgs} args - Arguments to update one Participation_vote.
+     * @example
+     * // Update one Participation_vote
+     * const participation_vote = await prisma.participation_vote.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends participation_voteUpdateArgs>(args: SelectSubset<T, participation_voteUpdateArgs<ExtArgs>>): Prisma__participation_voteClient<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Participation_votes.
+     * @param {participation_voteDeleteManyArgs} args - Arguments to filter Participation_votes to delete.
+     * @example
+     * // Delete a few Participation_votes
+     * const { count } = await prisma.participation_vote.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends participation_voteDeleteManyArgs>(args?: SelectSubset<T, participation_voteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Participation_votes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {participation_voteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Participation_votes
+     * const participation_vote = await prisma.participation_vote.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends participation_voteUpdateManyArgs>(args: SelectSubset<T, participation_voteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Participation_votes and returns the data updated in the database.
+     * @param {participation_voteUpdateManyAndReturnArgs} args - Arguments to update many Participation_votes.
+     * @example
+     * // Update many Participation_votes
+     * const participation_vote = await prisma.participation_vote.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Participation_votes and only return the `participation_vote_id`
+     * const participation_voteWithParticipation_vote_idOnly = await prisma.participation_vote.updateManyAndReturn({
+     *   select: { participation_vote_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends participation_voteUpdateManyAndReturnArgs>(args: SelectSubset<T, participation_voteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Participation_vote.
+     * @param {participation_voteUpsertArgs} args - Arguments to update or create a Participation_vote.
+     * @example
+     * // Update or create a Participation_vote
+     * const participation_vote = await prisma.participation_vote.upsert({
+     *   create: {
+     *     // ... data to create a Participation_vote
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Participation_vote we want to update
+     *   }
+     * })
+     */
+    upsert<T extends participation_voteUpsertArgs>(args: SelectSubset<T, participation_voteUpsertArgs<ExtArgs>>): Prisma__participation_voteClient<$Result.GetResult<Prisma.$participation_votePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Participation_votes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {participation_voteCountArgs} args - Arguments to filter Participation_votes to count.
+     * @example
+     * // Count the number of Participation_votes
+     * const count = await prisma.participation_vote.count({
+     *   where: {
+     *     // ... the filter for the Participation_votes we want to count
+     *   }
+     * })
+    **/
+    count<T extends participation_voteCountArgs>(
+      args?: Subset<T, participation_voteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Participation_voteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Participation_vote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Participation_voteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Participation_voteAggregateArgs>(args: Subset<T, Participation_voteAggregateArgs>): Prisma.PrismaPromise<GetParticipation_voteAggregateType<T>>
+
+    /**
+     * Group by Participation_vote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {participation_voteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends participation_voteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: participation_voteGroupByArgs['orderBy'] }
+        : { orderBy?: participation_voteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, participation_voteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetParticipation_voteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the participation_vote model
+   */
+  readonly fields: participation_voteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for participation_vote.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__participation_voteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    participation<T extends participationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, participationDefaultArgs<ExtArgs>>): Prisma__participationClient<$Result.GetResult<Prisma.$participationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the participation_vote model
+   */
+  interface participation_voteFieldRefs {
+    readonly participation_vote_id: FieldRef<"participation_vote", 'String'>
+    readonly user_id: FieldRef<"participation_vote", 'String'>
+    readonly participation_id: FieldRef<"participation_vote", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * participation_vote findUnique
+   */
+  export type participation_voteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which participation_vote to fetch.
+     */
+    where: participation_voteWhereUniqueInput
+  }
+
+  /**
+   * participation_vote findUniqueOrThrow
+   */
+  export type participation_voteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which participation_vote to fetch.
+     */
+    where: participation_voteWhereUniqueInput
+  }
+
+  /**
+   * participation_vote findFirst
+   */
+  export type participation_voteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which participation_vote to fetch.
+     */
+    where?: participation_voteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of participation_votes to fetch.
+     */
+    orderBy?: participation_voteOrderByWithRelationInput | participation_voteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for participation_votes.
+     */
+    cursor?: participation_voteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` participation_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` participation_votes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of participation_votes.
+     */
+    distinct?: Participation_voteScalarFieldEnum | Participation_voteScalarFieldEnum[]
+  }
+
+  /**
+   * participation_vote findFirstOrThrow
+   */
+  export type participation_voteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which participation_vote to fetch.
+     */
+    where?: participation_voteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of participation_votes to fetch.
+     */
+    orderBy?: participation_voteOrderByWithRelationInput | participation_voteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for participation_votes.
+     */
+    cursor?: participation_voteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` participation_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` participation_votes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of participation_votes.
+     */
+    distinct?: Participation_voteScalarFieldEnum | Participation_voteScalarFieldEnum[]
+  }
+
+  /**
+   * participation_vote findMany
+   */
+  export type participation_voteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which participation_votes to fetch.
+     */
+    where?: participation_voteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of participation_votes to fetch.
+     */
+    orderBy?: participation_voteOrderByWithRelationInput | participation_voteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing participation_votes.
+     */
+    cursor?: participation_voteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` participation_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` participation_votes.
+     */
+    skip?: number
+    distinct?: Participation_voteScalarFieldEnum | Participation_voteScalarFieldEnum[]
+  }
+
+  /**
+   * participation_vote create
+   */
+  export type participation_voteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a participation_vote.
+     */
+    data: XOR<participation_voteCreateInput, participation_voteUncheckedCreateInput>
+  }
+
+  /**
+   * participation_vote createMany
+   */
+  export type participation_voteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many participation_votes.
+     */
+    data: participation_voteCreateManyInput | participation_voteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * participation_vote createManyAndReturn
+   */
+  export type participation_voteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * The data used to create many participation_votes.
+     */
+    data: participation_voteCreateManyInput | participation_voteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * participation_vote update
+   */
+  export type participation_voteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a participation_vote.
+     */
+    data: XOR<participation_voteUpdateInput, participation_voteUncheckedUpdateInput>
+    /**
+     * Choose, which participation_vote to update.
+     */
+    where: participation_voteWhereUniqueInput
+  }
+
+  /**
+   * participation_vote updateMany
+   */
+  export type participation_voteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update participation_votes.
+     */
+    data: XOR<participation_voteUpdateManyMutationInput, participation_voteUncheckedUpdateManyInput>
+    /**
+     * Filter which participation_votes to update
+     */
+    where?: participation_voteWhereInput
+    /**
+     * Limit how many participation_votes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * participation_vote updateManyAndReturn
+   */
+  export type participation_voteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * The data used to update participation_votes.
+     */
+    data: XOR<participation_voteUpdateManyMutationInput, participation_voteUncheckedUpdateManyInput>
+    /**
+     * Filter which participation_votes to update
+     */
+    where?: participation_voteWhereInput
+    /**
+     * Limit how many participation_votes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * participation_vote upsert
+   */
+  export type participation_voteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the participation_vote to update in case it exists.
+     */
+    where: participation_voteWhereUniqueInput
+    /**
+     * In case the participation_vote found by the `where` argument doesn't exist, create a new participation_vote with this data.
+     */
+    create: XOR<participation_voteCreateInput, participation_voteUncheckedCreateInput>
+    /**
+     * In case the participation_vote was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<participation_voteUpdateInput, participation_voteUncheckedUpdateInput>
+  }
+
+  /**
+   * participation_vote delete
+   */
+  export type participation_voteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+    /**
+     * Filter which participation_vote to delete.
+     */
+    where: participation_voteWhereUniqueInput
+  }
+
+  /**
+   * participation_vote deleteMany
+   */
+  export type participation_voteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which participation_votes to delete
+     */
+    where?: participation_voteWhereInput
+    /**
+     * Limit how many participation_votes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * participation_vote without action
+   */
+  export type participation_voteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the participation_vote
+     */
+    select?: participation_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the participation_vote
+     */
+    omit?: participation_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: participation_voteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model challenge_vote
+   */
+
+  export type AggregateChallenge_vote = {
+    _count: Challenge_voteCountAggregateOutputType | null
+    _min: Challenge_voteMinAggregateOutputType | null
+    _max: Challenge_voteMaxAggregateOutputType | null
+  }
+
+  export type Challenge_voteMinAggregateOutputType = {
+    challenge_vote_id: string | null
+    user_id: string | null
+    challenge_id: string | null
+  }
+
+  export type Challenge_voteMaxAggregateOutputType = {
+    challenge_vote_id: string | null
+    user_id: string | null
+    challenge_id: string | null
+  }
+
+  export type Challenge_voteCountAggregateOutputType = {
+    challenge_vote_id: number
+    user_id: number
+    challenge_id: number
+    _all: number
+  }
+
+
+  export type Challenge_voteMinAggregateInputType = {
+    challenge_vote_id?: true
+    user_id?: true
+    challenge_id?: true
+  }
+
+  export type Challenge_voteMaxAggregateInputType = {
+    challenge_vote_id?: true
+    user_id?: true
+    challenge_id?: true
+  }
+
+  export type Challenge_voteCountAggregateInputType = {
+    challenge_vote_id?: true
+    user_id?: true
+    challenge_id?: true
+    _all?: true
+  }
+
+  export type Challenge_voteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which challenge_vote to aggregate.
+     */
+    where?: challenge_voteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of challenge_votes to fetch.
+     */
+    orderBy?: challenge_voteOrderByWithRelationInput | challenge_voteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: challenge_voteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` challenge_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` challenge_votes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned challenge_votes
+    **/
+    _count?: true | Challenge_voteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Challenge_voteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Challenge_voteMaxAggregateInputType
+  }
+
+  export type GetChallenge_voteAggregateType<T extends Challenge_voteAggregateArgs> = {
+        [P in keyof T & keyof AggregateChallenge_vote]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChallenge_vote[P]>
+      : GetScalarType<T[P], AggregateChallenge_vote[P]>
+  }
+
+
+
+
+  export type challenge_voteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: challenge_voteWhereInput
+    orderBy?: challenge_voteOrderByWithAggregationInput | challenge_voteOrderByWithAggregationInput[]
+    by: Challenge_voteScalarFieldEnum[] | Challenge_voteScalarFieldEnum
+    having?: challenge_voteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Challenge_voteCountAggregateInputType | true
+    _min?: Challenge_voteMinAggregateInputType
+    _max?: Challenge_voteMaxAggregateInputType
+  }
+
+  export type Challenge_voteGroupByOutputType = {
+    challenge_vote_id: string
+    user_id: string
+    challenge_id: string
+    _count: Challenge_voteCountAggregateOutputType | null
+    _min: Challenge_voteMinAggregateOutputType | null
+    _max: Challenge_voteMaxAggregateOutputType | null
+  }
+
+  type GetChallenge_voteGroupByPayload<T extends challenge_voteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Challenge_voteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Challenge_voteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Challenge_voteGroupByOutputType[P]>
+            : GetScalarType<T[P], Challenge_voteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type challenge_voteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    challenge_vote_id?: boolean
+    user_id?: boolean
+    challenge_id?: boolean
+    user?: boolean | userDefaultArgs<ExtArgs>
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["challenge_vote"]>
+
+  export type challenge_voteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    challenge_vote_id?: boolean
+    user_id?: boolean
+    challenge_id?: boolean
+    user?: boolean | userDefaultArgs<ExtArgs>
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["challenge_vote"]>
+
+  export type challenge_voteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    challenge_vote_id?: boolean
+    user_id?: boolean
+    challenge_id?: boolean
+    user?: boolean | userDefaultArgs<ExtArgs>
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["challenge_vote"]>
+
+  export type challenge_voteSelectScalar = {
+    challenge_vote_id?: boolean
+    user_id?: boolean
+    challenge_id?: boolean
+  }
+
+  export type challenge_voteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"challenge_vote_id" | "user_id" | "challenge_id", ExtArgs["result"]["challenge_vote"]>
+  export type challenge_voteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | userDefaultArgs<ExtArgs>
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+  }
+  export type challenge_voteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | userDefaultArgs<ExtArgs>
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+  }
+  export type challenge_voteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | userDefaultArgs<ExtArgs>
+    challenge?: boolean | challengeDefaultArgs<ExtArgs>
+  }
+
+  export type $challenge_votePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "challenge_vote"
+    objects: {
+      user: Prisma.$userPayload<ExtArgs>
+      challenge: Prisma.$challengePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      challenge_vote_id: string
+      user_id: string
+      challenge_id: string
+    }, ExtArgs["result"]["challenge_vote"]>
+    composites: {}
+  }
+
+  type challenge_voteGetPayload<S extends boolean | null | undefined | challenge_voteDefaultArgs> = $Result.GetResult<Prisma.$challenge_votePayload, S>
+
+  type challenge_voteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<challenge_voteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Challenge_voteCountAggregateInputType | true
+    }
+
+  export interface challenge_voteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['challenge_vote'], meta: { name: 'challenge_vote' } }
+    /**
+     * Find zero or one Challenge_vote that matches the filter.
+     * @param {challenge_voteFindUniqueArgs} args - Arguments to find a Challenge_vote
+     * @example
+     * // Get one Challenge_vote
+     * const challenge_vote = await prisma.challenge_vote.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends challenge_voteFindUniqueArgs>(args: SelectSubset<T, challenge_voteFindUniqueArgs<ExtArgs>>): Prisma__challenge_voteClient<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Challenge_vote that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {challenge_voteFindUniqueOrThrowArgs} args - Arguments to find a Challenge_vote
+     * @example
+     * // Get one Challenge_vote
+     * const challenge_vote = await prisma.challenge_vote.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends challenge_voteFindUniqueOrThrowArgs>(args: SelectSubset<T, challenge_voteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__challenge_voteClient<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Challenge_vote that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {challenge_voteFindFirstArgs} args - Arguments to find a Challenge_vote
+     * @example
+     * // Get one Challenge_vote
+     * const challenge_vote = await prisma.challenge_vote.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends challenge_voteFindFirstArgs>(args?: SelectSubset<T, challenge_voteFindFirstArgs<ExtArgs>>): Prisma__challenge_voteClient<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Challenge_vote that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {challenge_voteFindFirstOrThrowArgs} args - Arguments to find a Challenge_vote
+     * @example
+     * // Get one Challenge_vote
+     * const challenge_vote = await prisma.challenge_vote.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends challenge_voteFindFirstOrThrowArgs>(args?: SelectSubset<T, challenge_voteFindFirstOrThrowArgs<ExtArgs>>): Prisma__challenge_voteClient<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Challenge_votes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {challenge_voteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Challenge_votes
+     * const challenge_votes = await prisma.challenge_vote.findMany()
+     * 
+     * // Get first 10 Challenge_votes
+     * const challenge_votes = await prisma.challenge_vote.findMany({ take: 10 })
+     * 
+     * // Only select the `challenge_vote_id`
+     * const challenge_voteWithChallenge_vote_idOnly = await prisma.challenge_vote.findMany({ select: { challenge_vote_id: true } })
+     * 
+     */
+    findMany<T extends challenge_voteFindManyArgs>(args?: SelectSubset<T, challenge_voteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Challenge_vote.
+     * @param {challenge_voteCreateArgs} args - Arguments to create a Challenge_vote.
+     * @example
+     * // Create one Challenge_vote
+     * const Challenge_vote = await prisma.challenge_vote.create({
+     *   data: {
+     *     // ... data to create a Challenge_vote
+     *   }
+     * })
+     * 
+     */
+    create<T extends challenge_voteCreateArgs>(args: SelectSubset<T, challenge_voteCreateArgs<ExtArgs>>): Prisma__challenge_voteClient<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Challenge_votes.
+     * @param {challenge_voteCreateManyArgs} args - Arguments to create many Challenge_votes.
+     * @example
+     * // Create many Challenge_votes
+     * const challenge_vote = await prisma.challenge_vote.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends challenge_voteCreateManyArgs>(args?: SelectSubset<T, challenge_voteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Challenge_votes and returns the data saved in the database.
+     * @param {challenge_voteCreateManyAndReturnArgs} args - Arguments to create many Challenge_votes.
+     * @example
+     * // Create many Challenge_votes
+     * const challenge_vote = await prisma.challenge_vote.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Challenge_votes and only return the `challenge_vote_id`
+     * const challenge_voteWithChallenge_vote_idOnly = await prisma.challenge_vote.createManyAndReturn({
+     *   select: { challenge_vote_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends challenge_voteCreateManyAndReturnArgs>(args?: SelectSubset<T, challenge_voteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Challenge_vote.
+     * @param {challenge_voteDeleteArgs} args - Arguments to delete one Challenge_vote.
+     * @example
+     * // Delete one Challenge_vote
+     * const Challenge_vote = await prisma.challenge_vote.delete({
+     *   where: {
+     *     // ... filter to delete one Challenge_vote
+     *   }
+     * })
+     * 
+     */
+    delete<T extends challenge_voteDeleteArgs>(args: SelectSubset<T, challenge_voteDeleteArgs<ExtArgs>>): Prisma__challenge_voteClient<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Challenge_vote.
+     * @param {challenge_voteUpdateArgs} args - Arguments to update one Challenge_vote.
+     * @example
+     * // Update one Challenge_vote
+     * const challenge_vote = await prisma.challenge_vote.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends challenge_voteUpdateArgs>(args: SelectSubset<T, challenge_voteUpdateArgs<ExtArgs>>): Prisma__challenge_voteClient<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Challenge_votes.
+     * @param {challenge_voteDeleteManyArgs} args - Arguments to filter Challenge_votes to delete.
+     * @example
+     * // Delete a few Challenge_votes
+     * const { count } = await prisma.challenge_vote.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends challenge_voteDeleteManyArgs>(args?: SelectSubset<T, challenge_voteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Challenge_votes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {challenge_voteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Challenge_votes
+     * const challenge_vote = await prisma.challenge_vote.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends challenge_voteUpdateManyArgs>(args: SelectSubset<T, challenge_voteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Challenge_votes and returns the data updated in the database.
+     * @param {challenge_voteUpdateManyAndReturnArgs} args - Arguments to update many Challenge_votes.
+     * @example
+     * // Update many Challenge_votes
+     * const challenge_vote = await prisma.challenge_vote.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Challenge_votes and only return the `challenge_vote_id`
+     * const challenge_voteWithChallenge_vote_idOnly = await prisma.challenge_vote.updateManyAndReturn({
+     *   select: { challenge_vote_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends challenge_voteUpdateManyAndReturnArgs>(args: SelectSubset<T, challenge_voteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Challenge_vote.
+     * @param {challenge_voteUpsertArgs} args - Arguments to update or create a Challenge_vote.
+     * @example
+     * // Update or create a Challenge_vote
+     * const challenge_vote = await prisma.challenge_vote.upsert({
+     *   create: {
+     *     // ... data to create a Challenge_vote
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Challenge_vote we want to update
+     *   }
+     * })
+     */
+    upsert<T extends challenge_voteUpsertArgs>(args: SelectSubset<T, challenge_voteUpsertArgs<ExtArgs>>): Prisma__challenge_voteClient<$Result.GetResult<Prisma.$challenge_votePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Challenge_votes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {challenge_voteCountArgs} args - Arguments to filter Challenge_votes to count.
+     * @example
+     * // Count the number of Challenge_votes
+     * const count = await prisma.challenge_vote.count({
+     *   where: {
+     *     // ... the filter for the Challenge_votes we want to count
+     *   }
+     * })
+    **/
+    count<T extends challenge_voteCountArgs>(
+      args?: Subset<T, challenge_voteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Challenge_voteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Challenge_vote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Challenge_voteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Challenge_voteAggregateArgs>(args: Subset<T, Challenge_voteAggregateArgs>): Prisma.PrismaPromise<GetChallenge_voteAggregateType<T>>
+
+    /**
+     * Group by Challenge_vote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {challenge_voteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends challenge_voteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: challenge_voteGroupByArgs['orderBy'] }
+        : { orderBy?: challenge_voteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, challenge_voteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChallenge_voteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the challenge_vote model
+   */
+  readonly fields: challenge_voteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for challenge_vote.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__challenge_voteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    challenge<T extends challengeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, challengeDefaultArgs<ExtArgs>>): Prisma__challengeClient<$Result.GetResult<Prisma.$challengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the challenge_vote model
+   */
+  interface challenge_voteFieldRefs {
+    readonly challenge_vote_id: FieldRef<"challenge_vote", 'String'>
+    readonly user_id: FieldRef<"challenge_vote", 'String'>
+    readonly challenge_id: FieldRef<"challenge_vote", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * challenge_vote findUnique
+   */
+  export type challenge_voteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which challenge_vote to fetch.
+     */
+    where: challenge_voteWhereUniqueInput
+  }
+
+  /**
+   * challenge_vote findUniqueOrThrow
+   */
+  export type challenge_voteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which challenge_vote to fetch.
+     */
+    where: challenge_voteWhereUniqueInput
+  }
+
+  /**
+   * challenge_vote findFirst
+   */
+  export type challenge_voteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which challenge_vote to fetch.
+     */
+    where?: challenge_voteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of challenge_votes to fetch.
+     */
+    orderBy?: challenge_voteOrderByWithRelationInput | challenge_voteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for challenge_votes.
+     */
+    cursor?: challenge_voteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` challenge_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` challenge_votes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of challenge_votes.
+     */
+    distinct?: Challenge_voteScalarFieldEnum | Challenge_voteScalarFieldEnum[]
+  }
+
+  /**
+   * challenge_vote findFirstOrThrow
+   */
+  export type challenge_voteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which challenge_vote to fetch.
+     */
+    where?: challenge_voteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of challenge_votes to fetch.
+     */
+    orderBy?: challenge_voteOrderByWithRelationInput | challenge_voteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for challenge_votes.
+     */
+    cursor?: challenge_voteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` challenge_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` challenge_votes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of challenge_votes.
+     */
+    distinct?: Challenge_voteScalarFieldEnum | Challenge_voteScalarFieldEnum[]
+  }
+
+  /**
+   * challenge_vote findMany
+   */
+  export type challenge_voteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    /**
+     * Filter, which challenge_votes to fetch.
+     */
+    where?: challenge_voteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of challenge_votes to fetch.
+     */
+    orderBy?: challenge_voteOrderByWithRelationInput | challenge_voteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing challenge_votes.
+     */
+    cursor?: challenge_voteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` challenge_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` challenge_votes.
+     */
+    skip?: number
+    distinct?: Challenge_voteScalarFieldEnum | Challenge_voteScalarFieldEnum[]
+  }
+
+  /**
+   * challenge_vote create
+   */
+  export type challenge_voteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a challenge_vote.
+     */
+    data: XOR<challenge_voteCreateInput, challenge_voteUncheckedCreateInput>
+  }
+
+  /**
+   * challenge_vote createMany
+   */
+  export type challenge_voteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many challenge_votes.
+     */
+    data: challenge_voteCreateManyInput | challenge_voteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * challenge_vote createManyAndReturn
+   */
+  export type challenge_voteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * The data used to create many challenge_votes.
+     */
+    data: challenge_voteCreateManyInput | challenge_voteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * challenge_vote update
+   */
+  export type challenge_voteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a challenge_vote.
+     */
+    data: XOR<challenge_voteUpdateInput, challenge_voteUncheckedUpdateInput>
+    /**
+     * Choose, which challenge_vote to update.
+     */
+    where: challenge_voteWhereUniqueInput
+  }
+
+  /**
+   * challenge_vote updateMany
+   */
+  export type challenge_voteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update challenge_votes.
+     */
+    data: XOR<challenge_voteUpdateManyMutationInput, challenge_voteUncheckedUpdateManyInput>
+    /**
+     * Filter which challenge_votes to update
+     */
+    where?: challenge_voteWhereInput
+    /**
+     * Limit how many challenge_votes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * challenge_vote updateManyAndReturn
+   */
+  export type challenge_voteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * The data used to update challenge_votes.
+     */
+    data: XOR<challenge_voteUpdateManyMutationInput, challenge_voteUncheckedUpdateManyInput>
+    /**
+     * Filter which challenge_votes to update
+     */
+    where?: challenge_voteWhereInput
+    /**
+     * Limit how many challenge_votes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * challenge_vote upsert
+   */
+  export type challenge_voteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the challenge_vote to update in case it exists.
+     */
+    where: challenge_voteWhereUniqueInput
+    /**
+     * In case the challenge_vote found by the `where` argument doesn't exist, create a new challenge_vote with this data.
+     */
+    create: XOR<challenge_voteCreateInput, challenge_voteUncheckedCreateInput>
+    /**
+     * In case the challenge_vote was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<challenge_voteUpdateInput, challenge_voteUncheckedUpdateInput>
+  }
+
+  /**
+   * challenge_vote delete
+   */
+  export type challenge_voteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
+    /**
+     * Filter which challenge_vote to delete.
+     */
+    where: challenge_voteWhereUniqueInput
+  }
+
+  /**
+   * challenge_vote deleteMany
+   */
+  export type challenge_voteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which challenge_votes to delete
+     */
+    where?: challenge_voteWhereInput
+    /**
+     * Limit how many challenge_votes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * challenge_vote without action
+   */
+  export type challenge_voteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the challenge_vote
+     */
+    select?: challenge_voteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the challenge_vote
+     */
+    omit?: challenge_voteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: challenge_voteInclude<ExtArgs> | null
   }
 
 
@@ -5752,6 +8186,24 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const Participation_voteScalarFieldEnum: {
+    participation_vote_id: 'participation_vote_id',
+    user_id: 'user_id',
+    participation_id: 'participation_id'
+  };
+
+  export type Participation_voteScalarFieldEnum = (typeof Participation_voteScalarFieldEnum)[keyof typeof Participation_voteScalarFieldEnum]
+
+
+  export const Challenge_voteScalarFieldEnum: {
+    challenge_vote_id: 'challenge_vote_id',
+    user_id: 'user_id',
+    challenge_id: 'challenge_id'
+  };
+
+  export type Challenge_voteScalarFieldEnum = (typeof Challenge_voteScalarFieldEnum)[keyof typeof Challenge_voteScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5842,6 +8294,7 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"challenge"> | Date | string | null
     game?: XOR<GameScalarRelationFilter, gameWhereInput>
     participation?: ParticipationListRelationFilter
+    challenge_vote?: Challenge_voteListRelationFilter
   }
 
   export type challengeOrderByWithRelationInput = {
@@ -5855,6 +8308,7 @@ export namespace Prisma {
     updated_at?: SortOrderInput | SortOrder
     game?: gameOrderByWithRelationInput
     participation?: participationOrderByRelationAggregateInput
+    challenge_vote?: challenge_voteOrderByRelationAggregateInput
   }
 
   export type challengeWhereUniqueInput = Prisma.AtLeast<{
@@ -5871,6 +8325,7 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"challenge"> | Date | string | null
     game?: XOR<GameScalarRelationFilter, gameWhereInput>
     participation?: ParticipationListRelationFilter
+    challenge_vote?: Challenge_voteListRelationFilter
   }, "challenge_id" | "title">
 
   export type challengeOrderByWithAggregationInput = {
@@ -5990,6 +8445,7 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"participation"> | Date | string | null
     challenge?: XOR<ChallengeScalarRelationFilter, challengeWhereInput>
     user?: XOR<UserScalarRelationFilter, userWhereInput>
+    participation_vote?: Participation_voteListRelationFilter
   }
 
   export type participationOrderByWithRelationInput = {
@@ -6003,6 +8459,7 @@ export namespace Prisma {
     updated_at?: SortOrderInput | SortOrder
     challenge?: challengeOrderByWithRelationInput
     user?: userOrderByWithRelationInput
+    participation_vote?: participation_voteOrderByRelationAggregateInput
   }
 
   export type participationWhereUniqueInput = Prisma.AtLeast<{
@@ -6019,6 +8476,7 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"participation"> | Date | string | null
     challenge?: XOR<ChallengeScalarRelationFilter, challengeWhereInput>
     user?: XOR<UserScalarRelationFilter, userWhereInput>
+    participation_vote?: Participation_voteListRelationFilter
   }, "participation_id">
 
   export type participationOrderByWithAggregationInput = {
@@ -6061,6 +8519,8 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"user"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"user"> | Date | string | null
     participation?: ParticipationListRelationFilter
+    challenge_vote?: Challenge_voteListRelationFilter
+    participation_vote?: Participation_voteListRelationFilter
   }
 
   export type userOrderByWithRelationInput = {
@@ -6072,6 +8532,8 @@ export namespace Prisma {
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     participation?: participationOrderByRelationAggregateInput
+    challenge_vote?: challenge_voteOrderByRelationAggregateInput
+    participation_vote?: participation_voteOrderByRelationAggregateInput
   }
 
   export type userWhereUniqueInput = Prisma.AtLeast<{
@@ -6086,6 +8548,8 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"user"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"user"> | Date | string | null
     participation?: ParticipationListRelationFilter
+    challenge_vote?: Challenge_voteListRelationFilter
+    participation_vote?: Participation_voteListRelationFilter
   }, "user_id" | "pseudonym" | "email">
 
   export type userOrderByWithAggregationInput = {
@@ -6114,6 +8578,102 @@ export namespace Prisma {
     updated_at?: DateTimeNullableWithAggregatesFilter<"user"> | Date | string | null
   }
 
+  export type participation_voteWhereInput = {
+    AND?: participation_voteWhereInput | participation_voteWhereInput[]
+    OR?: participation_voteWhereInput[]
+    NOT?: participation_voteWhereInput | participation_voteWhereInput[]
+    participation_vote_id?: UuidFilter<"participation_vote"> | string
+    user_id?: UuidFilter<"participation_vote"> | string
+    participation_id?: UuidFilter<"participation_vote"> | string
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
+    participation?: XOR<ParticipationScalarRelationFilter, participationWhereInput>
+  }
+
+  export type participation_voteOrderByWithRelationInput = {
+    participation_vote_id?: SortOrder
+    user_id?: SortOrder
+    participation_id?: SortOrder
+    user?: userOrderByWithRelationInput
+    participation?: participationOrderByWithRelationInput
+  }
+
+  export type participation_voteWhereUniqueInput = Prisma.AtLeast<{
+    participation_vote_id?: string
+    AND?: participation_voteWhereInput | participation_voteWhereInput[]
+    OR?: participation_voteWhereInput[]
+    NOT?: participation_voteWhereInput | participation_voteWhereInput[]
+    user_id?: UuidFilter<"participation_vote"> | string
+    participation_id?: UuidFilter<"participation_vote"> | string
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
+    participation?: XOR<ParticipationScalarRelationFilter, participationWhereInput>
+  }, "participation_vote_id">
+
+  export type participation_voteOrderByWithAggregationInput = {
+    participation_vote_id?: SortOrder
+    user_id?: SortOrder
+    participation_id?: SortOrder
+    _count?: participation_voteCountOrderByAggregateInput
+    _max?: participation_voteMaxOrderByAggregateInput
+    _min?: participation_voteMinOrderByAggregateInput
+  }
+
+  export type participation_voteScalarWhereWithAggregatesInput = {
+    AND?: participation_voteScalarWhereWithAggregatesInput | participation_voteScalarWhereWithAggregatesInput[]
+    OR?: participation_voteScalarWhereWithAggregatesInput[]
+    NOT?: participation_voteScalarWhereWithAggregatesInput | participation_voteScalarWhereWithAggregatesInput[]
+    participation_vote_id?: UuidWithAggregatesFilter<"participation_vote"> | string
+    user_id?: UuidWithAggregatesFilter<"participation_vote"> | string
+    participation_id?: UuidWithAggregatesFilter<"participation_vote"> | string
+  }
+
+  export type challenge_voteWhereInput = {
+    AND?: challenge_voteWhereInput | challenge_voteWhereInput[]
+    OR?: challenge_voteWhereInput[]
+    NOT?: challenge_voteWhereInput | challenge_voteWhereInput[]
+    challenge_vote_id?: UuidFilter<"challenge_vote"> | string
+    user_id?: UuidFilter<"challenge_vote"> | string
+    challenge_id?: UuidFilter<"challenge_vote"> | string
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
+    challenge?: XOR<ChallengeScalarRelationFilter, challengeWhereInput>
+  }
+
+  export type challenge_voteOrderByWithRelationInput = {
+    challenge_vote_id?: SortOrder
+    user_id?: SortOrder
+    challenge_id?: SortOrder
+    user?: userOrderByWithRelationInput
+    challenge?: challengeOrderByWithRelationInput
+  }
+
+  export type challenge_voteWhereUniqueInput = Prisma.AtLeast<{
+    challenge_vote_id?: string
+    AND?: challenge_voteWhereInput | challenge_voteWhereInput[]
+    OR?: challenge_voteWhereInput[]
+    NOT?: challenge_voteWhereInput | challenge_voteWhereInput[]
+    user_id?: UuidFilter<"challenge_vote"> | string
+    challenge_id?: UuidFilter<"challenge_vote"> | string
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
+    challenge?: XOR<ChallengeScalarRelationFilter, challengeWhereInput>
+  }, "challenge_vote_id">
+
+  export type challenge_voteOrderByWithAggregationInput = {
+    challenge_vote_id?: SortOrder
+    user_id?: SortOrder
+    challenge_id?: SortOrder
+    _count?: challenge_voteCountOrderByAggregateInput
+    _max?: challenge_voteMaxOrderByAggregateInput
+    _min?: challenge_voteMinOrderByAggregateInput
+  }
+
+  export type challenge_voteScalarWhereWithAggregatesInput = {
+    AND?: challenge_voteScalarWhereWithAggregatesInput | challenge_voteScalarWhereWithAggregatesInput[]
+    OR?: challenge_voteScalarWhereWithAggregatesInput[]
+    NOT?: challenge_voteScalarWhereWithAggregatesInput | challenge_voteScalarWhereWithAggregatesInput[]
+    challenge_vote_id?: UuidWithAggregatesFilter<"challenge_vote"> | string
+    user_id?: UuidWithAggregatesFilter<"challenge_vote"> | string
+    challenge_id?: UuidWithAggregatesFilter<"challenge_vote"> | string
+  }
+
   export type challengeCreateInput = {
     challenge_id: string
     title: string
@@ -6124,6 +8684,7 @@ export namespace Prisma {
     updated_at?: Date | string | null
     game: gameCreateNestedOneWithoutChallengeInput
     participation?: participationCreateNestedManyWithoutChallengeInput
+    challenge_vote?: challenge_voteCreateNestedManyWithoutChallengeInput
   }
 
   export type challengeUncheckedCreateInput = {
@@ -6136,6 +8697,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     participation?: participationUncheckedCreateNestedManyWithoutChallengeInput
+    challenge_vote?: challenge_voteUncheckedCreateNestedManyWithoutChallengeInput
   }
 
   export type challengeUpdateInput = {
@@ -6148,6 +8710,7 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     game?: gameUpdateOneRequiredWithoutChallengeNestedInput
     participation?: participationUpdateManyWithoutChallengeNestedInput
+    challenge_vote?: challenge_voteUpdateManyWithoutChallengeNestedInput
   }
 
   export type challengeUncheckedUpdateInput = {
@@ -6160,6 +8723,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     participation?: participationUncheckedUpdateManyWithoutChallengeNestedInput
+    challenge_vote?: challenge_voteUncheckedUpdateManyWithoutChallengeNestedInput
   }
 
   export type challengeCreateManyInput = {
@@ -6291,6 +8855,7 @@ export namespace Prisma {
     updated_at?: Date | string | null
     challenge: challengeCreateNestedOneWithoutParticipationInput
     user: userCreateNestedOneWithoutParticipationInput
+    participation_vote?: participation_voteCreateNestedManyWithoutParticipationInput
   }
 
   export type participationUncheckedCreateInput = {
@@ -6302,6 +8867,7 @@ export namespace Prisma {
     challenge_id: string
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    participation_vote?: participation_voteUncheckedCreateNestedManyWithoutParticipationInput
   }
 
   export type participationUpdateInput = {
@@ -6313,6 +8879,7 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     challenge?: challengeUpdateOneRequiredWithoutParticipationNestedInput
     user?: userUpdateOneRequiredWithoutParticipationNestedInput
+    participation_vote?: participation_voteUpdateManyWithoutParticipationNestedInput
   }
 
   export type participationUncheckedUpdateInput = {
@@ -6324,6 +8891,7 @@ export namespace Prisma {
     challenge_id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation_vote?: participation_voteUncheckedUpdateManyWithoutParticipationNestedInput
   }
 
   export type participationCreateManyInput = {
@@ -6366,6 +8934,8 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     participation?: participationCreateNestedManyWithoutUserInput
+    challenge_vote?: challenge_voteCreateNestedManyWithoutUserInput
+    participation_vote?: participation_voteCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateInput = {
@@ -6377,6 +8947,8 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     participation?: participationUncheckedCreateNestedManyWithoutUserInput
+    challenge_vote?: challenge_voteUncheckedCreateNestedManyWithoutUserInput
+    participation_vote?: participation_voteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userUpdateInput = {
@@ -6388,6 +8960,8 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     participation?: participationUpdateManyWithoutUserNestedInput
+    challenge_vote?: challenge_voteUpdateManyWithoutUserNestedInput
+    participation_vote?: participation_voteUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateInput = {
@@ -6399,6 +8973,8 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     participation?: participationUncheckedUpdateManyWithoutUserNestedInput
+    challenge_vote?: challenge_voteUncheckedUpdateManyWithoutUserNestedInput
+    participation_vote?: participation_voteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type userCreateManyInput = {
@@ -6429,6 +9005,86 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type participation_voteCreateInput = {
+    participation_vote_id: string
+    user: userCreateNestedOneWithoutParticipation_voteInput
+    participation: participationCreateNestedOneWithoutParticipation_voteInput
+  }
+
+  export type participation_voteUncheckedCreateInput = {
+    participation_vote_id: string
+    user_id: string
+    participation_id: string
+  }
+
+  export type participation_voteUpdateInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+    user?: userUpdateOneRequiredWithoutParticipation_voteNestedInput
+    participation?: participationUpdateOneRequiredWithoutParticipation_voteNestedInput
+  }
+
+  export type participation_voteUncheckedUpdateInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    participation_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type participation_voteCreateManyInput = {
+    participation_vote_id: string
+    user_id: string
+    participation_id: string
+  }
+
+  export type participation_voteUpdateManyMutationInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type participation_voteUncheckedUpdateManyInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    participation_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type challenge_voteCreateInput = {
+    challenge_vote_id: string
+    user: userCreateNestedOneWithoutChallenge_voteInput
+    challenge: challengeCreateNestedOneWithoutChallenge_voteInput
+  }
+
+  export type challenge_voteUncheckedCreateInput = {
+    challenge_vote_id: string
+    user_id: string
+    challenge_id: string
+  }
+
+  export type challenge_voteUpdateInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+    user?: userUpdateOneRequiredWithoutChallenge_voteNestedInput
+    challenge?: challengeUpdateOneRequiredWithoutChallenge_voteNestedInput
+  }
+
+  export type challenge_voteUncheckedUpdateInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    challenge_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type challenge_voteCreateManyInput = {
+    challenge_vote_id: string
+    user_id: string
+    challenge_id: string
+  }
+
+  export type challenge_voteUpdateManyMutationInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type challenge_voteUncheckedUpdateManyInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    challenge_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -6480,12 +9136,22 @@ export namespace Prisma {
     none?: participationWhereInput
   }
 
+  export type Challenge_voteListRelationFilter = {
+    every?: challenge_voteWhereInput
+    some?: challenge_voteWhereInput
+    none?: challenge_voteWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type participationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type challenge_voteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6683,6 +9349,16 @@ export namespace Prisma {
     isNot?: userWhereInput
   }
 
+  export type Participation_voteListRelationFilter = {
+    every?: participation_voteWhereInput
+    some?: participation_voteWhereInput
+    none?: participation_voteWhereInput
+  }
+
+  export type participation_voteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type participationCountOrderByAggregateInput = {
     participation_id?: SortOrder
     user_id?: SortOrder
@@ -6746,6 +9422,47 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
+  export type ParticipationScalarRelationFilter = {
+    is?: participationWhereInput
+    isNot?: participationWhereInput
+  }
+
+  export type participation_voteCountOrderByAggregateInput = {
+    participation_vote_id?: SortOrder
+    user_id?: SortOrder
+    participation_id?: SortOrder
+  }
+
+  export type participation_voteMaxOrderByAggregateInput = {
+    participation_vote_id?: SortOrder
+    user_id?: SortOrder
+    participation_id?: SortOrder
+  }
+
+  export type participation_voteMinOrderByAggregateInput = {
+    participation_vote_id?: SortOrder
+    user_id?: SortOrder
+    participation_id?: SortOrder
+  }
+
+  export type challenge_voteCountOrderByAggregateInput = {
+    challenge_vote_id?: SortOrder
+    user_id?: SortOrder
+    challenge_id?: SortOrder
+  }
+
+  export type challenge_voteMaxOrderByAggregateInput = {
+    challenge_vote_id?: SortOrder
+    user_id?: SortOrder
+    challenge_id?: SortOrder
+  }
+
+  export type challenge_voteMinOrderByAggregateInput = {
+    challenge_vote_id?: SortOrder
+    user_id?: SortOrder
+    challenge_id?: SortOrder
+  }
+
   export type gameCreateNestedOneWithoutChallengeInput = {
     create?: XOR<gameCreateWithoutChallengeInput, gameUncheckedCreateWithoutChallengeInput>
     connectOrCreate?: gameCreateOrConnectWithoutChallengeInput
@@ -6759,11 +9476,25 @@ export namespace Prisma {
     connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
   }
 
+  export type challenge_voteCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<challenge_voteCreateWithoutChallengeInput, challenge_voteUncheckedCreateWithoutChallengeInput> | challenge_voteCreateWithoutChallengeInput[] | challenge_voteUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: challenge_voteCreateOrConnectWithoutChallengeInput | challenge_voteCreateOrConnectWithoutChallengeInput[]
+    createMany?: challenge_voteCreateManyChallengeInputEnvelope
+    connect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+  }
+
   export type participationUncheckedCreateNestedManyWithoutChallengeInput = {
     create?: XOR<participationCreateWithoutChallengeInput, participationUncheckedCreateWithoutChallengeInput> | participationCreateWithoutChallengeInput[] | participationUncheckedCreateWithoutChallengeInput[]
     connectOrCreate?: participationCreateOrConnectWithoutChallengeInput | participationCreateOrConnectWithoutChallengeInput[]
     createMany?: participationCreateManyChallengeInputEnvelope
     connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+  }
+
+  export type challenge_voteUncheckedCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<challenge_voteCreateWithoutChallengeInput, challenge_voteUncheckedCreateWithoutChallengeInput> | challenge_voteCreateWithoutChallengeInput[] | challenge_voteUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: challenge_voteCreateOrConnectWithoutChallengeInput | challenge_voteCreateOrConnectWithoutChallengeInput[]
+    createMany?: challenge_voteCreateManyChallengeInputEnvelope
+    connect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6796,6 +9527,20 @@ export namespace Prisma {
     deleteMany?: participationScalarWhereInput | participationScalarWhereInput[]
   }
 
+  export type challenge_voteUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<challenge_voteCreateWithoutChallengeInput, challenge_voteUncheckedCreateWithoutChallengeInput> | challenge_voteCreateWithoutChallengeInput[] | challenge_voteUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: challenge_voteCreateOrConnectWithoutChallengeInput | challenge_voteCreateOrConnectWithoutChallengeInput[]
+    upsert?: challenge_voteUpsertWithWhereUniqueWithoutChallengeInput | challenge_voteUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: challenge_voteCreateManyChallengeInputEnvelope
+    set?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    disconnect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    delete?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    connect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    update?: challenge_voteUpdateWithWhereUniqueWithoutChallengeInput | challenge_voteUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: challenge_voteUpdateManyWithWhereWithoutChallengeInput | challenge_voteUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: challenge_voteScalarWhereInput | challenge_voteScalarWhereInput[]
+  }
+
   export type participationUncheckedUpdateManyWithoutChallengeNestedInput = {
     create?: XOR<participationCreateWithoutChallengeInput, participationUncheckedCreateWithoutChallengeInput> | participationCreateWithoutChallengeInput[] | participationUncheckedCreateWithoutChallengeInput[]
     connectOrCreate?: participationCreateOrConnectWithoutChallengeInput | participationCreateOrConnectWithoutChallengeInput[]
@@ -6808,6 +9553,20 @@ export namespace Prisma {
     update?: participationUpdateWithWhereUniqueWithoutChallengeInput | participationUpdateWithWhereUniqueWithoutChallengeInput[]
     updateMany?: participationUpdateManyWithWhereWithoutChallengeInput | participationUpdateManyWithWhereWithoutChallengeInput[]
     deleteMany?: participationScalarWhereInput | participationScalarWhereInput[]
+  }
+
+  export type challenge_voteUncheckedUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<challenge_voteCreateWithoutChallengeInput, challenge_voteUncheckedCreateWithoutChallengeInput> | challenge_voteCreateWithoutChallengeInput[] | challenge_voteUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: challenge_voteCreateOrConnectWithoutChallengeInput | challenge_voteCreateOrConnectWithoutChallengeInput[]
+    upsert?: challenge_voteUpsertWithWhereUniqueWithoutChallengeInput | challenge_voteUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: challenge_voteCreateManyChallengeInputEnvelope
+    set?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    disconnect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    delete?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    connect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    update?: challenge_voteUpdateWithWhereUniqueWithoutChallengeInput | challenge_voteUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: challenge_voteUpdateManyWithWhereWithoutChallengeInput | challenge_voteUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: challenge_voteScalarWhereInput | challenge_voteScalarWhereInput[]
   }
 
   export type challengeCreateNestedManyWithoutGameInput = {
@@ -6872,6 +9631,20 @@ export namespace Prisma {
     connect?: userWhereUniqueInput
   }
 
+  export type participation_voteCreateNestedManyWithoutParticipationInput = {
+    create?: XOR<participation_voteCreateWithoutParticipationInput, participation_voteUncheckedCreateWithoutParticipationInput> | participation_voteCreateWithoutParticipationInput[] | participation_voteUncheckedCreateWithoutParticipationInput[]
+    connectOrCreate?: participation_voteCreateOrConnectWithoutParticipationInput | participation_voteCreateOrConnectWithoutParticipationInput[]
+    createMany?: participation_voteCreateManyParticipationInputEnvelope
+    connect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+  }
+
+  export type participation_voteUncheckedCreateNestedManyWithoutParticipationInput = {
+    create?: XOR<participation_voteCreateWithoutParticipationInput, participation_voteUncheckedCreateWithoutParticipationInput> | participation_voteCreateWithoutParticipationInput[] | participation_voteUncheckedCreateWithoutParticipationInput[]
+    connectOrCreate?: participation_voteCreateOrConnectWithoutParticipationInput | participation_voteCreateOrConnectWithoutParticipationInput[]
+    createMany?: participation_voteCreateManyParticipationInputEnvelope
+    connect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+  }
+
   export type challengeUpdateOneRequiredWithoutParticipationNestedInput = {
     create?: XOR<challengeCreateWithoutParticipationInput, challengeUncheckedCreateWithoutParticipationInput>
     connectOrCreate?: challengeCreateOrConnectWithoutParticipationInput
@@ -6888,6 +9661,34 @@ export namespace Prisma {
     update?: XOR<XOR<userUpdateToOneWithWhereWithoutParticipationInput, userUpdateWithoutParticipationInput>, userUncheckedUpdateWithoutParticipationInput>
   }
 
+  export type participation_voteUpdateManyWithoutParticipationNestedInput = {
+    create?: XOR<participation_voteCreateWithoutParticipationInput, participation_voteUncheckedCreateWithoutParticipationInput> | participation_voteCreateWithoutParticipationInput[] | participation_voteUncheckedCreateWithoutParticipationInput[]
+    connectOrCreate?: participation_voteCreateOrConnectWithoutParticipationInput | participation_voteCreateOrConnectWithoutParticipationInput[]
+    upsert?: participation_voteUpsertWithWhereUniqueWithoutParticipationInput | participation_voteUpsertWithWhereUniqueWithoutParticipationInput[]
+    createMany?: participation_voteCreateManyParticipationInputEnvelope
+    set?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    disconnect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    delete?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    connect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    update?: participation_voteUpdateWithWhereUniqueWithoutParticipationInput | participation_voteUpdateWithWhereUniqueWithoutParticipationInput[]
+    updateMany?: participation_voteUpdateManyWithWhereWithoutParticipationInput | participation_voteUpdateManyWithWhereWithoutParticipationInput[]
+    deleteMany?: participation_voteScalarWhereInput | participation_voteScalarWhereInput[]
+  }
+
+  export type participation_voteUncheckedUpdateManyWithoutParticipationNestedInput = {
+    create?: XOR<participation_voteCreateWithoutParticipationInput, participation_voteUncheckedCreateWithoutParticipationInput> | participation_voteCreateWithoutParticipationInput[] | participation_voteUncheckedCreateWithoutParticipationInput[]
+    connectOrCreate?: participation_voteCreateOrConnectWithoutParticipationInput | participation_voteCreateOrConnectWithoutParticipationInput[]
+    upsert?: participation_voteUpsertWithWhereUniqueWithoutParticipationInput | participation_voteUpsertWithWhereUniqueWithoutParticipationInput[]
+    createMany?: participation_voteCreateManyParticipationInputEnvelope
+    set?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    disconnect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    delete?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    connect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    update?: participation_voteUpdateWithWhereUniqueWithoutParticipationInput | participation_voteUpdateWithWhereUniqueWithoutParticipationInput[]
+    updateMany?: participation_voteUpdateManyWithWhereWithoutParticipationInput | participation_voteUpdateManyWithWhereWithoutParticipationInput[]
+    deleteMany?: participation_voteScalarWhereInput | participation_voteScalarWhereInput[]
+  }
+
   export type participationCreateNestedManyWithoutUserInput = {
     create?: XOR<participationCreateWithoutUserInput, participationUncheckedCreateWithoutUserInput> | participationCreateWithoutUserInput[] | participationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: participationCreateOrConnectWithoutUserInput | participationCreateOrConnectWithoutUserInput[]
@@ -6895,11 +9696,39 @@ export namespace Prisma {
     connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
   }
 
+  export type challenge_voteCreateNestedManyWithoutUserInput = {
+    create?: XOR<challenge_voteCreateWithoutUserInput, challenge_voteUncheckedCreateWithoutUserInput> | challenge_voteCreateWithoutUserInput[] | challenge_voteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: challenge_voteCreateOrConnectWithoutUserInput | challenge_voteCreateOrConnectWithoutUserInput[]
+    createMany?: challenge_voteCreateManyUserInputEnvelope
+    connect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+  }
+
+  export type participation_voteCreateNestedManyWithoutUserInput = {
+    create?: XOR<participation_voteCreateWithoutUserInput, participation_voteUncheckedCreateWithoutUserInput> | participation_voteCreateWithoutUserInput[] | participation_voteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: participation_voteCreateOrConnectWithoutUserInput | participation_voteCreateOrConnectWithoutUserInput[]
+    createMany?: participation_voteCreateManyUserInputEnvelope
+    connect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+  }
+
   export type participationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<participationCreateWithoutUserInput, participationUncheckedCreateWithoutUserInput> | participationCreateWithoutUserInput[] | participationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: participationCreateOrConnectWithoutUserInput | participationCreateOrConnectWithoutUserInput[]
     createMany?: participationCreateManyUserInputEnvelope
     connect?: participationWhereUniqueInput | participationWhereUniqueInput[]
+  }
+
+  export type challenge_voteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<challenge_voteCreateWithoutUserInput, challenge_voteUncheckedCreateWithoutUserInput> | challenge_voteCreateWithoutUserInput[] | challenge_voteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: challenge_voteCreateOrConnectWithoutUserInput | challenge_voteCreateOrConnectWithoutUserInput[]
+    createMany?: challenge_voteCreateManyUserInputEnvelope
+    connect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+  }
+
+  export type participation_voteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<participation_voteCreateWithoutUserInput, participation_voteUncheckedCreateWithoutUserInput> | participation_voteCreateWithoutUserInput[] | participation_voteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: participation_voteCreateOrConnectWithoutUserInput | participation_voteCreateOrConnectWithoutUserInput[]
+    createMany?: participation_voteCreateManyUserInputEnvelope
+    connect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
   }
 
   export type participationUpdateManyWithoutUserNestedInput = {
@@ -6916,6 +9745,34 @@ export namespace Prisma {
     deleteMany?: participationScalarWhereInput | participationScalarWhereInput[]
   }
 
+  export type challenge_voteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<challenge_voteCreateWithoutUserInput, challenge_voteUncheckedCreateWithoutUserInput> | challenge_voteCreateWithoutUserInput[] | challenge_voteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: challenge_voteCreateOrConnectWithoutUserInput | challenge_voteCreateOrConnectWithoutUserInput[]
+    upsert?: challenge_voteUpsertWithWhereUniqueWithoutUserInput | challenge_voteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: challenge_voteCreateManyUserInputEnvelope
+    set?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    disconnect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    delete?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    connect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    update?: challenge_voteUpdateWithWhereUniqueWithoutUserInput | challenge_voteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: challenge_voteUpdateManyWithWhereWithoutUserInput | challenge_voteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: challenge_voteScalarWhereInput | challenge_voteScalarWhereInput[]
+  }
+
+  export type participation_voteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<participation_voteCreateWithoutUserInput, participation_voteUncheckedCreateWithoutUserInput> | participation_voteCreateWithoutUserInput[] | participation_voteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: participation_voteCreateOrConnectWithoutUserInput | participation_voteCreateOrConnectWithoutUserInput[]
+    upsert?: participation_voteUpsertWithWhereUniqueWithoutUserInput | participation_voteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: participation_voteCreateManyUserInputEnvelope
+    set?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    disconnect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    delete?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    connect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    update?: participation_voteUpdateWithWhereUniqueWithoutUserInput | participation_voteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: participation_voteUpdateManyWithWhereWithoutUserInput | participation_voteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: participation_voteScalarWhereInput | participation_voteScalarWhereInput[]
+  }
+
   export type participationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<participationCreateWithoutUserInput, participationUncheckedCreateWithoutUserInput> | participationCreateWithoutUserInput[] | participationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: participationCreateOrConnectWithoutUserInput | participationCreateOrConnectWithoutUserInput[]
@@ -6928,6 +9785,90 @@ export namespace Prisma {
     update?: participationUpdateWithWhereUniqueWithoutUserInput | participationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: participationUpdateManyWithWhereWithoutUserInput | participationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: participationScalarWhereInput | participationScalarWhereInput[]
+  }
+
+  export type challenge_voteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<challenge_voteCreateWithoutUserInput, challenge_voteUncheckedCreateWithoutUserInput> | challenge_voteCreateWithoutUserInput[] | challenge_voteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: challenge_voteCreateOrConnectWithoutUserInput | challenge_voteCreateOrConnectWithoutUserInput[]
+    upsert?: challenge_voteUpsertWithWhereUniqueWithoutUserInput | challenge_voteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: challenge_voteCreateManyUserInputEnvelope
+    set?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    disconnect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    delete?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    connect?: challenge_voteWhereUniqueInput | challenge_voteWhereUniqueInput[]
+    update?: challenge_voteUpdateWithWhereUniqueWithoutUserInput | challenge_voteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: challenge_voteUpdateManyWithWhereWithoutUserInput | challenge_voteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: challenge_voteScalarWhereInput | challenge_voteScalarWhereInput[]
+  }
+
+  export type participation_voteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<participation_voteCreateWithoutUserInput, participation_voteUncheckedCreateWithoutUserInput> | participation_voteCreateWithoutUserInput[] | participation_voteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: participation_voteCreateOrConnectWithoutUserInput | participation_voteCreateOrConnectWithoutUserInput[]
+    upsert?: participation_voteUpsertWithWhereUniqueWithoutUserInput | participation_voteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: participation_voteCreateManyUserInputEnvelope
+    set?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    disconnect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    delete?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    connect?: participation_voteWhereUniqueInput | participation_voteWhereUniqueInput[]
+    update?: participation_voteUpdateWithWhereUniqueWithoutUserInput | participation_voteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: participation_voteUpdateManyWithWhereWithoutUserInput | participation_voteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: participation_voteScalarWhereInput | participation_voteScalarWhereInput[]
+  }
+
+  export type userCreateNestedOneWithoutParticipation_voteInput = {
+    create?: XOR<userCreateWithoutParticipation_voteInput, userUncheckedCreateWithoutParticipation_voteInput>
+    connectOrCreate?: userCreateOrConnectWithoutParticipation_voteInput
+    connect?: userWhereUniqueInput
+  }
+
+  export type participationCreateNestedOneWithoutParticipation_voteInput = {
+    create?: XOR<participationCreateWithoutParticipation_voteInput, participationUncheckedCreateWithoutParticipation_voteInput>
+    connectOrCreate?: participationCreateOrConnectWithoutParticipation_voteInput
+    connect?: participationWhereUniqueInput
+  }
+
+  export type userUpdateOneRequiredWithoutParticipation_voteNestedInput = {
+    create?: XOR<userCreateWithoutParticipation_voteInput, userUncheckedCreateWithoutParticipation_voteInput>
+    connectOrCreate?: userCreateOrConnectWithoutParticipation_voteInput
+    upsert?: userUpsertWithoutParticipation_voteInput
+    connect?: userWhereUniqueInput
+    update?: XOR<XOR<userUpdateToOneWithWhereWithoutParticipation_voteInput, userUpdateWithoutParticipation_voteInput>, userUncheckedUpdateWithoutParticipation_voteInput>
+  }
+
+  export type participationUpdateOneRequiredWithoutParticipation_voteNestedInput = {
+    create?: XOR<participationCreateWithoutParticipation_voteInput, participationUncheckedCreateWithoutParticipation_voteInput>
+    connectOrCreate?: participationCreateOrConnectWithoutParticipation_voteInput
+    upsert?: participationUpsertWithoutParticipation_voteInput
+    connect?: participationWhereUniqueInput
+    update?: XOR<XOR<participationUpdateToOneWithWhereWithoutParticipation_voteInput, participationUpdateWithoutParticipation_voteInput>, participationUncheckedUpdateWithoutParticipation_voteInput>
+  }
+
+  export type userCreateNestedOneWithoutChallenge_voteInput = {
+    create?: XOR<userCreateWithoutChallenge_voteInput, userUncheckedCreateWithoutChallenge_voteInput>
+    connectOrCreate?: userCreateOrConnectWithoutChallenge_voteInput
+    connect?: userWhereUniqueInput
+  }
+
+  export type challengeCreateNestedOneWithoutChallenge_voteInput = {
+    create?: XOR<challengeCreateWithoutChallenge_voteInput, challengeUncheckedCreateWithoutChallenge_voteInput>
+    connectOrCreate?: challengeCreateOrConnectWithoutChallenge_voteInput
+    connect?: challengeWhereUniqueInput
+  }
+
+  export type userUpdateOneRequiredWithoutChallenge_voteNestedInput = {
+    create?: XOR<userCreateWithoutChallenge_voteInput, userUncheckedCreateWithoutChallenge_voteInput>
+    connectOrCreate?: userCreateOrConnectWithoutChallenge_voteInput
+    upsert?: userUpsertWithoutChallenge_voteInput
+    connect?: userWhereUniqueInput
+    update?: XOR<XOR<userUpdateToOneWithWhereWithoutChallenge_voteInput, userUpdateWithoutChallenge_voteInput>, userUncheckedUpdateWithoutChallenge_voteInput>
+  }
+
+  export type challengeUpdateOneRequiredWithoutChallenge_voteNestedInput = {
+    create?: XOR<challengeCreateWithoutChallenge_voteInput, challengeUncheckedCreateWithoutChallenge_voteInput>
+    connectOrCreate?: challengeCreateOrConnectWithoutChallenge_voteInput
+    upsert?: challengeUpsertWithoutChallenge_voteInput
+    connect?: challengeWhereUniqueInput
+    update?: XOR<XOR<challengeUpdateToOneWithWhereWithoutChallenge_voteInput, challengeUpdateWithoutChallenge_voteInput>, challengeUncheckedUpdateWithoutChallenge_voteInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -7126,6 +10067,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     user: userCreateNestedOneWithoutParticipationInput
+    participation_vote?: participation_voteCreateNestedManyWithoutParticipationInput
   }
 
   export type participationUncheckedCreateWithoutChallengeInput = {
@@ -7136,6 +10078,7 @@ export namespace Prisma {
     description: string
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    participation_vote?: participation_voteUncheckedCreateNestedManyWithoutParticipationInput
   }
 
   export type participationCreateOrConnectWithoutChallengeInput = {
@@ -7145,6 +10088,26 @@ export namespace Prisma {
 
   export type participationCreateManyChallengeInputEnvelope = {
     data: participationCreateManyChallengeInput | participationCreateManyChallengeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type challenge_voteCreateWithoutChallengeInput = {
+    challenge_vote_id: string
+    user: userCreateNestedOneWithoutChallenge_voteInput
+  }
+
+  export type challenge_voteUncheckedCreateWithoutChallengeInput = {
+    challenge_vote_id: string
+    user_id: string
+  }
+
+  export type challenge_voteCreateOrConnectWithoutChallengeInput = {
+    where: challenge_voteWhereUniqueInput
+    create: XOR<challenge_voteCreateWithoutChallengeInput, challenge_voteUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type challenge_voteCreateManyChallengeInputEnvelope = {
+    data: challenge_voteCreateManyChallengeInput | challenge_voteCreateManyChallengeInput[]
     skipDuplicates?: boolean
   }
 
@@ -7213,6 +10176,31 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"participation"> | Date | string | null
   }
 
+  export type challenge_voteUpsertWithWhereUniqueWithoutChallengeInput = {
+    where: challenge_voteWhereUniqueInput
+    update: XOR<challenge_voteUpdateWithoutChallengeInput, challenge_voteUncheckedUpdateWithoutChallengeInput>
+    create: XOR<challenge_voteCreateWithoutChallengeInput, challenge_voteUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type challenge_voteUpdateWithWhereUniqueWithoutChallengeInput = {
+    where: challenge_voteWhereUniqueInput
+    data: XOR<challenge_voteUpdateWithoutChallengeInput, challenge_voteUncheckedUpdateWithoutChallengeInput>
+  }
+
+  export type challenge_voteUpdateManyWithWhereWithoutChallengeInput = {
+    where: challenge_voteScalarWhereInput
+    data: XOR<challenge_voteUpdateManyMutationInput, challenge_voteUncheckedUpdateManyWithoutChallengeInput>
+  }
+
+  export type challenge_voteScalarWhereInput = {
+    AND?: challenge_voteScalarWhereInput | challenge_voteScalarWhereInput[]
+    OR?: challenge_voteScalarWhereInput[]
+    NOT?: challenge_voteScalarWhereInput | challenge_voteScalarWhereInput[]
+    challenge_vote_id?: UuidFilter<"challenge_vote"> | string
+    user_id?: UuidFilter<"challenge_vote"> | string
+    challenge_id?: UuidFilter<"challenge_vote"> | string
+  }
+
   export type challengeCreateWithoutGameInput = {
     challenge_id: string
     title: string
@@ -7222,6 +10210,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     participation?: participationCreateNestedManyWithoutChallengeInput
+    challenge_vote?: challenge_voteCreateNestedManyWithoutChallengeInput
   }
 
   export type challengeUncheckedCreateWithoutGameInput = {
@@ -7233,6 +10222,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     participation?: participationUncheckedCreateNestedManyWithoutChallengeInput
+    challenge_vote?: challenge_voteUncheckedCreateNestedManyWithoutChallengeInput
   }
 
   export type challengeCreateOrConnectWithoutGameInput = {
@@ -7284,6 +10274,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     game: gameCreateNestedOneWithoutChallengeInput
+    challenge_vote?: challenge_voteCreateNestedManyWithoutChallengeInput
   }
 
   export type challengeUncheckedCreateWithoutParticipationInput = {
@@ -7295,6 +10286,7 @@ export namespace Prisma {
     game_id: string
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    challenge_vote?: challenge_voteUncheckedCreateNestedManyWithoutChallengeInput
   }
 
   export type challengeCreateOrConnectWithoutParticipationInput = {
@@ -7310,6 +10302,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    challenge_vote?: challenge_voteCreateNestedManyWithoutUserInput
+    participation_vote?: participation_voteCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutParticipationInput = {
@@ -7320,11 +10314,33 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    challenge_vote?: challenge_voteUncheckedCreateNestedManyWithoutUserInput
+    participation_vote?: participation_voteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutParticipationInput = {
     where: userWhereUniqueInput
     create: XOR<userCreateWithoutParticipationInput, userUncheckedCreateWithoutParticipationInput>
+  }
+
+  export type participation_voteCreateWithoutParticipationInput = {
+    participation_vote_id: string
+    user: userCreateNestedOneWithoutParticipation_voteInput
+  }
+
+  export type participation_voteUncheckedCreateWithoutParticipationInput = {
+    participation_vote_id: string
+    user_id: string
+  }
+
+  export type participation_voteCreateOrConnectWithoutParticipationInput = {
+    where: participation_voteWhereUniqueInput
+    create: XOR<participation_voteCreateWithoutParticipationInput, participation_voteUncheckedCreateWithoutParticipationInput>
+  }
+
+  export type participation_voteCreateManyParticipationInputEnvelope = {
+    data: participation_voteCreateManyParticipationInput | participation_voteCreateManyParticipationInput[]
+    skipDuplicates?: boolean
   }
 
   export type challengeUpsertWithoutParticipationInput = {
@@ -7347,6 +10363,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     game?: gameUpdateOneRequiredWithoutChallengeNestedInput
+    challenge_vote?: challenge_voteUpdateManyWithoutChallengeNestedInput
   }
 
   export type challengeUncheckedUpdateWithoutParticipationInput = {
@@ -7358,6 +10375,7 @@ export namespace Prisma {
     game_id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge_vote?: challenge_voteUncheckedUpdateManyWithoutChallengeNestedInput
   }
 
   export type userUpsertWithoutParticipationInput = {
@@ -7379,6 +10397,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge_vote?: challenge_voteUpdateManyWithoutUserNestedInput
+    participation_vote?: participation_voteUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutParticipationInput = {
@@ -7389,6 +10409,33 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge_vote?: challenge_voteUncheckedUpdateManyWithoutUserNestedInput
+    participation_vote?: participation_voteUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type participation_voteUpsertWithWhereUniqueWithoutParticipationInput = {
+    where: participation_voteWhereUniqueInput
+    update: XOR<participation_voteUpdateWithoutParticipationInput, participation_voteUncheckedUpdateWithoutParticipationInput>
+    create: XOR<participation_voteCreateWithoutParticipationInput, participation_voteUncheckedCreateWithoutParticipationInput>
+  }
+
+  export type participation_voteUpdateWithWhereUniqueWithoutParticipationInput = {
+    where: participation_voteWhereUniqueInput
+    data: XOR<participation_voteUpdateWithoutParticipationInput, participation_voteUncheckedUpdateWithoutParticipationInput>
+  }
+
+  export type participation_voteUpdateManyWithWhereWithoutParticipationInput = {
+    where: participation_voteScalarWhereInput
+    data: XOR<participation_voteUpdateManyMutationInput, participation_voteUncheckedUpdateManyWithoutParticipationInput>
+  }
+
+  export type participation_voteScalarWhereInput = {
+    AND?: participation_voteScalarWhereInput | participation_voteScalarWhereInput[]
+    OR?: participation_voteScalarWhereInput[]
+    NOT?: participation_voteScalarWhereInput | participation_voteScalarWhereInput[]
+    participation_vote_id?: UuidFilter<"participation_vote"> | string
+    user_id?: UuidFilter<"participation_vote"> | string
+    participation_id?: UuidFilter<"participation_vote"> | string
   }
 
   export type participationCreateWithoutUserInput = {
@@ -7399,6 +10446,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     challenge: challengeCreateNestedOneWithoutParticipationInput
+    participation_vote?: participation_voteCreateNestedManyWithoutParticipationInput
   }
 
   export type participationUncheckedCreateWithoutUserInput = {
@@ -7409,6 +10457,7 @@ export namespace Prisma {
     challenge_id: string
     created_at?: Date | string | null
     updated_at?: Date | string | null
+    participation_vote?: participation_voteUncheckedCreateNestedManyWithoutParticipationInput
   }
 
   export type participationCreateOrConnectWithoutUserInput = {
@@ -7418,6 +10467,46 @@ export namespace Prisma {
 
   export type participationCreateManyUserInputEnvelope = {
     data: participationCreateManyUserInput | participationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type challenge_voteCreateWithoutUserInput = {
+    challenge_vote_id: string
+    challenge: challengeCreateNestedOneWithoutChallenge_voteInput
+  }
+
+  export type challenge_voteUncheckedCreateWithoutUserInput = {
+    challenge_vote_id: string
+    challenge_id: string
+  }
+
+  export type challenge_voteCreateOrConnectWithoutUserInput = {
+    where: challenge_voteWhereUniqueInput
+    create: XOR<challenge_voteCreateWithoutUserInput, challenge_voteUncheckedCreateWithoutUserInput>
+  }
+
+  export type challenge_voteCreateManyUserInputEnvelope = {
+    data: challenge_voteCreateManyUserInput | challenge_voteCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type participation_voteCreateWithoutUserInput = {
+    participation_vote_id: string
+    participation: participationCreateNestedOneWithoutParticipation_voteInput
+  }
+
+  export type participation_voteUncheckedCreateWithoutUserInput = {
+    participation_vote_id: string
+    participation_id: string
+  }
+
+  export type participation_voteCreateOrConnectWithoutUserInput = {
+    where: participation_voteWhereUniqueInput
+    create: XOR<participation_voteCreateWithoutUserInput, participation_voteUncheckedCreateWithoutUserInput>
+  }
+
+  export type participation_voteCreateManyUserInputEnvelope = {
+    data: participation_voteCreateManyUserInput | participation_voteCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -7437,6 +10526,290 @@ export namespace Prisma {
     data: XOR<participationUpdateManyMutationInput, participationUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type challenge_voteUpsertWithWhereUniqueWithoutUserInput = {
+    where: challenge_voteWhereUniqueInput
+    update: XOR<challenge_voteUpdateWithoutUserInput, challenge_voteUncheckedUpdateWithoutUserInput>
+    create: XOR<challenge_voteCreateWithoutUserInput, challenge_voteUncheckedCreateWithoutUserInput>
+  }
+
+  export type challenge_voteUpdateWithWhereUniqueWithoutUserInput = {
+    where: challenge_voteWhereUniqueInput
+    data: XOR<challenge_voteUpdateWithoutUserInput, challenge_voteUncheckedUpdateWithoutUserInput>
+  }
+
+  export type challenge_voteUpdateManyWithWhereWithoutUserInput = {
+    where: challenge_voteScalarWhereInput
+    data: XOR<challenge_voteUpdateManyMutationInput, challenge_voteUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type participation_voteUpsertWithWhereUniqueWithoutUserInput = {
+    where: participation_voteWhereUniqueInput
+    update: XOR<participation_voteUpdateWithoutUserInput, participation_voteUncheckedUpdateWithoutUserInput>
+    create: XOR<participation_voteCreateWithoutUserInput, participation_voteUncheckedCreateWithoutUserInput>
+  }
+
+  export type participation_voteUpdateWithWhereUniqueWithoutUserInput = {
+    where: participation_voteWhereUniqueInput
+    data: XOR<participation_voteUpdateWithoutUserInput, participation_voteUncheckedUpdateWithoutUserInput>
+  }
+
+  export type participation_voteUpdateManyWithWhereWithoutUserInput = {
+    where: participation_voteScalarWhereInput
+    data: XOR<participation_voteUpdateManyMutationInput, participation_voteUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type userCreateWithoutParticipation_voteInput = {
+    user_id: string
+    pseudonym: string
+    email: string
+    password_hash: string
+    avatar_url?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    participation?: participationCreateNestedManyWithoutUserInput
+    challenge_vote?: challenge_voteCreateNestedManyWithoutUserInput
+  }
+
+  export type userUncheckedCreateWithoutParticipation_voteInput = {
+    user_id: string
+    pseudonym: string
+    email: string
+    password_hash: string
+    avatar_url?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    participation?: participationUncheckedCreateNestedManyWithoutUserInput
+    challenge_vote?: challenge_voteUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type userCreateOrConnectWithoutParticipation_voteInput = {
+    where: userWhereUniqueInput
+    create: XOR<userCreateWithoutParticipation_voteInput, userUncheckedCreateWithoutParticipation_voteInput>
+  }
+
+  export type participationCreateWithoutParticipation_voteInput = {
+    participation_id: string
+    video_url?: string | null
+    image_url?: string | null
+    description: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    challenge: challengeCreateNestedOneWithoutParticipationInput
+    user: userCreateNestedOneWithoutParticipationInput
+  }
+
+  export type participationUncheckedCreateWithoutParticipation_voteInput = {
+    participation_id: string
+    user_id: string
+    video_url?: string | null
+    image_url?: string | null
+    description: string
+    challenge_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type participationCreateOrConnectWithoutParticipation_voteInput = {
+    where: participationWhereUniqueInput
+    create: XOR<participationCreateWithoutParticipation_voteInput, participationUncheckedCreateWithoutParticipation_voteInput>
+  }
+
+  export type userUpsertWithoutParticipation_voteInput = {
+    update: XOR<userUpdateWithoutParticipation_voteInput, userUncheckedUpdateWithoutParticipation_voteInput>
+    create: XOR<userCreateWithoutParticipation_voteInput, userUncheckedCreateWithoutParticipation_voteInput>
+    where?: userWhereInput
+  }
+
+  export type userUpdateToOneWithWhereWithoutParticipation_voteInput = {
+    where?: userWhereInput
+    data: XOR<userUpdateWithoutParticipation_voteInput, userUncheckedUpdateWithoutParticipation_voteInput>
+  }
+
+  export type userUpdateWithoutParticipation_voteInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    pseudonym?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUpdateManyWithoutUserNestedInput
+    challenge_vote?: challenge_voteUpdateManyWithoutUserNestedInput
+  }
+
+  export type userUncheckedUpdateWithoutParticipation_voteInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    pseudonym?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUncheckedUpdateManyWithoutUserNestedInput
+    challenge_vote?: challenge_voteUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type participationUpsertWithoutParticipation_voteInput = {
+    update: XOR<participationUpdateWithoutParticipation_voteInput, participationUncheckedUpdateWithoutParticipation_voteInput>
+    create: XOR<participationCreateWithoutParticipation_voteInput, participationUncheckedCreateWithoutParticipation_voteInput>
+    where?: participationWhereInput
+  }
+
+  export type participationUpdateToOneWithWhereWithoutParticipation_voteInput = {
+    where?: participationWhereInput
+    data: XOR<participationUpdateWithoutParticipation_voteInput, participationUncheckedUpdateWithoutParticipation_voteInput>
+  }
+
+  export type participationUpdateWithoutParticipation_voteInput = {
+    participation_id?: StringFieldUpdateOperationsInput | string
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge?: challengeUpdateOneRequiredWithoutParticipationNestedInput
+    user?: userUpdateOneRequiredWithoutParticipationNestedInput
+  }
+
+  export type participationUncheckedUpdateWithoutParticipation_voteInput = {
+    participation_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    video_url?: NullableStringFieldUpdateOperationsInput | string | null
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type userCreateWithoutChallenge_voteInput = {
+    user_id: string
+    pseudonym: string
+    email: string
+    password_hash: string
+    avatar_url?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    participation?: participationCreateNestedManyWithoutUserInput
+    participation_vote?: participation_voteCreateNestedManyWithoutUserInput
+  }
+
+  export type userUncheckedCreateWithoutChallenge_voteInput = {
+    user_id: string
+    pseudonym: string
+    email: string
+    password_hash: string
+    avatar_url?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    participation?: participationUncheckedCreateNestedManyWithoutUserInput
+    participation_vote?: participation_voteUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type userCreateOrConnectWithoutChallenge_voteInput = {
+    where: userWhereUniqueInput
+    create: XOR<userCreateWithoutChallenge_voteInput, userUncheckedCreateWithoutChallenge_voteInput>
+  }
+
+  export type challengeCreateWithoutChallenge_voteInput = {
+    challenge_id: string
+    title: string
+    description: string
+    rules: string
+    user_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    game: gameCreateNestedOneWithoutChallengeInput
+    participation?: participationCreateNestedManyWithoutChallengeInput
+  }
+
+  export type challengeUncheckedCreateWithoutChallenge_voteInput = {
+    challenge_id: string
+    title: string
+    description: string
+    rules: string
+    user_id: string
+    game_id: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    participation?: participationUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type challengeCreateOrConnectWithoutChallenge_voteInput = {
+    where: challengeWhereUniqueInput
+    create: XOR<challengeCreateWithoutChallenge_voteInput, challengeUncheckedCreateWithoutChallenge_voteInput>
+  }
+
+  export type userUpsertWithoutChallenge_voteInput = {
+    update: XOR<userUpdateWithoutChallenge_voteInput, userUncheckedUpdateWithoutChallenge_voteInput>
+    create: XOR<userCreateWithoutChallenge_voteInput, userUncheckedCreateWithoutChallenge_voteInput>
+    where?: userWhereInput
+  }
+
+  export type userUpdateToOneWithWhereWithoutChallenge_voteInput = {
+    where?: userWhereInput
+    data: XOR<userUpdateWithoutChallenge_voteInput, userUncheckedUpdateWithoutChallenge_voteInput>
+  }
+
+  export type userUpdateWithoutChallenge_voteInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    pseudonym?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUpdateManyWithoutUserNestedInput
+    participation_vote?: participation_voteUpdateManyWithoutUserNestedInput
+  }
+
+  export type userUncheckedUpdateWithoutChallenge_voteInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    pseudonym?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUncheckedUpdateManyWithoutUserNestedInput
+    participation_vote?: participation_voteUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type challengeUpsertWithoutChallenge_voteInput = {
+    update: XOR<challengeUpdateWithoutChallenge_voteInput, challengeUncheckedUpdateWithoutChallenge_voteInput>
+    create: XOR<challengeCreateWithoutChallenge_voteInput, challengeUncheckedCreateWithoutChallenge_voteInput>
+    where?: challengeWhereInput
+  }
+
+  export type challengeUpdateToOneWithWhereWithoutChallenge_voteInput = {
+    where?: challengeWhereInput
+    data: XOR<challengeUpdateWithoutChallenge_voteInput, challengeUncheckedUpdateWithoutChallenge_voteInput>
+  }
+
+  export type challengeUpdateWithoutChallenge_voteInput = {
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    game?: gameUpdateOneRequiredWithoutChallengeNestedInput
+    participation?: participationUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type challengeUncheckedUpdateWithoutChallenge_voteInput = {
+    challenge_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    game_id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation?: participationUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
   export type participationCreateManyChallengeInput = {
     participation_id: string
     user_id: string
@@ -7447,6 +10820,11 @@ export namespace Prisma {
     updated_at?: Date | string | null
   }
 
+  export type challenge_voteCreateManyChallengeInput = {
+    challenge_vote_id: string
+    user_id: string
+  }
+
   export type participationUpdateWithoutChallengeInput = {
     participation_id?: StringFieldUpdateOperationsInput | string
     video_url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7455,6 +10833,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: userUpdateOneRequiredWithoutParticipationNestedInput
+    participation_vote?: participation_voteUpdateManyWithoutParticipationNestedInput
   }
 
   export type participationUncheckedUpdateWithoutChallengeInput = {
@@ -7465,6 +10844,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation_vote?: participation_voteUncheckedUpdateManyWithoutParticipationNestedInput
   }
 
   export type participationUncheckedUpdateManyWithoutChallengeInput = {
@@ -7475,6 +10855,21 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type challenge_voteUpdateWithoutChallengeInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+    user?: userUpdateOneRequiredWithoutChallenge_voteNestedInput
+  }
+
+  export type challenge_voteUncheckedUpdateWithoutChallengeInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type challenge_voteUncheckedUpdateManyWithoutChallengeInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type challengeCreateManyGameInput = {
@@ -7496,6 +10891,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     participation?: participationUpdateManyWithoutChallengeNestedInput
+    challenge_vote?: challenge_voteUpdateManyWithoutChallengeNestedInput
   }
 
   export type challengeUncheckedUpdateWithoutGameInput = {
@@ -7507,6 +10903,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     participation?: participationUncheckedUpdateManyWithoutChallengeNestedInput
+    challenge_vote?: challenge_voteUncheckedUpdateManyWithoutChallengeNestedInput
   }
 
   export type challengeUncheckedUpdateManyWithoutGameInput = {
@@ -7519,6 +10916,26 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type participation_voteCreateManyParticipationInput = {
+    participation_vote_id: string
+    user_id: string
+  }
+
+  export type participation_voteUpdateWithoutParticipationInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+    user?: userUpdateOneRequiredWithoutParticipation_voteNestedInput
+  }
+
+  export type participation_voteUncheckedUpdateWithoutParticipationInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type participation_voteUncheckedUpdateManyWithoutParticipationInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+  }
+
   export type participationCreateManyUserInput = {
     participation_id: string
     video_url?: string | null
@@ -7529,6 +10946,16 @@ export namespace Prisma {
     updated_at?: Date | string | null
   }
 
+  export type challenge_voteCreateManyUserInput = {
+    challenge_vote_id: string
+    challenge_id: string
+  }
+
+  export type participation_voteCreateManyUserInput = {
+    participation_vote_id: string
+    participation_id: string
+  }
+
   export type participationUpdateWithoutUserInput = {
     participation_id?: StringFieldUpdateOperationsInput | string
     video_url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7537,6 +10964,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     challenge?: challengeUpdateOneRequiredWithoutParticipationNestedInput
+    participation_vote?: participation_voteUpdateManyWithoutParticipationNestedInput
   }
 
   export type participationUncheckedUpdateWithoutUserInput = {
@@ -7547,6 +10975,7 @@ export namespace Prisma {
     challenge_id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participation_vote?: participation_voteUncheckedUpdateManyWithoutParticipationNestedInput
   }
 
   export type participationUncheckedUpdateManyWithoutUserInput = {
@@ -7557,6 +10986,36 @@ export namespace Prisma {
     challenge_id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type challenge_voteUpdateWithoutUserInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+    challenge?: challengeUpdateOneRequiredWithoutChallenge_voteNestedInput
+  }
+
+  export type challenge_voteUncheckedUpdateWithoutUserInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+    challenge_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type challenge_voteUncheckedUpdateManyWithoutUserInput = {
+    challenge_vote_id?: StringFieldUpdateOperationsInput | string
+    challenge_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type participation_voteUpdateWithoutUserInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+    participation?: participationUpdateOneRequiredWithoutParticipation_voteNestedInput
+  }
+
+  export type participation_voteUncheckedUpdateWithoutUserInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+    participation_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type participation_voteUncheckedUpdateManyWithoutUserInput = {
+    participation_vote_id?: StringFieldUpdateOperationsInput | string
+    participation_id?: StringFieldUpdateOperationsInput | string
   }
 
 
