@@ -2,9 +2,8 @@ import express, { Application, Request, Response } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpecs from "@/config/swagger";
 import errorHandler from "@/middlewares/errorHandler";
-// import routes from '@/routes/index.routes';
+import routes from '@/routes/index.routes';
 import cors from 'cors';
-
 
 const app: Application = express();
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
@@ -33,7 +32,7 @@ app.use(cors({
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Routes
-// app.use('/api', routes);
+app.use('/api', routes);
 
 // Error handling middleware
 app.use(errorHandler);
