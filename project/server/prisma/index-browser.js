@@ -164,12 +164,6 @@ exports.Prisma.UserScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.User_challengeScalarFieldEnum = {
-  user_challenge_id: 'user_challenge_id',
-  user_id: 'user_id',
-  challenge_id: 'challenge_id'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -190,8 +184,7 @@ exports.Prisma.ModelName = {
   challenge: 'challenge',
   game: 'game',
   participation: 'participation',
-  user: 'user',
-  user_challenge: 'user_challenge'
+  user: 'user'
 };
 
 /**

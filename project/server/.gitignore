@@ -25,3 +25,5 @@ dist-ssr
 .env
 pnpm-workspace.yaml
 pnpm-lock.yaml
+
+/src/generated/prisma
