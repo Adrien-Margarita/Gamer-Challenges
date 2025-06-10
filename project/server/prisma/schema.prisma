@@ -64,16 +64,16 @@ model user {
 
 model participation_vote {
   participation_vote_id String        @id @db.Uuid
-  user_id               String
-  participation_id      String
+  user_id               String        @db.Uuid
+  participation_id      String        @db.Uuid
   user                  user          @relation(fields: [user_id], references: [user_id])
   participation         participation @relation(fields: [participation_id], references: [participation_id])
 }
 
 model challenge_vote {
   challenge_vote_id String    @id @db.Uuid
-  user_id           String
-  challenge_id      String
+  user_id           String    @db.Uuid
+  challenge_id      String    @db.Uuid
   user              user      @relation(fields: [user_id], references: [user_id])
   challenge         challenge @relation(fields: [challenge_id], references: [challenge_id])
 }
