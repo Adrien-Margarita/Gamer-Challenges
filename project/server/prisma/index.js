@@ -194,7 +194,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/mnt/dev/projet-gamer-challenges/project/server/prisma",
+      "value": "/home/julien/Documents/projet-gamer-challenges/project/server/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -208,12 +208,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/mnt/dev/projet-gamer-challenges/project/server/prisma/schema.prisma",
+    "sourceFilePath": "/home/julien/Documents/projet-gamer-challenges/project/server/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../.env"
+    "rootEnvPath": null
   },
   "relativePath": "",
   "clientVersion": "6.9.0",

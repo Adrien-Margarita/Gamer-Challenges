@@ -61,6 +61,8 @@ model user {
   challenge_vote       challenge_vote[]
   participation_vote   participation_vote[]
   password_reset_token password_reset_token[]
+  role_id              Int                    @unique
+  user_role            user_role[]
 }
 
 model participation_vote {
@@ -87,4 +89,13 @@ model password_reset_token {
   create_at  DateTime @default(now())
   user_id    String   @db.Uuid
   user       user?    @relation(fields: [user_id], references: [user_id])
+}
+
+model user_role {
+  id         String    @id @db.Uuid
+  role_id    Int       @default(0)
+  role_name  String
+  created_at DateTime?
+  updated_at DateTime?
+  user       user?     @relation(fields: [role_id], references: [role_id])
 }
