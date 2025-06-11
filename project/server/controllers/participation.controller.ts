@@ -11,8 +11,12 @@ export const createParticipation = async (
   next: NextFunction
 ) => {
   try {
+    const { user_id } = req.params;
     const newParticipation = await prisma.participation.create({
-      data: req.body,
+      data: {
+        ...req.body,
+        user_id: user_id
+      }
     });
     res.status(201).json({ participation: newParticipation });
   } catch (error) {
@@ -77,7 +81,7 @@ export const updateParticipation = async (
     const participationToUpdate = await prisma.participation.update({
       data: {
         ...req.body,
-        updatedAt: new Date(),
+        updated_at: new Date(),
       },
       where: { participation_id },
     });

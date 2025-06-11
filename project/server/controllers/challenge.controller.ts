@@ -6,10 +6,14 @@ const prisma = new PrismaClient();
 
 // Créer un nouvel challenge
 export const createChallenge = async (req: Request, res: Response, next: NextFunction) => {
+  const { user_id } = req.params;
 
   try {
     const newChallenge = await prisma.challenge.create({
-      data: req.body
+      data: {
+        ...req.body,
+        user_id: user_id
+      }
     });
     res.status(201).json({ challenge: newChallenge });
   } catch (error) {
