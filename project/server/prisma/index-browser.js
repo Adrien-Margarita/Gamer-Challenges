@@ -176,6 +176,15 @@ exports.Prisma.Challenge_voteScalarFieldEnum = {
   challenge_id: 'challenge_id'
 };
 
+exports.Prisma.Password_reset_tokenScalarFieldEnum = {
+  token_id: 'token_id',
+  token: 'token',
+  email: 'email',
+  expires_at: 'expires_at',
+  create_at: 'create_at',
+  user_id: 'user_id'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -198,7 +207,8 @@ exports.Prisma.ModelName = {
   participation: 'participation',
   user: 'user',
   participation_vote: 'participation_vote',
-  challenge_vote: 'challenge_vote'
+  challenge_vote: 'challenge_vote',
+  password_reset_token: 'password_reset_token'
 };
 
 /**
