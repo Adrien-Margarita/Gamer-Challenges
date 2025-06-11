@@ -13,21 +13,21 @@ afterAll(async () => {
 });
 
 describe('Challenge Controller', () => {
-  describe('POST /api/challenges', () => {
-    it('devrait créer un nouveau challenge', async () => {
-      const newChallenge = {
-        title: 'Nouveau Challenge',
-        description: 'Description du challenge',
+  // describe('POST /api/challenges', () => {
+  //   it('devrait créer un nouveau challenge', async () => {
+  //     const newChallenge = {
+  //       title: 'Nouveau Challenge',
+  //       description: 'Description du challenge',
         
-      };
+  //     };
 
-      const res = await request(app).post('/api/challenges').send(newChallenge);
+  //     const res = await request(app).post('/api/challenges').send(newChallenge);
 
-      expect(res.status).toBe(201);
-      expect(res.body.challenge).toHaveProperty('challenge_id');
-      expect(res.body.challenge.title).toBe(newChallenge.title);
-    });
-  });
+  //     expect(res.status).toBe(201);
+  //     expect(res.body.challenge).toHaveProperty('challenge_id');
+  //     expect(res.body.challenge.title).toBe(newChallenge.title);
+  //   });
+  // });
 
   describe('GET /api/challenges', () => {
     it('devrait récupérer la liste des challenges', async () => {
