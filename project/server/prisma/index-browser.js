@@ -161,7 +161,8 @@ exports.Prisma.UserScalarFieldEnum = {
   password_hash: 'password_hash',
   avatar_url: 'avatar_url',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  role_id: 'role_id'
 };
 
 exports.Prisma.Participation_voteScalarFieldEnum = {
@@ -183,6 +184,14 @@ exports.Prisma.Password_reset_tokenScalarFieldEnum = {
   expires_at: 'expires_at',
   create_at: 'create_at',
   user_id: 'user_id'
+};
+
+exports.Prisma.User_roleScalarFieldEnum = {
+  id: 'id',
+  role_id: 'role_id',
+  role_name: 'role_name',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -208,7 +217,8 @@ exports.Prisma.ModelName = {
   user: 'user',
   participation_vote: 'participation_vote',
   challenge_vote: 'challenge_vote',
-  password_reset_token: 'password_reset_token'
+  password_reset_token: 'password_reset_token',
+  user_role: 'user_role'
 };
 
 /**
