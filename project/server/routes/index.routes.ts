@@ -12,12 +12,10 @@ const router = Router();
 
 router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Apply authentication middleware for protected routes
+//TODO Apply authentication middleware for protected routes
 router.use("/users", userRouter);
 router.use("/games", gameRouter);
 router.use("/challenges", challengeRouter);
 router.use("/participations", participationRouter);
-
-// Feature routes
 
 export default router;

@@ -16,7 +16,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "pnpm@10.12.1",
   "dependencies": {
     "@biomejs/js-api": "^0.7.1",
     "@prisma/client": "^6.9.0",

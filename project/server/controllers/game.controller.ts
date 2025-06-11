@@ -77,7 +77,7 @@ export const updateGame = async (
     const gameToUpdate = await prisma.game.update({
       data: {
         ...req.body,
-        updatedAt: new Date(),
+        updated_at: new Date(),
       },
       where: { game_id },
     });
