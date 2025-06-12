@@ -29,3 +29,4 @@ pnpm-lock.yaml
 /src/generated/prisma
 .idea
 coverage/
+/generated/prisma

@@ -11,6 +11,7 @@ import {
   resetPassword as apiResetPassword
 } from "@/services/authService"
 import { logger } from "@/utils/logger"
+import { IAuthUser } from "@/@types/IAuth"
 
 /**
  * Hook personnalisé pour gérer l'état d'authentification utilisateur dans l'application.
@@ -20,7 +21,7 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useState(true)
 
   /**
-   * Initialise la session utilisateur via /api/auth/me
+   * Initialise la session utilisateur via /api/v1/me
    */
   const initAuth = useCallback(async () => {
     setIsLoading(true)
@@ -53,7 +54,7 @@ export function useAuth() {
 
   const registerMutation = useMutation({
     mutationFn: apiRegister,
-    onSuccess: (user) => {
+    onSuccess: (user: IAuthUser) => {
       setAuth(user)
       // toastSuccess("Compte créé avec succès.")
       logger("Utilisateur inscrit", user)
@@ -66,7 +67,7 @@ export function useAuth() {
 
   const loginMutation = useMutation({
     mutationFn: apiLogin,
-    onSuccess: (user) => {
+    onSuccess: (user: IAuthUser) => {
       setAuth(user)
       // toastSuccess("Connexion réussie.")
       logger("Utilisateur connecté", user)
@@ -108,8 +109,8 @@ export function useAuth() {
     initAuth,
     isLoading,
     isAuthenticated: Boolean(auth),
-    role: auth?.role?.name,
-    isAdmin: auth?.role?.name === "admin",
+    role: auth?.role_name,
+    isAdmin: auth?.role_name === "admin",
 
     // Mutations
     registerMutation,
