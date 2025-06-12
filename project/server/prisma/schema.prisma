@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -9,7 +9,7 @@ datasource db {
 }
 
 model challenge {
-  challenge_id   String           @id @db.Uuid
+  challenge_id   String           @id @default(uuid()) @db.Uuid
   title          String           @unique
   description    String
   rules          String
@@ -36,7 +36,7 @@ model game {
 }
 
 model participation {
-  participation_id   String               @id @db.Uuid
+  participation_id   String               @id @default(uuid()) @db.Uuid
   user_id            String               @db.Uuid
   video_url          String?
   image_url          String?
@@ -50,7 +50,7 @@ model participation {
 }
 
 model user {
-  user_id              String                 @id @db.Uuid
+  user_id              String                 @id @default(uuid()) @db.Uuid
   pseudonym            String                 @unique
   email                String                 @unique
   password_hash        String
@@ -61,12 +61,12 @@ model user {
   challenge_vote       challenge_vote[]
   participation_vote   participation_vote[]
   password_reset_token password_reset_token[]
-  role_id              Int                    @unique
-  user_role            user_role[]
+  role_id              Int
+  role                 user_role              @relation("UserToRole", fields: [role_id], references: [role_id])
 }
 
 model participation_vote {
-  participation_vote_id String        @id @db.Uuid
+  participation_vote_id String        @id @default(uuid()) @db.Uuid
   user_id               String        @db.Uuid
   participation_id      String        @db.Uuid
   user                  user          @relation(fields: [user_id], references: [user_id])
@@ -74,7 +74,7 @@ model participation_vote {
 }
 
 model challenge_vote {
-  challenge_vote_id String    @id @db.Uuid
+  challenge_vote_id String    @id @default(uuid()) @db.Uuid
   user_id           String    @db.Uuid
   challenge_id      String    @db.Uuid
   user              user      @relation(fields: [user_id], references: [user_id])
@@ -82,7 +82,7 @@ model challenge_vote {
 }
 
 model password_reset_token {
-  token_id   String   @id @db.Uuid
+  token_id   String   @id @default(uuid()) @db.Uuid
   token      String   @unique
   email      String
   expires_at DateTime
@@ -92,10 +92,10 @@ model password_reset_token {
 }
 
 model user_role {
-  id         String    @id @db.Uuid
-  role_id    Int       @default(0)
+  id         String    @id  @default(uuid()) @db.Uuid
+  role_id    Int       @unique @default(0)
   role_name  String
   created_at DateTime?
   updated_at DateTime?
-  user       user?     @relation(fields: [role_id], references: [role_id])
+  users      user[]    @relation("UserToRole")
 }

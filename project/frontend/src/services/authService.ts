@@ -1,28 +1,29 @@
-import { ILogin } from "@/@types/ILogin"
-import { IUser } from "@/@types/IUser"
+import { ILoginInput, IUser, IAuthUser, IRegisterInput } from "@/@types/IAuth"
 import apiClient from "@/lib/axios"
 import { logger } from "@/utils/logger"
 
 /**
  * Inscription d'un nouvel utilisateur.
  * @param data Données du formulaire d’inscription
- * @returns Données de l'utilisateur authentifié
+ * @returns Données de l'utilisateur authentifié (sans password_hash)
  */
-export async function register(data: IUser): Promise<IUser> {
+export async function register(data: IRegisterInput): Promise<IAuthUser> {
   logger("AuthService → register()", data)
-  const { data: user } = await apiClient.post("/auth/register", data)
-  return user
+  const { data: user }: { data: IUser } = await apiClient.post("/auth/register", data)
+  const { password_hash, ...safeUser } = user
+  return safeUser as IAuthUser
 }
 
 /**
- * Connexion d’un utilisateur avec email ou pseudonyme et mot de passe.
+ * Connexion d’un utilisateur avec email et mot de passe.
  * @param data Identifiants de connexion
- * @returns Données de l'utilisateur authentifié
+ * @returns Données de l'utilisateur authentifié (sans password_hash)
  */
-export async function login(data: ILogin): Promise<ILogin> {
+export async function login(data: ILoginInput): Promise<IAuthUser> {
   logger("AuthService → login()", data)
-  const { data: user } = await apiClient.post("/auth/login", data)
-  return user
+  const { data: user }: { data: IUser } = await apiClient.post("/auth/login", data)
+  const { password_hash, ...safeUser } = user
+  return safeUser as IAuthUser
 }
 
 /**
@@ -35,16 +36,17 @@ export async function logout(): Promise<void> {
 
 /**
  * Récupère l'utilisateur actuellement connecté.
- * @returns Données de l'utilisateur si session active
+ * @returns Données de l'utilisateur si session active (sans password_hash)
  */
-export async function getCurrentUser(): Promise<IUser> {
+export async function getCurrentUser(): Promise<IAuthUser> {
   logger("AuthService → getCurrentUser()")
-  const { data: user } = await apiClient.get("auth/me")
-  return user
+  const { data: user }: { data: IUser } = await apiClient.get("/auth/me")
+  const { password_hash, ...safeUser } = user
+  return safeUser as IAuthUser
 }
 
 /**
- * Envoie un email contenant un lien de réinitialisation du mot de passe.
+ * Envoie un email contenant un lien de réinitialisation de mot de passe.
  * @param email Adresse email de l'utilisateur
  */
 export async function forgotPassword(email: string): Promise<void> {

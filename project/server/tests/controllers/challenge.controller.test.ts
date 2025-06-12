@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from "@/server";
-import { PrismaClient } from "@/prisma/client";
+import { PrismaClient } from "@/prisma";
 
 const prisma = new PrismaClient();
 
@@ -18,7 +18,7 @@ describe('Challenge Controller', () => {
   //     const newChallenge = {
   //       title: 'Nouveau Challenge',
   //       description: 'Description du challenge',
-        
+
   //     };
 
   //     const res = await request(app).post('/api/challenges').send(newChallenge);

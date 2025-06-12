@@ -1,8 +1,8 @@
 import crypto from "node:crypto"
 import argon2 from "argon2"
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@/generated/prisma"
 import { IUser } from "@/@types/IUser"
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import session from "express-session"
 
 import {
@@ -17,47 +17,47 @@ import { sendMail } from "@/utils/emailService"
 const prisma = new PrismaClient()
 
 /**
-* Inscription utilisateur
-*/
+ * Inscription utilisateur
+ */
 export async function register(req: Request, res: Response) {
-  const { email, password, ...data } = req.body
+  const { email, password, pseudonym, avatar_url } = req.body
 
   try {
     const existing = await prisma.user.findUnique({ where: { email } })
     if (existing) return res.status(400).json({ message: "Email déjà utilisé." })
 
-    const role = await prisma.role.findUnique({ where: { name: "user" } })
-    if (!role) return res.status(500).json({ message: "Rôle 'user' introuvable." })
-
     const hashedPassword = await argon2.hash(password)
+
     const user = await prisma.user.create({
       data: {
-        ...data,
         email,
         password_hash: hashedPassword,
-        role_id: role.id
-      }
+        pseudonym,
+        avatar_url: avatar_url || null,
+        role_id: 0,
+      },
     })
 
     const { subject, html, headers } = getEmailTemplate("welcome", {
-      pseudonym: data.pseudonym
+      pseudonym,
     })
     await sendMail(email, subject, html, headers)
 
     req.session.id = user.user_id
 
     const fullUser = await prisma.user.findUnique({
-      where: { id: user.id },
-      include: {
-        role: {
-          include: { permissions: true }
-        }
-      }
+      where: { user_id: user.user_id },
+      include: { role: true },
     })
-    return res.status(201).json(formatUser(fullUser))
+
+    if (!fullUser) {
+      return res.status(404).json({ message: "Erreur serveur." })
+    }
+
+    return res.status(201).json(fullUser)
   } catch (error) {
     console.error("Erreur register:", error)
-    res.status(500).json({ message: "Erreur serveur." })
+    return res.status(500).json({ message: "Erreur serveur." })
   }
 }
 
@@ -71,16 +71,15 @@ export async function login(req: Request, res: Response) {
     const user = await prisma.user.findUnique({
       where: { email },
       include: {
-        user_role: true
+        role: true
       }
     })
     if (!user) return res.status(401).json({ message: "Email ou mot de passe invalide." })
 
-    const valid = await argon2.verify(user.password, password)
+    const valid = await argon2.verify(user.password_hash, password)
     if (!valid) return res.status(401).json({ message: "Email ou mot de passe invalide." })
 
-    req.session.id = user.user_id
-    return res.json(formatUser(user))
+    return res.json(user)
   } catch (error) {
     console.error("Erreur login:", error)
     res.status(500).json({ message: "Erreur serveur." })
@@ -100,7 +99,7 @@ export async function getMe(req: Request, res: Response) {
     })
     if (!user) return res.status(401).json({ message: "Utilisateur introuvable." })
 
-    res.json(formatUser(user))
+    res.json(user)
   } catch (error) {
     console.error("Erreur getMe:", error)
     res.status(500).json({ message: "Erreur serveur." })
@@ -145,6 +144,41 @@ export async function forgotPassword(req: Request, res: Response) {
     res.status(200).json({ message: "Lien de réinitialisation envoyé." })
   } catch (error) {
     console.error("Erreur forgotPassword:", error)
+    res.status(500).json({ message: "Erreur serveur." })
+  }
+}
+
+/**
+ * Réinitialisation du mot de passe via token
+ */
+export async function resetPassword(req: Request, res: Response, next: NextFunction) {
+  const { token, newPassword } = req.body
+  if (!token || !newPassword) {
+    return res.status(400).json({ message: "Token et nouveau mot de passe requis." })
+  }
+
+  try {
+    const resetRecord = await findValidToken(token)
+    if (!resetRecord) {
+      return res.status(400).json({ message: "Lien invalide ou expiré." })
+    }
+
+    const user = await prisma.user.findUnique({ where: { email: resetRecord.email } })
+    if (!user) {
+      return res.status(400).json({ message: "Utilisateur introuvable." })
+    }
+
+    const hashedPassword = await argon2.hash(newPassword)
+    await prisma.user.update({
+      where: { user_id: user.user_id },
+      data: { password_hash: hashedPassword }
+    })
+
+    await deleteToken(token)
+
+    res.status(200).json({ message: "Mot de passe mis à jour." })
+  } catch (error) {
+    console.error("Erreur resetPassword:", error)
     res.status(500).json({ message: "Erreur serveur." })
   }
 }
