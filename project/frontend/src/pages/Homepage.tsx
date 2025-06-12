@@ -41,7 +41,7 @@ const HomePage = () => {
         <section>
           <h2 className="text-2xl font-bold mb-4">Les challenges les plus populaires</h2>
           <hr />
-          <div className="grid grid-cols-1 gap-4 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 w-full">
             {Array.from({ length: 4 }).map((_, index) => (
               <div className="grid grid-cols-2 gap-4 w-full" key={index}>
                 <div key={index} className="w-full card bg-base-200 shadow-lg p-4">
