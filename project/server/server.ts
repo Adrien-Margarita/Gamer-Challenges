@@ -5,6 +5,9 @@ import errorHandler from "@/middlewares/errorHandler";
 import routes from '@/routes/index.routes';
 import session from "express-session";
 import cors from 'cors';
+import dotenv from 'dotenv';
+// Load environment variables from .env file
+dotenv.config();
 
 const app: Application = express();
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
