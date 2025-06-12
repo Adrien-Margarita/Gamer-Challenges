@@ -33,7 +33,7 @@ export const getAllGames = async (
       },
     });
 
-    res.status(200).json({ games });
+    res.status(200).json(games);
   } catch (error) {
     next(error);
   }
