@@ -43,8 +43,6 @@ export async function register(req: Request, res: Response) {
     })
     await sendMail(email, subject, html, headers)
 
-    
-
     const fullUser = await prisma.user.findUnique({
       where: { user_id: user.user_id },
       include: { role: true },
