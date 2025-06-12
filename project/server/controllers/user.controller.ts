@@ -36,7 +36,7 @@ export const getAllUsers = async (
       },
     });
 
-    res.status(200).json({ users });
+    res.status(200).json(users);
   } catch (error) {
     next(error);
   }
