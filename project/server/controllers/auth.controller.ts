@@ -43,7 +43,7 @@ export async function register(req: Request, res: Response) {
     })
     await sendMail(email, subject, html, headers)
 
-    req.session.id = user.user_id
+    
 
     const fullUser = await prisma.user.findUnique({
       where: { user_id: user.user_id },
