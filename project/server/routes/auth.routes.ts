@@ -1,15 +1,13 @@
 import { Router } from "express";
 
-import {
+import { 
     register,
     login,
     logout,
     getMe,
     forgotPassword,
     resetPassword
-} from "@/controllers/auth.controller";
-
-import errorHandler from "@/middlewares/errorHandler";
+ } from "@/controllers/auth.controller";
 
 const authRouter = Router();
 
@@ -131,11 +129,11 @@ authRouter.get("/me", getMe);
  *       500:
  *         description: Erreur serveur
  */
-authRouter.post("/forgotPassword", forgotPassword);
+authRouter.post("/forgot-password", forgotPassword);
 
 /**
  * @swagger
- * /auth/reset-password:
+ * /api/auth/reset-password:
  *   post:
  *     summary: Réinitialise le mot de passe via token
  *     tags: [Auth]
@@ -160,6 +158,6 @@ authRouter.post("/forgotPassword", forgotPassword);
  *       500:
  *         description: Erreur serveur
  */
-authRouter.post("/reset-password", resetPassword)
+authRouter.post("/reset-password", resetPassword);
 
 export default authRouter;
