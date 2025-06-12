@@ -37,7 +37,7 @@ export const getAllParticipations = async (
       },
     });
 
-    res.status(200).json({ participations });
+    res.status(200).json(participations);
   } catch (error) {
     next(error);
   }
