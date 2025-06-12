@@ -4,8 +4,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { IGame } from "@/@types/IGame";
 
 const HomePage = () => {
-  // TODO: status avec skeletton à faire
-
   const { data, isLoading } = useGames();
   const games: IGame[] = Array.isArray(data) ? data : [];
 

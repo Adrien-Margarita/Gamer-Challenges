@@ -4,16 +4,21 @@ const prisma = new PrismaClient()
 
 /**
  * Crée un token de réinitialisation de mot de passe.
- * @param {string} email - Email concerné
+ * @param {string} user_id - ID utilisateur
  * @param {string} token - Token généré
- * @param {Date} expiresAt - Date d’expiration
+ * @param {Date} expires_at - Date d’expiration
  * @returns {Promise<import("@prisma/client").password_reset_token>}
  */
-export const createResetToken = (email: string, token: string, expires_at: Date) => {
+export const createResetToken = (user_id: string, email: string, token: string, expires_at: Date) => {
   return prisma.password_reset_token.create({
-    data: { email, token, expires_at }
-  })
-}
+    data: {
+      user_id,
+      email,
+      token,
+      expires_at
+    }
+  });
+};
 
 /**
  * Recherche un token valide (non expiré).

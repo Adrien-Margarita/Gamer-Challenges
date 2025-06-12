@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client"
 import Router from "./Router.tsx"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Provider as JotaiProvider } from "jotai"
-import { HashRouter } from "react-router"
+import { BrowserRouter } from "react-router"
 
 const container = document.getElementById("root")
 if (!container) {
@@ -15,9 +15,9 @@ const queryClient = new QueryClient()
 const AppTree = (
   <QueryClientProvider client={queryClient}>
     <JotaiProvider>
-      <HashRouter>
+      <BrowserRouter>
         <Router />
-      </HashRouter>
+      </BrowserRouter>
     </JotaiProvider>
   </QueryClientProvider>
 )

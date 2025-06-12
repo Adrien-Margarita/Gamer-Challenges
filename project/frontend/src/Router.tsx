@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router"
 import LoginPage from "@/pages/auth/LoginPage"
 import Register from "./pages/auth/Register"
 import HomePage from "./pages/Homepage"
+import ResetPassword from "./pages/auth/ResetPassword"
+import ForgotPassword from "./pages/auth/ForgotPassword"
 
 export default function Router() {
   return (
@@ -11,6 +13,8 @@ export default function Router() {
       <Route path="/" element={<LoginPage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
     </Routes>
   )
 }

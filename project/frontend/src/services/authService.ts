@@ -51,7 +51,7 @@ export async function getCurrentUser(): Promise<IAuthUser> {
  */
 export async function forgotPassword(email: string): Promise<void> {
   logger("AuthService → forgotPassword()", email)
-  await apiClient.post("/auth/forgotPassword", { email })
+  await apiClient.post("/auth/forgot-password", { email })
 }
 
 /**
@@ -60,5 +60,6 @@ export async function forgotPassword(email: string): Promise<void> {
  */
 export async function resetPassword(payload: { token: string; newPassword: string }): Promise<void> {
   logger("AuthService → resetPassword()", payload)
-  await apiClient.post("/auth/resetPassword", payload)
+  const res = await apiClient.post("/auth/reset-password", payload)
+  return res.data
 }
