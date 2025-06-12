@@ -5,5 +5,5 @@ export interface IUser {
   email: string;
   password_hash: string;
   avatar_url?: string;
-  role_id: String;
+  role_id: string;
 }

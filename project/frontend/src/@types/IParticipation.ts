@@ -13,5 +13,4 @@ export interface IParticipation {
     description: string,
     challenge_id: string,
     created_at: Date
-  }
-  
+}
