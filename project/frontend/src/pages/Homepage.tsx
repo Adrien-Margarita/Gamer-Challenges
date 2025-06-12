@@ -1,6 +1,16 @@
 import { Button } from "@/components/ui";
+import { useGames } from "@/hooks/useGame";
+import { Skeleton } from "@/components/ui/skeleton";
+import { IGame } from "@/@types/IGame";
 
 const HomePage = () => {
+  // TODO: status avec skeletton à faire
+
+  const { data, isLoading } = useGames();
+  const games: IGame[] = Array.isArray(data) ? data : [];
+
+  console.log(games);
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
@@ -44,9 +54,9 @@ const HomePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 w-full">
             {Array.from({ length: 4 }).map((_, index) => (
               <div className="grid grid-cols-2 gap-4 w-full" key={index}>
-                <div key={index} className="w-full card bg-base-200 shadow-lg p-4">
+                <div className="w-full card bg-base-200 shadow-lg p-4">
                 </div>
-                <div key={index} className="w-full">
+                <div className="w-full">
                   <h3 className="text-lg font-semibold mb-2">LOREM IPSUM</h3>
                   <p className="text-sm text-muted-foreground">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet faucibus justo.
@@ -91,11 +101,20 @@ const HomePage = () => {
           <h2 className="text-2xl font-bold mb-4">Les derniers jeux</h2>
           <hr />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="card bg-base-200 shadow p-4 h-32 flex items-center justify-center">
-                <h3 className="text-lg font-semibold">Jeu {index + 5}</h3>
-              </div>
-            ))}
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, index) => (
+                <Skeleton key={index} className="h-32 w-full" />
+              ))
+            ) : (
+              games.slice(0, 4).map((game) => (
+                <div
+                  key={game.game_id}
+                  className="card bg-base-200 shadow p-4 h-32 flex items-center justify-center"
+                >
+                  <h3 className="text-lg font-semibold">{game.title}</h3>
+                </div>
+              ))
+            )}
           </div>
         </section>
       </main>
