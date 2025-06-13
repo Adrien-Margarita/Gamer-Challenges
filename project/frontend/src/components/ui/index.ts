@@ -1,4 +1,4 @@
 export { default as Button } from './Button'
 export { default as Input } from './Input'
 export { default as FormError } from './FormError'
-export { Skeleton } from './skeleton'
+export { Skeleton } from './Skeleton'
