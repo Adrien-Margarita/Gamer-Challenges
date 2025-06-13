@@ -30,7 +30,7 @@ export function useAuth() {
       setAuth(user)
       logger("Session restaurée", user)
     } catch (error) {
-      logger("Session expirée ou inexistante")
+      logger("Session expirée ou inexistante", error)
       setAuth(null)
     } finally {
       setIsLoading(false)
