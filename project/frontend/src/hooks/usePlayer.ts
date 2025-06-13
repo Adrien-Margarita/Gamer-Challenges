@@ -1,12 +1,11 @@
 import playerService from "@/services/playerService";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 import { IUser } from "@/@types/IAuth";
-
+import { IMostVotedPlayer } from "@/@types/IPlayer";
 
 const playerKeys = {
-  all: ['players'] as const,
+  all: ["players"] as const,
 };
-
 
 export function usePlayers() {
   return useQuery<IUser[]>({
@@ -15,6 +14,12 @@ export function usePlayers() {
   });
 }
 
+export function useBestPlayers() {
+  return useQuery<IMostVotedPlayer[]>({
+    queryKey: playerKeys.all,
+    queryFn: playerService.getMostVotedPlayers,
+  });
+}
 
 export function usePlayer(id: string) {
   return useQuery({

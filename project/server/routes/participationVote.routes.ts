@@ -9,6 +9,7 @@ import {
   deleteParticipationVote,
   getAllParticipationVotes,
   getAllParticipationVotesByParticipationId,
+  getMostVotedPlayers,
 } from "@/controllers/participationVote.controller";
 
 const participationVoteRouter = Router();
@@ -22,7 +23,7 @@ const participationVoteRouter = Router();
 
 /**
  * @swagger
- * /api/participation/votes:
+ * /api/participation-vote:
  *   post:
  *     summary: Créer un nouveau vote pour une participation
  *     tags: [Participation Votes]
@@ -35,10 +36,6 @@ const participationVoteRouter = Router();
  *     responses:
  *       201:
  *         description: Vote créé avec succès
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Challenge'
  *       400:
  *         description: Données invalides
  */
@@ -51,19 +48,51 @@ participationVoteRouter.post(
 
 /**
  * @swagger
- * /api/participation/votes:
+ * /api/participation-vote:
  *   get:
  *     summary: Récupérer la liste des votes pour une participation
  *     tags: [Participation Votes]
  *     responses:
  *       200:
- *         description: Liste des votes pour une participation
+ *         description: Liste des votes récupérée avec succès
  */
 participationVoteRouter.get("/", errorHandler, getAllParticipationVotes);
 
 /**
  * @swagger
- * /api/participation/vote/{id}:
+ * /api/participation-vote/most-voted-players:
+ *   get:
+ *     summary: Récupérer le nombre total de votes reçus par chaque utilisateur
+ *     tags: [Participation Votes]
+ *     responses:
+ *       200:
+ *         description: Liste des utilisateurs groupés par nombre de votes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   user_id:
+ *                     type: string
+ *                     format: uuid
+ *                   user_pseudonym:
+ *                     type: string
+ *                   votes:
+ *                     type: number
+ *       500:
+ *         description: Erreur serveur lors de la récupération des votes
+ */
+participationVoteRouter.get(
+  "/most-voted-players",
+  errorHandler,
+  getMostVotedPlayers
+);
+
+/**
+ * @swagger
+ * /api/participation-vote/{id}:
  *   get:
  *     summary: Récupérer un vote d'une participation par son ID
  *     tags: [Participation Votes]
@@ -87,7 +116,7 @@ participationVoteRouter.get(
 
 /**
  * @swagger
- * /api/participation/vote/{vote_id}/{user_id}:
+ * /api/participation-vote/{vote_id}/{user_id}:
  *   delete:
  *     summary: Supprimer un vote pour une participation
  *     tags: [Participation Votes]
@@ -98,14 +127,12 @@ participationVoteRouter.get(
  *           type: string
  *           format: uuid
  *         required: true
- *         description: ID du vote à supprimer
  *       - in: path
  *         name: user_id
  *         schema:
  *           type: string
  *           format: uuid
  *         required: true
- *         description: ID de l'utilisateur ayant effectué le vote
  *     responses:
  *       200:
  *         description: Vote supprimé avec succès
@@ -117,5 +144,7 @@ participationVoteRouter.delete(
   errorHandler,
   deleteParticipationVote
 );
+
+console.log("✅ participationVoteRouter chargé");
 
 export default participationVoteRouter;
