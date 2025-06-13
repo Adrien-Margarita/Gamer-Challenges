@@ -7,6 +7,7 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage"
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage"
 import ProfilePage from "./pages/ProfilePage"
 import PopularPlayersPage from "./pages/PopularPlayersPage"
+import RequireAuth from "./components/RequireAuth"
 
 export default function Router() {
   return (
@@ -21,8 +22,10 @@ export default function Router() {
       <Route path="/" element={<HomePage />} />
 
       {/* Private routes */}
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/popular-players" element={<PopularPlayersPage />} />
+      <Route element={<RequireAuth />}>
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/popular-players" element={<PopularPlayersPage />} />
+      </Route>
     </Routes>
   )
 }

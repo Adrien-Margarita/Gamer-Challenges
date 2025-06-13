@@ -7,6 +7,7 @@ import { atom } from "jotai"
  * Ne contient jamais le mot de passe.
  */
 export const authAtom = atom<IAuthUser | null>(null)
+export const authLoadingAtom = atom<boolean>(true)
 
 
 // Voir pour extraire le password

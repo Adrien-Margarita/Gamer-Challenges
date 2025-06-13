@@ -4,6 +4,7 @@ import Router from "./Router.tsx"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Provider as JotaiProvider } from "jotai"
 import { BrowserRouter } from "react-router"
+import AuthProvider from "./stores/AuthProvider.tsx"
 
 const container = document.getElementById("root")
 if (!container) {
@@ -16,7 +17,9 @@ const AppTree = (
   <QueryClientProvider client={queryClient}>
     <JotaiProvider>
       <BrowserRouter>
-        <Router />
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
       </BrowserRouter>
     </JotaiProvider>
   </QueryClientProvider>
