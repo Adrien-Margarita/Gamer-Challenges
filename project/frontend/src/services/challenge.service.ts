@@ -3,7 +3,7 @@ import  api  from "@/lib/axios";
 
 const challengeService = {
     
-          /**
+  /**
    * Récupère la liste de tous les challenges.
    * @async
    * @function

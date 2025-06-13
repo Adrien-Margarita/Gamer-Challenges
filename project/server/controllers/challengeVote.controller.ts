@@ -26,7 +26,7 @@ export const getAllChallengeVotes = async (req: Request, res: Response, next: Ne
   try {
     const challengesVotes = await prisma.challenge_vote.findMany();
 
-    res.status(200).json({ challengesVotes });
+    res.status(200).json(challengesVotes);
   } catch (error) {
     next(error);
   }
@@ -42,7 +42,7 @@ export const getAllChallengeVotesByChallengeId = async (req: Request, res: Respo
       where: { challenge_id },
 
     });
-    res.status(200).json({ challengeVotes });
+    res.status(200).json(challengeVotes);
   } catch (error) {
     next(error);
   }

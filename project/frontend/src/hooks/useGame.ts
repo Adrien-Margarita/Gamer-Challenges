@@ -1,4 +1,4 @@
-import gameService from "@/services/gameService";
+import gameService from "@/services/game.service";
 import { useQuery } from '@tanstack/react-query';
 import { IGame } from "@/@types/IGame";
 

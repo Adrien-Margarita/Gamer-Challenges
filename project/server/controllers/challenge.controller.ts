@@ -30,7 +30,7 @@ export const getAllChallenges = async (req: Request, res: Response, next: NextFu
       },
     });
 
-    res.status(200).json({ challenges });
+    res.status(200).json(challenges);
   } catch (error) {
     next(error);
   }
