@@ -1,7 +1,7 @@
 import type { IParticipation } from "@/@types/IParticipation";
 import  api  from "@/lib/axios";
 
-const challengeService = {
+const participationService = {
     
       /**
    * Récupère la liste de toutes les participations.
@@ -70,4 +70,4 @@ const challengeService = {
     
 }
 
-export default challengeService;
+export default participationService;
