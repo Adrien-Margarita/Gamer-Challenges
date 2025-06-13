@@ -10,8 +10,7 @@ export default function Router() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/home" element={<HomePage />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
