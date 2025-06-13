@@ -80,18 +80,16 @@ async function main() {
   // --- 4. Jeux vidéo ---
   const games = [
     {
-      game_id: uuidv4(),
       title: "Elden Ring",
       category: "Action-RPG",
       description: "Un monde ouvert sombre et fantastique par FromSoftware.",
       release_date: new Date("2022-02-25"),
-      image_url: "hhttps://www.nintendo.com/eu/media/images/assets/nintendo_switch_2_games/eldenringtarnishededition/2x1_NSwitch2_EldenRing.jpg",
+      image_url: "https://www.nintendo.com/eu/media/images/assets/nintendo_switch_2_games/eldenringtarnishededition/2x1_NSwitch2_EldenRing.jpg",
       platform: "PC/PS5/Xbox",
       created_at: new Date(),
       updated_at: new Date(),
     },
     {
-      game_id: uuidv4(),
       title: "Valorant",
       category: "FPS",
       description: "Un shooter compétitif en 5v5 avec des agents uniques.",
@@ -102,7 +100,6 @@ async function main() {
       updated_at: new Date(),
     },
     {
-      game_id: uuidv4(),
       title: "Celeste",
       category: "Platformer",
       description: "Un jeu de plateforme exigeant avec une narration touchante.",
@@ -113,7 +110,6 @@ async function main() {
       updated_at: new Date(),
     },
     {
-      game_id: uuidv4(),
       title: "Rocket League",
       category: "Sport / Voiture",
       description: "Du football avec des voitures boostées !",
@@ -124,7 +120,6 @@ async function main() {
       updated_at: new Date(),
     },
     {
-      game_id: uuidv4(),
       title: "The Legend of Zelda: Breath of the Wild",
       category: "Action-Aventure",
       description: "Explorez un monde immense dans ce chef-d'œuvre de Nintendo.",
@@ -135,7 +130,6 @@ async function main() {
       updated_at: new Date(),
     },
     {
-      game_id: uuidv4(),
       title: "God of War Ragnarök",
       category: "Action",
       description: "Kratos et Atreus poursuivent leur quête mythologique nordique.",
@@ -146,7 +140,6 @@ async function main() {
       updated_at: new Date(),
     },
     {
-      game_id: uuidv4(),
       title: "Minecraft",
       category: "Sandbox",
       description: "Créez, explorez et survivez dans un monde infini de blocs.",
@@ -157,7 +150,6 @@ async function main() {
       updated_at: new Date(),
     },
     {
-      game_id: uuidv4(),
       title: "Hollow Knight",
       category: "Metroidvania",
       description: "Explorez un royaume souterrain rempli de mystères et de défis.",
@@ -169,8 +161,117 @@ async function main() {
     },
   ]
 
+  for (const game of games) {
+    await prisma.game.upsert({
+      where: { title: game.title },
+      update: {},
+      create: { game_id: uuidv4(), ...game },
+    })
+  }
 
-  await prisma.game.createMany({ data: games, skipDuplicates: true })
+  const dbGames = await prisma.game.findMany()
+
+  // --- 5. Utilisateurs existants ---
+  const existingUsers = [
+    { user_id: "4dc3a386-dd09-4c9f-b7ed-582875b8e7c5", pseudonym: "OrpheusInHell" },
+    { user_id: "63824a3a-6a89-4d1b-86a9-339d74b2c302", pseudonym: "Arno" },
+    { user_id: "764d387c-5020-4108-98cc-5ea258b5f4ee", pseudonym: "Julien06" },
+    { user_id: "871e7e6b-f4b5-4290-8ad3-99b68ce3bb21", pseudonym: "Personne" },
+  ]
+
+  // --- 6. Challenges ---
+  const challenges = Array.from({ length: 5 }).map((_, i) => ({
+    challenge_id: uuidv4(),
+    title: `Défi ${i + 1}`,
+    description: `Description du défi ${i + 1}`,
+    rules: `Règles du défi ${i + 1}`,
+    user_id: existingUsers[i % existingUsers.length].user_id,
+    game_id: dbGames[i % dbGames.length].game_id,
+    created_at: new Date(),
+    updated_at: new Date(),
+  }))
+
+  for (const c of challenges) {
+    await prisma.challenge.upsert({
+      where: { title: c.title },
+      update: {},
+      create: c,
+    })
+  }
+
+  const dbChallenges = await prisma.challenge.findMany()
+
+  // --- 7. Participations (soit vidéo, soit image) ---
+  const participations = Array.from({ length: 6 }).map((_, i) => ({
+    participation_id: uuidv4(),
+    user_id: existingUsers[i % existingUsers.length].user_id,
+    description: `Participation ${i + 1}`,
+    challenge_id: dbChallenges[i % dbChallenges.length].challenge_id,
+    created_at: new Date(),
+    updated_at: new Date(),
+    ...(i % 2 === 0
+      ? { video_url: `https://www.youtube.com/watch?v=wblADNCFm6Q${i + 1}` }
+      : { image_url: `https://siecledigital.fr/wp-content/uploads/2022/11/jeux-video-2022-1400x960${i + 1}.jpg` }),
+  }))
+
+  for (const p of participations) {
+    const exists = await prisma.participation.findFirst({
+      where: {
+        description: p.description,
+        user_id: p.user_id,
+        challenge_id: p.challenge_id,
+      },
+    })
+    if (!exists) await prisma.participation.create({ data: p })
+  }
+
+  const dbParticipations = await prisma.participation.findMany()
+
+  // --- 8. Challenge votes ---
+  for (let i = 0; i < 6; i++) {
+    const user = existingUsers[i % existingUsers.length]
+    const challenge = dbChallenges[(i + 1) % dbChallenges.length]
+
+    const exists = await prisma.challenge_vote.findFirst({
+      where: {
+        user_id: user.user_id,
+        challenge_id: challenge.challenge_id,
+      },
+    })
+
+    if (!exists) {
+      await prisma.challenge_vote.create({
+        data: {
+          challenge_vote_id: uuidv4(),
+          user_id: user.user_id,
+          challenge_id: challenge.challenge_id,
+        },
+      })
+    }
+  }
+
+  // --- 9. Participation votes ---
+  for (let i = 0; i < 6; i++) {
+    const user = existingUsers[i % existingUsers.length]
+    const participation = dbParticipations[(i + 2) % dbParticipations.length]
+
+    const exists = await prisma.participation_vote.findFirst({
+      where: {
+        user_id: user.user_id,
+        participation_id: participation.participation_id,
+      },
+    })
+
+    if (!exists) {
+      await prisma.participation_vote.create({
+        data: {
+          participation_vote_id: uuidv4(),
+          user_id: user.user_id,
+          participation_id: participation.participation_id,
+        },
+      })
+    }
+  }
 
   console.log("✅ Seed terminé avec succès.")
 }
