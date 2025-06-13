@@ -1,5 +1,7 @@
 import type { IUser } from "@/@types/IAuth";
+import { IMostVotedPlayer } from "@/@types/IPlayer";
 import api from "@/lib/axios";
+import { logger } from "@/utils/logger";
 
 const playerService = {
   /**
@@ -7,7 +9,7 @@ const playerService = {
    * @returns {Promise<IUser[]>} Une promesse contenant un tableau d'objets `IUser`.
    */
   async getAllPlayers() {
-    const playerResponse = await api.get('/users');
+    const playerResponse = await api.get("/users");
     return playerResponse.data as IUser[];
   },
 
@@ -20,7 +22,18 @@ const playerService = {
     const playerResponse = await api.get(`/users/${id}`);
     return playerResponse.data as IUser;
   },
-  
+
+  /**
+   * Récupère la liste des joueurs ayant obtenu le plus de votes.
+   *
+   * @returns {Promise<Array<{ user_id: string, votes: number, user_pseudonym: string }>>}
+   * Une promesse contenant un tableau d'objets avec l'ID de l'utilisateur, son pseudonyme, et le nombre de votes reçus.
+   */
+  async getMostVotedPlayers(): Promise<IMostVotedPlayer[]> {
+    const response = await api.get("/participation-vote/most-voted-players");
+    logger("PlayerService → getMostVotedPlayers()", response.data);
+    return response.data;
+  },
 
   /**
    * Met à jour un joueur existant identifié par son ID.
@@ -41,7 +54,7 @@ const playerService = {
   async deletePlayer(id: string) {
     const playerResponse = await api.delete(`/users/${id}`);
     return playerResponse.data as IUser;
-  }
-}
+  },
+};
 
 export default playerService;

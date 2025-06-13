@@ -8,6 +8,7 @@ import gameRouter from "./game.routes";
 import challengeRouter from "./challenge.routes";
 import participationRouter from "./participation.routes";
 import authRouter from "./auth.routes";
+import participationVoteRouter from "./participationVote.routes";
 
 const router = Router();
 
@@ -19,5 +20,6 @@ router.use("/games", gameRouter);
 router.use("/challenges", challengeRouter);
 router.use("/participations", participationRouter);
 router.use("/auth", authRouter);
+router.use("/participation-vote", participationVoteRouter);
 
 export default router;
