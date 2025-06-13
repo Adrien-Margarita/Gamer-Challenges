@@ -1,19 +1,28 @@
 import { Routes, Route } from "react-router"
 // Pages auth
 import LoginPage from "@/pages/auth/LoginPage"
-import Register from "./pages/auth/Register"
+import RegisterPage from "./pages/auth/RegisterPage"
 import HomePage from "./pages/Homepage"
-import ResetPassword from "./pages/auth/ResetPassword"
-import ForgotPassword from "./pages/auth/ForgotPassword"
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage"
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage"
+import ProfilePage from "./pages/ProfilePage"
+import PopularPlayersPage from "./pages/PopularPlayersPage"
 
 export default function Router() {
   return (
     <Routes>
+      {/* Auth routes */}
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+      {/* Public routes */}
       <Route path="/" element={<HomePage />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
+
+      {/* Private routes */}
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/popular-players" element={<PopularPlayersPage />} />
     </Routes>
   )
 }

@@ -8,74 +8,74 @@ async function main() {
   console.log("🌱 Démarrage du seeding...")
 
   // --- 1. Rôles ---
-  const [userRole, adminRole] = await Promise.all([
-    prisma.user_role.upsert({
-      where: { role_id: 0 },
-      update: {},
-      create: {
-        id: uuidv4(),
-        role_id: 0,
-        role_name: "user",
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-    }),
-    prisma.user_role.upsert({
-      where: { role_id: 1 },
-      update: {},
-      create: {
-        id: uuidv4(),
-        role_id: 1,
-        role_name: "admin",
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-    }),
-  ])
+  // const [userRole, adminRole] = await Promise.all([
+  //   prisma.user_role.upsert({
+  //     where: { role_id: 0 },
+  //     update: {},
+  //     create: {
+  //       id: uuidv4(),
+  //       role_id: 0,
+  //       role_name: "user",
+  //       created_at: new Date(),
+  //       updated_at: new Date(),
+  //     },
+  //   }),
+  //   prisma.user_role.upsert({
+  //     where: { role_id: 1 },
+  //     update: {},
+  //     create: {
+  //       id: uuidv4(),
+  //       role_id: 1,
+  //       role_name: "admin",
+  //       created_at: new Date(),
+  //       updated_at: new Date(),
+  //     },
+  //   }),
+  // ])
 
   // --- 2. Admin par défaut ---
-  await prisma.user.upsert({
-    where: { email: "admin@gamerhub.io" },
-    update: {},
-    create: {
-      user_id: uuidv4(),
-      pseudonym: "AdminMaster",
-      email: "admin@gamerhub.io",
-      password_hash: await argon2.hash("admin123"),
-      avatar_url: "https://source.unsplash.com/400x400/?face&admin",
-      role_id: adminRole.role_id,
-      created_at: new Date(),
-      updated_at: new Date(),
-    },
-  })
+  // await prisma.user.upsert({
+  //   where: { email: "admin@gamerhub.io" },
+  //   update: {},
+  //   create: {
+  //     user_id: uuidv4(),
+  //     pseudonym: "AdminMaster",
+  //     email: "admin@gamerhub.io",
+  //     password_hash: await argon2.hash("admin123"),
+  //     avatar_url: "https://source.unsplash.com/400x400/?face&admin",
+  //     role_id: adminRole.role_id,
+  //     created_at: new Date(),
+  //     updated_at: new Date(),
+  //   },
+  // })
 
   // --- 3. Utilisateurs classiques ---
-  const pseudonyms = [
-    "SpeedRunnerX",
-    "NoobMaster69",
-    "PixelBeast",
-    "EliteSniper",
-    "LootGoblin",
-    "ComboKing",
-    "TryHarder",
-    "ShadowNinja",
-    "JumpMaster",
-  ]
+  // const pseudonyms = [
+  //   "SpeedRunnerX",
+  //   "NoobMaster69",
+  //   "PixelBeast",
+  //   "EliteSniper",
+  //   "LootGoblin",
+  //   "ComboKing",
+  //   "TryHarder",
+  //   "ShadowNinja",
+  //   "JumpMaster",
+  // ]
 
-  const userData = await Promise.all(
-    pseudonyms.map(async (name) => ({
-      user_id: uuidv4(),
-      pseudonym: name,
-      email: `${name.toLowerCase()}@gamerhub.io`,
-      password_hash: await argon2.hash("password123"),
-      avatar_url: `https://source.unsplash.com/400x400/?face&${name}`,
-      role_id: userRole.role_id,
-      created_at: new Date(),
-      updated_at: new Date(),
-    }))
-  )
+  // const userData = await Promise.all(
+  //   pseudonyms.map(async (name) => ({
+  //     user_id: uuidv4(),
+  //     pseudonym: name,
+  //     email: `${name.toLowerCase()}@gamerhub.io`,
+  //     password_hash: await argon2.hash("password123"),
+  //     avatar_url: `https://source.unsplash.com/400x400/?face&${name}`,
+  //     role_id: userRole.role_id,
+  //     created_at: new Date(),
+  //     updated_at: new Date(),
+  //   }))
+  // )
 
-  await prisma.user.createMany({ data: userData, skipDuplicates: true })
+  // await prisma.user.createMany({ data: userData, skipDuplicates: true })
 
   // --- 4. Jeux vidéo ---
   const games = [
@@ -107,7 +107,7 @@ async function main() {
       category: "Platformer",
       description: "Un jeu de plateforme exigeant avec une narration touchante.",
       release_date: new Date("2018-01-25"),
-      image_url: "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_Celeste_image1600w.jpg",
+      image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Celeste_box_art_full.png/1200px-Celeste_box_art_full.png",
       platform: "PC/Switch/PS4/Xbox",
       created_at: new Date(),
       updated_at: new Date(),
@@ -118,12 +118,57 @@ async function main() {
       category: "Sport / Voiture",
       description: "Du football avec des voitures boostées !",
       release_date: new Date("2015-07-07"),
-      image_url: "https://cdn1.epicgames.com/offer/9773aa1aa54f4f7b80e44bef04986cea/EGS_RocketLeague_PsyonixLLC_S3_2560x1440-18eac9b5df1028fdcd5bad480ab6b085",
+      image_url: "https://static.actugaming.net/media/2016/02/rocket-league-jaquette.jpg",
       platform: "PC/Console",
       created_at: new Date(),
       updated_at: new Date(),
     },
+    {
+      game_id: uuidv4(),
+      title: "The Legend of Zelda: Breath of the Wild",
+      category: "Action-Aventure",
+      description: "Explorez un monde immense dans ce chef-d'œuvre de Nintendo.",
+      release_date: new Date("2017-03-03"),
+      image_url: "https://media.senscritique.com/media/000016771881/0/the_legend_of_zelda_breath_of_the_wild.jpg",
+      platform: "Switch",
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      game_id: uuidv4(),
+      title: "God of War Ragnarök",
+      category: "Action",
+      description: "Kratos et Atreus poursuivent leur quête mythologique nordique.",
+      release_date: new Date("2022-11-09"),
+      image_url: "https://psblog.fr/wp-content/uploads/2020/09/god-of-war-ragnarok-jaquette.webp",
+      platform: "PS4/PS5",
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      game_id: uuidv4(),
+      title: "Minecraft",
+      category: "Sandbox",
+      description: "Créez, explorez et survivez dans un monde infini de blocs.",
+      release_date: new Date("2011-11-18"),
+      image_url: "https://preview.redd.it/4lv9qrcjjui71.jpg?width=640&crop=smart&auto=webp&s=b9f3331e7b92555ca53ec801c820415262cb3fb9",
+      platform: "PC/Console/Mobile",
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      game_id: uuidv4(),
+      title: "Hollow Knight",
+      category: "Metroidvania",
+      description: "Explorez un royaume souterrain rempli de mystères et de défis.",
+      release_date: new Date("2017-02-24"),
+      image_url: "https://upload.wikimedia.org/wikipedia/en/3/32/Hollow_Knight_cover.jpg",
+      platform: "PC/Switch/PS4/Xbox",
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
   ]
+
 
   await prisma.game.createMany({ data: games, skipDuplicates: true })
 
