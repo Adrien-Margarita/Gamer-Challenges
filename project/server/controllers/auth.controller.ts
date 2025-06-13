@@ -17,13 +17,15 @@ const prisma = new PrismaClient()
 /**
  * Inscription utilisateur
  */
-
 export const register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { email, password, pseudonym, avatar_url } = req.body
 
   try {
     const existing = await prisma.user.findUnique({ where: { email } })
-    if (existing) res.status(400).json({ message: "Email déjà utilisé." })
+    if (existing) {
+      res.status(400).json({ message: "Email déjà utilisé." })
+      return
+    }
 
     const hashedPassword = await argon2.hash(password)
 
@@ -37,9 +39,7 @@ export const register = async (req: Request, res: Response, next: NextFunction):
       },
     })
 
-    const { subject, html, headers } = getEmailTemplate("welcome", {
-      pseudonym,
-    })
+    const { subject, html, headers } = getEmailTemplate("welcome", { pseudonym })
     await sendMail(email, subject, html, headers)
 
     const fullUser = await prisma.user.findUnique({
@@ -48,13 +48,14 @@ export const register = async (req: Request, res: Response, next: NextFunction):
     })
 
     if (!fullUser) {
-       res.status(404).json({ message: "Erreur serveur." })
+      res.status(404).json({ message: "Erreur serveur." })
+      return
     }
 
-     res.status(201).json(fullUser)
+    res.status(201).json(fullUser)
   } catch (error) {
     console.error("Erreur register:", error)
-     res.status(500).json({ message: "Erreur serveur." })
+    res.status(500).json({ message: "Erreur serveur." })
   }
 }
 
@@ -62,23 +63,19 @@ export const register = async (req: Request, res: Response, next: NextFunction):
  * Connexion utilisateur
  */
 export const login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  
   const { email, password } = req.body
-  console.log(email, password)
 
   try {
     const user = await prisma.user.findUnique({
       where: { email },
-      include: {
-        role: true
-      }
+      include: { role: true }
     })
-    
+
     if (!user) {
       res.status(401).json({ message: "Email ou mot de passe invalide." })
       return
     }
-    
+
     const valid = await argon2.verify(user.password_hash, password)
 
     if (!valid) {
@@ -86,7 +83,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
       return
     }
 
-    req.session.id = user.user_id
+    req.session.userId = user.user_id // ✅ ici la correction
 
     res.status(200).json(user)
   } catch (error) {
@@ -96,17 +93,25 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 }
 
 /**
-* Récupérer l’utilisateur courant via la session
-*/
+ * Récupérer l’utilisateur courant via la session
+ */
 export const getMe = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const userId = req.session.id
-  if (!userId) res.status(401).json({ message: "Vous n'êtes pas authentifié." })
+  const userId = req.session.userId // ✅ ici aussi
+
+  if (!userId) {
+    res.status(401).json({ message: "Vous n'êtes pas authentifié." })
+    return
+  }
 
   try {
     const user = await prisma.user.findUnique({
       where: { user_id: userId }
     })
-    if (!user) res.status(401).json({ message: "Utilisateur introuvable." })
+
+    if (!user) {
+      res.status(401).json({ message: "Utilisateur introuvable." })
+      return
+    }
 
     res.json(user)
   } catch (error) {
@@ -116,8 +121,8 @@ export const getMe = async (req: Request, res: Response, next: NextFunction): Pr
 }
 
 /**
-* Déconnexion utilisateur
-*/
+ * Déconnexion utilisateur
+ */
 export function logout(req: Request, res: Response) {
   req.session.destroy(() => {
     res.clearCookie("connect.sid")
@@ -126,9 +131,8 @@ export function logout(req: Request, res: Response) {
 }
 
 /**
-* Demande de réinitialisation de mot de passe (envoi email avec token)
-*/
-
+ * Demande de réinitialisation de mot de passe (envoi email avec token)
+ */
 export const forgotPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { email } = req.body
 
@@ -168,26 +172,31 @@ export const forgotPassword = async (req: Request, res: Response, next: NextFunc
 /**
  * Réinitialisation du mot de passe via token
  */
-export const resetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> =>  {
+export const resetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { token, newPassword } = req.body
+
   if (!token || !newPassword) {
     res.status(400).json({ message: "Token et nouveau mot de passe requis." })
+    return
   }
 
   try {
     const resetRecord = await findValidToken(token)
+
     if (!resetRecord) {
       res.status(400).json({ message: "Lien invalide ou expiré." })
       return
     }
 
     const user = await prisma.user.findUnique({ where: { email: resetRecord.email } })
+
     if (!user) {
       res.status(400).json({ message: "Utilisateur introuvable." })
       return
     }
 
     const hashedPassword = await argon2.hash(newPassword)
+
     await prisma.user.update({
       where: { user_id: user.user_id },
       data: { password_hash: hashedPassword }
@@ -201,4 +210,3 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
     res.status(500).json({ message: "Erreur serveur." })
   }
 }
-
