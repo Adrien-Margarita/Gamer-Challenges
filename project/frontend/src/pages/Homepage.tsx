@@ -3,6 +3,7 @@ import { Navbar, PopularChallenges, PopularPlayers, PopularGames, LastChallenges
 import LastGames from "@/components/homepage/LastGames";
 
 const HomePage = () => {
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}

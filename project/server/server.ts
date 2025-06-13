@@ -13,19 +13,6 @@ const app: Application = express();
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(session({
-  secret: process.env.SESSION_SECRET || "secret",
-  resave: true,
-  saveUninitialized: false,
-  cookie: {
-    secure: false, // à mettre à true en prod (https)
-    httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 semaine
-  }
-}))
-
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
@@ -41,6 +28,20 @@ app.use(cors({
   },
   credentials: true,
 }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || "secret",
+  resave: true,
+  saveUninitialized: false,
+  cookie: {
+    secure: false, // à mettre à true en prod (https)
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 semaine
+  }
+}))
 
 // Swagger setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));

@@ -1,7 +1,7 @@
 import { useAtom } from "jotai"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect } from "react"
 import { useMutation } from "@tanstack/react-query"
-import { authAtom } from "@/stores/authAtom"
+import { authAtom, authLoadingAtom } from "@/stores/authAtom"
 import {
   login as apiLogin,
   register as apiRegister,
@@ -18,10 +18,10 @@ import { IAuthUser } from "@/@types/IAuth"
  */
 export function useAuth() {
   const [auth, setAuth] = useAtom(authAtom)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useAtom(authLoadingAtom)
 
   /**
-   * Initialise la session utilisateur via /api/v1/me
+   * Initialise la session utilisateur via /auth/me
    */
   const initAuth = useCallback(async () => {
     setIsLoading(true)
@@ -36,6 +36,11 @@ export function useAuth() {
       setIsLoading(false)
     }
   }, [setAuth])
+
+  useEffect(() => {
+    logger("📦 useAuth → auth:", auth)
+    logger("📦 useAuth → isLoading:", isLoading)
+  }, [auth, isLoading])
 
   /**
    * Déconnecte l'utilisateur (via API + reset local)
