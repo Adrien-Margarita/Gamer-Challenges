@@ -9,7 +9,7 @@ import {
   getCurrentUser,
   forgotPassword as apiForgotPassword,
   resetPassword as apiResetPassword
-} from "@/services/authService"
+} from "@/services/auth.service"
 import { logger } from "@/utils/logger"
 import { IAuthUser } from "@/@types/IAuth"
 
