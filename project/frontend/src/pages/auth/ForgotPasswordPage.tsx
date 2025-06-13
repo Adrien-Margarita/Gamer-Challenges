@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth"
  * Page de demande de réinitialisation de mot de passe.
  * Envoie l'adresse email à l'API pour générer un lien de réinitialisation.
  */
-export default function ForgotPassword() {
+export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
 
   const { forgotPasswordMutation } = useAuth()
