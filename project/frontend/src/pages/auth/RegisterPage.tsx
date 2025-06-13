@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth"
 import { handleApiError } from "@/utils/handleApiError"
 import { IRegisterInput } from "@/@types/IAuth"
 
-export default function Register() {
+export default function RegisterPage() {
   const navigate = useNavigate()
   const { registerMutation } = useAuth()
 

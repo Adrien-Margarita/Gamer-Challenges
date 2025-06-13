@@ -1,6 +1,11 @@
 import { Button } from '../ui'
+import { useAuth } from "@/hooks/useAuth"
+import { useNavigate } from "react-router"
 
 function PopularPlayers() {
+  const { isAuthenticated } = useAuth()
+  const navigate = useNavigate()
+
   return (
     <section>
       <div className="flex flex-col items-center m-10">
@@ -20,9 +25,20 @@ function PopularPlayers() {
           <h3 className="gamer-name font-semibold">John Doe</h3>
         </div>
       </div>
-      <div className="flex flex-col items-center">
-        <Button className="btn btn-primary center mt-10">Voir tous les joueurs</Button>
-      </div>
+      {isAuthenticated && (
+        <div className="flex flex-col items-center">
+          <Button
+            className="btn btn-primary center mt-10"
+            onClick={() => navigate('/popular-players')}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault()
+                navigate(`/popular-players`)
+              }
+            }}
+          >Voir tous les joueurs</Button>
+        </div>
+      )}
     </section>
   )
 }

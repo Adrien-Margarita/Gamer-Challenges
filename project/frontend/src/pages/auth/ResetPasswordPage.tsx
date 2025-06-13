@@ -8,7 +8,7 @@ import { handleApiError } from "@/utils/handleApiError"
  * Page de réinitialisation du mot de passe via token sécurisé.
  * Permet de soumettre un nouveau mot de passe à l'API.
  */
-export default function ResetPassword() {
+export default function ResetPasswordPage() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const token = searchParams.get("token")
@@ -27,7 +27,7 @@ export default function ResetPassword() {
       { token, newPassword },
       {
         onSuccess: (data) => {
-            console.log(data)
+          console.log(data)
           setSuccess(true)
           setTimeout(() => navigate("/login"), 2500)
         }
