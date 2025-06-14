@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router"
-import { Input, Button, FormError } from "@/components/ui"
+import { FormError } from "@/components/ui"
 import { handleApiError } from "@/utils/handleApiError"
 import { useAuth } from "@/hooks/useAuth"
 import { ILoginInput } from "@/@types/IAuth"
+import Logo from "/assets/images/logo-color-full.svg"
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -27,16 +28,16 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-[#12243E] to-[#314C6B] px-4">
+    <div className="flex w-screen h-screen items-center justify-center relative overflow-hidden">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-6 rounded-lg border-l-4 border-[#00aaff]/30 bg-base-100 p-8 shadow-lg shadow-[#00aaff]/10"
+        className="w-full max-w-md space-y-6 rounded-lg bg-base-100 p-8 shadow-lg"
       >
         <div className="text-center">
           <img
-            src="./stark_byte_hub_logo_white_transparent.svg"
-            alt="Stark Byte Hub Logo"
-            className="mx-auto mb-5 h-20"
+            src={Logo}
+            alt="Gamer Challenge Logo"
+            className="mx-auto mb-5"
           />
         </div>
 
@@ -46,7 +47,8 @@ export default function LoginPage() {
           </div>
         )}
 
-        <Input
+        <input
+          className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
           name="email"
           type="email"
           placeholder="Adresse email"
@@ -55,7 +57,8 @@ export default function LoginPage() {
           required
         />
 
-        <Input
+        <input
+          className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
           name="password"
           type="password"
           placeholder="Mot de passe"
@@ -65,13 +68,13 @@ export default function LoginPage() {
         />
 
         <div className="flex justify-center">
-          <Button type="submit" disabled={loginMutation.isPending} variant="neon">
+          <button className="btn btn-primary text-base" type="submit" disabled={loginMutation.isPending}>
             {loginMutation.isPending ? "Connexion..." : "Se connecter"}
-          </Button>
+          </button>
         </div>
 
         <div className="text-center space-y-1">
-          <Link to="/forgot-password" className="text-sm text-base underline text-[#00aaff]">
+          <Link to="/forgot-password" className="text-base underline text-violet-600 hover:text-violet-800">
             Mot de passe oublié ?
           </Link>
           <br />

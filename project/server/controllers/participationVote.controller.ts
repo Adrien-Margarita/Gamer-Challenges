@@ -46,39 +46,28 @@ export const getMostVotedPlayers = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("fonction appelée");
   try {
+    // Récupérer les joueurs ayant le plus de votes
+    // On groupe par user_id et on compte le nombre de votes pour chaque utilisateur    
     const mostVotedPlayers = await prisma.participation_vote.groupBy({
       by: ["user_id"],
-      _count: {
-        user_id: true,
-      },
-      orderBy: {
-        _count: {
-          user_id: "desc",
-        },
-      },
+      _count: { user_id: true },
+      orderBy: { _count: { user_id: "desc" } },
     });
 
-    const userIds = mostVotedPlayers.map((vote) => vote.user_id);
+    const result = await Promise.all(
+      mostVotedPlayers.map(async (vote) => {
+        const user = await prisma.user.findUnique({
+          where: { user_id: vote.user_id },
+          select: { pseudonym: true, user_id: true },
+        });
+        return {
+          user: user,
+          votes: vote._count.user_id,
+        };
+      })
+    );
 
-    const users = await prisma.user.findMany({
-      where: {
-        user_id: { in: userIds },
-      },
-      select: {
-        pseudonym: true,
-        user_id: true,
-      },
-    });
-
-    // Fusionner les données si nécessaire
-    const result = mostVotedPlayers.map((vote) => ({
-      user_id: vote.user_id,
-      votes: vote._count.user_id,
-      user: users.find((u) => u.user_id === vote.user_id),
-    }));
-    console.log(result);
     res.status(200).json(result);
   } catch (error) {
     next(error);
