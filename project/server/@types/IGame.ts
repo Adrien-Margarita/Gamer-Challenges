@@ -14,3 +14,7 @@ export interface IGame {
   image_url: string;
   platform: string;
 }
+
+export interface IPopularGame extends IGame {
+  totalVotes: number;
+}

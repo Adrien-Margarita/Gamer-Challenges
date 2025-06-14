@@ -12,6 +12,15 @@ const gameService = {
   },
 
   /**
+   * Récupère les jeux les plus populaires, classés par nombre de votes.
+   * @returns {Promise<IGame[]>} Une promesse contenant un tableau d'objets `IGame` populaires.
+   */
+  async getMostPopularGames() {
+    const gameResponse = await api.get('/games/popular');
+    return gameResponse.data as IGame[];
+  },
+
+  /**
    * Récupère un jeu spécifique via son identifiant.
    * @param {string} id - L'identifiant du jeu à récupérer.
    * @returns {Promise<IGame>} Une promesse contenant le jeu correspondant à l'ID.
