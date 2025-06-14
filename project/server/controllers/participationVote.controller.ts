@@ -59,7 +59,7 @@ export const getMostVotedPlayers = async (
       mostVotedPlayers.map(async (vote) => {
         const user = await prisma.user.findUnique({
           where: { user_id: vote.user_id },
-          select: { pseudonym: true, user_id: true },
+          select: { pseudonym: true, user_id: true, avatar_url: true },
         });
         return {
           user: user,
