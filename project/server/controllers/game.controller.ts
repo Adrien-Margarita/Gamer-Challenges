@@ -39,6 +39,52 @@ export const getAllGames = async (
   }
 };
 
+// Récupérer les jeux les plus populaires (avec le plus de votes)
+export const getMostPopularGames = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+
+    const games = await prisma.game.findMany({
+      orderBy: {
+        challenge: {
+          _count: 'desc',
+        },
+      },
+      include: {
+        challenge: {
+          include: {
+            challenge_vote: {
+              select: {
+                challenge_vote_id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const result = games.map((game) => {
+      const totalVotes = game.challenge.reduce((acc, challenge) => acc + challenge.challenge_vote.length, 0);
+
+      return {
+        game_id: game.game_id,
+        title: game.title,
+        category: game.category,
+        description: game.description,
+        release_date: game.release_date,
+        image_url: game.image_url,
+        platform: game.platform,
+        created_at: game.created_at,
+        updated_at: game.updated_at,
+        totalVotes,
+      };
+    });
+
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Récupérer un jeu par son ID
 export const getGameById = async (
   req: Request<{ game_id: string }>,

@@ -52,6 +52,38 @@ export const getChallengeById = async (req: Request, res: Response, next: NextFu
   }
 };
 
+// Récupérer les derniers challenges
+export const getLastChallenges = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const challenges = await prisma.challenge.findMany({
+      orderBy: {
+        created_at: 'desc',
+      },
+      include: {
+        game: true, // si tu veux les infos du jeu associé
+        challenge_vote: {
+          select: { challenge_vote_id: true },
+        },
+      },
+    });
+
+    const result = challenges.map((challenge) => ({
+      challenge_id: challenge.challenge_id,
+      title: challenge.title,
+      description: challenge.description,
+      rules: challenge.rules,
+      created_at: challenge.created_at,
+      updated_at: challenge.updated_at,
+      game: challenge.game,
+      votes: challenge.challenge_vote.length,
+    }));
+
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Mettre à jour un challenge existant
 export const updateChallenge = async (req: Request, res: Response, next: NextFunction) => {
   const { challenge_id } = req.params;
