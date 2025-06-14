@@ -1,14 +1,3 @@
-
-//   challenge_id UUID PRIMARY KEY NOT NULL, -- identifiant unique du challenge
-//   title TEXT NOT NULL UNIQUE, -- Titre
-//   description TEXT NOT NULL, -- Description
-//   rules TEXT NOT NULL, -- Règles du challenge
-//   user_id UUID NOT NULL, -- Clé étrangère vers user_id
-//   game_id UUID NOT NULL, -- Clé étrangère vers game_id
-//   created_at TIMESTAMP DEFAULT NOW(), -- Date de création
-// 	updated_at TIMESTAMP DEFAULT NOW() -- Date de modification
-// );
-
 export interface IChallenge {
   challenge_id: string; // UUID
   title: string; // Titre
@@ -18,4 +7,22 @@ export interface IChallenge {
   game_id: string; // UUID du jeu
   created_at: Date; // Date de création
   updated_at: Date; // Date de modification
+}
+
+export interface ILatestChallenge extends IChallenge {
+  game: {
+    game_id: string;
+    title: string;
+    game_image_url: string; 
+  };
+  votes: number;
+}
+
+export interface IPopularChallenge extends IChallenge {
+  game: {
+    game_id: string;
+    title: string;
+    game_image_url: string; 
+  };
+  totalVotes: number;
 }

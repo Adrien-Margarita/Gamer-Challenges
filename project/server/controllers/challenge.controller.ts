@@ -1,6 +1,7 @@
 import { PrismaClient } from "@/generated/prisma"
 import { Request, Response, NextFunction } from "express";
 import { createHttpError } from "@/utils/httpError";
+import { ILatestChallenge } from "@/@types/IChallenge";
 
 const prisma = new PrismaClient();
 
@@ -106,12 +107,17 @@ export const getLastChallenges = async (req: Request, res: Response, next: NextF
 
     const result = challenges.map((challenge) => ({
       challenge_id: challenge.challenge_id,
+      user_id: challenge.user_id,
+      game_id: challenge.game_id,
       title: challenge.title,
       description: challenge.description,
       rules: challenge.rules,
       created_at: challenge.created_at,
       updated_at: challenge.updated_at,
-      game: challenge.game,
+      game: {
+        game_id: challenge.game.game_id,
+        title: challenge.game.title,
+      },
       votes: challenge.challenge_vote.length,
     }));
 
