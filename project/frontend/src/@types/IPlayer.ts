@@ -1,5 +1,6 @@
+import { IUser } from "./IAuth";
+
 export type IMostVotedPlayer = {
-  user_id: string;
+  user: IUser
   votes: number;
-  user_pseudonym: string;
 };

@@ -19,9 +19,9 @@ function PopularPlayers() {
       <div className="grid grid-cols-3 gap-6">
         {players?.slice(0, 3).map((player) => (
           <PlayerCard
+            user={player.user}
+            key={player.user.user_id}
             votes={player.votes}
-            user_pseudonym={player.user_pseudonym}
-            user_id={player.user_id}
           />
         ))}
       </div>
