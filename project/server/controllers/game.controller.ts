@@ -68,7 +68,6 @@ export const getMostPopularGames = async (req: Request, res: Response, next: Nex
       return {
         game_id: game.game_id,
         title: game.title,
-        category: game.category,
         description: game.description,
         release_date: game.release_date,
         image_url: game.image_url,
