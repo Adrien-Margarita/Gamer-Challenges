@@ -8,6 +8,7 @@ export default function PlayerCard({
     <div key={user.user_id} className="card bg-base-200 shadow p-4 h-50">
       <h3 className="gamer-name">{votes}</h3>
       <h3 className="gamer-name font-semibold">{user.pseudonym}</h3>
+      <img className="h-full" src={user.avatar_url} alt="" />
     </div>
   );
 }
