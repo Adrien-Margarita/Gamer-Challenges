@@ -48,43 +48,6 @@ export const getAllChallengeVotesByChallengeId = async (req: Request, res: Respo
   }
 };
 
-// Récupérer les challenges les plus populaires (avec le plus de votes)
-export const getMostPopularChallenges = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-
-    const challenges = await prisma.challenge.findMany({
-      orderBy: {
-        challenge_vote: {
-          _count: 'desc',
-        },
-      },
-      include: {
-        game: true, // si tu veux récupérer les infos du jeu associé
-        challenge_vote: {
-          select: {
-            challenge_vote_id: true,
-          },
-        },
-      },
-    });
-
-    const result = challenges.map((challenge) => ({
-      challenge_id: challenge.challenge_id,
-      title: challenge.title,
-      description: challenge.description,
-      rules: challenge.rules,
-      created_at: challenge.created_at,
-      updated_at: challenge.updated_at,
-      game: challenge.game,
-      votes: challenge.challenge_vote.length,
-    }));
-
-    res.json(result);
-  } catch (error) {
-    next(error);
-  }
-};
-
 // Supprimer un vote pour un challenge
 export const deleteChallengeVote = async (req: Request, res: Response, next: NextFunction) => {
   const { challenge_id, user_id } = req.params;

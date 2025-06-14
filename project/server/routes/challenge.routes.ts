@@ -5,7 +5,9 @@ import {
   getAllChallenges,
   getChallengeById,
   updateChallenge,
-  deleteChallenge
+  deleteChallenge,
+  getMostPopularChallenges,
+  getLastChallenges
 } from "@/controllers/challenge.controller";
 
 import { challengeSchema } from "@/validators/challenge.validator";
@@ -56,6 +58,32 @@ challengeRouter.post("/", validate(challengeSchema), errorHandler, createChallen
  *         description: Liste des challenges
  */
 challengeRouter.get("/", errorHandler, getAllChallenges);
+
+/**
+ * @swagger
+ * /challenges/popular:
+ *   get:
+ *     summary: Get popular challenges ordered by number of votes
+ *     tags:
+ *       - Challenges
+ *     responses:
+ *       200:
+ *         description: List of popular challenges
+ */
+challengeRouter.get('/popular', getMostPopularChallenges);
+
+/**
+ * @swagger
+ * /challenges/latest:
+ *   get:
+ *     summary: Get the last 3 challenges
+ *     tags:
+ *       - Challenges
+ *     responses:
+ *       200:
+ *         description: List of latest challenges
+ */
+challengeRouter.get('/latest', getLastChallenges);
 
 /**
  * @swagger

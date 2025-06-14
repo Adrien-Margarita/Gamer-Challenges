@@ -6,6 +6,7 @@ import {
   getGameById,
   updateGame,
   deleteGame,
+  getMostPopularGames,
 } from "@/controllers/game.controller";
 import { validate } from "@/middlewares/validate";
 import { gameSchema } from "@/validators/game.validator";
@@ -42,6 +43,19 @@ const gameRouter = Router();
  *         description: Données invalides
  */
 gameRouter.post("/", validate(gameSchema), errorHandler, createGame);
+
+/**
+ * @swagger
+ * /games/popular:
+ *   get:
+ *     summary: Get popular games ordered by number of votes on their challenges
+ *     tags:
+ *       - Games
+ *     responses:
+ *       200:
+ *         description: List of popular games
+ */
+gameRouter.get('/popular', getMostPopularGames);
 
 /**
  * @swagger
