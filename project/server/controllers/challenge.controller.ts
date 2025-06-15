@@ -117,6 +117,11 @@ export const getLastChallenges = async (req: Request, res: Response, next: NextF
       game: {
         game_id: challenge.game.game_id,
         title: challenge.game.title,
+        description: challenge.game.description,
+        image_url: challenge.game.image_url,
+        platform: challenge.game.platform,
+        release_date: challenge.game.release_date,
+        category: challenge.game.category,
       },
       votes: challenge.challenge_vote.length,
     }));

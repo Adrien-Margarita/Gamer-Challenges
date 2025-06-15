@@ -11,12 +11,12 @@ function PopularChallenges() {
       <div className="grid grid-cols-1 gap-6 w-full">
         {challenges?.slice(0, 3).map((challenge, index) => (
           <div className="grid grid-cols-2 gap-6 w-full" key={index}>
-            <div className="w-full card bg-base-200 shadow-lg p-4 h-50">
+            <div className="w-full card shadow-lg h-82">
               <p className="mb-4">{challenge.game.title}</p>
               <img
                 src={challenge.game.image_url}
                 alt={challenge.game.title}
-                className="h-full object-cover rounded-lg"
+                className="h-full object-cover rounded-lg border-1 border-primary"
               />
             </div>
             <div className="w-full">

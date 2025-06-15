@@ -13,8 +13,12 @@ export interface IChallenge {
 
 export interface ILatestChallenge extends IChallenge {
   game: {
-    game_id: string;
     title: string;
+    description: string;
+    image_url: string;
+    platform: string;
+    release_date: Date;
+    category: string;
   };
   votes: number;
 }
