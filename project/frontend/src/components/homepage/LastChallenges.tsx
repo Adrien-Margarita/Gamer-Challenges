@@ -6,7 +6,7 @@ function LastChallenges() {
   
   return (
     <section>
-      <h2 className="text-2xl font-bold mb-4">Les derniers challenges </h2>
+      <h2 className="text-2xl font-bold mb-4">Les challenges les plus populaires</h2>
       <hr />
       <div className="grid grid-cols-1 gap-6 w-full">
         {challenges?.slice(0, 3).map((challenge, index) => (
@@ -20,9 +20,13 @@ function LastChallenges() {
               />
             </div>
             <div className="w-full">
-              <h3 className="text-lg font-semibold mb-2">{challenge.title}</h3>
-              <p className="text-sm text-muted-foreground">
+              <br /> <br />
+              <h3 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h3>
+              <p className="text-lg text-muted-foreground mb-4">
                 {challenge.description}
+              </p>
+              <p className="text-md text-muted-foreground">
+                {challenge.rules}
               </p>
             </div>
           </div>

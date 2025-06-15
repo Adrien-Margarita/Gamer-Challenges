@@ -60,7 +60,7 @@ function Navbar() {
                 }
               }}
             >
-              <img src={auth?.avatar_url} alt="Mon profil" className="w-12 border-primary border-2 rounded-full mb-1" />
+              <img src={auth?.avatar_url} alt="Mon profil" className="md: w-10 lg:w-12 border-primary border-2 rounded-full mb-1" />
               <span className="ml-2 text-xs text-white">{auth?.pseudonym}</span>
             </button>
             <button
