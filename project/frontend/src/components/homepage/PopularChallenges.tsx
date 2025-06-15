@@ -20,9 +20,13 @@ function PopularChallenges() {
               />
             </div>
             <div className="w-full">
-              <h3 className="text-lg font-semibold mb-2">{challenge.title}</h3>
-              <p className="text-sm text-muted-foreground">
+              <br /> <br />
+              <h3 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h3>
+              <p className="text-lg text-muted-foreground mb-4">
                 {challenge.description}
+              </p>
+              <p className="md:text-sm text-md text-muted-foreground">
+                {challenge.rules}
               </p>
             </div>
           </div>
