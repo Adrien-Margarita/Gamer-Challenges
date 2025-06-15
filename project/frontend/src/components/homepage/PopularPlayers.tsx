@@ -16,12 +16,13 @@ function PopularPlayers() {
           Voici les <b>joueurs</b> les plus <b>populaires</b> de la semaine
         </h2>
       </div>
-      <div className="grid grid-cols-3 gap-6">
-        {players?.slice(0, 3).map((player) => (
+      <div className="grid grid-cols-3 gap-6 w-fit mx-auto">
+        {players?.slice(0, 3).map((player, index) => (
           <PlayerCard
             user={player.user}
             key={player.user.user_id}
             votes={player.votes}
+            index={index}
           />
         ))}
       </div>

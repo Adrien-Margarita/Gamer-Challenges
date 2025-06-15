@@ -1,3 +1,4 @@
+import { IGame } from "./IGame";
 
 export interface IChallenge {
   challenge_id: string; // UUID
@@ -12,16 +13,25 @@ export interface IChallenge {
 
 export interface ILatestChallenge extends IChallenge {
   game: {
-    game_id: string;
     title: string;
+    description: string;
+    image_url: string;
+    platform: string;
+    release_date: Date;
+    category: string;
   };
   votes: number;
 }
 
 export interface IPopularChallenge extends IChallenge {
   game: {
-    game_id: string;
+    game: IGame;
     title: string;
+    description: string;
+    image_url: string;
+    platform: string;
+    release_date: Date;
+    category: string;
   };
   totalVotes: number;
 }
