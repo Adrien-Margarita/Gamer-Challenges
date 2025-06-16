@@ -11,12 +11,20 @@ type AuthProviderProps = {
  */
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const { initAuth } = useAuth()
+  const { initAuth, isLoading } = useAuth()
 
   useEffect(() => {
     logger("🔁 AuthProvider: initAuth lancé")
     initAuth()
   }, [initAuth])
+
+  if (isLoading) {
+    return (
+      <div className="text-center mt-10 text-muted-foreground text-sm">
+        Chargement de la session utilisateur...
+      </div>
+    )
+  }
 
   return <>{children}</>
 }
