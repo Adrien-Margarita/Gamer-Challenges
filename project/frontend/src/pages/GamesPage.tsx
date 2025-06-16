@@ -1,16 +1,11 @@
-import { Button } from "@/components/ui/button";
+import Footer from "@/components/Footer";
+import { Navbar } from "@/components/homepage";
 
 export default function GamesPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
-      <header className="navbar bg-base-100 shadow">
-        <div className="flex-1 text-xl font-bold">Gamer Challenge</div>
-        <div className="flex gap-2">
-          <Button variant="ghost">Rechercher</Button>
-          <Button variant="ghost">Mon Profil</Button>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Main Content */}
       <main className="flex-1 p-4 space-y-8">
@@ -26,14 +21,11 @@ export default function GamesPage() {
         </div>
 
         <div className="flex justify-center">
-          <Button>Voir plus</Button>
+          <button>Voir plus</button>
         </div>
       </main>
-
       {/* Footer */}
-      <footer className="p-4 bg-base-200 text-center text-sm text-muted-foreground">
-        © 2025 Gamer Challenge. Tous droits réservés.
-      </footer>
+      <Footer />
     </div>
   );
 }
