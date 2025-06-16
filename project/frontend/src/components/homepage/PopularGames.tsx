@@ -1,6 +1,8 @@
 import { useMostPopularGames } from "@/hooks/useGame";
 import { Skeleton } from "../ui"
 import { IGame } from "@/@types/IGame";
+import { Icon } from "@mdi/react";
+import { mdiArrowRightCircleOutline } from "@mdi/js";
 
 function PopularGames() {
   const { data, isLoading } = useMostPopularGames();
@@ -8,7 +10,10 @@ function PopularGames() {
 
   return (
     <section className="h-full">
-      <h2 className="text-2xl font-bold mb-4">Les jeux les plus populaires</h2>
+      <div className="flex items-center justify-between text-primary">
+        <h2 className="text-2xl font-bold mb-4">Les jeux les plus populaires</h2>
+        <Icon path={mdiArrowRightCircleOutline} size={1.4} />
+      </div>
       <hr />
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {isLoading ? (
@@ -32,4 +37,4 @@ function PopularGames() {
   )
 }
 
-export default PopularGames
+export default PopularGames;
