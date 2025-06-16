@@ -1,15 +1,15 @@
-import { Routes, Route } from "react-router"
+import { Routes, Route } from "react-router";
 // Pages auth
-import LoginPage from "@/pages/auth/LoginPage"
-import RegisterPage from "./pages/auth/RegisterPage"
-import HomePage from "./pages/Homepage"
-import ResetPasswordPage from "./pages/auth/ResetPasswordPage"
-import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage"
-import ProfilePage from "./pages/ProfilePage"
-import PopularPlayersPage from "./pages/PopularPlayersPage"
-import RequireAuth from "./components/RequireAuth"
-import GamesPage from "./pages/GamesPage"
-import GameDetailPage from "./pages/GameDetailPage"
+import LoginPage from "@/pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import HomePage from "./pages/Homepage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ProfilePage from "./pages/ProfilePage";
+import PopularPlayersPage from "./pages/PopularPlayersPage";
+import RequireAuth from "./components/RequireAuth";
+import GamesPage from "./pages/GamesPage";
+import GameDetailPage from "./pages/GameDetailPage";
 
 export default function Router() {
   return (
@@ -23,6 +23,7 @@ export default function Router() {
       {/* Public routes */}
       <Route path="/" element={<HomePage />} />
       <Route path="/games" element={<GamesPage />} />
+      <Route path="/games/:id" element={<GameDetailPage />} />
 
       {/* Private routes */}
       <Route element={<RequireAuth />}>
@@ -31,5 +32,5 @@ export default function Router() {
         <Route path="/popular-players" element={<PopularPlayersPage />} />
       </Route>
     </Routes>
-  )
+  );
 }

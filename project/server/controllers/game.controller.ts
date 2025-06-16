@@ -85,22 +85,27 @@ export const getMostPopularGames = async (req: Request, res: Response, next: Nex
 };
 
 // Récupérer un jeu par son ID
-export const getGameById = async (
-  req: Request<{ game_id: string }>,
-  res: Response,
-  next: NextFunction
-) => {
-  const { game_id } = req.params;
+export const getGameById = async (req: Request, res: Response) => {
+  const { id } = req.params;
 
   try {
     const game = await prisma.game.findUnique({
-      where: { game_id },
+      where: { game_id: id },
+      include: {
+        _count: { select: { challenge: true } },
+        challenge: true, // si tu veux les détails
+      },
     });
-    res.status(200).json({ game });
+
+    if (!game) return res.status(404).json({ message: "Jeu non trouvé" });
+
+    return res.status(200).json(game);
   } catch (error) {
-    next(error);
+    console.error("Erreur getGameById:", error);
+    return res.status(500).json({ message: "Erreur serveur" });
   }
 };
+
 
 // Mettre à jour un jeu existant
 export const updateGame = async (

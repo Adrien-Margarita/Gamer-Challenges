@@ -1,10 +1,9 @@
 import gameService from "@/services/game.service";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 import { IGame } from "@/@types/IGame";
 
-
 const gameKeys = {
-  all: ['games'] as const,
+  all: ["games"] as const,
 };
 
 /**
@@ -32,7 +31,7 @@ export function useGames() {
  */
 export function useMostPopularGames() {
   return useQuery({
-    queryKey: [...gameKeys.all, 'popular'],
+    queryKey: [...gameKeys.all, "popular"],
     queryFn: gameService.getMostPopularGames,
   });
 }
