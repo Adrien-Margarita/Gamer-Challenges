@@ -22,13 +22,12 @@ export default function ResetPasswordPage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!token) return
+    if (!token || success) return
 
     mutate(
       { token, newPassword },
       {
-        onSuccess: (data) => {
-          console.log(data)
+        onSuccess: () => {
           setSuccess(true)
           setTimeout(() => navigate("/login"), 2500)
         }
@@ -43,20 +42,15 @@ export default function ResetPasswordPage() {
   }, [token])
 
   return (
-    <div className="flex min-h-screen items-center justify-center relative overflow-hidden bg-gradient-to-r from-[#12243E]  to-[#314C6B]">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-[#12243E] to-[#314C6B] px-4">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md space-y-6 rounded-lg bg-base-100 p-8 shadow-lg"
       >
         <div className="text-center">
-          <img
-            src={Logo}
-            alt="Gamer Challenge Logo"
-            className="mx-auto mb-5"
-          />
+          <img src={Logo} alt="Gamer Challenge Logo" className="mx-auto mb-5" />
           <p className="text-sm font-mono text-gray-400">
-            Réinitialisation via{" "}
-            <span className="text-secondary">lien sécurisé</span>
+            Réinitialisation via <span className="text-secondary">lien sécurisé</span>
           </p>
         </div>
 
@@ -80,10 +74,16 @@ export default function ResetPasswordPage() {
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           required
+          disabled={success}
+          readOnly={success}
         />
 
         <div className="flex justify-center">
-          <button type="submit" disabled={!token || isPending} className="btn btn-primary">
+          <button
+            type="submit"
+            disabled={!token || isPending || success}
+            className="btn btn-primary w-full"
+          >
             {isPending ? "Réinitialisation..." : "RÉINITIALISER"}
           </button>
         </div>

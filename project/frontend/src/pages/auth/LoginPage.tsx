@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate, Link } from "react-router"
+import { Link } from "react-router"
 import { FormError } from "@/components/ui"
 import { handleApiError } from "@/utils/handleApiError"
 import { useAuth } from "@/hooks/useAuth"
@@ -7,7 +7,6 @@ import { ILoginInput } from "@/@types/IAuth"
 import Logo from "/assets/images/logo-color-full.svg"
 
 export default function LoginPage() {
-  const navigate = useNavigate()
   const { loginMutation } = useAuth()
 
   const [form, setForm] = useState<ILoginInput>({
@@ -22,9 +21,7 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    loginMutation.mutate(form, {
-      onSuccess: () => navigate("/")
-    })
+    loginMutation.mutate(form)
   }
 
   return (

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate, Link } from "react-router"
+import { Link } from "react-router"
 import { FormError } from "@/components/ui"
 import { useAuth } from "@/hooks/useAuth"
 import { handleApiError } from "@/utils/handleApiError"
@@ -7,7 +7,6 @@ import { IRegisterInput } from "@/@types/IAuth"
 import Logo from "/assets/images/logo-color-full.svg"
 
 export default function RegisterPage() {
-  const navigate = useNavigate()
   const { registerMutation } = useAuth()
 
   const [form, setForm] = useState<IRegisterInput>({
@@ -24,9 +23,7 @@ export default function RegisterPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    registerMutation.mutate(form, {
-      onSuccess: () => navigate("/")
-    })
+    registerMutation.mutate(form)
   }
 
   return (

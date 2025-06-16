@@ -6,6 +6,8 @@ import routes from '@/routes/index.routes';
 import session from "express-session";
 import cors from 'cors';
 import dotenv from 'dotenv';
+import csrf from 'csurf';
+import cookieParser from "cookie-parser";
 // Load environment variables from .env file
 dotenv.config();
 
@@ -31,6 +33,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use(session({
   secret: process.env.SESSION_SECRET || "secret",
@@ -39,12 +42,41 @@ app.use(session({
   cookie: {
     secure: false, // à mettre à true en prod (https)
     httpOnly: true,
+    sameSite: "strict",
     maxAge: 1000 * 60 * 60 * 24 * 7 // 1 semaine
   }
 }))
 
+const csrfExclude = [
+  "/api/auth/login",
+  "/api/auth/register",
+  "/api/auth/forgot-password",
+  "/api/auth/reset-password"
+]
+
+// Applique CSRF uniquement si la route n’est pas exclue
+app.use((req, res, next) => {
+  if (csrfExclude.includes(req.path)) {
+    return next()
+  }
+
+  // 🛡️ Applique le middleware CSRF ici uniquement
+  return csrf({
+    cookie: {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production"
+    }
+  })(req, res, next)
+})
+
 // Swagger setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+
+// Route pour la protection csrf
+app.get("/api/csrf-token", (req: Request, res: Response) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
 
 // Routes
 app.use('/api', routes);
@@ -64,3 +96,4 @@ app.listen(PORT, () => {
 });
 
 export default app;
+
