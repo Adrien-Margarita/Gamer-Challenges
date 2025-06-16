@@ -1,11 +1,10 @@
 import { useAuth } from "@/hooks/useAuth"
-import { Link, useNavigate } from "react-router"
+import { Link } from "react-router"
 import LogoWhite from "/assets/images/logo-white.svg"
 import Icon from '@mdi/react';
-import { mdiLogout } from '@mdi/js';
+import { mdiLogout, mdiMenu } from '@mdi/js';
 function Navbar() {
 
-  const navigate = useNavigate()
   const { isAuthenticated, logout, auth } = useAuth()
 
   return (
@@ -19,50 +18,41 @@ function Navbar() {
         </Link>
       </div>
       <div className="flex gap-4 items-center">
-        <input className="input w-full" placeholder="Rechercher" />
+        {/* <input className="input w-full" placeholder="Rechercher" /> */}
 
         {!isAuthenticated ? (
-          <>
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate('/login')}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  navigate(`/login`)
-                }
-              }}
-            >
-              Se connecter
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate('/register')}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  navigate(`/register`)
-                }
-              }}
-            >
-              S’inscrire
-            </button>
-          </>
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className="m-1">
+              <Icon
+                path={mdiMenu}
+                size={1.2}
+                className="cursor-pointer text-secondary hover:text-primary transition-colors duration-200"
+              />
+            </div>
+            <div tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+              <Link
+                className="cursor-pointer text-white hover:bg-primary hover:text-white p-2 rounded"
+                to="/login">
+                Se connecter
+              </Link>
+              <Link
+                className="cursor-pointer text-white hover:bg-primary hover:text-white p-2 rounded"
+                to="/register">
+                S’inscrire
+              </Link>
+            </div>
+          </div>
+            
         ) : (
           <>
-            <button
+            <Link
+              to="/profile"
               className="ghost cursor-pointer flex flex-col items-center"
-              onClick={() => navigate('/profile')}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  navigate(`/profile`)
-                }
-              }}
+              title="Mon profil" 
             >
               <img src={auth?.avatar_url} alt="Mon profil" className="md: w-10 lg:w-12 border-primary border-2 rounded-full mb-1" />
               <span className="ml-2 text-xs text-white">{auth?.pseudonym}</span>
-            </button>
+            </Link>
             <button
               className="ghost cursor-pointer"
               title="Se déconnecter"
