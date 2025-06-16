@@ -10,6 +10,7 @@ import {
 } from "@/controllers/game.controller";
 import { validate } from "@/middlewares/validate";
 import { gameSchema } from "@/validators/game.validator";
+import { getChallengesByGameId } from "@/controllers/challenge.controller";
 
 const gameRouter = Router();
 
@@ -55,7 +56,7 @@ gameRouter.post("/", validate(gameSchema), errorHandler, createGame);
  *       200:
  *         description: List of popular games
  */
-gameRouter.get('/popular', getMostPopularGames);
+gameRouter.get("/popular", getMostPopularGames);
 
 /**
  * @swagger
@@ -94,6 +95,20 @@ gameRouter.get("/", errorHandler, getAllGames);
  *         description: Jeu non trouvé
  */
 gameRouter.get("/:id", errorHandler, getGameById);
+
+/**
+ * @swagger
+ * /api/games/challenges/{id}:
+ *   get:
+ *     summary: Get the challenges by game
+ *     tags:
+ *       - Challenges by game
+ *     responses:
+ *       200:
+ *         description: List of game's challenges
+ */
+
+gameRouter.get("/challenges/:id", errorHandler, getChallengesByGameId);
 
 /**
  * @swagger

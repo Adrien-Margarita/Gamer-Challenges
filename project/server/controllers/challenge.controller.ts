@@ -1,4 +1,4 @@
-import { PrismaClient } from "@/generated/prisma"
+import { PrismaClient } from "@/generated/prisma";
 import { Request, Response, NextFunction } from "express";
 import { createHttpError } from "@/utils/httpError";
 import { ILatestChallenge } from "@/@types/IChallenge";
@@ -6,28 +6,36 @@ import { ILatestChallenge } from "@/@types/IChallenge";
 const prisma = new PrismaClient();
 
 // Créer un nouvel challenge
-export const createChallenge = async (req: Request, res: Response, next: NextFunction) => {
+export const createChallenge = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { user_id } = req.params;
 
   try {
     const newChallenge = await prisma.challenge.create({
       data: {
         ...req.body,
-        user_id: user_id
-      }
+        user_id: user_id,
+      },
     });
     res.status(201).json({ challenge: newChallenge });
   } catch (error) {
     next(error);
-  };
+  }
 };
 
 // Récupérer tous les challenges avec pagination et filtres optionnels
-export const getAllChallenges = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllChallenges = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const challenges = await prisma.challenge.findMany({
       orderBy: {
-        title: 'asc',
+        title: "asc",
       },
     });
 
@@ -38,14 +46,16 @@ export const getAllChallenges = async (req: Request, res: Response, next: NextFu
 };
 
 // Récupérer un challenge par son ID
-export const getChallengeById = async (req: Request, res: Response, next: NextFunction) => {
-
-  const { challenge_id } = req.params;
+export const getChallengeById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
 
   try {
     const challenge = await prisma.challenge.findUnique({
-      where: { challenge_id },
-
+      where: { challenge_id: id },
     });
     res.status(200).json({ challenge });
   } catch (error) {
@@ -53,18 +63,39 @@ export const getChallengeById = async (req: Request, res: Response, next: NextFu
   }
 };
 
-// Récupérer les challenges les plus populaires (avec le plus de votes)
-export const getMostPopularChallenges = async (req: Request, res: Response, next: NextFunction) => {
-  try {
+// Récupérer les challenges par l'ID du jeu
+export const getChallengesByGameId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
 
+  try {
+    const challenges = await prisma.challenge.findMany({
+      where: { game_id: id },
+    });
+    res.status(200).json(challenges);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Récupérer les challenges les plus populaires (avec le plus de votes)
+export const getMostPopularChallenges = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
     const challenges = await prisma.challenge.findMany({
       orderBy: {
         challenge_vote: {
-          _count: 'desc',
+          _count: "desc",
         },
       },
       include: {
-        game: true, // si tu veux récupérer les infos du jeu associé
+        game: true,
         challenge_vote: {
           select: {
             challenge_vote_id: true,
@@ -91,14 +122,18 @@ export const getMostPopularChallenges = async (req: Request, res: Response, next
 };
 
 // Récupérer les derniers challenges
-export const getLastChallenges = async (req: Request, res: Response, next: NextFunction) => {
+export const getLastChallenges = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const challenges = await prisma.challenge.findMany({
       orderBy: {
-        created_at: 'desc',
+        created_at: "desc",
       },
       include: {
-        game: true, // si tu veux les infos du jeu associé
+        game: true,
         challenge_vote: {
           select: { challenge_vote_id: true },
         },
@@ -133,7 +168,11 @@ export const getLastChallenges = async (req: Request, res: Response, next: NextF
 };
 
 // Mettre à jour un challenge existant
-export const updateChallenge = async (req: Request, res: Response, next: NextFunction) => {
+export const updateChallenge = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { challenge_id } = req.params;
 
   try {
@@ -148,22 +187,27 @@ export const updateChallenge = async (req: Request, res: Response, next: NextFun
     const challengeToUpdate = await prisma.challenge.update({
       data: {
         ...req.body,
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       where: { challenge_id },
-    })
-    res.status(200).json({ message: `Challenge ${challengeToUpdate.title} mis à jour avec succès` });
+    });
+    res.status(200).json({
+      message: `Challenge ${challengeToUpdate.title} mis à jour avec succès`,
+    });
   } catch (error) {
     next(error);
   }
 };
 
 // Supprimer un challenge
-export const deleteChallenge = async (req: Request<{ challenge_id: string }>, res: Response, next: NextFunction) => {
+export const deleteChallenge = async (
+  req: Request<{ challenge_id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
   const { challenge_id } = req.params;
 
   try {
-
     const challenge = await prisma.challenge.findUnique({
       where: { challenge_id },
     });
@@ -172,15 +216,13 @@ export const deleteChallenge = async (req: Request<{ challenge_id: string }>, re
       throw createHttpError(404, `Challenge non trouvé`);
     }
 
-
     const challengeToDelete = await prisma.challenge.delete({
-      where: { challenge_id }
+      where: { challenge_id },
     });
-    res.status(200).json({ message: `Challenge ${challengeToDelete.title} supprimé avec succès` });
+    res.status(200).json({
+      message: `Challenge ${challengeToDelete.title} supprimé avec succès`,
+    });
   } catch (error) {
     next(error);
   }
-}
-
-
-
+};

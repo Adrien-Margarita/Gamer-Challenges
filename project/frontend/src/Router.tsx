@@ -23,7 +23,7 @@ export default function Router() {
       {/* Public routes */}
       <Route path="/" element={<HomePage />} />
       <Route path="/games" element={<GamesPage />} />
-      <Route path="/games/:id" element={<GameDetailPage />} />
+      <Route path="/game/:id" element={<GameDetailPage />} />
 
       {/* Private routes */}
       <Route element={<RequireAuth />}>
