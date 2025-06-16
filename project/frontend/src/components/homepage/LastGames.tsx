@@ -1,6 +1,8 @@
 import { useGames } from "@/hooks/useGame";
 import { Skeleton } from "../ui"
 import { IGame } from "@/@types/IGame";
+import { mdiArrowRightCircleOutline } from "@mdi/js";
+import Icon from "@mdi/react";
 
 function LastGames() {
   const { data, isLoading } = useGames();
@@ -8,7 +10,10 @@ function LastGames() {
 
   return (
     <section className="h-full">
-      <h2 className="text-2xl font-bold mb-4">Les derniers jeux</h2>
+      <div className="flex items-center justify-between text-primary mb-4">
+        <h2 className="text-2xl font-bold">Les derniers jeux</h2>
+        <Icon path={mdiArrowRightCircleOutline} size={1.4} />
+      </div>
       <hr />
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {isLoading ? (

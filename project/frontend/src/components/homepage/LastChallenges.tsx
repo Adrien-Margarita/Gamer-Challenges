@@ -1,4 +1,6 @@
 import { useLastChallenges } from "@/hooks/useChallenge";
+import { mdiArrowRightCircleOutline } from "@mdi/js";
+import Icon from "@mdi/react";
 
 
 function LastChallenges() {
@@ -6,7 +8,10 @@ function LastChallenges() {
   
   return (
     <section>
-      <h2 className="text-2xl font-bold mb-4">Les challenges les plus populaires</h2>
+      <div className="flex items-center justify-between text-primary">
+        <h2 className="text-2xl font-bold mb-4">Les derniers challenges</h2>
+        <Icon path={mdiArrowRightCircleOutline} size={1.4} />
+      </div>      
       <hr />
       <div className="grid grid-cols-1 gap-6 w-full">
         {challenges?.slice(0, 3).map((challenge, index) => (
