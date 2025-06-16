@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { Input, Button, FormError } from "@/components/ui"
+import { FormError } from "@/components/ui"
 import { handleApiError } from "@/utils/handleApiError"
 import { Link } from "react-router"
 import { useAuth } from "@/hooks/useAuth"
+import Logo from "/assets/images/logo-color-full.svg"
 
 /**
  * Page de demande de réinitialisation de mot de passe.
@@ -20,20 +21,21 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#121212] px-4">
+    <div className="flex w-screen h-screen items-center justify-center relative overflow-hidden bg-gradient-to-r from-[#12243E]  to-[#314C6B]">
+
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-6 rounded-lg border-l-4 border-[#00aaff]/30 bg-[#1e1e1e] p-8 shadow-lg shadow-[#00aaff]/10"
+        className="w-full max-w-md space-y-6 rounded-lg bg-base-100 p-8 shadow-lg"
       >
         <div className="text-center">
           <img
-            src="/stark_byte_hub_logo_white_transparent.svg"
-            alt="Stark Byte Hub Logo"
-            className="mx-auto mb-5 h-20"
+            src={Logo}
+            alt="Gamer Challenge Logo"
+            className="mx-auto mb-5"
           />
           <p className="text-sm font-mono text-gray-400">
             Réinitialisation via{" "}
-            <span className="text-[#00aaff] animate-pulse">protocole sécurisé</span>
+            <span className="text-secondary">protocole sécurisé</span>
           </p>
         </div>
 
@@ -49,7 +51,8 @@ export default function ForgotPasswordPage() {
           </div>
         )}
 
-        <Input
+        <input
+          className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
           type="email"
           name="email"
           placeholder="Adresse email"
@@ -59,13 +62,13 @@ export default function ForgotPasswordPage() {
         />
 
         <div className="flex justify-center">
-          <Button type="submit" disabled={isPending}>
+          <button type="submit" disabled={isPending} className="btn btn-primary"> 
             {isPending ? "Envoi en cours..." : "ENVOYER LE LIEN"}
-          </Button>
+          </button>
         </div>
 
         <div className="text-center">
-          <Link to="/login" className="text-sm text-[#00aaff] underline">
+          <Link to="/login" className="text-sm text-secondary">
             Retour à la connexion
           </Link>
         </div>
