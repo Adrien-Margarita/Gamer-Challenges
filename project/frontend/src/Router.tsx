@@ -8,6 +8,8 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage"
 import ProfilePage from "./pages/ProfilePage"
 import PopularPlayersPage from "./pages/PopularPlayersPage"
 import RequireAuth from "./components/RequireAuth"
+import GamesPage from "./pages/GamesPage"
+import GameDetailPage from "./pages/GameDetailPage"
 
 export default function Router() {
   return (
@@ -20,9 +22,11 @@ export default function Router() {
 
       {/* Public routes */}
       <Route path="/" element={<HomePage />} />
+      <Route path="/games" element={<GamesPage />} />
 
       {/* Private routes */}
       <Route element={<RequireAuth />}>
+        <Route path="/games/:id" element={<GameDetailPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/popular-players" element={<PopularPlayersPage />} />
       </Route>
