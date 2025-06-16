@@ -4,6 +4,7 @@ export interface IChallenge {
   challenge_id: string; // UUID
   title: string; // Titre
   description: string; // Description
+  image_url: string; // Image du challenge
   rules: string; // Règles du challenge
   user_id: string; // UUID de l'utilisateur
   game_id: string; // UUID du jeu

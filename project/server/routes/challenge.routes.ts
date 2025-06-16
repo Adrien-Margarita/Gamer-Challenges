@@ -7,7 +7,8 @@ import {
   updateChallenge,
   deleteChallenge,
   getMostPopularChallenges,
-  getLastChallenges
+  getLastChallenges,
+  getChallengesByGameId,
 } from "@/controllers/challenge.controller";
 
 import { challengeSchema } from "@/validators/challenge.validator";
@@ -45,7 +46,12 @@ const challengeRouter = Router();
  *       400:
  *         description: Données invalides
  */
-challengeRouter.post("/", validate(challengeSchema), errorHandler, createChallenge);
+challengeRouter.post(
+  "/",
+  validate(challengeSchema),
+  errorHandler,
+  createChallenge
+);
 
 /**
  * @swagger
@@ -70,7 +76,7 @@ challengeRouter.get("/", errorHandler, getAllChallenges);
  *       200:
  *         description: List of popular challenges
  */
-challengeRouter.get('/popular', getMostPopularChallenges);
+challengeRouter.get("/popular", getMostPopularChallenges);
 
 /**
  * @swagger
@@ -83,27 +89,7 @@ challengeRouter.get('/popular', getMostPopularChallenges);
  *       200:
  *         description: List of latest challenges
  */
-challengeRouter.get('/latest', getLastChallenges);
-
-/**
- * @swagger
- * /api/challenges/{id}:
- *   get:
- *     summary: Récupérer un challenge par son ID
- *     tags: [Challenges]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *           format: uuid
- *         required: true
- *         description: ID du challenge
- *     responses:
- *       200:
- *         description: Challenge récupéré avec succès
- */
-challengeRouter.get("/:id", errorHandler, getChallengeById);
+challengeRouter.get("/latest", getLastChallenges);
 
 /**
  * @swagger
@@ -129,7 +115,12 @@ challengeRouter.get("/:id", errorHandler, getChallengeById);
  *       200:
  *         description: Challenge mis à jour avec succès
  */
-challengeRouter.put("/:id",validate(challengeSchema), errorHandler, updateChallenge);
+challengeRouter.put(
+  "/:id",
+  validate(challengeSchema),
+  errorHandler,
+  updateChallenge
+);
 
 /**
  * @swagger

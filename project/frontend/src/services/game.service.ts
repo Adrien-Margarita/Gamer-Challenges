@@ -1,3 +1,4 @@
+import { IChallenge } from "@/@types/IChallenge";
 import type { IGame } from "@/@types/IGame";
 import api from "@/lib/axios";
 
@@ -7,7 +8,7 @@ const gameService = {
    * @returns {Promise<IGame[]>} Une promesse contenant un tableau d'objets `IGame`.
    */
   async getAllGames() {
-    const gameResponse = await api.get('/games');
+    const gameResponse = await api.get("/games");
     return gameResponse.data as IGame[];
   },
 
@@ -16,7 +17,7 @@ const gameService = {
    * @returns {Promise<IGame[]>} Une promesse contenant un tableau d'objets `IGame` populaires.
    */
   async getMostPopularGames() {
-    const gameResponse = await api.get('/games/popular');
+    const gameResponse = await api.get("/games/popular");
     return gameResponse.data as IGame[];
   },
 
@@ -31,12 +32,26 @@ const gameService = {
   },
 
   /**
+   * Récupère la liste des challenges associés à un jeu spécifique.
+   *
+   * @async
+   * @function
+   * @param {string} id - L'identifiant unique du jeu dont on souhaite récupérer les challenges.
+   * @returns {Promise<IChallenge[]>} Une promesse résolue avec un tableau de challenges (`IChallenge[]`).
+   * @throws {Error} Si la requête réseau échoue ou retourne une erreur.
+   */
+  async getChallengesByGameId(id: string) {
+    const challengeResponse = await api.get(`/games/challenges/${id}`);
+    return challengeResponse.data as IChallenge[];
+  },
+
+  /**
    * Crée un nouveau jeu à partir des données fournies.
    * @param {IGame} game - Les données du jeu à créer.
    * @returns {Promise<IGame>} Une promesse contenant le jeu nouvellement créé.
    */
   async createGame(game: IGame) {
-    const gameResponse = await api.post('/games', game);
+    const gameResponse = await api.post("/games", game);
     return gameResponse.data as IGame;
   },
 
@@ -59,7 +74,7 @@ const gameService = {
   async deleteGame(id: string) {
     const gameResponse = await api.delete(`/games/${id}`);
     return gameResponse.data as IGame;
-  }
-}
+  },
+};
 
 export default gameService;

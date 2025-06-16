@@ -1,4 +1,4 @@
-import { PrismaClient } from "@/generated/prisma"
+import { PrismaClient } from "@/generated/prisma";
 import { Request, Response, NextFunction } from "express";
 import { createHttpError } from "@/utils/httpError";
 
@@ -40,13 +40,16 @@ export const getAllGames = async (
 };
 
 // Récupérer les jeux les plus populaires (avec le plus de votes)
-export const getMostPopularGames = async (req: Request, res: Response, next: NextFunction) => {
+export const getMostPopularGames = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-
     const games = await prisma.game.findMany({
       orderBy: {
         challenge: {
-          _count: 'desc',
+          _count: "desc",
         },
       },
       include: {
@@ -63,7 +66,10 @@ export const getMostPopularGames = async (req: Request, res: Response, next: Nex
     });
 
     const result = games.map((game) => {
-      const totalVotes = game.challenge.reduce((acc, challenge) => acc + challenge.challenge_vote.length, 0);
+      const totalVotes = game.challenge.reduce(
+        (acc, challenge) => acc + challenge.challenge_vote.length,
+        0
+      );
 
       return {
         game_id: game.game_id,
@@ -85,7 +91,10 @@ export const getMostPopularGames = async (req: Request, res: Response, next: Nex
 };
 
 // Récupérer un jeu par son ID
-export const getGameById = async (req: Request, res: Response) => {
+export const getGameById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { id } = req.params;
 
   try {
@@ -97,15 +106,14 @@ export const getGameById = async (req: Request, res: Response) => {
       },
     });
 
-    if (!game) return res.status(404).json({ message: "Jeu non trouvé" });
+    if (!game) res.status(404).json({ message: "Jeu non trouvé" });
 
-    return res.status(200).json(game);
+    res.status(200).json(game);
   } catch (error) {
     console.error("Erreur getGameById:", error);
-    return res.status(500).json({ message: "Erreur serveur" });
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
-
 
 // Mettre à jour un jeu existant
 export const updateGame = async (

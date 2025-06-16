@@ -1,6 +1,7 @@
 import gameService from "@/services/game.service";
 import { useQuery } from "@tanstack/react-query";
 import { IGame } from "@/@types/IGame";
+import { IChallenge } from "@/@types/IChallenge";
 
 const gameKeys = {
   all: ["games"] as const,
@@ -18,6 +19,20 @@ export function useGames() {
   return useQuery<IGame[]>({
     queryKey: gameKeys.all,
     queryFn: gameService.getAllGames,
+  });
+}
+
+/**
+ * Custom React hook to fetch challenges for a specific game by its ID.
+ *
+ * @param {string} id - The unique identifier of the game.
+ * @returns {import('@tanstack/react-query').UseQueryResult<Challenge[], unknown>}
+ * The result of the query containing the list of challenges.
+ */
+export function useChallengesByGameId(id: string) {
+  return useQuery<IChallenge[]>({
+    queryKey: ["challenges", id],
+    queryFn: () => gameService.getChallengesByGameId(id),
   });
 }
 
