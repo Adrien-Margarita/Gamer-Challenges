@@ -1,4 +1,3 @@
-import { Button } from "../ui";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router";
 import PlayerCard from "./PlayerCard";
@@ -29,7 +28,7 @@ function PopularPlayers() {
 
       {isAuthenticated && (
         <div className="flex flex-col items-center">
-          <Button
+          <button
             className="btn btn-primary center mt-10"
             onClick={() => navigate("/popular-players")}
             onKeyDown={(e) => {
@@ -40,7 +39,7 @@ function PopularPlayers() {
             }}
           >
             Voir tous les joueurs
-          </Button>
+          </button>
         </div>
       )}
     </section>

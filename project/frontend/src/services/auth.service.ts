@@ -1,6 +1,7 @@
 import { ILoginInput, IUser, IAuthUser, IRegisterInput } from "@/@types/IAuth"
 import apiClient from "@/lib/axios"
 import { logger } from "@/utils/logger"
+import { ensureCsrfToken } from "@/lib/ensureCsrfToken"
 
 /**
  * Inscription d'un nouvel utilisateur.
@@ -9,6 +10,7 @@ import { logger } from "@/utils/logger"
  */
 export async function register(data: IRegisterInput): Promise<IAuthUser> {
   logger("AuthService → register()", data)
+  await ensureCsrfToken()
   const { data: user }: { data: IUser } = await apiClient.post("/auth/register", data)
   const { password_hash, ...safeUser } = user
   return safeUser as IAuthUser
@@ -21,6 +23,7 @@ export async function register(data: IRegisterInput): Promise<IAuthUser> {
  */
 export async function login(data: ILoginInput): Promise<IAuthUser> {
   logger("AuthService → login()", data)
+  await ensureCsrfToken()
   const { data: user }: { data: IUser } = await apiClient.post("/auth/login", data)
   const { password_hash, ...safeUser } = user
   return safeUser as IAuthUser
@@ -31,6 +34,7 @@ export async function login(data: ILoginInput): Promise<IAuthUser> {
  */
 export async function logout(): Promise<void> {
   logger("AuthService → logout()")
+  await ensureCsrfToken()
   await apiClient.post("/auth/logout")
 }
 
@@ -51,6 +55,7 @@ export async function getCurrentUser(): Promise<IAuthUser> {
  */
 export async function forgotPassword(email: string): Promise<void> {
   logger("AuthService → forgotPassword()", email)
+  await ensureCsrfToken()
   await apiClient.post("/auth/forgot-password", { email })
 }
 
@@ -60,6 +65,7 @@ export async function forgotPassword(email: string): Promise<void> {
  */
 export async function resetPassword(payload: { token: string; newPassword: string }): Promise<void> {
   logger("AuthService → resetPassword()", payload)
+  await ensureCsrfToken()
   const res = await apiClient.post("/auth/reset-password", payload)
   return res.data
 }

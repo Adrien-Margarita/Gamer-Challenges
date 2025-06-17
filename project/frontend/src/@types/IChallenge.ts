@@ -12,6 +12,15 @@ export interface IChallenge {
   updated_at: Date; // Date de modification
 }
 
+export type IChallengeFormData = {
+  title: string;
+  description: string;
+  rules: string;
+  image_url: string;
+  game_id: string;
+  user_id: string;
+}
+
 export interface ILatestChallenge extends IChallenge {
   game: {
     title: string;

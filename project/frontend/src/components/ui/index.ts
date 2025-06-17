@@ -1,4 +1,5 @@
-export { default as Button } from './Button'
-export { default as Input } from './Input'
-export { default as FormError } from './FormError'
-export { Skeleton } from './Skeleton'
+export { default as Input } from "./Input"
+export { default as FormError } from "./FormError"
+export { Skeleton } from "./Skeleton"
+export { default as Dialog } from "./Dialog"
+export { default as FormModal } from "./FormModal"

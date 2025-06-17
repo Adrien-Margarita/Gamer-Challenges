@@ -1,6 +1,6 @@
 import challengeService from "@/services/challenge.service";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { IChallenge } from "@/@types/IChallenge";
+import { IChallenge, IChallengeFormData } from "@/@types/IChallenge";
 
 const challengeKeys = {
   all: ["challenges"] as const,
@@ -73,7 +73,7 @@ export function useChallenge(id: string) {
 export function useCreateChallenge() {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<any, Error, IChallengeFormData>({
     mutationFn: challengeService.createChallenge,
     onSuccess: () => {
       // Invalider le cache pour recharger la liste des votes

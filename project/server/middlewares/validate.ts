@@ -6,10 +6,9 @@ export const validate = (
   property: 'body' | 'params' | 'query' = 'body'
 ): RequestHandler => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const { error, value } = schema.validate(req[property]);
+    const { error, value } = schema.validate(req[property], { abortEarly: false});
 
     if (error) {
-      res.status(400).json({ error: error.details[0].message });
       return next(error);
     }
 

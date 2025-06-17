@@ -10,16 +10,30 @@ export const createChallenge = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
-  const { user_id } = req.params;
-
+): Promise<void> => {
   try {
+    const userId = req.session.userId;
+
+    if (!userId) {
+      res.status(401).json({ error: "Non authentifié" });
+      return;
+    }
+
+    delete req.body.user_id;
+
+    const { title, description, rules, image_url, game_id } = req.body;
+
     const newChallenge = await prisma.challenge.create({
       data: {
-        ...req.body,
-        user_id: user_id,
+        title,
+        description,
+        rules,
+        image_url,
+        game_id,
+        user_id: userId,
       },
     });
+
     res.status(201).json({ challenge: newChallenge });
   } catch (error) {
     next(error);
@@ -226,3 +240,7 @@ export const deleteChallenge = async (
     next(error);
   }
 };
+function sanitize(body: any, allowedFields: readonly ["title", "description", "rules", "image_url", "game_id"]) {
+  throw new Error("Function not implemented.");
+}
+
