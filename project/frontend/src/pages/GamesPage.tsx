@@ -58,7 +58,7 @@ export default function GamesPage() {
               <img
                 src={popularGames[currentSlide].image_url}
                 alt={popularGames[currentSlide].title}
-                className="w-full h-[500px] object-cover transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100"
+                className="w-full h-[500px] object-cover transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100 transform scale-100 hover:scale-110"
               />
             </Link>
 
