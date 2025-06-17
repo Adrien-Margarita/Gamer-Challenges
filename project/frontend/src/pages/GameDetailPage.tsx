@@ -222,7 +222,7 @@ const handleSubmit = (e: React.FormEvent) => {
                         <img
                           src={challenge.image_url}
                           alt={challenge.title}
-                          className="w-full h-full object-cover border border-primary
+                          className="w-full h-full rounded-lg object-cover border border-primary
                           transition-transform transition-filter duration-300 ease-in-out
                           filter hover:grayscale hover:contrast-100"
                         />
