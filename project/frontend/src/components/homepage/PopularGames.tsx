@@ -16,7 +16,7 @@ function PopularGames() {
           Les jeux les plus populaires
         </h2>
         <Link to="/games">
-          <Icon className="mb-4" path={mdiArrowRightCircleOutline} size={1.4} />
+          <Icon className="mb-0" path={mdiArrowRightCircleOutline} size={1.4} />
         </Link>
       </div>
       <hr />
