@@ -231,9 +231,12 @@ const handleSubmit = (e: React.FormEvent) => {
                         <h2 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h2>
                         <hr />
                         <p className="text-lg text-muted-foreground mb-4">
+                          <p className="font-semibold">Description:</p>
                           {challenge.description}
                         </p>
                         <p className="text-md text-muted-foreground">
+                        <p className="font-semibold">Règles:</p>
+
                           {challenge.rules}
                         </p>
                       </div>
