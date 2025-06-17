@@ -1,10 +1,20 @@
 import { Router } from "express";
 import errorHandler from "@/middlewares/errorHandler";
-import { createParticipation, deleteParticipation, getAllParticipations, getParticipationByChallengeId, getParticipationById, updateParticipation } from "@/controllers/participation.controller";
+import {
+  createParticipation,
+  deleteParticipation,
+  getAllParticipations,
+  getParticipationsByChallengeId,
+  getParticipationById,
+  updateParticipation,
+} from "@/controllers/participation.controller";
 import { validate } from "@/middlewares/validate";
 import { participationSchema } from "@/validators/participation.validator";
+import { isAuthenticated } from "@/middlewares/isAuthenticated";
+import { sanitizeBody } from "@/middlewares/sanitize";
 
 const participationRouter = Router();
+const forbiddenFields = ["user_id"];
 
 /**
  * @swagger
@@ -35,8 +45,13 @@ const participationRouter = Router();
  *       400:
  *         description: Données invalides
  */
-participationRouter.post('/', validate(participationSchema), errorHandler, createParticipation);
-
+participationRouter.post(
+  "/",
+  isAuthenticated,
+  sanitizeBody(forbiddenFields),
+  validate(participationSchema),
+  createParticipation
+);
 
 /**
  * @swagger
@@ -48,7 +63,7 @@ participationRouter.post('/', validate(participationSchema), errorHandler, creat
  *       200:
  *         description: Liste des participations
  */
-participationRouter.get('/', errorHandler, getAllParticipations);
+participationRouter.get("/", errorHandler, getAllParticipations);
 
 /**
  * @swagger
@@ -74,7 +89,7 @@ participationRouter.get('/', errorHandler, getAllParticipations);
  *       404:
  *         description: participation non trouvé
  */
-participationRouter.get('/:id', errorHandler, getParticipationById);
+participationRouter.get("/:id", errorHandler, getParticipationById);
 
 /**
  * @swagger
@@ -94,7 +109,7 @@ participationRouter.get('/:id', errorHandler, getParticipationById);
  *       200:
  *         description: Liste des participations associés à un challenge
  */
-participationRouter.get("/challenge/:id", getParticipationByChallengeId);
+participationRouter.get("/challenge/:id", getParticipationsByChallengeId);
 
 /**
  * @swagger
@@ -126,7 +141,12 @@ participationRouter.get("/challenge/:id", getParticipationByChallengeId);
  *       404:
  *         description: Participation non trouvée
  */
-participationRouter.put('/:id', validate(participationSchema), errorHandler, updateParticipation);
+participationRouter.put(
+  "/:id",
+  validate(participationSchema),
+  errorHandler,
+  updateParticipation
+);
 
 /**
  * @swagger
@@ -148,6 +168,6 @@ participationRouter.put('/:id', validate(participationSchema), errorHandler, upd
  *       404:
  *         description: participation non trouvée
  */
-participationRouter.delete('/:id', errorHandler, deleteParticipation);
+participationRouter.delete("/:id", errorHandler, deleteParticipation);
 
 export default participationRouter;

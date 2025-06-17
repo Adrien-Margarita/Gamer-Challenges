@@ -10,6 +10,9 @@ export interface IChallenge {
   game_id: string; // UUID du jeu
   created_at: Date; // Date de création
   updated_at: Date; // Date de modification
+  game: {
+    title: string;
+  };
 }
 
 export type IChallengeFormData = {
@@ -19,7 +22,7 @@ export type IChallengeFormData = {
   image_url: string;
   game_id: string;
   user_id: string;
-}
+};
 
 export interface ILatestChallenge extends IChallenge {
   game: {
