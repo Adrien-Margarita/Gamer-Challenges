@@ -10,7 +10,7 @@ export default function GameCard({ game }: { game: IGame }) {
         alt={game.title}
         className="w-full h-[180px] object-cover border border-primary
         transition-transform transition-filter duration-300 ease-in-out
-        filter hover:grayscale hover:contrast-200"
+        filter hover:grayscale hover:contrast-100"
         draggable="false"
         loading="lazy"
       />
