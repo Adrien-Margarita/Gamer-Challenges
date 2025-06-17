@@ -25,9 +25,7 @@ function LastChallenges() {
               <img
                 src={challenge.game.image_url}
                 alt={challenge.game.title}
-                className="w-full h-[500px] object-cover border border-primary
-                transition-transform transition-filter duration-300 ease-in-out
-                filter hover:grayscale hover:contrast-100 transform scale-100 hover:scale-110"
+                className="h-full object-cover rounded-lg border-1 border-primary"
               />
             </div>
             <div className="w-full">
