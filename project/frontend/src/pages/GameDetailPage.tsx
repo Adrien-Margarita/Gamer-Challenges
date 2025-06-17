@@ -91,7 +91,7 @@ const handleSubmit = (e: React.FormEvent) => {
     {showForm && (
       <Dialog onClose={() => setShowForm(false)} closeOnOutsideClick>
         <form onSubmit={handleSubmit}>
-          <h2 className="mb-2">Ajouter un challenge</h2>
+          <h2 className="mb-2 font-semibold">Ajouter un challenge</h2>
           <hr />
           <div className="mb-4">
             <label htmlFor="title">Titre</label>
