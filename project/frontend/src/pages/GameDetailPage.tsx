@@ -12,7 +12,7 @@ import { Link, useNavigate, useParams } from "react-router";
 export default function GameDetailPage() {
     const [auth] = useAtom(authAtom);
     const { id } = useParams<{ id: string }>();
-    const { mutate: CreateChallenge, isPending} = useCreateChallenge();
+    const { mutate: CreateChallenge } = useCreateChallenge();
     const [visibleCount, setVisibleCount] = useState(8);
     const [showForm,setShowForm] = useState(false)    
     const [form, setForm] = useState<IChallengeFormData>({
@@ -47,7 +47,7 @@ export default function GameDetailPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    setForm((prev: any) => ({ ...prev, [name]: value }))
+    setForm((prev: IChallengeFormData) => ({ ...prev, [name]: value }))
   }
 
 const handleSubmit = (e: React.FormEvent) => {
@@ -91,11 +91,12 @@ const handleSubmit = (e: React.FormEvent) => {
     {showForm && (
       <Dialog onClose={() => setShowForm(false)} closeOnOutsideClick>
         <form onSubmit={handleSubmit}>
-          <h2>Ajouter un challenge</h2>
-          <div className="space-y-2">
+          <h2 className="mb-2">Ajouter un challenge</h2>
+          <hr />
+          <div className="mb-4">
             <label htmlFor="title">Titre</label>
             <input
-              className="input w-full"
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
               id="title"
               name="title"
               value={form?.title || ""}
@@ -103,10 +104,10 @@ const handleSubmit = (e: React.FormEvent) => {
               required
             />
           </div>
-          <div className="space-y-2">
+          <div className="mb-4">
             <label htmlFor="description">Description</label>
             <input
-              className="input w-full"
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
               id="description"
               name="description"
               value={form?.description || ""}
@@ -114,10 +115,10 @@ const handleSubmit = (e: React.FormEvent) => {
               required
             />
           </div>
-          <div className="space-y-2">
+          <div className="mb-4">
             <label htmlFor="rules">Règles</label>
             <textarea
-              className="textarea textarea-bordered w-full"
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
               id="rules"
               name="rules"
               value={form?.rules || ""}
@@ -126,22 +127,36 @@ const handleSubmit = (e: React.FormEvent) => {
               required
             />
           </div>
-          <div className="space-y-2">
+          <div className="mb-4">
             <label htmlFor="image_url">Image de couverture (url)</label>
             <input
-              className="input w-full"
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
               id="image_url"
               name="image_url"
               value={form?.image_url || ""}
               onChange={handleChange}
             />
+
+            {form.image_url && (
+              <div className="mt-4">
+                <p className="text-sm text-gray-400 mb-2">Aperçu :</p>
+                <img
+                  src={form.image_url}
+                  alt="Aperçu"
+                  className="w-full max-h-[200px] object-cover rounded border border-gray-700"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/images/image-placeholder.png";
+                  }}
+                />
+              </div>
+            )}
           </div>
 
           <div className="flex justify-end gap-2 mt-4">
-            <button type="button" onClick={() => setShowForm(false)} className="btn">
+            <button type="button" onClick={() => setShowForm(false)} className="btn-ghost cursor-pointer">
               Annuler
             </button>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary ml-4">
               Créer
             </button>
           </div>
@@ -177,11 +192,11 @@ const handleSubmit = (e: React.FormEvent) => {
                     Ajouter un challenge
                   </button>
                 </div>
-                <div className="relative w-full max-w-7xl mx-auto mb-12">
+                <div className="relative w-full mx-auto mb-12">
                   <img
                     src={game.image_url}
                     alt={game.title}
-                    className="w-full h-[500px] object-cover rounded-xl shadow-xl"
+                    className="w-full h-[580px] object-cover rounded-xl shadow-xl"
                   />
                   <div className="absolute bottom-4 left-6 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200 ">
                     <h2 className="text-2xl font-semibold">{game.title}</h2>
@@ -200,42 +215,39 @@ const handleSubmit = (e: React.FormEvent) => {
               ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />
               ))
-              : challenges?.slice(0, visibleCount).map((challenge) => (
-                <Link
-                  to={`/challenges/${challenge.game_id}`}
-                  key={challenge.game_id}
-                >
-                  <div
-                    key={challenge.game_id}
-                    className="card bg-base-200 shadow p-4 flex flex-col justify-between"
-                  >
-                    <h3 className="text-lg font-semibold mb-2">
-                      {challenge.title}
-                    </h3>
-                    <img
-                      src={challenge.image_url}
-                      alt={challenge.title}
-                      className="w-full h-[180px] object-cover rounded-lg border-1 border-primary mt-auto"
-                    />
-                    <div className="text-right text-2xl font-bold">
-                      {/* TODO: Affichage des nombres de challenge par jeux*/}
-                      {
-                        [28, 12, 38, 52, 15, 3, 9, 44][
-                        Number(challenge.game_id)
-                        ]
-                      }
-                    </div>
+              : challenges?.slice(0, visibleCount).map((challenge, index) => (
+                <Link to={`/challenges/${challenge.challenge_id}`}>
+                  <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-6 w-full" key={index}>
+                  <div className="w-full">
+                    <h2 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h2>
+                    <hr />
+                    <p className="text-lg text-muted-foreground mb-4">
+                      {challenge.description}
+                    </p>
+                    <p className="text-md text-muted-foreground">
+                      {challenge.rules}
+                    </p>
+                  </div>
+                      <img
+                        src={challenge.image_url}
+                        alt={challenge.title}
+                        className="w-full h-full object-cover border border-primary
+                        transition-transform transition-filter duration-300 ease-in-out
+                        filter hover:grayscale hover:contrast-100"
+                      />
                   </div>
                 </Link>
               ))}
-            <div className="flex justify-center">
-              <button
-                onClick={() => setVisibleCount((prev) => prev + 8)}
-                className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
-              >
-                Voir plus
-              </button>
-            </div>
+              {challenges.length >= 4 && (
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => setVisibleCount((prev) => prev + 8)}
+                    className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
+                  >
+                    Voir plus
+                  </button>
+                </div>
+              )}
           </section>
         </main>
       </div>
