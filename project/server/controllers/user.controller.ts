@@ -63,6 +63,79 @@ export const getUserById = async (
   }
 };
 
+// Récupérer les challenges créés par un utilisateur donné
+export const getChallengesByUserId = async (
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+
+  try {
+    const challenges = await prisma.challenge.findMany({
+      where: { user_id: id },
+      include: {
+        game: true, // Infos sur le jeu associé au challenge
+        participation: {
+          include: {
+            user: {
+              select: {
+                user_id: true,
+                pseudonym: true,
+              },
+            },
+            participation_vote: true, // votes par participation
+          },
+        },
+        challenge_vote: true, // votes globaux sur le challenge
+      },
+      orderBy: {
+        created_at: "desc",
+      },
+    });
+
+    res.status(200).json(challenges);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Récupérer les participations par l'ID de l'utilisateur
+export const getParticipationByUserId = async (
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+
+  try {
+    const participations = await prisma.participation.findMany({
+      where: { user_id: id },
+      include: {
+        challenge: {
+          include: {
+            game: true, // Ajoute les infos du jeu lié au challenge
+          },
+        },
+        user: {
+          select: {
+            user_id: true,
+            pseudonym: true,
+          },
+        },
+        participation_vote: true, // infos des votes
+      },
+      orderBy: {
+        created_at: "desc",
+      },
+    });
+
+    res.status(200).json(participations);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Mettre à jour un utilisateur existant
 export const updateUser = async (
   req: Request,

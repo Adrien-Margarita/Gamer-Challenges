@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, getAllUsers, getUserById, updateUser, deleteUser } from "@/controllers/user.controller";
+import { createUser, getAllUsers, getUserById, updateUser, deleteUser, getChallengesByUserId, getParticipationByUserId } from "@/controllers/user.controller";
 import errorHandler from "@/middlewares/errorHandler";
 import { validate } from "@/middlewares/validate";
 import { userSchema } from "@/validators/user.validator";
@@ -76,6 +76,61 @@ userRouter.get('/', errorHandler, getAllUsers);
  *         description: Utilisateur non trouvé
  */
 userRouter.get('/:id', errorHandler, getUserById);
+
+/**
+ * @swagger
+ * /api/users/{id}/challenges:
+ *   get:
+ *     summary: Récupérer les challenges créés par un utilisateur
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de l’utilisateur
+ *     responses:
+ *       200:
+ *         description: Liste des challenges créés par l’utilisateur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Challenge'
+ *       404:
+ *         description: Utilisateur non trouvé
+ */
+userRouter.get('/:id/challenges', errorHandler, getChallengesByUserId);
+
+/**
+ * @swagger
+ * /api/users/{id}/participations:
+ *   get:
+ *     summary: Récupérer les participations d’un utilisateur
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de l’utilisateur
+ *     responses:
+ *       200:
+ *         description: Liste des participations de l’utilisateur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Participation'
+ *       404:
+ *         description: Utilisateur non trouvé
+ */
+userRouter.get('/:id/participations', errorHandler, getParticipationByUserId);
+
 
 /**
  * @swagger

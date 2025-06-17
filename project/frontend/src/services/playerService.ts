@@ -35,6 +35,28 @@ const playerService = {
     return response.data;
   },
 
+    /**
+   * Récupère tous les challenges créés par un joueur.
+   * @param {string} userId - L'identifiant du joueur.
+   * @returns {Promise<any[]>} Une promesse contenant un tableau de challenges enrichis.
+   */
+  async getPlayerChallenges(userId: string) {
+    const response = await api.get(`/users/${userId}/challenges`);
+    logger("PlayerService → getPlayerChallenges()", response.data);
+    return response.data;
+  },
+
+    /**
+   * Récupère toutes les participations d'un joueur.
+   * @param {string} userId - L'identifiant du joueur.
+   * @returns {Promise<any[]>} Une promesse contenant un tableau de participations enrichies.
+   */
+  async getPlayerParticipations(userId: string) {
+    const response = await api.get(`/users/${userId}/participations`);
+    logger("PlayerService → getPlayerParticipations()", response.data);
+    return response.data;
+  },
+
   /**
    * Met à jour un joueur existant identifié par son ID.
    * @param {string} id - L'identifiant du joueur à mettre à jour.

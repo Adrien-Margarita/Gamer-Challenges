@@ -1,3 +1,5 @@
+import { IChallenge } from "./IChallenge";
+
 export interface IUserPreview {
   user_id: string;
   pseudonym: string;
@@ -20,4 +22,18 @@ export interface IParticipationFormData {
   description: string;
   // user_id: string;
   challenge_id: string;
+}
+
+export interface IParticipationWithRelations extends IParticipation {
+  challenge: Pick<IChallenge, "challenge_id" | "title" | "image_url"> & {
+    game: {
+      title: string;
+      image_url: string;
+    };
+  };
+  participation_vote: {
+    participation_vote_id: string;
+    user_id: string;
+    participation_id: string;
+  }[];
 }
