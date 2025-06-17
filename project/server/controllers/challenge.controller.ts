@@ -57,7 +57,7 @@ export const getChallengeById = async (
     const challenge = await prisma.challenge.findUnique({
       where: { challenge_id: id },
     });
-    res.status(200).json({ challenge });
+    res.status(200).json( challenge );
   } catch (error) {
     next(error);
   }

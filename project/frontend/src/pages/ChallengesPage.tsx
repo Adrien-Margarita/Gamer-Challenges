@@ -6,7 +6,7 @@ import { useChallenges, useMostPopularChallenges } from "@/hooks/useChallenge";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 
-export default function ChalllengesPage() {
+export default function ChallengesPage() {
   const [visibleCount, setVisibleCount] = useState(8);
   const [currentSlide, setCurrentSlide] = useState(0);
 
