@@ -59,6 +59,7 @@ export default function RegisterPage() {
           required
         />
         <input
+          className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
           name="email"
           type="email"
           placeholder="Adresse email *"

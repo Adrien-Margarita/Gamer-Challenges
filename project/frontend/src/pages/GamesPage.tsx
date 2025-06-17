@@ -14,6 +14,9 @@ export default function GamesPage() {
   const games: IGame[] = Array.isArray(data) ? data : [];
 
   const { data: popularGamesData } = useMostPopularGames();
+
+  // Vérification que popularGamesData est un tableau
+  // et utilisation de useMemo pour éviter les recalculs inutiles
   const popularGames: IGame[] = useMemo(
     () => (Array.isArray(popularGamesData) ? popularGamesData : []),
     [popularGamesData]
@@ -42,7 +45,7 @@ export default function GamesPage() {
 
         {/* Carousel */}
         {popularGames.length > 0  && (
-          <div className="relative w-full max-w-7xl mx-auto mb-12 rounded-xl overflow-hidden shadow-xl">
+          <div className="relative w-full mx-auto mb-12 rounded-xl overflow-hidden shadow-xl">
             <Link to={`/games/${popularGames[currentSlide].game_id}`}>
               <img
                 src={popularGames[currentSlide].image_url}
