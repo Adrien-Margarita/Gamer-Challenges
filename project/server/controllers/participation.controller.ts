@@ -61,6 +61,33 @@ export const getParticipationById = async (
   }
 };
 
+// Récupérer les participations par l'ID du challenge
+export const getParticipationByChallengeId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+
+  try {
+    const participations = await prisma.participation.findMany({
+      where: { challenge_id: id },
+      include: {
+        user: {
+          select: {
+            user_id: true,
+            pseudonym: true,      
+          },
+  },
+}
+    });
+    res.status(200).json(participations);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 // Mettre à jour une participation existante
 export const updateParticipation = async (
   req: Request,

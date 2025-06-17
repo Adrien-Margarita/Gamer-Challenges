@@ -4,6 +4,7 @@ import type {
   ILatestChallenge,
   IPopularChallenge,
 } from "@/@types/IChallenge"
+import { IParticipation } from "@/@types/IParticipation"
 import api from "@/lib/axios"
 import { ensureCsrfToken } from "@/lib/ensureCsrfToken"
 
@@ -38,6 +39,20 @@ const challengeService = {
   async getChallenge(id: string) {
     const challengeResponse = await api.get(`/challenges/${id}`)
     return challengeResponse.data as IChallenge
+  },
+
+  /**
+   * Récupère la liste des participations associés à un challenge spécifique.
+   *
+   * @async
+   * @function
+   * @param {string} id - L'identifiant unique du challenge dont on souhaite récupérer les participations.
+   * @returns {Promise<IChallenge[]>} Une promesse résolue avec un tableau de participations (`IParticipation[]`).
+   * @throws {Error} Si la requête réseau échoue ou retourne une erreur.
+   */
+  async getParticipationsByChallengeId(id: string) {
+    const participationResponse = await api.get(`/participations/challenge/${id}`);
+    return participationResponse.data as IParticipation[];
   },
 
   /**

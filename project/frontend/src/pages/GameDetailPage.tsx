@@ -1,39 +1,14 @@
-import type { IChallengeFormData } from "@/@types/IChallenge";
-import { useAtom } from "jotai";
-import { authAtom } from "@/stores/authAtom";
 import { Navbar } from "@/components/homepage";
-import { Dialog, Skeleton } from "@/components/ui";
+import { Skeleton } from "@/components/ui";
 import { useChallengesByGameId } from "@/hooks/useGame";
-import { useCreateChallenge } from "@/hooks/useChallenge";
 import { useGame } from "@/hooks/useGame";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
 export default function GameDetailPage() {
-    const [auth] = useAtom(authAtom);
-    const { id } = useParams<{ id: string }>();
-    const { mutate: CreateChallenge, isPending} = useCreateChallenge();
-    const [visibleCount, setVisibleCount] = useState(8);
-    const [showForm,setShowForm] = useState(false)    
-    const [form, setForm] = useState<IChallengeFormData>({
-    title: "",
-    description: "",
-    rules: "",
-    image_url: "",
-    game_id: id ?? "",
-    user_id: auth?.user_id ?? "",
-  });
+  const [visibleCount, setVisibleCount] = useState(8);
 
-  useEffect(() => {
-    if (id || auth?.user_id) {
-      setForm((prev) => ({
-        ...prev,
-        game_id: id ?? prev.game_id,
-        user_id: auth?.user_id ?? prev.user_id,
-      }));
-    }
-  }, [id, auth]);
-  
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const { data: game, isLoading, isError } = useGame(id ?? "");
@@ -44,23 +19,6 @@ export default function GameDetailPage() {
       navigate("/games");
     }
   }, [isError, isLoading, navigate]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setForm((prev: any) => ({ ...prev, [name]: value }))
-  }
-
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-  CreateChallenge(form, {
-    onSuccess: () => {
-      setShowForm(false);
-    },
-    onError: (err) => {
-      console.error("Erreur création challenge", err);
-    },
-  });
-};
 
   if (isLoading) {
     return (
@@ -87,126 +45,46 @@ const handleSubmit = (e: React.FormEvent) => {
   }
 
   return (
-    <>
-    {showForm && (
-      <Dialog onClose={() => setShowForm(false)} closeOnOutsideClick>
-        <form onSubmit={handleSubmit}>
-          <h2>Ajouter un challenge</h2>
-          <div className="space-y-2">
-            <label htmlFor="title">Titre</label>
-            <input
-              className="input w-full"
-              id="title"
-              name="title"
-              value={form?.title || ""}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="description">Description</label>
-            <input
-              className="input w-full"
-              id="description"
-              name="description"
-              value={form?.description || ""}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="rules">Règles</label>
-            <textarea
-              className="textarea textarea-bordered w-full"
-              id="rules"
-              name="rules"
-              value={form?.rules || ""}
-              onChange={handleChange}
-              rows={4}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="image_url">Image de couverture (url)</label>
-            <input
-              className="input w-full"
-              id="image_url"
-              name="image_url"
-              value={form?.image_url || ""}
-              onChange={handleChange}
-            />
-          </div>
+    <div className="min-h-screen flex flex-col bg-gradient-to-r from-[#12243E] to-[#314C6B]">
+      {/* Navbar */}
+      <Navbar />
+      <main className="flex-1 p-4 space-y-12">
+        <section>
+          {isLoading && <p className="text-center">Chargement...</p>}
 
-          <div className="flex justify-end gap-2 mt-4">
-            <button type="button" onClick={() => setShowForm(false)} className="btn">
-              Annuler
-            </button>
-            <button type="submit" className="btn btn-primary">
-              Créer
-            </button>
-          </div>
-        </form>
-      </Dialog>
-    )}
-
-      <div className="min-h-screen flex flex-col bg-gradient-to-r from-[#12243E] to-[#314C6B]">
-        {/* Navbar */}
-        <Navbar />
-        <main className="flex-1 p-4 space-y-12">
-          <section>
-            {isLoading && <p className="text-center">Chargement...</p>}
-
-            {!isLoading && game && (
-              <>
-                {/* Image et description du jeu */}
-                <div className="flex w-full justify-end mb-4">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      setForm({ 
-                        title: "", 
-                        description: "", 
-                        rules: "", 
-                        image_url: "", 
-                        game_id: id!,
-                        user_id: ""                      
-                      })
-                      setShowForm(true)
-                    }}
-                  >
-                    Ajouter un challenge
-                  </button>
+          {!isLoading && game && (
+            <>
+              {/* Image et description du jeu */}
+              <div className="relative w-full max-w-7xl mx-auto mb-12">
+                <img
+                  src={game.image_url}
+                  alt={game.title}
+                  className="w-full h-[500px] object-cover rounded-xl shadow-xl"
+                />
+                <div className="absolute bottom-4 left-6 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200 ">
+                  <h2 className="text-2xl font-semibold">{game.title}</h2>
+                  <p className="text-sm text-gray-300">{game.description}</p>
                 </div>
-                <div className="relative w-full max-w-7xl mx-auto mb-12">
-                  <img
-                    src={game.image_url}
-                    alt={game.title}
-                    className="w-full h-[500px] object-cover rounded-xl shadow-xl"
-                  />
-                  <div className="absolute bottom-4 left-6 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200 ">
-                    <h2 className="text-2xl font-semibold">{game.title}</h2>
-                    <p className="text-sm text-gray-300">{game.description}</p>
-                  </div>
-                </div>
-              </>
-            )}
+              </div>
+            </>
+          )}
 
-            {!isLoading && !game && !isError && (
-              <p className="text-center text-red-500">Jeu introuvable</p>
-            )}
-          </section>
-          <section>
-            {isLoading && challenges && !isError
-              ? Array.from({ length: 8 }).map((_, index) => (
+          {!isLoading && !game && !isError && (
+            <p className="text-center text-red-500">Jeu introuvable</p>
+          )}
+        </section>
+        <section>
+          {isLoading && challenges && !isError
+            ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />
               ))
-              : challenges?.slice(0, visibleCount).map((challenge) => (
+            : challenges?.slice(0, visibleCount).map((challenge) => (
                 <Link
-                  to={`/challenges/${challenge.game_id}`}
-                  key={challenge.game_id}
+                  to={`/challenges/${challenge.challenge_id}`}
+                  key={challenge.challenge_id}
                 >
                   <div
-                    key={challenge.game_id}
+                    key={challenge.challenge_id}
                     className="card bg-base-200 shadow p-4 flex flex-col justify-between"
                   >
                     <h3 className="text-lg font-semibold mb-2">
@@ -221,24 +99,23 @@ const handleSubmit = (e: React.FormEvent) => {
                       {/* TODO: Affichage des nombres de challenge par jeux*/}
                       {
                         [28, 12, 38, 52, 15, 3, 9, 44][
-                        Number(challenge.game_id)
+                          Number(challenge.challenge_id)
                         ]
                       }
                     </div>
                   </div>
                 </Link>
               ))}
-            <div className="flex justify-center">
-              <button
-                onClick={() => setVisibleCount((prev) => prev + 8)}
-                className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
-              >
-                Voir plus
-              </button>
-            </div>
-          </section>
-        </main>
-      </div>
-    </>
+          <div className="flex justify-center">
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 8)}
+              className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
+            >
+              Voir plus
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }

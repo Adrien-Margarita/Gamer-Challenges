@@ -15,6 +15,7 @@ import { challengeSchema } from "@/validators/challenge.validator";
 import { validate } from "@/middlewares/validate";
 import { isAuthenticated } from "@/middlewares/isAuthenticated";
 import { sanitizeBody } from "@/middlewares/sanitize";
+import errorHandler from "@/middlewares/errorHandler";
 
 const challengeRouter = Router();
 const forbiddenFields = ["user_id"];

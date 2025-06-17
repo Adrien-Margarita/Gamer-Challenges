@@ -94,7 +94,7 @@ export default function ChallengesPage() {
                     />
                     <div className="text-right text-2xl font-bold">
                       {/* TODO: Affichage des nombres de challenge par jeu */}
-                      {[28, 12, 38, 52, 15, 3, 9, 44][Number(challenge.game_id)]}
+                      {[28, 12, 38, 52, 15, 3, 9, 44][Number(challenge.challenge_id)]}
                     </div>
                   </div>
                 </Link>
