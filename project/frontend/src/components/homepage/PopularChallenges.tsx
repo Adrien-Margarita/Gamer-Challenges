@@ -18,16 +18,10 @@ function PopularChallenges() {
       <hr />
       <div className="grid grid-cols-1 gap-6 w-full">
         {challenges?.slice(0, 3).map((challenge, index) => (
-<<<<<<< feat/challenge-detail-page
           <Link to={`/challenges/${challenge.challenge_id}`}>
-          <div className="grid grid-cols-2 gap-6 w-full" key={index}>
-            <div className="w-full card shadow-lg h-82 mb-6">
-              <h3 className="relative mb-2 mt-4 font-semibold">{challenge.game.title}</h3>
-=======
           <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-6 w-full" key={index}>
             <div className="w-full card shadow-lg h-82 lg:mb-6 sm:mb-0">
               <h3 className="relative mb-2 lg:mt-4 font-semibold">{challenge.game.title}</h3>
->>>>>>> develop
               <img
                 src={challenge.game.image_url}
                 alt={challenge.game.title}
