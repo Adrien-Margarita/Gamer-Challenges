@@ -18,7 +18,7 @@ export default function GamesPage() {
   // Vérification que popularGamesData est un tableau
   // et utilisation de useMemo pour éviter les recalculs inutiles
   const popularGames: IGame[] = useMemo(
-    () => (Array.isArray(popularGamesData) ? popularGamesData : []),
+    () => (Array.isArray(popularGamesData) ? popularGamesData?.slice(0, 4) : []),
     [popularGamesData]
   );
 
@@ -40,9 +40,16 @@ export default function GamesPage() {
       <Navbar />
 
       {/* Main Content */}
-      <main className="flex-1 p-4 space-y-12 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
-        <h2 className="text-2xl font-bold">Les jeux les plus populaires</h2>
-
+      <main className="flex-1 p-4 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
+        <h2 className="text-2xl font-bold mb-4">Les jeux les plus populaires</h2>
+        <hr />
+        <p className="text-lg text-muted-foreground mb-4">
+          Découvrez les jeux les plus populaires de la plateforme.
+        </p>
+        <p className="text-lg text-muted-foreground mb-8">
+          Cliquez sur un jeu pour voir les détails et les challenges associés.
+        </p>
+        {/* Section des jeux populaires */}
         {/* Carousel */}
         {popularGames.length > 0  && (
           <div className="relative w-full mx-auto mb-12 rounded-xl overflow-hidden shadow-xl">
@@ -62,7 +69,7 @@ export default function GamesPage() {
             </div>
 
             {/* Points de navigation */}
-            <div className="absolute bottom-9 right-4 flex gap-2">
+            <div className="absolute items-center top-10 left-[40%] lg:left-[48%] flex gap-2">
               {popularGames.map((_, index) => (
                 <button
                   key={index}
@@ -77,7 +84,11 @@ export default function GamesPage() {
         )}
 
         {/* Section des jeux */}
-        <h2 className="text-2xl font-bold">Tous les jeux</h2>
+        <h2 className="text-2xl font-bold mb-4">Tous les jeux</h2>
+        <hr />
+        <p className="text-lg text-muted-foreground mb-8">
+          Explorez tous les jeux disponibles sur la plateforme.
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {isLoading
             ? Array.from({ length: 8 }).map((_, index) => (
@@ -101,7 +112,7 @@ export default function GamesPage() {
               ))}
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-6 mb-6">
           <button
             onClick={() => setVisibleCount((prev) => prev + 8)}
             className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
