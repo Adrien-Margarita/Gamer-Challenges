@@ -11,12 +11,12 @@ function PopularGames() {
 
   return (
     <section className="h-full">
-      <div className="flex items-center justify-between text-primary">
-        <h2 className="text-2xl font-bold mb-4">
+      <div className="flex items-center justify-between text-secondary">
+        <h2 className="text-2xl font-bold mb-4 mt-8">
           Les jeux les plus populaires
         </h2>
         <Link to="/games">
-          <Icon path={mdiArrowRightCircleOutline} size={1.4} />
+          <Icon className="mb-4" path={mdiArrowRightCircleOutline} size={1.4} />
         </Link>
       </div>
       <hr />

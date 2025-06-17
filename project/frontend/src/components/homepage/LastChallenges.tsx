@@ -8,8 +8,8 @@ function LastChallenges() {
   
   return (
     <section>
-      <div className="flex items-center justify-between text-primary">
-        <h2 className="text-2xl font-bold mb-4">Les derniers challenges</h2>
+      <div className="flex items-center justify-between text-secondary">
+        <h2 className="text-2xl font-bold mb-4 mt-4">Les derniers challenges</h2>
         <Icon path={mdiArrowRightCircleOutline} size={1.4} />
       </div>      
       <hr />

@@ -8,9 +8,9 @@ function PopularChallenges() {
   
   return (
     <section>
-      <div className="flex items-center justify-between text-primary">
+      <div className="flex items-center justify-between text-secondary">
         <h2 className="text-2xl font-bold mb-4">Les challenges les plus populaires</h2>
-        <Icon path={mdiArrowRightCircleOutline} size={1.4} />
+        <Icon className="mb-4" path={mdiArrowRightCircleOutline} size={1.4} />
       </div>
       <hr />
       <div className="grid grid-cols-1 gap-6 w-full">

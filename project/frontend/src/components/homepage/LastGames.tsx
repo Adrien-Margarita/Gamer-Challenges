@@ -11,9 +11,9 @@ function LastGames() {
 
   return (
     <section className="h-full">
-      <div className="flex items-center justify-between text-primary mb-4">
-        <h2 className="text-2xl font-bold">Les derniers jeux</h2>
-        <Link to="/games">
+      <div className="flex items-center justify-between text-secondary mb-2">
+        <h2 className="text-2xl font-bold mt-8">Les derniers jeux</h2>
+        <Link className="m-0" to="/games">
           <Icon path={mdiArrowRightCircleOutline} size={1.4} />
         </Link>
       </div>
