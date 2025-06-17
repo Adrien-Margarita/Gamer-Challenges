@@ -68,6 +68,7 @@ challengeRouter.post(
  */
 challengeRouter.get("/", getAllChallenges);
 
+
 /**
  * @swagger
  * /api/challenges/popular:
@@ -131,6 +132,32 @@ challengeRouter.get("/game/:id", getChallengesByGameId);
  *         description: Challenge trouvé
  */
 challengeRouter.get("/:id", getChallengeById);
+
+/**
+ * @swagger
+ * /api/challenges/{id}:
+ *   get:
+ *     summary: Récupérer un challenge par son ID
+ *     tags: [Challenges]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID du challenge à récupérer
+ *     responses:
+ *       200:
+ *         description: Challenge trouvé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Challenge'
+ *       404:
+ *         description: Challenge non trouvé
+ */
+challengeRouter.get("/:id", errorHandler, getChallengeById);
 
 /**
  * @swagger

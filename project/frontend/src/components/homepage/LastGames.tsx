@@ -11,14 +11,15 @@ function LastGames() {
 
   return (
     <section className="h-full">
-      <div className="flex items-center justify-between text-primary mb-4">
-        <h2 className="text-2xl font-bold">Les derniers jeux</h2>
-        <Link to="/games">
+      <div className="flex items-center justify-between text-secondary">
+      <h2 className="text-2xl font-bold mb-4 mt-4">Les derniers jeux</h2>
+
+        <Link className="m-0" to="/games">
           <Icon path={mdiArrowRightCircleOutline} size={1.4} />
         </Link>
       </div>
       <hr />
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-0 lg:gap-6">
         {isLoading
           ? Array.from({ length: 4 }).map((_, index) => (
               <Skeleton key={index} className="h-32 w-full" />

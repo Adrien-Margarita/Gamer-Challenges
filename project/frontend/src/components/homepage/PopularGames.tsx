@@ -11,12 +11,12 @@ function PopularGames() {
 
   return (
     <section className="h-full">
-      <div className="flex items-center justify-between text-primary">
-        <h2 className="text-2xl font-bold mb-4">
+      <div className="flex items-center justify-between text-secondary">
+        <h2 className="text-2xl font-bold mb-4 mt-8">
           Les jeux les plus populaires
         </h2>
         <Link to="/games">
-          <Icon path={mdiArrowRightCircleOutline} size={1.4} />
+          <Icon className="mb-4" path={mdiArrowRightCircleOutline} size={1.4} />
         </Link>
       </div>
       <hr />
@@ -26,6 +26,7 @@ function PopularGames() {
               <Skeleton key={index} className="h-32 w-full" />
             ))
           : games.slice(0, 4).map((game) => (
+            <Link to={`/games/${game.game_id}`}>
               <div className="flex flex-col" key={game.game_id}>
                 <p className="text-lg font-semibold text-white mb-4">
                   {game.title}
@@ -39,6 +40,7 @@ function PopularGames() {
                   className="card bg-base-200  shadow-lg p-4 h-64 flex items-center justify-center border-1 border-primary"
                 ></div>
               </div>
+              </Link>
             ))}
       </div>
     </section>

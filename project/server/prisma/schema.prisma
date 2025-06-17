@@ -12,7 +12,7 @@ model challenge {
   challenge_id   String           @id @default(uuid()) @db.Uuid
   title          String           @unique
   description    String
-  image_url      String
+  image_url      String           @default("")
   rules          String
   user_id        String           @db.Uuid
   game_id        String           @db.Uuid
@@ -93,7 +93,7 @@ model password_reset_token {
 }
 
 model user_role {
-  id         String    @id  @default(uuid()) @db.Uuid
+  id         String    @id @default(uuid()) @db.Uuid
   role_id    Int       @unique @default(0)
   role_name  String
   created_at DateTime?

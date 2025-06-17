@@ -6,6 +6,7 @@ import { Provider as JotaiProvider } from "jotai"
 import { BrowserRouter } from "react-router"
 import AuthProvider from "./stores/AuthProvider.tsx"
 import CsrfProvider from "./stores/CsrfProvider.tsx"
+import { Toaster } from "react-hot-toast";
 
 const container = document.getElementById("root")
 if (!container) {
@@ -24,6 +25,7 @@ const AppTree = (
           </CsrfProvider>
         </AuthProvider>
       </BrowserRouter>
+      <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
     </JotaiProvider>
   </QueryClientProvider>
 )
