@@ -21,7 +21,6 @@ export default function Dialog({ children, onClose, closeOnOutsideClick = true }
   return createPortal(
     <div
       className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4 py-10 overflow-y-auto"
-      // biome-ignore lint/a11y/useSemanticElements: <explanation>
       role="dialog"
       aria-modal="true"
       tabIndex={-1}

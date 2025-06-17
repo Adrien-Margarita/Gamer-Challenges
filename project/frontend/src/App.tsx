@@ -20,9 +20,7 @@ const AppTree = (
     <JotaiProvider>
       <BrowserRouter>
         <AuthProvider>
-          <CsrfProvider>
-            <Router />
-          </CsrfProvider>
+          <Router />
         </AuthProvider>
       </BrowserRouter>
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
