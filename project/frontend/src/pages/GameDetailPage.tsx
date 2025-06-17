@@ -192,11 +192,11 @@ const handleSubmit = (e: React.FormEvent) => {
                     Ajouter un challenge
                   </button>
                 </div>
-                <div className="relative w-full max-w-7xl mx-auto mb-12">
+                <div className="relative w-full mx-auto mb-12">
                   <img
                     src={game.image_url}
                     alt={game.title}
-                    className="w-full h-[500px] object-cover rounded-xl shadow-xl"
+                    className="w-full h-[580px] object-cover rounded-xl shadow-xl"
                   />
                   <div className="absolute bottom-4 left-6 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200 ">
                     <h2 className="text-2xl font-semibold">{game.title}</h2>
@@ -216,29 +216,25 @@ const handleSubmit = (e: React.FormEvent) => {
                 <Skeleton key={index} className="h-32 w-full" />
               ))
               : challenges?.slice(0, visibleCount).map((challenge, index) => (
-                <Link to={`/challenges/${challenge.game_id}`}>
+                <Link to={`/challenges/${challenge.challenge_id}`}>
                   <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-6 w-full" key={index}>
-                    <div className="w-full card shadow-lg h-82 lg:mb-6 sm:mb-0">
+                  <div className="w-full">
+                    <h2 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h2>
+                    <hr />
+                    <p className="text-lg text-muted-foreground mb-4">
+                      {challenge.description}
+                    </p>
+                    <p className="text-md text-muted-foreground">
+                      {challenge.rules}
+                    </p>
+                  </div>
                       <img
                         src={challenge.image_url}
                         alt={challenge.title}
-                        className="w-full h-[500px] object-cover
+                        className="w-full h-full object-cover border border-primary
                         transition-transform transition-filter duration-300 ease-in-out
-                        filter hover:grayscale hover:contrast-100
-                        rounded-lg border border-primary"
-                        draggable="false"
-                        loading="lazy"
+                        filter hover:grayscale hover:contrast-100"
                       />
-                    </div>
-                    <div className="w-full">
-                      <h3 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h3>
-                      <p className="text-lg text-muted-foreground mb-4">
-                        {challenge.description}
-                      </p>
-                      <p className="text-base text-muted-foreground mb-4">
-                        {challenge.rules}
-                      </p>
-                    </div>
                   </div>
                 </Link>
               ))}
