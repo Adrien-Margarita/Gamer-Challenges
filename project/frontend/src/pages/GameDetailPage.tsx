@@ -218,23 +218,25 @@ const handleSubmit = (e: React.FormEvent) => {
               : challenges?.slice(0, visibleCount).map((challenge, index) => (
                 <Link to={`/challenges/${challenge.challenge_id}`}>
                   <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-6 w-full" key={index}>
-                  <div className="w-full">
-                    <h2 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h2>
-                    <hr />
-                    <p className="text-lg text-muted-foreground mb-4">
-                      {challenge.description}
-                    </p>
-                    <p className="text-md text-muted-foreground">
-                      {challenge.rules}
-                    </p>
-                  </div>
-                      <img
-                        src={challenge.image_url}
-                        alt={challenge.title}
-                        className="w-full h-full object-cover border border-primary
-                        transition-transform transition-filter duration-300 ease-in-out
-                        filter hover:grayscale hover:contrast-100"
-                      />
+                      <div>
+                        <img
+                          src={challenge.image_url}
+                          alt={challenge.title}
+                          className="w-full h-full object-cover border border-primary
+                          transition-transform transition-filter duration-300 ease-in-out
+                          filter hover:grayscale hover:contrast-100"
+                        />
+                      </div>
+                      <div className="w-full">
+                        <h2 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h2>
+                        <hr />
+                        <p className="text-lg text-muted-foreground mb-4">
+                          {challenge.description}
+                        </p>
+                        <p className="text-md text-muted-foreground">
+                          {challenge.rules}
+                        </p>
+                      </div>
                   </div>
                 </Link>
               ))}
