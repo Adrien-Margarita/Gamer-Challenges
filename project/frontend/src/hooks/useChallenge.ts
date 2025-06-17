@@ -1,6 +1,7 @@
 import challengeService from "@/services/challenge.service";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { IChallenge, IChallengeFormData } from "@/@types/IChallenge";
+import { IChallenge } from "@/@types/IChallenge";
+import { IParticipation } from "@/@types/IParticipation";
 
 const challengeKeys = {
   all: ["challenges"] as const,
@@ -60,6 +61,20 @@ export function useChallenge(id: string) {
 }
 
 /**
+ * Custom React hook to fetch participations for a specific challenge by its ID.
+ *
+ * @param {string} id - The unique identifier of the challenge.
+ * @returns {import('@tanstack/react-query').UseQueryResult<Participation[], unknown>}
+ * The result of the query containing the list of participations.
+ */
+export function useParticipationsByChallengeId(id: string) {
+  return useQuery<IParticipation[]>({
+    queryKey: ["participations", id],
+    queryFn: () => challengeService.getParticipationsByChallengeId(id),
+  });
+}
+
+/**
  * React Query hook to create a new challenge.
  *
  * Invalidates the "challenges" cache on success.
@@ -73,7 +88,7 @@ export function useChallenge(id: string) {
 export function useCreateChallenge() {
   const queryClient = useQueryClient();
 
-  return useMutation<any, Error, IChallengeFormData>({
+  return useMutation({
     mutationFn: challengeService.createChallenge,
     onSuccess: () => {
       // Invalider le cache pour recharger la liste des votes

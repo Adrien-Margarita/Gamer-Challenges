@@ -1,6 +1,6 @@
 import { Router } from "express";
 import errorHandler from "@/middlewares/errorHandler";
-import { createParticipation, deleteParticipation, getAllParticipations, getParticipationById, updateParticipation } from "@/controllers/participation.controller";
+import { createParticipation, deleteParticipation, getAllParticipations, getParticipationByChallengeId, getParticipationById, updateParticipation } from "@/controllers/participation.controller";
 import { validate } from "@/middlewares/validate";
 import { participationSchema } from "@/validators/participation.validator";
 
@@ -75,6 +75,26 @@ participationRouter.get('/', errorHandler, getAllParticipations);
  *         description: participation non trouvé
  */
 participationRouter.get('/:id', errorHandler, getParticipationById);
+
+/**
+ * @swagger
+ * /api/participations/challenge/{id}:
+ *   get:
+ *     summary: Récupérer les partiicipation par ID du challenge
+ *     tags: [Participations]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID du jeu
+ *     responses:
+ *       200:
+ *         description: Liste des participations associés à un challenge
+ */
+participationRouter.get("/challenge/:id", getParticipationByChallengeId);
 
 /**
  * @swagger

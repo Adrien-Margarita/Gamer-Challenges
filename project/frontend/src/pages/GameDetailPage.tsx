@@ -1,15 +1,12 @@
-import type { IChallengeFormData } from "@/@types/IChallenge";
-import { useAtom } from "jotai";
-import { authAtom } from "@/stores/authAtom";
 import { Navbar } from "@/components/homepage";
-import { Dialog, Skeleton } from "@/components/ui";
+import { Skeleton } from "@/components/ui";
 import { useChallengesByGameId } from "@/hooks/useGame";
-import { useCreateChallenge } from "@/hooks/useChallenge";
 import { useGame } from "@/hooks/useGame";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
 export default function GameDetailPage() {
+  const [visibleCount, setVisibleCount] = useState(8);
     const [auth] = useAtom(authAtom);
     const { id } = useParams<{ id: string }>();
     const { mutate: CreateChallenge } = useCreateChallenge();
@@ -24,16 +21,7 @@ export default function GameDetailPage() {
     user_id: auth?.user_id ?? "",
   });
 
-  useEffect(() => {
-    if (id || auth?.user_id) {
-      setForm((prev) => ({
-        ...prev,
-        game_id: id ?? prev.game_id,
-        user_id: auth?.user_id ?? prev.user_id,
-      }));
-    }
-  }, [id, auth]);
-  
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const { data: game, isLoading, isError } = useGame(id ?? "");
@@ -87,6 +75,12 @@ const handleSubmit = (e: React.FormEvent) => {
   }
 
   return (
+    <div className="min-h-screen flex flex-col bg-gradient-to-r from-[#12243E] to-[#314C6B]">
+      {/* Navbar */}
+      <Navbar />
+      <main className="flex-1 p-4 space-y-12">
+        <section>
+          {isLoading && <p className="text-center">Chargement...</p>}
     <>
     {showForm && (
       <Dialog onClose={() => setShowForm(false)} closeOnOutsideClick>
@@ -164,34 +158,22 @@ const handleSubmit = (e: React.FormEvent) => {
       </Dialog>
     )}
 
-      <div className="min-h-screen flex flex-col bg-gradient-to-r from-[#12243E] to-[#314C6B]">
-        {/* Navbar */}
-        <Navbar />
-        <main className="flex-1 p-4 space-y-12">
-          <section>
-            {isLoading && <p className="text-center">Chargement...</p>}
-
-            {!isLoading && game && (
-              <>
-                {/* Image et description du jeu */}
-                <div className="flex w-full justify-end mb-4">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      setForm({ 
-                        title: "", 
-                        description: "", 
-                        rules: "", 
-                        image_url: "", 
-                        game_id: id!,
-                        user_id: ""                      
-                      })
-                      setShowForm(true)
-                    }}
-                  >
-                    Ajouter un challenge
-                  </button>
+          {!isLoading && game && (
+            <>
+              {/* Image et description du jeu */}
+              <div className="relative w-full max-w-7xl mx-auto mb-12">
+                <img
+                  src={game.image_url}
+                  alt={game.title}
+                  className="w-full h-[500px] object-cover rounded-xl shadow-xl"
+                />
+                <div className="absolute bottom-4 left-6 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200 ">
+                  <h2 className="text-2xl font-semibold">{game.title}</h2>
+                  <p className="text-sm text-gray-300">{game.description}</p>
                 </div>
+              </div>
+            </>
+          )}
                 <div className="relative w-full mx-auto mb-12">
                   <img
                     src={game.image_url}
@@ -206,15 +188,54 @@ const handleSubmit = (e: React.FormEvent) => {
               </>
             )}
 
-            {!isLoading && !game && !isError && (
-              <p className="text-center text-red-500">Jeu introuvable</p>
-            )}
-          </section>
-          <section>
-            {isLoading && challenges && !isError
-              ? Array.from({ length: 8 }).map((_, index) => (
+          {!isLoading && !game && !isError && (
+            <p className="text-center text-red-500">Jeu introuvable</p>
+          )}
+        </section>
+        <section>
+          {isLoading && challenges && !isError
+            ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />
               ))
+            : challenges?.slice(0, visibleCount).map((challenge) => (
+                <Link
+                  to={`/challenges/${challenge.challenge_id}`}
+                  key={challenge.challenge_id}
+                >
+                  <div
+                    key={challenge.challenge_id}
+                    className="card bg-base-200 shadow p-4 flex flex-col justify-between"
+                  >
+                    <h3 className="text-lg font-semibold mb-2">
+                      {challenge.title}
+                    </h3>
+                    <img
+                      src={challenge.image_url}
+                      alt={challenge.title}
+                      className="w-full h-[180px] object-cover rounded-lg border-1 border-primary mt-auto"
+                    />
+                    <div className="text-right text-2xl font-bold">
+                      {/* TODO: Affichage des nombres de challenge par jeux*/}
+                      {
+                        [28, 12, 38, 52, 15, 3, 9, 44][
+                          Number(challenge.challenge_id)
+                        ]
+                      }
+                    </div>
+                  </div>
+                </Link>
+              ))}
+          <div className="flex justify-center">
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 8)}
+              className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
+            >
+              Voir plus
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
               : challenges?.slice(0, visibleCount).map((challenge, index) => (
                 <Link to={`/challenges/${challenge.challenge_id}`}>
                   <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-6 w-full" key={index}>
