@@ -2,15 +2,14 @@ import { IGame } from "@/@types/IGame";
 
 export default function GameCard({ game }: { game: IGame }) {
   return (
-    <div className="rounded-lg overflow-hidden shadow-lg border-1 border-primary relative group transition-transform transition-filter duration-300 ease-in-out
-        transform scale-100 hover:scale-110 hover:z-10">
+    <div className="rounded-lg overflow-hidden shadow-lg border-1 border-primary relative group transition-transform transition-filter duration-300 ease-in-out">
       
       <img
         src={game.image_url}
         alt={game.title}
         className="w-full h-[180px] object-cover border border-primary
         transition-transform transition-filter duration-300 ease-in-out
-        filter hover:grayscale hover:contrast-100"
+        filter hover:grayscale hover:contrast-100 transform scale-100 hover:scale-110"
         draggable="false"
         loading="lazy"
       />
