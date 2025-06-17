@@ -20,8 +20,7 @@ export default function Dialog({ children, onClose, closeOnOutsideClick = true }
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4 py-10 overflow-y-auto"
-      // biome-ignore lint/a11y/useSemanticElements: <explanation>
+      className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center px-4 py-10 overflow-y-auto"
       role="dialog"
       aria-modal="true"
       tabIndex={-1}
@@ -33,18 +32,17 @@ export default function Dialog({ children, onClose, closeOnOutsideClick = true }
       <dialog
         open
         className="relative w-full max-w-2xl bg-[#1e1e1e] text-white border border-[#2a2a2a] rounded-xl p-6 shadow-xl overflow-hidden"
+        
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
       >
-        {/* Halo bleu vertical à gauche */}
-        <div className="absolute left-0 top-0 h-full w-1 bg-[#00aaff] rounded-l-xl z-10" />
 
         {/* Bouton de fermeture */}
         <button
           type="button"
           onClick={onClose}
           aria-label="Fermer la modale"
-          className="ghost absolute top-4 right-4 text-gray-400 hover:text-white p-2 z-20"
+          className="cursor-pointer ghost absolute top-4 right-4 text-gray-400 hover:text-white p-2 z-20"
         >
           <Icon path={mdiClose} size={1} />
 

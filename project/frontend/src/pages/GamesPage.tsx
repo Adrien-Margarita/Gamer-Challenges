@@ -1,5 +1,6 @@
 import { IGame } from "@/@types/IGame";
 import Footer from "@/components/Footer";
+import GameCard from "@/components/GameCard";
 import { Navbar } from "@/components/homepage";
 import { Skeleton } from "@/components/ui";
 import { useGames, useMostPopularGames } from "@/hooks/useGame";
@@ -57,7 +58,7 @@ export default function GamesPage() {
               <img
                 src={popularGames[currentSlide].image_url}
                 alt={popularGames[currentSlide].title}
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[500px] object-cover transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100 transform scale-100 hover:scale-110"
               />
             </Link>
 
@@ -96,18 +97,7 @@ export default function GamesPage() {
               ))
             : games.slice(0, visibleCount).map((game) => (
                 <Link to={`/game/${game.game_id}`} key={game.game_id}>
-                  <div className="card bg-base-200 shadow p-4 flex flex-col justify-between h-full">
-                    <h3 className="text-lg font-semibold mb-2">{game.title}</h3>
-                    <img
-                      src={game.image_url}
-                      alt={game.title}
-                      className="w-full h-[180px] object-cover rounded-lg border border-primary mt-auto"
-                    />
-                    <div className="text-right text-2xl font-bold">
-                      {/* TODO: Affichage des nombres de challenge par jeu */}
-                      {[28, 12, 38, 52, 15, 3, 9, 44][Number(game.game_id)]}
-                    </div>
-                  </div>
+                  <GameCard game={game} />
                 </Link>
               ))}
         </div>

@@ -12,7 +12,6 @@ type Props = {
 export default function FormModal({ title, onClose, onSubmit, children, footer }: Props) {
   return (
     <Dialog onClose={onClose}>
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
       <form
         onSubmit={onSubmit}
         className="relative bg-[#1e1e1e] text-white border border-[#2a2a2a] rounded-xl p-6 space-y-6"

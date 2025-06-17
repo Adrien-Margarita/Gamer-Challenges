@@ -52,7 +52,7 @@ const forbiddenFields = ["user_id"];
 challengeRouter.post(
   "/",
   isAuthenticated,
-  sanitizeBody(forbiddenFields), // Ajout ici
+  sanitizeBody(forbiddenFields),
   validate(challengeSchema),
   createChallenge
 );
@@ -158,7 +158,7 @@ challengeRouter.get("/:id", getChallengeById);
  *       404:
  *         description: Challenge non trouvé
  */
-challengeRouter.get("/:id", errorHandler, getChallengeById);
+challengeRouter.get("/:id", getChallengeById);
 
 /**
  * @swagger
@@ -187,7 +187,7 @@ challengeRouter.get("/:id", errorHandler, getChallengeById);
 challengeRouter.put(
   "/:id",
   isAuthenticated,
-  sanitizeBody(forbiddenFields), // Ajout ici
+  sanitizeBody(forbiddenFields),
   validate(challengeSchema),
   updateChallenge
 );
