@@ -1,4 +1,5 @@
 import { IGame } from "./IGame";
+import { IParticipation, IUserPreview } from "./IParticipation";
 
 export interface IChallenge {
   challenge_id: string; // UUID
@@ -44,4 +45,21 @@ export interface IPopularChallenge extends IChallenge {
     category: string;
   };
   totalVotes: number;
+}
+
+export interface IChallengeWithRelations extends IChallenge {
+  game: IGame;
+  participation: (IParticipation & {
+    participation_vote: {
+      participation_vote_id: string;
+      user_id: string;
+      participation_id: string;
+    }[];
+    user: IUserPreview;
+  })[];
+  challenge_vote: {
+    challenge_vote_id: string;
+    user_id: string;
+    challenge_id: string;
+  }[];
 }

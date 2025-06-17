@@ -87,7 +87,6 @@ export const getParticipationByChallengeId = async (
   }
 };
 
-
 // Mettre à jour une participation existante
 export const updateParticipation = async (
   req: Request,
