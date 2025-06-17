@@ -12,10 +12,12 @@ import {
 } from "@/controllers/challenge.controller";
 
 import { challengeSchema } from "@/validators/challenge.validator";
-import errorHandler from "@/middlewares/errorHandler";
 import { validate } from "@/middlewares/validate";
+import { isAuthenticated } from "@/middlewares/isAuthenticated";
+import { sanitizeBody } from "@/middlewares/sanitize";
 
 const challengeRouter = Router();
+const forbiddenFields = ["user_id"];
 
 /**
  * @swagger
@@ -48,8 +50,9 @@ const challengeRouter = Router();
  */
 challengeRouter.post(
   "/",
+  isAuthenticated,
+  sanitizeBody(forbiddenFields), // Ajout ici
   validate(challengeSchema),
-  errorHandler,
   createChallenge
 );
 
@@ -63,34 +66,72 @@ challengeRouter.post(
  *       200:
  *         description: Liste des challenges
  */
-challengeRouter.get("/", errorHandler, getAllChallenges);
+challengeRouter.get("/", getAllChallenges);
 
 
 /**
  * @swagger
- * /challenges/popular:
+ * /api/challenges/popular:
  *   get:
  *     summary: Get popular challenges ordered by number of votes
- *     tags:
- *       - Challenges
+ *     tags: [Challenges]
  *     responses:
  *       200:
- *         description: List of popular challenges
+ *         description: Liste des challenges populaires
  */
 challengeRouter.get("/popular", getMostPopularChallenges);
 
 /**
  * @swagger
- * /challenges/latest:
+ * /api/challenges/latest:
  *   get:
- *     summary: Get the last 3 challenges
- *     tags:
- *       - Challenges
+ *     summary: Get the last challenges
+ *     tags: [Challenges]
  *     responses:
  *       200:
- *         description: List of latest challenges
+ *         description: Liste des derniers challenges
  */
 challengeRouter.get("/latest", getLastChallenges);
+
+/**
+ * @swagger
+ * /api/challenges/game/{id}:
+ *   get:
+ *     summary: Récupérer les challenges par ID de jeu
+ *     tags: [Challenges]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID du jeu
+ *     responses:
+ *       200:
+ *         description: Liste des challenges associés à un jeu
+ */
+challengeRouter.get("/game/:id", getChallengesByGameId);
+
+/**
+ * @swagger
+ * /api/challenges/{id}:
+ *   get:
+ *     summary: Récupérer un challenge par ID
+ *     tags: [Challenges]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID du challenge
+ *     responses:
+ *       200:
+ *         description: Challenge trouvé
+ */
+challengeRouter.get("/:id", getChallengeById);
 
 /**
  * @swagger
@@ -144,8 +185,9 @@ challengeRouter.get("/:id", errorHandler, getChallengeById);
  */
 challengeRouter.put(
   "/:id",
+  isAuthenticated,
+  sanitizeBody(forbiddenFields), // Ajout ici
   validate(challengeSchema),
-  errorHandler,
   updateChallenge
 );
 
@@ -167,6 +209,6 @@ challengeRouter.put(
  *       200:
  *         description: Challenge supprimé avec succès
  */
-challengeRouter.delete("/:id", errorHandler, deleteChallenge);
+challengeRouter.delete("/:id", deleteChallenge);
 
 export default challengeRouter;

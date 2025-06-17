@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Provider as JotaiProvider } from "jotai"
 import { BrowserRouter } from "react-router"
 import AuthProvider from "./stores/AuthProvider.tsx"
+import CsrfProvider from "./stores/CsrfProvider.tsx"
 import { Toaster } from "react-hot-toast";
 
 const container = document.getElementById("root")
@@ -19,7 +20,9 @@ const AppTree = (
     <JotaiProvider>
       <BrowserRouter>
         <AuthProvider>
-          <Router />
+          <CsrfProvider>
+            <Router />
+          </CsrfProvider>
         </AuthProvider>
       </BrowserRouter>
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
