@@ -1,4 +1,4 @@
-import { PrismaClient } from "@/generated/prisma"
+import { PrismaClient } from "@/generated/prisma";
 import { Request, Response, NextFunction } from "express";
 import { createHttpError } from "@/utils/httpError";
 
@@ -9,15 +9,29 @@ export const createParticipation = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
-    const { user_id } = req.params;
+    delete req.body.user_id;
+
+    const userId = req.session.userId;
+
+    if (!userId) {
+      res.status(401).json({ error: "Non authentifié" });
+      return;
+    }
+
+    const { video_url, image_url, description, challenge_id } = req.body;
+
     const newParticipation = await prisma.participation.create({
       data: {
-        ...req.body,
-        user_id: user_id
-      }
+        video_url,
+        image_url,
+        description,
+        challenge_id,
+        user_id: userId,
+      },
     });
+
     res.status(201).json({ participation: newParticipation });
   } catch (error) {
     next(error);
@@ -62,7 +76,7 @@ export const getParticipationById = async (
 };
 
 // Récupérer les participations par l'ID du challenge
-export const getParticipationByChallengeId = async (
+export const getParticipationsByChallengeId = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -76,17 +90,16 @@ export const getParticipationByChallengeId = async (
         user: {
           select: {
             user_id: true,
-            pseudonym: true,      
+            pseudonym: true,
           },
-  },
-}
+        },
+      },
     });
     res.status(200).json(participations);
   } catch (error) {
     next(error);
   }
 };
-
 
 // Mettre à jour une participation existante
 export const updateParticipation = async (
@@ -112,9 +125,7 @@ export const updateParticipation = async (
       },
       where: { participation_id },
     });
-    res
-      .status(200)
-      .json({ message: `Participation mise à jour avec succès` });
+    res.status(200).json({ message: `Participation mise à jour avec succès` });
   } catch (error) {
     next(error);
   }
@@ -140,9 +151,7 @@ export const deleteParticipation = async (
     const participationToDelete = await prisma.participation.delete({
       where: { participation_id },
     });
-    res
-      .status(200)
-      .json({ message: `Participation supprimée avec succès` });
+    res.status(200).json({ message: `Participation supprimée avec succès` });
   } catch (error) {
     next(error);
   }

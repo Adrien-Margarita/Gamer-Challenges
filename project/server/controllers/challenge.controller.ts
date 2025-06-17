@@ -70,8 +70,15 @@ export const getChallengeById = async (
   try {
     const challenge = await prisma.challenge.findUnique({
       where: { challenge_id: id },
+      include: {
+        game: {
+          select: {
+            title: true,
+          },
+        },
+      },
     });
-    res.status(200).json( challenge );
+    res.status(200).json(challenge);
   } catch (error) {
     next(error);
   }
@@ -240,7 +247,15 @@ export const deleteChallenge = async (
     next(error);
   }
 };
-function sanitize(body: any, allowedFields: readonly ["title", "description", "rules", "image_url", "game_id"]) {
+function sanitize(
+  body: any,
+  allowedFields: readonly [
+    "title",
+    "description",
+    "rules",
+    "image_url",
+    "game_id",
+  ]
+) {
   throw new Error("Function not implemented.");
 }
-
