@@ -26,7 +26,8 @@ export default function ChallengesPage() {
     () => (Array.isArray(popularChallengesData) ? popularChallengesData : []),
     [popularChallengesData]
   );
-
+  console.log("Popular Challenges:", popularChallenges);
+  
   const filteredChallenges = useMemo(
     () => 
       challenges.filter((challenge) => 
@@ -35,7 +36,6 @@ export default function ChallengesPage() {
   );
 
   const showMoreButton = challenges.length > 8 && visibleCount < challenges.length;
-
 
   // Timer auto slide
   useEffect(() => {
