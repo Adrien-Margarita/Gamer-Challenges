@@ -1,11 +1,20 @@
+import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router";
 import LogoWhite from "/assets/images/logo-white.svg";
 import Icon from "@mdi/react";
-import { mdiLogout, mdiMenu } from "@mdi/js";
+import { mdiLogout, mdiMenu, mdiMagnify } from "@mdi/js";
 
 function Navbar() {
   const { isAuthenticated, logout, auth } = useAuth();
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    console.log("Recherche :", searchQuery);
+    // TODO : rediriger ou exécuter recherche
+  };
 
   return (
     <div className="drawer-end md:drawer-static">
@@ -23,6 +32,38 @@ function Navbar() {
 
           {/* Menu visible en md+ */}
           <div className="hidden md:flex gap-4 items-center text-white">
+
+            {isAuthenticated && (
+              <>
+                {/* Bouton Loupe */}
+                <button
+                  onClick={() => setShowSearch((prev) => !prev)}
+                  className="cursor-pointer"
+                  title="Rechercher"
+                >
+                  <Icon
+                    path={mdiMagnify}
+                    size={1}
+                    className="hover:text-primary transition-colors"
+                  />
+                </button>
+
+                {/* Champ de recherche */}
+                {showSearch && (
+                  <form onSubmit={handleSearch} className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Rechercher..."
+                      className="w-full p-2 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+                    />
+                    <button type="submit" className="btn btn-primary btn-sm">OK</button>
+                  </form>
+                )}
+              </>
+            )}
+
             {!isAuthenticated ? (
               <>
                 <Link
