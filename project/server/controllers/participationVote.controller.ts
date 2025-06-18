@@ -74,12 +74,18 @@ export const getMostVotedPlayers = async (
   next: NextFunction
 ) => {
   try {
+<<<<<<< feat/votes
     const grouped = await prisma.participation_vote.groupBy({
+=======
+    // Récupérer les votes groupés par user_id
+    const mostVotedPlayers = await prisma.participation_vote.groupBy({
+>>>>>>> develop
       by: ["user_id"],
       _count: { user_id: true },
       orderBy: { _count: { user_id: "desc" } },
     });
 
+<<<<<<< feat/votes
     const result = await Promise.all(
       grouped.map(async (g) => {
         const user = await prisma.user.findUnique({
@@ -87,10 +93,36 @@ export const getMostVotedPlayers = async (
           select: { user_id: true, pseudonym: true, avatar_url: true },
         });
         return { user, votes: g._count.user_id };
-      })
-    );
+=======
+    // Récupération des utilisateurs concernés
+    const userIds = mostVotedPlayers.map((vote) => vote.user_id);
 
-    res.status(200).json(result);
+    const users = await prisma.user.findMany({
+      where: { user_id: { in: userIds } },
+      select: {
+        user_id: true,
+        pseudonym: true,
+        avatar_url: true,
+      },
+    });
+
+    // Création d'une map user_id -> user
+    const userMap = new Map(users.map((u) => [u.user_id, u]));
+
+    // Association des votes avec leur utilisateur
+    const result = mostVotedPlayers
+      .map((vote) => {
+        const user = userMap.get(vote.user_id);
+        if (!user) return null;
+        return {
+          user,
+          votes: vote._count.user_id,
+        };
+>>>>>>> develop
+      })
+      .filter(Boolean); // enlève les entrées nulles
+      
+      res.status(200).json(result);
   } catch (error) {
     next(error);
   }

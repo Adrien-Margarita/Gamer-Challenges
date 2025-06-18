@@ -2,6 +2,7 @@ import { IGame } from "@/@types/IGame";
 import Footer from "@/components/Footer";
 import GameCard from "@/components/GameCard";
 import { Navbar } from "@/components/homepage";
+import SearchBar from "@/components/SearchBar";
 import { Skeleton } from "@/components/ui";
 import { useGames, useMostPopularGames } from "@/hooks/useGame";
 import { useEffect, useMemo, useState } from "react";
@@ -10,9 +11,12 @@ import { Link } from "react-router";
 export default function GamesPage() {
   const [visibleCount, setVisibleCount] = useState(8);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [search, setSearch] = useState("");
+  const { data, isLoading } = useGames();  
 
-  const { data, isLoading } = useGames();
-  const games: IGame[] = Array.isArray(data) ? data : [];
+  const games = useMemo(() => {
+    return Array.isArray(data) ? data : [];
+  }, [data]);
 
   const { data: popularGamesData } = useMostPopularGames();
 
@@ -21,6 +25,13 @@ export default function GamesPage() {
   const popularGames: IGame[] = useMemo(
     () => (Array.isArray(popularGamesData) ? popularGamesData?.slice(0, 4) : []),
     [popularGamesData]
+  );
+
+  const filteredGames = useMemo(
+    () => 
+      games.filter((game) => 
+        game.title.toLowerCase().includes(search.toLowerCase())
+    ), [games, search]
   );
 
   // Timer auto slide
@@ -83,7 +94,9 @@ export default function GamesPage() {
             </div>
           </div>
         )}
-
+        
+        <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher un jeu ..." />
+        
         {/* Section des jeux */}
         <h2 className="text-2xl font-bold mb-4">Tous les jeux</h2>
         <hr />
@@ -95,7 +108,7 @@ export default function GamesPage() {
             ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />
               ))
-            : games.slice(0, visibleCount).map((game) => (
+            : filteredGames.slice(0, visibleCount).map((game) => (
                 <Link to={`/game/${game.game_id}`} key={game.game_id}>
                   <GameCard game={game} />
                 </Link>

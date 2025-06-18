@@ -1,11 +1,14 @@
+
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router";
 import LogoWhite from "/assets/images/logo-white.svg";
 import Icon from "@mdi/react";
 import { mdiLogout, mdiMenu } from "@mdi/js";
 
+
 function Navbar() {
   const { isAuthenticated, logout, auth } = useAuth();
+
 
   return (
     <div className="drawer-end md:drawer-static">
@@ -23,6 +26,9 @@ function Navbar() {
 
           {/* Menu visible en md+ */}
           <div className="hidden md:flex gap-4 items-center text-white">
+
+            
+
             {!isAuthenticated ? (
               <>
                 <Link

@@ -6,12 +6,12 @@ import HomePage from "./pages/Homepage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ProfilePage from "./pages/ProfilePage";
-import PopularPlayersPage from "./pages/PopularPlayersPage";
 import RequireAuth from "./components/RequireAuth";
 import GamesPage from "./pages/GamesPage";
 import GameDetailPage from "./pages/GameDetailPage";
 import ChallengesPage from "./pages/ChallengesPage";
 import ChallengeDetailPage from "./pages/ChallengeDetailPage";
+import LeaderboardPage from "./pages/LeaderboardPage";
 
 export default function Router() {
   return (
@@ -32,7 +32,7 @@ export default function Router() {
       <Route element={<RequireAuth />}>
         <Route path="/games/:id" element={<GameDetailPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/popular-players" element={<PopularPlayersPage />} />
+        <Route path="/popular-players" element={<LeaderboardPage />} />
         <Route path="/challenges/:id" element={<ChallengeDetailPage />} />
       </Route>
     </Routes>

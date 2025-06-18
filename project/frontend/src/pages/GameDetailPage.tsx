@@ -6,8 +6,9 @@ import { Dialog, Skeleton } from "@/components/ui";
 import { useChallengesByGameId } from "@/hooks/useGame";
 import { useCreateChallenge } from "@/hooks/useChallenge";
 import { useGame } from "@/hooks/useGame";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
+import SearchBar from "@/components/SearchBar";
 
 export default function GameDetailPage() {
     const [auth] = useAtom(authAtom);
@@ -23,6 +24,9 @@ export default function GameDetailPage() {
     game_id: id ?? "",
     user_id: auth?.user_id ?? "",
   });
+  const [search, setSearch] = useState("");
+  
+ 
 
   useEffect(() => {
     if (id || auth?.user_id) {
@@ -37,7 +41,18 @@ export default function GameDetailPage() {
   const navigate = useNavigate();
 
   const { data: game, isLoading, isError } = useGame(id ?? "");
-  const { data: challenges } = useChallengesByGameId(id ?? "");
+  const { data } = useChallengesByGameId(id ?? "");
+
+  const challenges = useMemo(() => {
+    return Array.isArray(data) ? data : [];
+  }, [data]);
+
+  const filteredChallenges = useMemo(
+    () => 
+      challenges.filter((challenge) => 
+        challenge.title.toLowerCase().includes(search.toLowerCase())
+    ), [challenges, search]
+  );
 
   useEffect(() => {
     if (isError && !isLoading) {
@@ -211,11 +226,12 @@ const handleSubmit = (e: React.FormEvent) => {
             )}
           </section>
           <section>
+            <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher un challenge ..." />
             {isLoading && challenges && !isError
               ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />
               ))
-              : challenges?.slice(0, visibleCount).map((challenge, index) => (
+              : filteredChallenges?.slice(0, visibleCount).map((challenge, index) => (
                 <Link to={`/challenges/${challenge.challenge_id}`}>
                   <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-6 w-full" key={index}>
                       <div>
