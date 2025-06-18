@@ -49,7 +49,6 @@ export const getAllParticipationsVotes = async (
   }
 };
 
-
 // Récupère tous les votes d'une participation
 export const getAllParticipationVotesByParticipationId = async (
   req: Request<{ participation_id: string }>,
@@ -66,36 +65,7 @@ export const getAllParticipationVotesByParticipationId = async (
   }
 };
 
-
-// // Classement des utilisateurs ayant reçu le plus de votes
-// export const getMostVotedPlayers = async (
-//   _req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     const grouped = await prisma.participation_vote.groupBy({
-//       by: ["user_id"],
-//       _count: { user_id: true },
-//       orderBy: { _count: { user_id: "desc" } },
-//     });
-
-//     const result = await Promise.all(
-//       grouped.map(async (g) => {
-//         const user = await prisma.user.findUnique({
-//           where: { user_id: g.user_id },
-//           select: { user_id: true, pseudonym: true, avatar_url: true },
-//         });
-//         return { user, votes: g._count.user_id };
-//       })
-//     );
-
-//     res.status(200).json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
+// Récupère les utilisateurs ayant le plus de votes
 export const getMostVotedPlayers = async (
   req: Request,
   res: Response,

@@ -5,16 +5,16 @@ import Icon from "@mdi/react";
 import { mdiBulletinBoard, mdiCogOutline, mdiControllerClassicOutline, mdiLogout, mdiMenu, mdiTrophyOutline } from "@mdi/js";
 
 function Navbar() {
-  const { isAuthenticated, logout, auth } = useAuth();
+  const { isAuthenticated, logout, auth, isAdmin } = useAuth();
 
   return (
     <div className="drawer-end md:drawer-static">
       <input id="menu-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <header className="navbar bg-base-100 shadow p-4 md:p-6">
-          <div className="flex-1 text-xl just font-bold">
+          <div className="flex w-full text-xl font-bold">
             <Link to="/">
-              <div className="flex items-center gap-4 text-white">
+              <div className="flex w-full items-center gap-4 justify-center text-white">
                 <img src={LogoWhite} alt="Gamer Challenge" className="h-6" />
                 <h1 className="text-2xl font-normal">Gamer Challenge</h1>
               </div>
@@ -22,9 +22,8 @@ function Navbar() {
           </div>
 
           {/* Menu visible en md+ */}
-          <div className="hidden md:flex gap-4 items-center text-white">
             {!isAuthenticated ? (
-              <>
+              <div className="flex w-full justify-end gap-4">
                 <Link
                   to="/login"
                   className="cursor-pointer hover:bg-primary hover:text-white p-2 rounded"
@@ -37,12 +36,46 @@ function Navbar() {
                 >
                   S’inscrire
                 </Link>
-              </>
+                </div>
             ) : (
               <>
+              <div className="flex w-full justify-center items-center gap-8">
+                <Link to="/games"
+                  className="hover:bg-primary hover:text-white rounded px-4 py-2 flex items-center gap-2 group"
+                >
+                  <Icon className="opacity-50 text-primary group-hover:text-white" path={mdiControllerClassicOutline} size={1} />
+                  Jeux
+                </Link>
+                <Link
+                  to="/challenges"
+                  className="hover:bg-primary hover:text-white rounded px-4 py-2 flex items-center gap-2 group"
+                >
+                  <Icon
+                    className="opacity-50 text-primary group-hover:text-white"
+                    path={mdiTrophyOutline}
+                    size={1}
+                  />
+                  Challenges
+                </Link>
+                <Link to="/leaderboard"
+                  className="hover:bg-primary hover:text-white rounded px-4 py-2 flex items-center gap-2 group"
+                >
+                  <Icon className="opacity-50 text-primary group-hover:text-white" path={mdiBulletinBoard} size={1} />
+                  Leaderboard
+                </Link>
+                { isAdmin && (
+                  <Link to="/settings"
+                    className="hover:bg-primary hover:text-white rounded flex items-center gap-2">
+                    <Icon className="opacity-50 text-primary group-hover:text-white" path={mdiCogOutline} size={1} />
+                    Administration
+                  </Link>
+                )}
+              </div>
+              <div className="flex w-full justify-end gap-8">
+                {/* Profil et déconnexion */}
                 <Link
                   to="/profile"
-                  className="cursor-pointer flex flex-col items-center"
+                  className="cursor-pointer flex flex-col items-center text-secondary hover:text-white transition-colors"
                   title="Mon profil"
                   >
                   <img
@@ -53,15 +86,16 @@ function Navbar() {
                   <span className="text-xs">{auth?.pseudonym}</span>
                 </Link>
                 <button
-                  className="cursor-pointer"
+                  className="cursor-pointer text-primary hover:text-white hover:bg-primary transition-colors p-4 rounded-full"
                   title="Se déconnecter"
                   onClick={logout}
                 >
                   <Icon path={mdiLogout} size={1} />
                 </button>
+              </div>
               </>
             )}
-          </div>
+          {/* </div> */}
 
           {/* Burger menu sm */}
           <div className="md:hidden">
@@ -122,7 +156,7 @@ function Navbar() {
                   <Icon className="opacity-50 text-primary" path={mdiControllerClassicOutline} size={1} />
                   Jeux
                 </Link>
-                </li>
+              </li>
               <li>
                 <Link to="/challenges" className="hover:bg-primary hover:text-white rounded flex items-center gap-2">
                   <Icon className="opacity-50 text-primary" path={mdiTrophyOutline} size={1} />
