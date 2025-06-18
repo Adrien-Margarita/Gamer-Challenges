@@ -1,4 +1,4 @@
-import { ISearchBar } from "@/@types/searchbar";
+import { ISearchBar } from "@/@types/ISearchbar";
 import { mdiMagnify } from "@mdi/js";
 import Icon from "@mdi/react";
 

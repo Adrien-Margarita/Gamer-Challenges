@@ -144,7 +144,7 @@ export function useAuth() {
     isLoading,
     isAuthenticated: Boolean(auth),
     role: auth?.role_name,
-    isAdmin: auth?.role_name === "admin",
+    isAdmin: auth?.role_id === 1,
 
     // Mutations
     registerMutation,

@@ -1,10 +1,11 @@
-import { IGame } from "@/@types/IGame";
+import { IGame, IGameFormData } from "@/@types/IGame";
 import Footer from "@/components/Footer";
 import GameCard from "@/components/GameCard";
 import { Navbar } from "@/components/homepage";
 import SearchBar from "@/components/SearchBar";
-import { Skeleton } from "@/components/ui";
-import { useGames, useMostPopularGames } from "@/hooks/useGame";
+import { Dialog, Skeleton } from "@/components/ui";
+import { useAuth } from "@/hooks/useAuth";
+import { useCreateGame, useGames, useMostPopularGames } from "@/hooks/useGame";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 
@@ -12,12 +13,24 @@ export default function GamesPage() {
   const [visibleCount, setVisibleCount] = useState(8);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [search, setSearch] = useState("");
-  const { data, isLoading } = useGames();  
+  const { data, isLoading } = useGames();
+  const { isAdmin } = useAuth();
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState<IGameFormData>({
+    title: "",
+    category: "",
+    description: "",
+    release_date: new Date(),
+    image_url:"",
+    platform:"",
+  }); 
+  const { mutate: CreateGame } = useCreateGame();
 
   const games = useMemo(() => {
     return Array.isArray(data) ? data : [];
   }, [data]);
 
+  const showMoreButton = games.length > 8 && visibleCount < games.length;
   const { data: popularGamesData } = useMostPopularGames();
 
   // Vérification que popularGamesData est un tableau
@@ -33,6 +46,26 @@ export default function GamesPage() {
         game.title.toLowerCase().includes(search.toLowerCase())
     ), [games, search]
   );
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setForm((prev) => ({
+      ...prev,
+      [name]: name === "release_date" ? new Date(value) : value,
+    }));
+  };
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    CreateGame(form, {
+      onSuccess: () => {
+        setShowForm(false);
+      },
+      onError: (err) => {
+        console.error("Erreur création challenge", err);
+      },
+    });
+  };
 
   // Timer auto slide
   useEffect(() => {
@@ -45,15 +78,144 @@ export default function GamesPage() {
     return () => clearInterval(timer);
   }, [popularGames]);
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#12243E] to-[#314C6B]">
+        <p className="text-white text-sm">Chargement du jeu...</p>
+      </div>
+    );
+  }
 
   return (
+    <>
+    {showForm && (
+      <Dialog onClose={() => setShowForm(false)} closeOnOutsideClick>
+        <form onSubmit={handleSubmit}>
+          <h2 className="mb-2 font-semibold">Ajouter un jeu</h2>
+          <hr />
+          <div className="mb-4">
+            <label htmlFor="title">Titre</label>
+            <input
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+              id="title"
+              name="title"
+              value={form?.title || ""}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="category">Catégorie</label>
+            <input
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+              id="category"
+              name="category"
+              value={form?.category || ""}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="description">Description</label>
+            <textarea
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+              id="description"
+              name="description"
+              value={form?.description || ""}
+              onChange={handleChange}
+              rows={4}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="relase_date">Date de sortie</label>
+            <input
+              type="date"
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+              id="release_date"
+              name="release_date"
+              value={form.release_date.toISOString().split("T")[0]}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="platform">Plateforme</label>
+            <input
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+              id="platform"
+              name="platform"
+              value={form.platform}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="image_url">Image du jeu (url)</label>
+            <input
+              className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+              id="image_url"
+              name="image_url"
+              value={form?.image_url || ""}
+              onChange={handleChange}
+            />
+
+            {form.image_url && (
+              <div className="mt-4">
+                <p className="text-sm text-gray-400 mb-2">Aperçu :</p>
+                <img
+                  src={form.image_url}
+                  alt="Aperçu"
+                  className="w-full max-h-[200px] object-cover rounded border border-gray-700"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/images/image-placeholder.png";
+                  }}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="flex justify-end gap-2 mt-4">
+            <button type="button" onClick={() => setShowForm(false)} className="btn-ghost cursor-pointer">
+              Annuler
+            </button>
+            <button type="submit" className="btn btn-primary ml-4">
+              Créer
+            </button>
+          </div>
+        </form>
+      </Dialog>
+    )}
+
+
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
       <Navbar />
 
       {/* Main Content */}
       <main className="flex-1 p-4 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
-        <h2 className="text-2xl font-bold mb-4">Les jeux les plus populaires</h2>
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Les jeux les plus populaires</h2>
+          {isAdmin && (
+            <div className="flex flex-col items-center">
+              <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setForm({
+                        title: "",
+                        category: "",
+                        description: "",
+                        image_url: "",
+                        release_date: new Date(),
+                        platform: "",
+                      });
+                      setShowForm(true);
+                    }}
+                  >
+                    Ajouter un jeu
+                  </button>
+            </div>
+          )}
+        </div>        
         <hr />
         <p className="text-lg text-muted-foreground mb-4">
           Découvrez les jeux les plus populaires de la plateforme.
@@ -117,18 +279,22 @@ export default function GamesPage() {
               ))}
         </div>
 
-        <div className="flex justify-center mt-6 mb-6">
-          <button
-            onClick={() => setVisibleCount((prev) => prev + 8)}
-            className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
-          >
-            Voir plus
-          </button>
-        </div>
+        {showMoreButton && (
+          <div className="flex justify-center mt-6 mb-6">
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 8)}
+              className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
+            >
+              Voir plus
+            </button>
+          </div>
+        )}
       </main>
+      
 
       {/* Footer */}
       <Footer />
     </div>
+    </>
   );
 }

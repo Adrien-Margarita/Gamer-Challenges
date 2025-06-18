@@ -1,7 +1,8 @@
 import gameService from "@/services/game.service";
-import { useQuery } from "@tanstack/react-query";
-import { IGame } from "@/@types/IGame";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { IGame, IGameFormData } from "@/@types/IGame";
 import { IChallenge } from "@/@types/IChallenge";
+import { logger } from "@/utils/logger";
 
 const gameKeys = {
   all: ["games"] as const,
@@ -9,60 +10,79 @@ const gameKeys = {
 
 /**
  * React Query hook to fetch all games.
- *
- * @returns {UseQueryResult<IGame[], Error>} Query result containing the list of games.
- *
- * @example
- * const { data: games, isLoading } = useGames();
  */
 export function useGames() {
   return useQuery<IGame[]>({
     queryKey: gameKeys.all,
-    queryFn: gameService.getAllGames,
+    queryFn: async () => {
+      const games = await gameService.getAllGames();
+      logger("🎮 useGames → jeux récupérés", games);
+      return games;
+    },
   });
 }
 
 /**
- * Custom React hook to fetch challenges for a specific game by its ID.
- *
- * @param {string} id - The unique identifier of the game.
- * @returns {import('@tanstack/react-query').UseQueryResult<Challenge[], unknown>}
- * The result of the query containing the list of challenges.
+ * Hook pour récupérer les challenges d'un jeu par ID.
  */
 export function useChallengesByGameId(id: string) {
   return useQuery<IChallenge[]>({
     queryKey: ["challenges", id],
-    queryFn: () => gameService.getChallengesByGameId(id),
+    queryFn: async () => {
+      const challenges = await gameService.getChallengesByGameId(id);
+      logger(`⚔️ useChallengesByGameId → ${id}`, challenges);
+      return challenges;
+    },
   });
 }
 
 /**
- * React Query hook to fetch the most popular games based on challenge votes.
- *
- * @returns {UseQueryResult<IGame[], Error>} Query result containing the list of popular games.
- *
- * @example
- * const { data: popularGames, isLoading } = useMostPopularGames();
+ * Hook pour récupérer les jeux populaires.
  */
 export function useMostPopularGames() {
-  return useQuery({
+  return useQuery<IGame[]>({
     queryKey: [...gameKeys.all, "popular"],
-    queryFn: gameService.getMostPopularGames,
+    queryFn: async () => {
+      const popularGames = await gameService.getMostPopularGames();
+      logger("🔥 useMostPopularGames → jeux populaires", popularGames);
+      return popularGames;
+    },
   });
 }
 
 /**
- * React Query hook to fetch a single game by its ID.
- *
- * @param {string} id - The ID of the game to retrieve.
- * @returns {UseQueryResult<IGame, Error>} Query result containing the game data.
- *
- * @example
- * const { data: game, isLoading } = useGame('game-uuid');
+ * Hook pour récupérer un jeu par son ID.
  */
 export function useGame(id: string) {
-  return useQuery({
+  return useQuery<IGame>({
     queryKey: [...gameKeys.all, id],
-    queryFn: () => gameService.getGame(id),
+    queryFn: async () => {
+      const game = await gameService.getGame(id);
+      logger(`🎯 useGame → jeu ${id}`, game);
+      return game;
+    },
+  });
+}
+
+/**
+ * Hook pour créer un nouveau jeu.
+ */
+export function useCreateGame() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (newGame: IGameFormData) => {
+      logger("🛠️ useCreateGame → création du jeu", newGame);
+      const created = await gameService.createGame(newGame);
+      logger("✅ useCreateGame → jeu créé", created);
+      return created;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: gameKeys.all });
+      logger("🔄 useCreateGame → réactualisation des jeux");
+    },
+    onError: (error) => {
+      logger("❌ useCreateGame → erreur création jeu", error);
+    },
   });
 }

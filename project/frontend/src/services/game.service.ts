@@ -1,5 +1,5 @@
 import { IChallenge } from "@/@types/IChallenge";
-import type { IGame } from "@/@types/IGame";
+import type { IGame, IGameFormData } from "@/@types/IGame";
 import api from "@/lib/axios";
 
 const gameService = {
@@ -48,9 +48,9 @@ const gameService = {
   /**
    * Crée un nouveau jeu à partir des données fournies.
    * @param {IGame} game - Les données du jeu à créer.
-   * @returns {Promise<IGame>} Une promesse contenant le jeu nouvellement créé.
+   * @returns {Promise<IGameFormData>} Une promesse contenant le jeu nouvellement créé.
    */
-  async createGame(game: IGame) {
+  async createGame(game: IGameFormData) {
     const gameResponse = await api.post("/games", game);
     return gameResponse.data as IGame;
   },
