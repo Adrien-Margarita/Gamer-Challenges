@@ -193,27 +193,25 @@ export default function GamesPage() {
 
       {/* Main Content */}
       <main className="flex-1 p-4 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Les jeux les plus populaires</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Les jeux les plus populaires</h2>
           {isAdmin && (
-            <div className="flex flex-col items-center">
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  setForm({
-                    title: "",
-                    category: "",
-                    description: "",
-                    image_url: "",
-                    release_date: new Date(),
-                    platform: "",
-                  });
-                  setShowForm(true);
-                }}
-              >
-                Ajouter un jeu
-              </button>
-            </div>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                setForm({
+                  title: "",
+                  category: "",
+                  description: "",
+                  image_url: "",
+                  release_date: new Date(),
+                  platform: "",
+                });
+                setShowForm(true);
+              }}
+            >
+              Ajouter un jeu
+            </button>
           )}
         </div>        
         <hr />
@@ -256,7 +254,6 @@ export default function GamesPage() {
             </div>
           </div>
         )}
-        
         
         {/* Section des jeux */}
         <div className="flex mt-8 mb-4 justify-center">

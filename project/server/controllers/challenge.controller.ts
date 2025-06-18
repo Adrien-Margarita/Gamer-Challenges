@@ -134,6 +134,7 @@ export const getMostPopularChallenges = async (
       updated_at: challenge.updated_at,
       game: challenge.game,
       votes: challenge.challenge_vote.length,
+      image_url: challenge.image_url,
     }));
 
     res.json(result);
