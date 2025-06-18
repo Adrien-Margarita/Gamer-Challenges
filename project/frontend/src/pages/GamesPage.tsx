@@ -8,9 +8,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { useCreateGame, useGames, useMostPopularGames } from "@/hooks/useGame";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
-import Icon from '@mdi/react';
-import { mdiMicrosoftWindows } from '@mdi/js';
-
 
 export default function GamesPage() {
   const [visibleCount, setVisibleCount] = useState(8);
@@ -201,21 +198,21 @@ export default function GamesPage() {
           {isAdmin && (
             <div className="flex flex-col items-center">
               <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      setForm({
-                        title: "",
-                        category: "",
-                        description: "",
-                        image_url: "",
-                        release_date: new Date(),
-                        platform: "",
-                      });
-                      setShowForm(true);
-                    }}
-                  >
-                    Ajouter un jeu
-                  </button>
+                className="btn btn-primary"
+                onClick={() => {
+                  setForm({
+                    title: "",
+                    category: "",
+                    description: "",
+                    image_url: "",
+                    release_date: new Date(),
+                    platform: "",
+                  });
+                  setShowForm(true);
+                }}
+              >
+                Ajouter un jeu
+              </button>
             </div>
           )}
         </div>        
@@ -276,15 +273,12 @@ export default function GamesPage() {
                 <Skeleton key={index} className="h-32 w-full" />
               ))
             : filteredGames.slice(0, visibleCount).map((game) => (
-                <div className="relative">
-                  <Link to={`/game/${game.game_id}`} key={game.game_id}>
-                    <GameCard game={game} />
-                    <div className="absolute bottom-2 right-2">
-                      <Icon path={mdiMicrosoftWindows} size={1} />
-                    </div>
-                  </Link>
-                </div>
-              ))}
+              <div className="relative">
+                <Link to={`/game/${game.game_id}`} key={game.game_id}>
+                  <GameCard game={game} />
+                </Link>
+              </div>
+            ))}
         </div>
 
         {showMoreButton && (
