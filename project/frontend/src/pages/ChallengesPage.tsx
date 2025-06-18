@@ -1,172 +1,118 @@
-import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { IChallenge } from "@/@types/IChallenge";
+import Footer from "@/components/Footer";
+import { Navbar } from "@/components/homepage";
+import { Skeleton } from "@/components/ui";
+import { useChallenges, useMostPopularChallenges } from "@/hooks/useChallenge";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
-import LogoWhite from "/assets/images/logo-white.svg";
-import Icon from "@mdi/react";
-import { mdiLogout, mdiMenu, mdiMagnify } from "@mdi/js";
 
-function Navbar() {
-  const { isAuthenticated, logout, auth } = useAuth();
-  const [showSearch, setShowSearch] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+export default function ChallengesPage() {
+  const [visibleCount, setVisibleCount] = useState(8);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log("Recherche :", searchQuery);
-    // TODO : rediriger ou exécuter recherche
-  };
+  const { data, isLoading } = useChallenges();
+  const challenges: IChallenge[] = Array.isArray(data) ? data : [];
+
+  const { data: popularChallengesData } = useMostPopularChallenges();
+
+  // Vérification que popularChallengesData est un tableau
+  // et utilisation de useMemo pour éviter les recalculs inutiles
+  const popularChallenges: IChallenge[] = useMemo(
+    () => (Array.isArray(popularChallengesData) ? popularChallengesData : []),
+    [popularChallengesData]
+  );
+
+  // Timer auto slide
+  useEffect(() => {
+    if (popularChallenges.length === 0) return;
+
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % popularChallenges.length);
+    }, 5000); // 5 secondes
+
+    return () => clearInterval(timer);
+  }, [popularChallenges]);
+
 
   return (
-    <div className="drawer-end md:drawer-static">
-      <input id="menu-drawer" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">
-        <header className="navbar bg-base-100 shadow p-4 md:p-6">
-          <div className="flex-1 text-xl font-bold">
-            <Link to="/">
-              <div className="flex items-center gap-4 text-white">
-                <img src={LogoWhite} alt="Gamer Challenge" className="h-6" />
-                <h1 className="text-2xl font-normal">Gamer Challenge</h1>
-              </div>
-            </Link>
-          </div>
+    <div className="min-h-screen flex flex-col">
+      {/* Navbar */}
+      <Navbar />
 
-          {/* Menu visible en md+ */}
-          <div className="hidden md:flex gap-4 items-center text-white">
+      {/* Main Content */}
+      <main className="flex-1 p-4 space-y-12 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
+        <h2 className="text-2xl font-bold">Les challenges les plus populaires</h2>
 
-            {isAuthenticated && (
-              <>
-                {/* Bouton Loupe */}
-                <button
-                  onClick={() => setShowSearch((prev) => !prev)}
-                  className="cursor-pointer"
-                  title="Rechercher"
-                >
-                  <Icon
-                    path={mdiMagnify}
-                    size={1}
-                    className="hover:text-primary transition-colors"
-                  />
-                </button>
-
-                {/* Champ de recherche */}
-                {showSearch && (
-                  <form onSubmit={handleSearch} className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Rechercher..."
-                      className="input input-sm text-black"
-                    />
-                    <button type="submit" className="btn btn-primary btn-sm">OK</button>
-                  </form>
-                )}
-              </>
-            )}
-
-            {!isAuthenticated ? (
-              <>
-                <Link
-                  to="/login"
-                  className="cursor-pointer hover:bg-primary hover:text-white p-2 rounded"
-                >
-                  Se connecter
-                </Link>
-                <Link
-                  to="/register"
-                  className="cursor-pointer hover:bg-primary hover:text-white p-2 rounded"
-                >
-                  S’inscrire
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/profile"
-                  className="cursor-pointer flex flex-col items-center"
-                  title="Mon profil"
-                >
-                  <img
-                    src={auth?.avatar_url}
-                    alt="Mon profil"
-                    className="w-10 border-primary border-2 rounded-full mb-1"
-                  />
-                  <span className="text-xs">{auth?.pseudonym}</span>
-                </Link>
-                <button
-                  className="cursor-pointer"
-                  title="Se déconnecter"
-                  onClick={logout}
-                >
-                  <Icon path={mdiLogout} size={1} />
-                </button>
-              </>
-            )}
-          </div>
-
-          {/* Burger menu sm */}
-          <div className="md:hidden">
-            <label htmlFor="menu-drawer" className="cursor-pointer p-2">
-              <Icon
-                path={mdiMenu}
-                size={1.2}
-                className="text-secondary hover:text-primary transition-colors"
+        {/* Carousel */}
+        {popularChallenges.length > 0  && (
+          <div className="relative w-full mx-auto mb-12 rounded-xl overflow-hidden shadow-xl">
+            <Link to={`/games/${popularChallenges[currentSlide].game_id}`}>
+              <img
+                src={popularChallenges[currentSlide].image_url}
+                alt={popularChallenges[currentSlide].title}
+                className="w-full h-[500px] object-cover"
               />
-            </label>
-          </div>
-        </header>
-      </div>
+            </Link>
 
-      {/* Drawer Sidebar menu pour mobile */}
-      <div className="drawer-side z-50">
-        <label htmlFor="menu-drawer" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-64 min-h-full bg-base-200 text-white gap-2">
-          {!isAuthenticated ? (
-            <>
-              <li>
-                <Link
-                  to="/login"
-                  className="hover:bg-primary hover:text-white rounded"
-                >
-                  Se connecter
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/register"
-                  className="hover:bg-primary hover:text-white rounded"
-                >
-                  S’inscrire
-                </Link>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to="/profile" className="flex items-center gap-2">
-                  <img
-                    src={auth?.avatar_url}
-                    alt="Mon profil"
-                    className="w-10 border-primary border-2 rounded-full"
-                  />
-                  <span>{auth?.pseudonym}</span>
-                </Link>
-              </li>
-              <li>
+            {/* Overlay titre */}
+            <div className="absolute bottom-4 left-4 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200/80">
+              <h3 className="text-2xl font-semibold">
+                {popularChallenges[currentSlide].title}
+              </h3>
+            </div>
+
+            {/* Points de navigation */}
+            <div className="absolute bottom-9 right-4 flex gap-2">
+              {popularChallenges.map((_, index) => (
                 <button
-                  onClick={logout}
-                  className="hover:bg-primary hover:text-white rounded flex items-center gap-2"
-                >
-                  <Icon path={mdiLogout} size={1} />
-                  Déconnexion
-                </button>
-              </li>
-            </>
-          )}
-        </ul>
-      </div>
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-3 h-3 rounded-full ${
+                    index === currentSlide ? "bg-secondary" : "bg-base-100 opacity-50"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Section des jeux */}
+        <h2 className="text-2xl font-bold">Tous les challenges</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {isLoading
+            ? Array.from({ length: 8 }).map((_, index) => (
+                <Skeleton key={index} className="h-32 w-full" />
+              ))
+            : challenges.slice(0, visibleCount).map((challenge) => (
+                <Link to={`/challenges/${challenge.challenge_id}`} key={challenge.challenge_id}>
+                  <div className="card bg-base-200 shadow p-4 flex flex-col justify-between h-full">
+                    <h3 className="text-lg font-semibold mb-2">{challenge.title}</h3>
+                    <img
+                      src={challenge.image_url}
+                      alt={challenge.title}
+                      className="w-full h-[180px] object-cover rounded-lg border border-primary mt-auto"
+                    />
+                    <div className="text-right text-2xl font-bold">
+                      {/* TODO: Affichage des nombres de challenge par jeu */}
+                      {[28, 12, 38, 52, 15, 3, 9, 44][Number(challenge.challenge_id)]}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+        </div>
+
+        <div className="flex justify-center">
+          <button
+            onClick={() => setVisibleCount((prev) => prev + 8)}
+            className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
+          >
+            Voir plus
+          </button>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
-
-export default Navbar;
