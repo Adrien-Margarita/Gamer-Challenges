@@ -16,7 +16,9 @@ export default function ChallengeCard({ challenge }: Props) {
         <img
           src={challenge.image_url}
           alt={challenge.title}
-          className="w-full h-[180px] object-cover rounded-lg border border-primary mt-auto"
+          className="w-full h-[180px] object-cover border border-primary
+          transition-transform transition-filter duration-300 ease-in-out
+          filter hover:grayscale hover:contrast-100 transform scale-100 hover:scale-110"
           draggable="false"
           loading="lazy"
         />
