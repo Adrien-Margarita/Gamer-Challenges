@@ -9,56 +9,70 @@ const participationVoteService = {
    * @returns {Promise<IParticipationVote[]>} Un tableau de votes de participation (`IParticipationVote`).
    * @throws {Error} En cas d'échec de la requête HTTP.
    */
-  async getAllParticipationsVote() {
-    const participationResponse = await api.get("/participation/votes");
+  async getAllParticipationsVotes() {
+    const participationResponse = await api.get("/participation-vote");
     return participationResponse.data as IParticipationVote[];
   },
 
   /**
-   * Récupère un vote spécifique sur une participation à partir de son ID.
+   * Récupère le vote pour une participation spécifique.
    * @async
    * @function
-   * @param {string} id - L'identifiant du vote de participation à récupérer.
-   * @returns {Promise<IParticipationVote>} Le vote correspondant.
+   * @param {string} participation_id - L'identifiant de la participation concernée.
+   * @returns {Promise<IParticipationVote[]>} Un tableau de votes pour cette participation.
    * @throws {Error} En cas d'échec de la requête HTTP.
    */
-  async getParticipationVote(id: string) {
+  async getParticipationVote(participation_id: string) {
     const participationVoteResponse = await api.get(
-      `/participation/vote/${id}`
+      `/participation-vote/${participation_id}`
     );
-    return participationVoteResponse.data as IParticipationVote;
+    return participationVoteResponse.data as IParticipationVote[];
   },
 
   /**
-   * Crée un nouveau vote sur une participation.
+   * Crée un nouveau vote pour une participation donnée.
    * @async
    * @function
-   * @param {IParticipationVote} participationVote - Les données du vote à créer.
+   * @param {string} participation_id - L'identifiant de la participation à voter.
    * @returns {Promise<IParticipationVote>} Le vote nouvellement créé.
    * @throws {Error} En cas d'échec de la requête HTTP.
    */
-  async createParticipationVote(participationVote: IParticipationVote) {
+  async createParticipationVote(participation_id: string) {
     const participationVoteResponse = await api.post(
-      "/participation/votes",
-      participationVote
+      `/participation-vote/${participation_id}`
+    );
+    return participationVoteResponse.data as IParticipationVote;
+  },
+
+    /**
+   * Supprime le vote de l'utilisateur connecté pour une participation donnée.
+   * @async
+   * @function
+   * @param {string} participation_id - L'identifiant de la participation dont le vote doit être supprimé.
+   * @returns {Promise<IParticipationVote>} Le vote supprimé.
+   * @throws {Error} En cas d'échec de la requête HTTP.
+   */
+  async deleteParticipationVote(participation_id: string) {
+    const participationVoteResponse = await api.delete(
+      `/participation-vote/${participation_id}`
     );
     return participationVoteResponse.data as IParticipationVote;
   },
 
   /**
-   * Supprime un vote sur une participation, en fonction de l'ID du vote et de l'utilisateur.
+   * Récupère le classement des joueurs ayant reçu le plus de votes.
    * @async
    * @function
-   * @param {string} vote_id - L'identifiant du vote.
-   * @param {string} user_id - L'identifiant de l'utilisateur ayant voté.
-   * @returns {Promise<IParticipationVote>} Le vote supprimé.
+   * @returns {Promise<Array<{ user: { user_id: string, pseudonym: string, avatar_url?: string }, votes: number }>>}
+   * Un tableau d'utilisateurs avec leur nombre de votes reçus.
    * @throws {Error} En cas d'échec de la requête HTTP.
    */
-  async deleteParticipationVote(vote_id: string, user_id: string) {
-    const participationVoteResponse = await api.delete(
-      `/participation/vote/${vote_id}/${user_id}`
-    );
-    return participationVoteResponse.data as IParticipationVote;
+  async getMostVotedPlayers() {
+    const response = await api.get("/participation-vote/most-voted-players");
+    return response.data as Array<{
+      user: { user_id: string; pseudonym: string; avatar_url?: string };
+      votes: number;
+    }>;
   },
 };
 

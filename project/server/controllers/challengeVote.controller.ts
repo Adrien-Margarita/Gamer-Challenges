@@ -1,75 +1,93 @@
-import { PrismaClient } from "@/generated/prisma"
+import { PrismaClient } from "@/generated/prisma";
 import { Request, Response, NextFunction } from "express";
 import { createHttpError } from "@/utils/httpError";
 
 const prisma = new PrismaClient();
 
-// Créer un vote pour un challenge
-export const createChallengeVote = async (req: Request, res: Response, next: NextFunction) => {
-  const { user_id } = req.params;
-
-  try {
-    const newChallengeVote = await prisma.challenge_vote.create({
-      data: {
-        ...req.body,
-        user_id: user_id
-      },
-    });
-    res.status(201).json({ challenge: newChallengeVote });
-  } catch (error) {
-    next(error);
-  };
-};
-
-// Récupérer tous les votes d'un challenge
-export const getAllChallengeVotes = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const challengesVotes = await prisma.challenge_vote.findMany();
-
-    res.status(200).json(challengesVotes);
-  } catch (error) {
-    next(error);
-  }
-};
-
-// Récupérer le vote d'un challenge par son ID
-export const getAllChallengeVotesByChallengeId = async (req: Request, res: Response, next: NextFunction) => {
-
+// Crée un nouveau vote pour un challenge
+export const createChallengeVote = async (
+  req: Request<{ challenge_id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
   const { challenge_id } = req.params;
+  const user_id = req.session.userId;
 
   try {
-    const challengeVotes = await prisma.challenge_vote.findMany({
-      where: { challenge_id },
+    if (!user_id) throw createHttpError(401, "Utilisateur non authentifié.");
 
+    const already = await prisma.challenge_vote.findFirst({
+      where: { challenge_id, user_id },
     });
-    res.status(200).json(challengeVotes);
+    if (already) throw createHttpError(400, "Vous avez déjà voté.");
+
+    const vote = await prisma.challenge_vote.create({
+      data: { challenge_id, user_id },
+    });
+
+    res.status(201).json({ vote });
   } catch (error) {
     next(error);
   }
 };
 
-// Supprimer un vote pour un challenge
-export const deleteChallengeVote = async (req: Request, res: Response, next: NextFunction) => {
-  const { challenge_id, user_id } = req.params;
+
+// Récupère tous les votes
+export const getAllChallengeVotes = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const votes = await prisma.challenge_vote.findMany();
+    res.status(200).json(votes);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Récupère tous les votes d'un challenge
+export const getAllChallengeVotesByChallengeId = async (
+  req: Request<{ challenge_id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const votes = await prisma.challenge_vote.findMany({
+      where: { challenge_id: req.params.challenge_id },
+    });
+    res.status(200).json(votes);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Récupère un vote d'un challenge par son ID
+export const deleteChallengeVote = async (
+  req: Request<{ challenge_id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  const { challenge_id } = req.params;
+  const user_id = req.session.userId;
 
   try {
+    if (!user_id) throw createHttpError(401, "Utilisateur non authentifié.");
 
-    const challengeVote = await prisma.challenge_vote.findFirst({
+    const vote = await prisma.challenge_vote.findFirst({
       where: { challenge_id, user_id },
     });
 
-    if (!challengeVote) {
-      throw createHttpError(404, `Vote du challenge non trouvé`);
+    if (!vote) {
+      throw createHttpError(404, "Vote non trouvé.");
     }
 
-    const challenge_vote_id = challengeVote.challenge_vote_id;
-
-    const challengeVoteToDelete = await prisma.challenge_vote.delete({
-      where: { challenge_vote_id }
+    await prisma.challenge_vote.delete({
+      where: { challenge_vote_id: vote.challenge_vote_id },
     });
 
-    res.status(200).json({ message: `Vote supprimé avec succès` });
+    res.status(200).json({ message: "Vote supprimé avec succès." });
   } catch (error) {
     next(error);
   }
-}
+};

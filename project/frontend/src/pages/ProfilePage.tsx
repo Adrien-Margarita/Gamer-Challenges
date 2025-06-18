@@ -4,6 +4,8 @@ import { useAuth } from "@/hooks/useAuth"
 import { usePlayerChallenges, usePlayerParticipations } from "@/hooks/usePlayer"
 import { getEmbedUrl } from "@/utils/getEbedUrl"
 import { Link } from "react-router"
+import Icon from '@mdi/react';
+import { mdiThumbUp } from '@mdi/js';
 
 function ProfilePage() {
   const { auth } = useAuth()
@@ -11,8 +13,10 @@ function ProfilePage() {
 
   const { data: challenges, isLoading, isError } = usePlayerChallenges(userId || "")
 
-const { data: participations, isLoading: isParticipationsLoading, isError: isParticipationsError } = usePlayerParticipations(userId ?? "")
- 
+  const { data: participations, isLoading: isParticipationsLoading, isError: isParticipationsError } = usePlayerParticipations(userId ?? "")
+
+  const totalVotes = participations?.reduce((total, participation) => total + participation.participation_vote.length, 0);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -22,8 +26,11 @@ const { data: participations, isLoading: isParticipationsLoading, isError: isPar
         <h2 className="text-2xl font-bold m-4">Mon Profil</h2>
         <section className="flex gap-3 m-4">
           <div className="w-[50%] border-1 flex flex-col gap-1">
-            <img src={auth?.avatar_url} alt="avatar du profil" className="p-8 rounded-[20%]"/>
-            <p className="text-center mb-4"><strong>22</strong></p>
+            <img src={auth?.avatar_url} alt="avatar du profil" className="p-4 rounded-[20%]"/>
+            <div className="flex justify-center gap-2 text-white mb-4">
+              <Icon path={mdiThumbUp} size={1} />
+              <p>{totalVotes}</p>
+            </div>
           </div>
           <div className="flex flex-col gap-3 w-full border-1 p-6">
           <p>Pseudo <strong>{auth?.pseudonym}</strong></p>
