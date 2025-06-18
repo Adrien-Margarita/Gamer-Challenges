@@ -2,7 +2,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router";
 import LogoWhite from "/assets/images/logo-white.svg";
 import Icon from "@mdi/react";
-import { mdiBulletinBoard, mdiCogOutline, mdiControllerClassicOutline, mdiLogout, mdiMenu, mdiTrophyOutline } from "@mdi/js";
+import { mdiBulletinBoard, mdiCogOutline, mdiControllerClassicOutline, mdiHomeOutline, mdiLogout, mdiMenu, mdiTrophyOutline } from "@mdi/js";
 
 function Navbar() {
   const { isAuthenticated, logout, auth, isAdmin } = useAuth();
@@ -40,6 +40,12 @@ function Navbar() {
             ) : (
               <>
               <div className="flex w-full justify-center items-center gap-8">
+                <Link to="/"
+                  className="hover:bg-primary hover:text-white rounded px-4 py-2 flex items-center gap-2 group"
+                >
+                  <Icon className="opacity-50 text-primary group-hover:text-white" path={mdiHomeOutline} size={1} />
+                  Accueil
+                </Link>
                 <Link to="/games"
                   className="hover:bg-primary hover:text-white rounded px-4 py-2 flex items-center gap-2 group"
                 >
