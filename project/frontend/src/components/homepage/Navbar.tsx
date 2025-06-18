@@ -85,9 +85,9 @@ function Navbar() {
                   title="Mon profil"
                   >
                   <img
-                    src={auth?.avatar_url}
+                    src={auth?.avatar_url || "/assets/images/logo-color-full.svg"}
                     alt="Mon profil"
-                    className="w-10 border-primary border-2 rounded-full mb-1"
+                    className="w-10 border-primary border-2 rounded-full mb-1 h-10"
                   />
                   <span className="text-xs">{auth?.pseudonym}</span>
                 </Link>

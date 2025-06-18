@@ -13,6 +13,8 @@ import { IParticipationFormData } from "@/@types/IParticipation";
 import { VoteButtonParticipation } from "@/components/ui/VoteButtonParticipation";
 import { VoteButtonChallenge } from "@/components/ui/VoteButtonChallenge";
 import SearchBar from "@/components/SearchBar";
+import Icon from '@mdi/react';
+import { mdiAccountCircleOutline } from '@mdi/js';
 // import { useAtom } from "jotai";
 // import { authAtom } from "@/stores/authAtom";
 
@@ -258,70 +260,90 @@ export default function ChallengeDetailPage() {
                     {challenge.rules}
                   </p>
                 </div>
-                <div>
-                  <VoteButtonChallenge challengeId={challenge.challenge_id} />
+
+                {/* Bouton de vote pour un challenge et icon de nombre de participations */}
+                <div className="flex gap-2 justify-between">
+                  <div className="flex gap-1 text-primary">
+                    <p className="font-bold">{participations.length}</p>
+                    <Icon path={mdiAccountCircleOutline} size={1} />
+                  </div>
+                  <div className="text-primary">
+                    <VoteButtonChallenge challengeId={challenge.challenge_id}/>
+                  </div>
                 </div>
                 <div>
-                <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher une participation ..." />
+                  
+                  <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher une participation ..." />
                   <h2 className="text-2xl font-bold mb-4">
                     Toutes les participations
                   </h2>
-
-</div>
-
-{/* Affichage des participations */}
-<div className="flex flex-col gap-4">
-  {isLoading
-    ? Array.from({ length: 4 }).map((_, index) => (
-        <Skeleton key={index} className="h-32 w-full" />
-                      ))
-                    : filteredParticipations
-                        ?.slice(0, visibleCount)
-                        .map((participation) => (
-                          <section className="flex gap-4 bg-base-200 shadow p-4">
-                            <div className="relative w-full max-w-7xl mx-auto">
-                              {/* TODO: ajout du player + et user_id */}
-                              {/* <h3 className="text-lg font-semibold mb-2">{participation.user.pseudonym}</h3> */}
-                              {participation.video_url ? (
-                                <iframe
-                                  src={
-                                    getEmbedUrl(participation.video_url) ?? ""
-                                  }
-                                  className="w-full h-[500px] rounded-xl shadow-xl"
-                                  allowFullScreen
-                                  title="Vidéo de participation"
-                                />
-                              ) : (
-                                <img
-                                  src={participation.image_url}
-                                  className="w-full h-[500px] object-cover rounded-xl shadow-xl"
-                                />
-                              )}
-                            </div>
-                            <div className="w-full">
-                              <p>{participation.description}</p>
-                              <VoteButtonParticipation participationId={participation.participation_id} />
-                            </div>
-                          </section>
-                        ))}
-
-                  {participations && visibleCount < participations.length && (
-                    <div className="flex justify-center">
-                      <button
-                        onClick={() => setVisibleCount((prev) => prev + 4)}
-                        className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
-                      >
-                        Voir plus
-                      </button>
-                    </div>
-                  )}
                 </div>
-              </>
-            )}
-          </section>
-        </main>
-        <Footer />
-      </div>
-    </>
+
+                {/* Affichage des participations */}
+                <div className="flex flex-col gap-4">
+                  {isLoading
+                    ? Array.from({ length: 4 }).map((_, index) => (
+                        <Skeleton key={index} className="h-32 w-full" />
+                                      ))
+                                    : filteredParticipations
+                                        ?.slice(0, visibleCount)
+                                        .map((participation) => (
+                                          <section className="flex gap-4 bg-base-200 shadow p-4">
+                                            <div className="relative w-full max-w-7xl mx-auto">
+
+                                              {/* Avatar et pseudonyme du joueur */}
+                                              <div className="flex items-center gap-4 mb-4">
+                                                <img
+                                                src={participation.user.avatar_url || "/assets/images/logo-color-full.svg"}
+                                                alt={`${participation.user.pseudonym} avatar`}
+                                                className="w-10 h-10 rounded-full object-cover border border-gray-500"
+                                              />
+                                              <h3 className="text-lg font-semibold text-white">
+                                                {participation.user.pseudonym}
+                                              </h3>
+                                              </div>
+
+                                              {/* Affichage de la vidéo ou de l'image */}
+                                              {participation.video_url ? (
+                                                <iframe
+                                                  src={
+                                                    getEmbedUrl(participation.video_url) ?? ""
+                                                  }
+                                                  className="w-full h-[500px] rounded-xl shadow-xl"
+                                                  allowFullScreen
+                                                  title="Vidéo de participation"
+                                                />
+                                              ) : (
+                                                <img
+                                                  src={participation.image_url}
+                                                  className="w-full h-[500px] object-cover rounded-xl shadow-xl"
+                                                />
+                                              )}
+                                            </div>
+                                            <div className="w-full">
+                                              <p>{participation.description}</p>
+                                              <VoteButtonParticipation participationId={participation.participation_id} />
+                                            </div>
+                                          </section>
+                                        ))}
+
+                                  {participations && visibleCount < participations.length && (
+                                    <div className="flex justify-center">
+                                      <button
+                                        onClick={() => setVisibleCount((prev) => prev + 4)}
+                                        className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
+                                      >
+                                        Voir plus
+                                      </button>
+                                    </div>
+                                  )}
+                                </div>
+                              </>
+                            )}
+                          </section>
+                        </main>
+                        <Footer />
+                      </div>
+                    </>
   );
 }

@@ -7,6 +7,9 @@ import { Skeleton } from "@/components/ui";
 import { useGames, useMostPopularGames } from "@/hooks/useGame";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
+import Icon from '@mdi/react';
+import { mdiMicrosoftWindows } from '@mdi/js';
+
 
 export default function GamesPage() {
   const [visibleCount, setVisibleCount] = useState(8);
@@ -111,9 +114,14 @@ export default function GamesPage() {
                 <Skeleton key={index} className="h-32 w-full" />
               ))
             : filteredGames.slice(0, visibleCount).map((game) => (
-                <Link to={`/game/${game.game_id}`} key={game.game_id}>
-                  <GameCard game={game} />
-                </Link>
+                <div className="relative">
+                  <Link to={`/game/${game.game_id}`} key={game.game_id}>
+                    <GameCard game={game} />
+                    <div className="absolute bottom-2 right-2">
+                      <Icon path={mdiMicrosoftWindows} size={1} />
+                    </div>
+                  </Link>
+                </div>
               ))}
         </div>
 

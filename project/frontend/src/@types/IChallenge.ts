@@ -2,6 +2,7 @@ import { IGame } from "./IGame";
 import { IParticipation, IUserPreview } from "./IParticipation";
 
 export interface IChallenge {
+  challenge_vote: any;
   challenge_id: string; // UUID
   title: string; // Titre
   description: string; // Description

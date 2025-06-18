@@ -9,6 +9,8 @@ import { useGame } from "@/hooks/useGame";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import SearchBar from "@/components/SearchBar";
+import Footer from "@/components/Footer";
+import { VoteButtonChallenge } from "@/components/ui/VoteButtonChallenge";
 
 export default function GameDetailPage() {
     const [auth] = useAtom(authAtom);
@@ -26,8 +28,6 @@ export default function GameDetailPage() {
   });
   const [search, setSearch] = useState("");
   
- 
-
   useEffect(() => {
     if (id || auth?.user_id) {
       setForm((prev) => ({
@@ -227,14 +227,15 @@ const handleSubmit = (e: React.FormEvent) => {
           </section>
           <section>
             <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher un challenge ..." />
+            <h2 className="text-2xl font-bold my-4">Tous les challenges</h2>
             {isLoading && challenges && !isError
               ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />
               ))
               : filteredChallenges?.slice(0, visibleCount).map((challenge, index) => (
-                <Link to={`/challenges/${challenge.challenge_id}`}>
-                  <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-6 w-full" key={index}>
-                      <div>
+                  <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-6 w-full my-6" key={index}>
+                      <div className="relative">
+                        <Link to={`/challenges/${challenge.challenge_id}`}>
                         <img
                           src={challenge.image_url}
                           alt={challenge.title}
@@ -242,8 +243,17 @@ const handleSubmit = (e: React.FormEvent) => {
                           transition-transform transition-filter duration-300 ease-in-out
                           filter hover:grayscale hover:contrast-100"
                         />
+                        </Link>
+
+                        {/* Boutton en dehors du Link */}
+                        <div className="absolute bottom-2 right-2 bg-black/40 p-3 rounded-full flex gap-1">
+                           <VoteButtonChallenge challengeId={challenge.challenge_id} />
+                        </div>
                       </div>
-                      <div className="w-full">
+
+                      {/* Bloc titre + description */}
+                      <div className="w-full py-4">
+                         <Link to={`/challenges/${challenge.challenge_id}`} className="w-full block">
                         <h2 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h2>
                         <hr />
                         <p className="text-lg text-muted-foreground mb-4">
@@ -254,9 +264,9 @@ const handleSubmit = (e: React.FormEvent) => {
                         <p className="font-semibold">Règles:</p>
                           {challenge.rules}
                         </p>
+                        </Link>
                       </div>
                   </div>
-                </Link>
               ))}
               {challenges.length >= 4 && (
                 <div className="flex justify-center">
@@ -270,6 +280,7 @@ const handleSubmit = (e: React.FormEvent) => {
               )}
           </section>
         </main>
+        <Footer />
       </div>
     </>
   );
