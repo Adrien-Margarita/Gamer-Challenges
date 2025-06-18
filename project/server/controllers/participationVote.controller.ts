@@ -67,33 +67,48 @@ export const getAllParticipationVotesByParticipationId = async (
 };
 
 
-// Classement des utilisateurs ayant reçu le plus de votes
+// // Classement des utilisateurs ayant reçu le plus de votes
+// export const getMostVotedPlayers = async (
+//   _req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     const grouped = await prisma.participation_vote.groupBy({
+//       by: ["user_id"],
+//       _count: { user_id: true },
+//       orderBy: { _count: { user_id: "desc" } },
+//     });
+
+//     const result = await Promise.all(
+//       grouped.map(async (g) => {
+//         const user = await prisma.user.findUnique({
+//           where: { user_id: g.user_id },
+//           select: { user_id: true, pseudonym: true, avatar_url: true },
+//         });
+//         return { user, votes: g._count.user_id };
+//       })
+//     );
+
+//     res.status(200).json(result);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
 export const getMostVotedPlayers = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-<<<<<<< feat/votes
-    const grouped = await prisma.participation_vote.groupBy({
-=======
     // Récupérer les votes groupés par user_id
     const mostVotedPlayers = await prisma.participation_vote.groupBy({
->>>>>>> develop
       by: ["user_id"],
       _count: { user_id: true },
       orderBy: { _count: { user_id: "desc" } },
     });
 
-<<<<<<< feat/votes
-    const result = await Promise.all(
-      grouped.map(async (g) => {
-        const user = await prisma.user.findUnique({
-          where: { user_id: g.user_id },
-          select: { user_id: true, pseudonym: true, avatar_url: true },
-        });
-        return { user, votes: g._count.user_id };
-=======
     // Récupération des utilisateurs concernés
     const userIds = mostVotedPlayers.map((vote) => vote.user_id);
 
@@ -118,11 +133,10 @@ export const getMostVotedPlayers = async (
           user,
           votes: vote._count.user_id,
         };
->>>>>>> develop
       })
       .filter(Boolean); // enlève les entrées nulles
-      
-      res.status(200).json(result);
+
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
