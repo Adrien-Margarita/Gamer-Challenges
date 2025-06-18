@@ -97,7 +97,6 @@ export default function ChallengesPage() {
                 <Skeleton key={index} className="h-32 w-full" />
               ))
             : filteredChallenges.slice(0, visibleCount).map((challenge) => (
-                <Link to={`/challenges/${challenge.challenge_id}`} key={challenge.challenge_id}>
                   <div className="card bg-base-200 shadow p-4 flex flex-col justify-between h-full">
                     <Link to={`/challenges/${challenge.challenge_id}`} key={challenge.challenge_id}>
                     <h3 className="text-lg font-semibold mb-2">{challenge.title}</h3>
@@ -116,7 +115,6 @@ export default function ChallengesPage() {
                       </div>
                     </div>
                   </div>
-                
               ))}
         </div>
 

@@ -10,14 +10,12 @@ import { useParams } from "react-router";
 import { getEmbedUrl } from "@/utils/getEbedUrl";
 import { useCreateParticipation } from "@/hooks/useParticipation";
 import { IParticipationFormData } from "@/@types/IParticipation";
-<<<<<<< feat/votes
 import { VoteButtonParticipation } from "@/components/ui/VoteButtonParticipation";
 import { VoteButtonChallenge } from "@/components/ui/VoteButtonChallenge";
+import SearchBar from "@/components/SearchBar";
 // import { useAtom } from "jotai";
 // import { authAtom } from "@/stores/authAtom";
-=======
-import SearchBar from "@/components/SearchBar";
->>>>>>> develop
+
 
 export default function ChallengeDetailPage() {
   const [visibleCount, setVisibleCount] = useState(2);
@@ -261,24 +259,21 @@ export default function ChallengeDetailPage() {
                   </p>
                 </div>
                 <div>
-<<<<<<< feat/votes
                   <VoteButtonChallenge challengeId={challenge.challenge_id} />
                 </div>
                 <div>
-=======
                 <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher une participation ..." />
->>>>>>> develop
                   <h2 className="text-2xl font-bold mb-4">
                     Toutes les participations
                   </h2>
 
-                </div>
+</div>
 
-                {/* Affichage des participations */}
-                <div className="flex flex-col gap-4">
-                  {isLoading
-                    ? Array.from({ length: 4 }).map((_, index) => (
-                        <Skeleton key={index} className="h-32 w-full" />
+{/* Affichage des participations */}
+<div className="flex flex-col gap-4">
+  {isLoading
+    ? Array.from({ length: 4 }).map((_, index) => (
+        <Skeleton key={index} className="h-32 w-full" />
                       ))
                     : filteredParticipations
                         ?.slice(0, visibleCount)
