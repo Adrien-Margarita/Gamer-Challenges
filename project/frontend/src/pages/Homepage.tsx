@@ -25,11 +25,11 @@ const HomePage = () => {
             <div className="flex flex-col items-center">
               <button
                 className="btn btn-primary center mt-10"
-                onClick={() => navigate("/popular-players")}
+                onClick={() => navigate("/leaderboard")}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    navigate(`/popular-players`);
+                    navigate(`/leaderboard`);
                   }
                 }}
               >

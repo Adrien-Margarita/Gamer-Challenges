@@ -32,7 +32,7 @@ export default function Router() {
       <Route element={<RequireAuth />}>
         <Route path="/games/:id" element={<GameDetailPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/popular-players" element={<LeaderboardPage />} />
+        <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/challenges/:id" element={<ChallengeDetailPage />} />
       </Route>
     </Routes>

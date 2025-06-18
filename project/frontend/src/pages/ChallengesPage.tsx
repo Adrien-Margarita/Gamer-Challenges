@@ -97,25 +97,25 @@ export default function ChallengesPage() {
                 <Skeleton key={index} className="h-32 w-full" />
               ))
             : filteredChallenges.slice(0, visibleCount).map((challenge) => (
-                  <div className="card bg-base-200 shadow p-4 flex flex-col justify-between h-full">
-                    <Link to={`/challenges/${challenge.challenge_id}`} key={challenge.challenge_id}>
-                    <h3 className="text-lg font-semibold mb-2">{challenge.title}</h3>
-                    <img
-                      src={challenge.image_url}
-                      alt={challenge.title}
-                      className="w-full h-[180px] object-cover rounded-lg border border-primary mt-auto"
-                    />
-                    </Link>
-                    <div className="flex justify-between items-center mt-2">
-                      <div>
-                        <VoteButtonChallenge challengeId={challenge.challenge_id} />
-                      </div>
-                      <div className="text-right text-2xl font-bold">
-                        {/* TODO: Affichage des nombres de challenge par jeu */}
-                      </div>
-                    </div>
+              <div className="card bg-base-200 shadow p-4 flex flex-col justify-between h-full">
+                <Link to={`/challenges/${challenge.challenge_id}`} key={challenge.challenge_id}>
+                <h3 className="text-lg font-semibold mb-2">{challenge.title}</h3>
+                <img
+                  src={challenge.image_url}
+                  alt={challenge.title}
+                  className="w-full h-[180px] object-cover rounded-lg border border-primary mt-auto"
+                />
+                </Link>
+                <div className="flex justify-between items-center mt-2">
+                  <div>
+                    <VoteButtonChallenge challengeId={challenge.challenge_id} />
                   </div>
-              ))}
+                  <div className="text-right text-2xl font-bold">
+                    {/* TODO: Affichage des nombres de challenge par jeu */}
+                  </div>
+                </div>
+              </div>
+            ))}
         </div>
 
         <div className="flex justify-center">
