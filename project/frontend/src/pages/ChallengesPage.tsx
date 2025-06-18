@@ -1,9 +1,9 @@
 import { IChallenge } from "@/@types/IChallenge";
+import ChallengeCard from "@/components/ChallengeCard";
 import Footer from "@/components/Footer";
 import { Navbar } from "@/components/homepage";
 import SearchBar from "@/components/SearchBar";
 import { Skeleton } from "@/components/ui";
-import { VoteButtonChallenge } from "@/components/ui/VoteButtonChallenge";
 import { useChallenges, useMostPopularChallenges } from "@/hooks/useChallenge";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
@@ -53,7 +53,14 @@ export default function ChallengesPage() {
 
       {/* Main Content */}
       <main className="flex-1 p-4 space-y-12 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
-        <h2 className="text-2xl font-bold">Les challenges les plus populaires</h2>
+      <h2 className="text-2xl font-bold mb-4">Les challenges les plus populaires</h2>
+        <hr />
+        <p className="text-lg text-muted-foreground mb-4">
+          Découvrez les challenges les plus populaires de la plateforme.
+        </p>
+        <p className="text-lg text-muted-foreground mb-8">
+          Cliquez sur un challenge pour voir les détails et les participations associées.
+        </p>
 
         {/* Carousel */}
         {popularChallenges.length > 0  && (
@@ -87,37 +94,22 @@ export default function ChallengesPage() {
             </div>
           </div>
         )}
-        <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher un challenge ..." />
 
         {/* Section des challenges */}
-        <h2 className="text-2xl font-bold">Tous les challenges</h2>
+        <div className="flex mt-8 mb-4 justify-center">
+          <h2 className="text-2xl font-bold w-full mt-4">Tous les challenges</h2>
+          <SearchBar  value={search} onChange={setSearch} placeholder="Rechercher un challenge..." />
+        </div>
+        <hr />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {isLoading
             ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />
               ))
             : filteredChallenges.slice(0, visibleCount).map((challenge) => (
-              <div className="card bg-base-200 shadow p-4 flex flex-col justify-between h-full">
-                <Link to={`/challenges/${challenge.challenge_id}`} key={challenge.challenge_id}>
-                <h3 className="text-lg font-semibold mb-2">{challenge.title}</h3>
-                <img
-                  src={challenge.image_url}
-                  alt={challenge.title}
-                  className="w-full h-[180px] object-cover rounded-lg border border-primary mt-auto"
-                />
-                </Link>
-                <div className="flex justify-between items-center mt-2">
-                  <div>
-                    <VoteButtonChallenge challengeId={challenge.challenge_id} />
-                  </div>
-                  <div className="text-right text-2xl font-bold">
-                    {/* TODO: Affichage des nombres de challenge par jeu */}
-                  </div>
-                </div>
-              </div>
-            ))}
+                <ChallengeCard key={challenge.challenge_id} challenge={challenge} />
+          ))}
         </div>
-
         <div className="flex justify-center">
           <button
             onClick={() => setVisibleCount((prev) => prev + 8)}
