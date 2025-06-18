@@ -10,7 +10,14 @@ import { useParams } from "react-router";
 import { getEmbedUrl } from "@/utils/getEbedUrl";
 import { useCreateParticipation } from "@/hooks/useParticipation";
 import { IParticipationFormData } from "@/@types/IParticipation";
+<<<<<<< feat/votes
+import { VoteButtonParticipation } from "@/components/ui/VoteButtonParticipation";
+import { VoteButtonChallenge } from "@/components/ui/VoteButtonChallenge";
+// import { useAtom } from "jotai";
+// import { authAtom } from "@/stores/authAtom";
+=======
 import SearchBar from "@/components/SearchBar";
+>>>>>>> develop
 
 export default function ChallengeDetailPage() {
   const [visibleCount, setVisibleCount] = useState(2);
@@ -254,7 +261,13 @@ export default function ChallengeDetailPage() {
                   </p>
                 </div>
                 <div>
+<<<<<<< feat/votes
+                  <VoteButtonChallenge challengeId={challenge.challenge_id} />
+                </div>
+                <div>
+=======
                 <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher une participation ..." />
+>>>>>>> develop
                   <h2 className="text-2xl font-bold mb-4">
                     Toutes les participations
                   </h2>
@@ -272,7 +285,7 @@ export default function ChallengeDetailPage() {
                         .map((participation) => (
                           <section className="flex gap-4 bg-base-200 shadow p-4">
                             <div className="relative w-full max-w-7xl mx-auto">
-                              {/* TODO: ajout du player + condition de l'image/vidéo et user_id */}
+                              {/* TODO: ajout du player + et user_id */}
                               {/* <h3 className="text-lg font-semibold mb-2">{participation.user.pseudonym}</h3> */}
                               {participation.video_url ? (
                                 <iframe
@@ -292,6 +305,7 @@ export default function ChallengeDetailPage() {
                             </div>
                             <div className="w-full">
                               <p>{participation.description}</p>
+                              <VoteButtonParticipation participationId={participation.participation_id} />
                             </div>
                           </section>
                         ))}

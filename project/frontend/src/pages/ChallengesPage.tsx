@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Navbar } from "@/components/homepage";
 import SearchBar from "@/components/SearchBar";
 import { Skeleton } from "@/components/ui";
+import { VoteButtonChallenge } from "@/components/ui/VoteButtonChallenge";
 import { useChallenges, useMostPopularChallenges } from "@/hooks/useChallenge";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
@@ -98,18 +99,24 @@ export default function ChallengesPage() {
             : filteredChallenges.slice(0, visibleCount).map((challenge) => (
                 <Link to={`/challenges/${challenge.challenge_id}`} key={challenge.challenge_id}>
                   <div className="card bg-base-200 shadow p-4 flex flex-col justify-between h-full">
+                    <Link to={`/challenges/${challenge.challenge_id}`} key={challenge.challenge_id}>
                     <h3 className="text-lg font-semibold mb-2">{challenge.title}</h3>
                     <img
                       src={challenge.image_url}
                       alt={challenge.title}
                       className="w-full h-[180px] object-cover rounded-lg border border-primary mt-auto"
                     />
-                    <div className="text-right text-2xl font-bold">
-                      {/* TODO: Affichage des nombres de challenge par jeu */}
-                      {[28, 12, 38, 52, 15, 3, 9, 44][Number(challenge.challenge_id)]}
+                    </Link>
+                    <div className="flex justify-between items-center mt-2">
+                      <div>
+                        <VoteButtonChallenge challengeId={challenge.challenge_id} />
+                      </div>
+                      <div className="text-right text-2xl font-bold">
+                        {/* TODO: Affichage des nombres de challenge par jeu */}
+                      </div>
                     </div>
                   </div>
-                </Link>
+                
               ))}
         </div>
 

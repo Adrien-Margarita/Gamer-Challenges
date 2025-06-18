@@ -4,56 +4,96 @@ import { createHttpError } from "@/utils/httpError";
 
 const prisma = new PrismaClient();
 
-// Créer un vote pour une participation
+/**
+ * Ajoute un vote pour la participation indiquée.
+ * L’utilisateur est déterminé par req.session.userId.
+ */
 export const createParticipationVote = async (
-  req: Request,
+  req: Request<{ participation_id: string }>,
   res: Response,
   next: NextFunction
 ) => {
-  const { user_id } = req.params;
+  const { participation_id } = req.params;
+  const user_id = req.session.userId;           
 
   try {
-    const newParticipationVote = await prisma.participation_vote.create({
-      data: {
-        ...req.body,
-        user_id: user_id,
-      },
+    if (!user_id) throw createHttpError(401, "Utilisateur non authentifié.");
+
+    // Empêche le double-vote : 1 user / 1 vote par participation
+    const already = await prisma.participation_vote.findFirst({
+      where: { participation_id, user_id },
     });
-    res.status(201).json({ participation: newParticipationVote });
+    if (already) throw createHttpError(400, "Vous avez déjà voté.");
+
+    const vote = await prisma.participation_vote.create({
+      data: { participation_id, user_id },
+    });
+
+    res.status(201).json({ vote });
   } catch (error) {
     next(error);
   }
 };
 
-// Récupérer tous les votes à une participation
-export const getAllParticipationVotes = async (
-  req: Request,
+//  Récupère tous les votes
+export const getAllParticipationsVotes = async (
+  _req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const participationVotes = await prisma.participation_vote.findMany();
-
-    res.status(200).json(participationVotes);
+    const votes = await prisma.participation_vote.findMany();
+    res.status(200).json(votes);
   } catch (error) {
     next(error);
   }
 };
 
-// Récupérer tous les votes à une participation
+
+// Récupère tous les votes d'une participation
+export const getAllParticipationVotesByParticipationId = async (
+  req: Request<{ participation_id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const votes = await prisma.participation_vote.findMany({
+      where: { participation_id: req.params.participation_id },
+    });
+    res.status(200).json(votes);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+// Classement des utilisateurs ayant reçu le plus de votes
 export const getMostVotedPlayers = async (
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
+<<<<<<< feat/votes
+    const grouped = await prisma.participation_vote.groupBy({
+=======
     // Récupérer les votes groupés par user_id
     const mostVotedPlayers = await prisma.participation_vote.groupBy({
+>>>>>>> develop
       by: ["user_id"],
       _count: { user_id: true },
       orderBy: { _count: { user_id: "desc" } },
     });
 
+<<<<<<< feat/votes
+    const result = await Promise.all(
+      grouped.map(async (g) => {
+        const user = await prisma.user.findUnique({
+          where: { user_id: g.user_id },
+          select: { user_id: true, pseudonym: true, avatar_url: true },
+        });
+        return { user, votes: g._count.user_id };
+=======
     // Récupération des utilisateurs concernés
     const userIds = mostVotedPlayers.map((vote) => vote.user_id);
 
@@ -78,6 +118,7 @@ export const getMostVotedPlayers = async (
           user,
           votes: vote._count.user_id,
         };
+>>>>>>> develop
       })
       .filter(Boolean); // enlève les entrées nulles
       
@@ -87,48 +128,28 @@ export const getMostVotedPlayers = async (
   }
 };
 
-// Récupérer le vote d'une participation par son ID
-export const getAllParticipationVotesByParticipationId = async (
-  req: Request,
+// Supprime le vote de l’utilisateur connecté sur la participation.
+export const deleteParticipationVote = async (
+  req: Request<{ participation_id: string }>,
   res: Response,
   next: NextFunction
 ) => {
   const { participation_id } = req.params;
+  const user_id = req.session.userId;            
 
   try {
-    const participationVotes = await prisma.participation_vote.findMany({
-      where: { participation_id },
-    });
-    res.status(200).json(participationVotes);
-  } catch (error) {
-    next(error);
-  }
-};
+    if (!user_id) throw createHttpError(401, "Utilisateur non authentifié.");
 
-// Supprimer un vote pour une participation
-export const deleteParticipationVote = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const { participation_id, user_id } = req.params;
-
-  try {
-    const participationVote = await prisma.participation_vote.findFirst({
+    const vote = await prisma.participation_vote.findFirst({
       where: { participation_id, user_id },
     });
+    if (!vote) throw createHttpError(404, "Vote non trouvé.");
 
-    if (!participationVote) {
-      throw createHttpError(404, `Vote de la participation non trouvé`);
-    }
-
-    const participation_vote_id = participationVote.participation_vote_id;
-
-    const participationVoteToDelete = await prisma.participation_vote.delete({
-      where: { participation_vote_id },
+    await prisma.participation_vote.delete({
+      where: { participation_vote_id: vote.participation_vote_id },
     });
 
-    res.status(200).json({ message: `Vote supprimé avec succès` });
+    res.status(200).json({ message: "Vote supprimé avec succès." });
   } catch (error) {
     next(error);
   }
