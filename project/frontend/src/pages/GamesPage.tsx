@@ -64,7 +64,7 @@ export default function GamesPage() {
         {/* Section des jeux populaires */}
         {/* Carousel */}
         {popularGames.length > 0  && (
-          <div className="relative w-full mx-auto mb-12 rounded-xl overflow-hidden shadow-xl border border-primary">
+          <div className="relative w-full mx-auto mb-8 rounded-xl overflow-hidden shadow-xl border border-primary">
             <Link to={`/games/${popularGames[currentSlide].game_id}`}>
               <img
                 src={popularGames[currentSlide].image_url}
@@ -95,12 +95,14 @@ export default function GamesPage() {
           </div>
         )}
         
-        <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher un jeu ..." />
         
         {/* Section des jeux */}
-        <h2 className="text-2xl font-bold mb-4">Tous les jeux</h2>
+        <div className="flex mt-8 mb-4 justify-center">
+          <h2 className="text-2xl font-bold w-full mt-4">Tous les jeux</h2>
+          <SearchBar  value={search} onChange={setSearch} placeholder="Rechercher un jeu ..." />
+        </div>
         <hr />
-        <p className="text-lg text-muted-foreground mb-8">
+        <p className="text-lg text-muted-foreground mb-8 mt-8">
           Explorez tous les jeux disponibles sur la plateforme.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
