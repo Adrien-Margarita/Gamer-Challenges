@@ -1,6 +1,7 @@
 import { IChallenge } from "@/@types/IChallenge";
 import Footer from "@/components/Footer";
 import { Navbar } from "@/components/homepage";
+import SearchBar from "@/components/SearchBar";
 import { Skeleton } from "@/components/ui";
 import { useChallenges, useMostPopularChallenges } from "@/hooks/useChallenge";
 import { useEffect, useMemo, useState } from "react";
@@ -9,9 +10,12 @@ import { Link } from "react-router";
 export default function ChallengesPage() {
   const [visibleCount, setVisibleCount] = useState(8);
   const [currentSlide, setCurrentSlide] = useState(0);
-
+  const [search, setSearch] = useState("");
   const { data, isLoading } = useChallenges();
-  const challenges: IChallenge[] = Array.isArray(data) ? data : [];
+
+  const challenges = useMemo(() => {
+    return Array.isArray(data) ? data : [];
+  }, [data]);
 
   const { data: popularChallengesData } = useMostPopularChallenges();
 
@@ -20,6 +24,13 @@ export default function ChallengesPage() {
   const popularChallenges: IChallenge[] = useMemo(
     () => (Array.isArray(popularChallengesData) ? popularChallengesData : []),
     [popularChallengesData]
+  );
+
+  const filteredChallenges = useMemo(
+    () => 
+      challenges.filter((challenge) => 
+        challenge.title.toLowerCase().includes(search.toLowerCase())
+    ), [challenges, search]
   );
 
   // Timer auto slide
@@ -75,6 +86,7 @@ export default function ChallengesPage() {
             </div>
           </div>
         )}
+        <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher un challenge ..." />
 
         {/* Section des challenges */}
         <h2 className="text-2xl font-bold">Tous les challenges</h2>
@@ -83,7 +95,7 @@ export default function ChallengesPage() {
             ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />
               ))
-            : challenges.slice(0, visibleCount).map((challenge) => (
+            : filteredChallenges.slice(0, visibleCount).map((challenge) => (
                 <Link to={`/challenges/${challenge.challenge_id}`} key={challenge.challenge_id}>
                   <div className="card bg-base-200 shadow p-4 flex flex-col justify-between h-full">
                     <h3 className="text-lg font-semibold mb-2">{challenge.title}</h3>

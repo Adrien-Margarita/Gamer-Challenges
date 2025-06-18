@@ -2,11 +2,15 @@ import Footer from "@/components/Footer";
 import { Navbar, PopularChallenges, PopularPlayers, PopularGames, LastChallenges } from "@/components/homepage";
 import LastGames from "@/components/homepage/LastGames";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router";
+import {   useNavigate } from "react-router";
+
+
 
 const HomePage = () => {
+  
   const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
+
 
   return (
     <div className="min-h-screen flex flex-col">

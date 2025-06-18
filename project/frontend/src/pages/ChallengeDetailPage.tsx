@@ -5,21 +5,19 @@ import {
   useChallenge,
   useParticipationsByChallengeId,
 } from "@/hooks/useChallenge";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "react-router";
 import { getEmbedUrl } from "@/utils/getEbedUrl";
 import { useCreateParticipation } from "@/hooks/useParticipation";
 import { IParticipationFormData } from "@/@types/IParticipation";
-// import { useAtom } from "jotai";
-// import { authAtom } from "@/stores/authAtom";
+import SearchBar from "@/components/SearchBar";
 
 export default function ChallengeDetailPage() {
-  // const [auth] = useAtom(authAtom);
   const [visibleCount, setVisibleCount] = useState(2);
   const { mutate: CreateParticipation } = useCreateParticipation();
   const { id } = useParams<{ id: string }>();
   const { data: challenge, isLoading } = useChallenge(id ?? "");
-  const { data: participations } = useParticipationsByChallengeId(id ?? "");
+  const { data } = useParticipationsByChallengeId(id ?? "");
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState<
     IParticipationFormData & { mediaType: "image" | "video" }
@@ -28,9 +26,13 @@ export default function ChallengeDetailPage() {
     image_url: "",
     description: "",
     challenge_id: id ?? "",
-    // user_id: auth?.user_id ?? "",
     mediaType: "image",
   });
+  const [search, setSearch] = useState("");
+
+  const participations = useMemo(() => {
+    return Array.isArray(data) ? data : [];
+  }, [data]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -38,6 +40,13 @@ export default function ChallengeDetailPage() {
     const { name, value } = e.target;
     setForm((prev: typeof form) => ({ ...prev, [name]: value }));
   };
+
+  const filteredParticipations = useMemo(
+    () => 
+      participations.filter((participation) => 
+        participation.user.pseudonym.toLowerCase().includes(search.toLowerCase())
+    ), [participations, search]
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -245,9 +254,11 @@ export default function ChallengeDetailPage() {
                   </p>
                 </div>
                 <div>
+                <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher une participation ..." />
                   <h2 className="text-2xl font-bold mb-4">
                     Toutes les participations
                   </h2>
+
                 </div>
 
                 {/* Affichage des participations */}
@@ -256,7 +267,7 @@ export default function ChallengeDetailPage() {
                     ? Array.from({ length: 4 }).map((_, index) => (
                         <Skeleton key={index} className="h-32 w-full" />
                       ))
-                    : participations
+                    : filteredParticipations
                         ?.slice(0, visibleCount)
                         .map((participation) => (
                           <section className="flex gap-4 bg-base-200 shadow p-4">
