@@ -62,8 +62,8 @@ export default function ChallengesPage() {
             </div>
 
             {/* Points de navigation */}
-            <div className="absolute bottom-9 right-4 flex gap-2">
-              {popularChallenges.map((_, index) => (
+            <div className="absolute items-center top-10 left-[41%] lg:left-[48%] flex gap-2">
+              {popularChallenges.slice(0, 4).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
@@ -76,7 +76,7 @@ export default function ChallengesPage() {
           </div>
         )}
 
-        {/* Section des jeux */}
+        {/* Section des challenges */}
         <h2 className="text-2xl font-bold">Tous les challenges</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {isLoading

@@ -25,7 +25,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex w-screen h-screen items-center justify-center relative overflow-hidden bg-gradient-to-r from-[#12243E]  to-[#314C6B]">
+    <div className="flex w-screen h-screen items-center justify-center overflow-hidden bg-gradient-to-r from-[#12243E]  to-[#314C6B]">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md space-y-6 rounded-lg bg-base-100 p-8 shadow-lg"
