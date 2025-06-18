@@ -4,7 +4,7 @@ export interface IUser {
   email: string
   password_hash: string
   avatar_url?: string
-  role_id: string
+  role_id: number
   role_name: string
 }
 

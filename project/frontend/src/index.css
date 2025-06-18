@@ -19,7 +19,7 @@
     --color-secondary: rgba(206, 195, 255, 1);
     /* --color-base-content: rgba(230, 30, 90, 1); */
     --text-primary: white;
-    --primary: rgba(230, 30, 90, 1);
+    --primary: rgba(143, 117, 255, 1);
     --font-display: 'Inter', sans-serif !important;
     --menu-active-bg: rgba(230, 30, 90, 1);
     --menu-active-fg: white;
@@ -28,6 +28,8 @@
     --bg-background-to: #314C6B;
     --tw-gradient-from: var(--bg-background-from);
     --tw-gradient-to: var(--bg-background-to);
+    --bg-primary: rgba(143, 117, 255, 1); 
+    --bg-secondary: rgba(206, 195, 255, 1); 
   }
 }
 
