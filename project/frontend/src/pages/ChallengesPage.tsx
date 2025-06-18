@@ -34,6 +34,9 @@ export default function ChallengesPage() {
     ), [challenges, search]
   );
 
+  const showMoreButton = challenges.length > 8 && visibleCount < challenges.length;
+
+
   // Timer auto slide
   useEffect(() => {
     if (popularChallenges.length === 0) return;
@@ -110,14 +113,16 @@ export default function ChallengesPage() {
                 <ChallengeCard key={challenge.challenge_id} challenge={challenge} />
           ))}
         </div>
-        <div className="flex justify-center">
-          <button
-            onClick={() => setVisibleCount((prev) => prev + 8)}
-            className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
-          >
-            Voir plus
-          </button>
-        </div>
+        {showMoreButton && (
+          <div className="flex justify-center">
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 8)}
+              className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition"
+            >
+              Voir plus
+            </button>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
