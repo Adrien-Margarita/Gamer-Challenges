@@ -28,7 +28,7 @@
     --bg-background-to: #314C6B;
     --tw-gradient-from: var(--bg-background-from);
     --tw-gradient-to: var(--bg-background-to);
-    --bg-primary: rgba(143, 117, 255, 1); 
+    --bg-primary: #12243E; 
     --bg-secondary: rgba(206, 195, 255, 1); 
   }
 }
