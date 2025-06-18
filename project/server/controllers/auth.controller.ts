@@ -83,7 +83,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
       return
     }
 
-    req.session.userId = user.user_id // ✅ ici la correction
+    req.session.userId = user.user_id
 
     res.status(200).json(user)
   } catch (error) {
@@ -96,7 +96,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
  * Récupérer l’utilisateur courant via la session
  */
 export const getMe = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const userId = req.session.userId // ✅ ici aussi
+  const userId = req.session.userId
 
   if (!userId) {
     res.status(401).json({ message: "Vous n'êtes pas authentifié." })
