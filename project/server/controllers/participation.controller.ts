@@ -91,6 +91,7 @@ export const getParticipationsByChallengeId = async (
           select: {
             user_id: true,
             pseudonym: true,
+            avatar_url: true,
           },
         },
       },

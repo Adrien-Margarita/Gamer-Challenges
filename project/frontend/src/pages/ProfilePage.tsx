@@ -26,7 +26,7 @@ function ProfilePage() {
         <h2 className="text-2xl font-bold m-4">Mon Profil</h2>
         <section className="flex gap-3 m-4">
           <div className="w-[50%] border-1 flex flex-col gap-1">
-            <img src={auth?.avatar_url} alt="avatar du profil" className="p-4 rounded-[20%]"/>
+            <img src={auth?.avatar_url || "/assets/images/logo-color-full.svg"} alt="avatar du profil" className="p-4 rounded-[20%]"/>
             <div className="flex justify-center gap-2 text-white mb-4">
               <Icon path={mdiThumbUp} size={1} />
               <p>{totalVotes}</p>
