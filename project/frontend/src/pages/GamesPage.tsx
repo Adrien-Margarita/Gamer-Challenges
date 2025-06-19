@@ -264,6 +264,8 @@ export default function GamesPage() {
         <p className="text-lg text-muted-foreground mb-8 mt-8">
           Explorez tous les jeux disponibles sur la plateforme.
         </p>
+        
+        {/* Affichage des jeux */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {isLoading
             ? Array.from({ length: 8 }).map((_, index) => (
@@ -278,6 +280,7 @@ export default function GamesPage() {
             ))}
         </div>
 
+        {/* Bouton voir plus */}
         {showMoreButton && (
           <div className="flex justify-center mt-6 mb-6">
             <button

@@ -2,7 +2,7 @@ import Footer from "@/components/Footer"
 import { Navbar } from "@/components/homepage"
 import { useAuth } from "@/hooks/useAuth"
 import { usePlayerChallenges, usePlayerParticipations } from "@/hooks/usePlayer"
-import { getEmbedUrl } from "@/utils/getEbedUrl"
+import { getEmbedUrl } from "@/utils/getEmbedUrl"
 import { Link } from "react-router"
 import Icon from '@mdi/react';
 import { useState } from "react"
@@ -194,12 +194,19 @@ function ProfilePage() {
                   className="w-full h-32 object-cover rounded mb-2"
                 />
                 </Link>
+                <div className="flex justify-between items-center">
                 <p className="text-white/60 text-sm">
                   Jeu : {challenge.game.title} • {challenge.participation.length} participations
                 </p>
-                <button onClick={() => handleDeleteChallenge(challenge.challenge_id)}>
+                  <button onClick={() => 
+                    handleDeleteChallenge(challenge.challenge_id)
+                    }
+                    disabled={deleteChallenge.isPending}
+                    className="p-1 rounded hover:text-red-400 disabled:opacity-50 text-white">
                   <Icon path={mdiTrashCanOutline} size={1} />
-                </button>
+                  </button>
+                </div>
+                
               </div>
               
             ))}
@@ -236,12 +243,18 @@ function ProfilePage() {
                    className="w-full h-[500px] object-cover rounded-xl shadow-xl"
                    />
                 )}
+                <div className="flex justify-between items-center">
                 <p className="text-white/60 text-sm">
                   Jeu : {participation.challenge.game.title} • {participation.participation_vote.length} votes
                 </p>
-                <button onClick={() => handleDeleteParticipation(participation.participation_id)}>
-                  <Icon path={mdiTrashCanOutline} size={1} />
-                </button>
+                
+                  <button onClick={() => 
+                    handleDeleteParticipation(participation.participation_id)
+                    } 
+                    className="p-1 rounded hover:text-red-400 disabled:opacity-50 text-white">
+                    <Icon path={mdiTrashCanOutline} size={1} />
+                  </button>
+                </div>
               </div>
             <div className="flex flex-col gap-3 w-full border-1 p-6">
               <p>Pseudo <strong>{auth?.pseudonym}</strong></p>
