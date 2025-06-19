@@ -39,6 +39,26 @@ export const getAllGames = async (
   }
 };
 
+// Récupère les 4 derniers jeux créés
+export const getLastGames = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const latestGames = await prisma.game.findMany({
+      orderBy: {
+        created_at: "desc",
+      },
+      take: 4,
+    });
+
+    res.status(200).json(latestGames);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Récupérer les jeux les plus populaires (avec le plus de votes)
 export const getMostPopularGames = async (
   req: Request,

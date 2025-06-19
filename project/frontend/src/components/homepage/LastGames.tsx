@@ -1,4 +1,4 @@
-import { useGames } from "@/hooks/useGame";
+import { useLastGames } from "@/hooks/useGame";
 import { Skeleton } from "../ui";
 import { IGame } from "@/@types/IGame";
 import { mdiArrowRightCircleOutline } from "@mdi/js";
@@ -6,13 +6,13 @@ import Icon from "@mdi/react";
 import { Link } from "react-router";
 
 function LastGames() {
-  const { data, isLoading } = useGames();
+  const { data, isLoading } = useLastGames();
   const games: IGame[] = Array.isArray(data) ? data : [];
 
   return (
     <section className="h-full">
       <div className="flex items-center justify-between text-secondary">
-      <h2 className="text-2xl font-bold mb-4 mt-4">Les derniers jeux</h2>
+      <h2 className="text-2xl font-bold mb-4 mt-4">Les derniers jeux ajoutés</h2>
 
         <Link className="m-0" to="/games">
           <Icon path={mdiArrowRightCircleOutline} size={1.4} />
@@ -24,7 +24,7 @@ function LastGames() {
           ? Array.from({ length: 4 }).map((_, index) => (
               <Skeleton key={index} className="h-32 w-full" />
             ))
-          : games.slice(0, 4).map((game) => (
+          : games.map((game) => (
               <div className="flex flex-col" key={game.game_id}>
                 <p className="text-lg font-semibold text-white mb-4">
                   {game.title}

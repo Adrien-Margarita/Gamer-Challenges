@@ -45,6 +45,10 @@ const gameService = {
     return challengeResponse.data as IChallenge[];
   },
 
+  async getLastGames() {
+  const response = await api.get("/games/latest");
+  return response.data as IGame[];
+  },
   /**
    * Crée un nouveau jeu à partir des données fournies.
    * @param {IGame} game - Les données du jeu à créer.
