@@ -210,6 +210,6 @@ challengeRouter.put(
  *       200:
  *         description: Challenge supprimé avec succès
  */
-challengeRouter.delete("/:id", deleteChallenge);
+challengeRouter.delete("/:challenge_id", deleteChallenge);
 
 export default challengeRouter;

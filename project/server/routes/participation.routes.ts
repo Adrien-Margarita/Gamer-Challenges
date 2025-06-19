@@ -168,6 +168,6 @@ participationRouter.put(
  *       404:
  *         description: participation non trouvée
  */
-participationRouter.delete("/:id", errorHandler, deleteParticipation);
+participationRouter.delete("/:participation_id", errorHandler, deleteParticipation);
 
 export default participationRouter;

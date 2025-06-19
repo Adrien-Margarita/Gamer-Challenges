@@ -5,7 +5,9 @@ import { usePlayerChallenges, usePlayerParticipations } from "@/hooks/usePlayer"
 import { getEmbedUrl } from "@/utils/getEbedUrl"
 import { Link } from "react-router"
 import Icon from '@mdi/react';
-import { mdiThumbUp } from '@mdi/js';
+import { mdiThumbUp, mdiTrashCanOutline } from '@mdi/js';
+import { useDeleteChallenge } from "@/hooks/useChallenge"
+import { useDeleteParticipation } from "@/hooks/useParticipation"
 
 function ProfilePage() {
   const { auth } = useAuth()
@@ -16,6 +18,26 @@ function ProfilePage() {
   const { data: participations, isLoading: isParticipationsLoading, isError: isParticipationsError } = usePlayerParticipations(userId ?? "")
 
   const totalVotes = participations?.reduce((total, participation) => total + participation.participation_vote.length, 0);
+
+  // Suppression du challenge avec confirmation
+  const deleteChallenge = useDeleteChallenge();
+
+  const handleDeleteChallenge = (challenge_id: string) => {
+    if (window.confirm("Es-tu sûr de vouloir supprimer ce challenge ? Cette action est irréversible.")) {
+      deleteChallenge.mutate({ challenge_id });
+    }
+};
+
+// Suppression de la participation avec confirmation
+  const deleteParticipation = useDeleteParticipation();
+
+  const handleDeleteParticipation = (participation_id: string) => {
+    if (window.confirm("Es-tu sûr de vouloir supprimer cette participation ? Cette action est irréversible.")) {
+      deleteParticipation.mutate({ participation_id });
+    }
+};
+
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -51,8 +73,8 @@ function ProfilePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {challenges?.map((challenge) => (
-              <Link to={`/challenges/${challenge.challenge_id}`}>
               <div key={challenge.challenge_id} className="bg-white/10 p-4 rounded-lg shadow-md">
+                 <Link to={`/challenges/${challenge.challenge_id}`}>
                 <h4 className="text-lg font-semibold text-white mb-1">{challenge.title}</h4>
                 <p className="text-white/80 text-sm mb-2">{challenge.description}</p>
                 <img
@@ -60,11 +82,15 @@ function ProfilePage() {
                   alt={challenge.title}
                   className="w-full h-32 object-cover rounded mb-2"
                 />
+                </Link>
                 <p className="text-white/60 text-sm">
                   Jeu : {challenge.game.title} • {challenge.participation.length} participations
                 </p>
+                <button onClick={() => handleDeleteChallenge(challenge.challenge_id)}>
+                  <Icon path={mdiTrashCanOutline} size={1} />
+                </button>
               </div>
-              </Link>
+              
             ))}
           </div>
         </section>
@@ -101,6 +127,9 @@ function ProfilePage() {
                 <p className="text-white/60 text-sm">
                   Jeu : {participation.challenge.game.title} • {participation.participation_vote.length} votes
                 </p>
+                <button onClick={() => handleDeleteParticipation(participation.participation_id)}>
+                  <Icon path={mdiTrashCanOutline} size={1} />
+                </button>
               </div>
             ))}
           </div>
