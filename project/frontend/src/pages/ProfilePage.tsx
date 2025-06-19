@@ -91,6 +91,7 @@ function ProfilePage() {
                 onChange={handleChange}
                 required
               />
+            </div>
             <div className="mb-4">
               <label htmlFor="description">Description</label>
               <input
