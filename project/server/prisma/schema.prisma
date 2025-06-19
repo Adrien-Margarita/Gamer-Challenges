@@ -18,7 +18,7 @@ model challenge {
   game_id        String           @db.Uuid
   created_at     DateTime?        @default(now()) @db.Timestamp(6)
   updated_at     DateTime?        @default(now()) @db.Timestamp(6)
-  game           game             @relation(fields: [game_id], references: [game_id])
+  game           game             @relation(fields: [game_id], references: [game_id], onDelete: Cascade)
   participation  participation[]
   challenge_vote challenge_vote[]
 }
@@ -45,8 +45,8 @@ model participation {
   challenge_id       String               @db.Uuid
   created_at         DateTime?            @default(now()) @db.Timestamp(6)
   updated_at         DateTime?            @default(now()) @db.Timestamp(6)
-  challenge          challenge            @relation(fields: [challenge_id], references: [challenge_id])
-  user               user                 @relation(fields: [user_id], references: [user_id])
+  challenge          challenge            @relation(fields: [challenge_id], references: [challenge_id], onDelete: Cascade)
+  user               user                 @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   participation_vote participation_vote[]
 }
 
@@ -70,16 +70,16 @@ model participation_vote {
   participation_vote_id String        @id @default(uuid()) @db.Uuid
   user_id               String        @db.Uuid
   participation_id      String        @db.Uuid
-  user                  user          @relation(fields: [user_id], references: [user_id])
-  participation         participation @relation(fields: [participation_id], references: [participation_id])
+  user                  user          @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  participation         participation @relation(fields: [participation_id], references: [participation_id], onDelete: Cascade)
 }
 
 model challenge_vote {
   challenge_vote_id String    @id @default(uuid()) @db.Uuid
   user_id           String    @db.Uuid
   challenge_id      String    @db.Uuid
-  user              user      @relation(fields: [user_id], references: [user_id])
-  challenge         challenge @relation(fields: [challenge_id], references: [challenge_id])
+  user              user      @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  challenge         challenge @relation(fields: [challenge_id], references: [challenge_id], onDelete: Cascade)
 }
 
 model password_reset_token {
