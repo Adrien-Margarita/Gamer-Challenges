@@ -70,7 +70,7 @@ function Navbar() {
                     className="cursor-pointer flex flex-col items-center text-secondary hover:text-white transition-colors"
                     title="Mon profil"
                   >
-                    <img src={auth?.avatar_url} alt="Mon profil" className="w-10 h-10 border-primary border-2 rounded-full mb-1" />
+                    <img src={auth?.avatar_url || "/assets/images/logo-color-full.svg"} alt="Mon profil" className="w-10 h-10 border-primary border-2 rounded-full mb-1" />
                     <span className="text-xs">{auth?.pseudonym}</span>
                   </Link>
                   <button
@@ -107,7 +107,7 @@ function Navbar() {
             <>
               <li>
                 <Link to="/profile" onClick={closeDrawer} className="flex items-center p-0 mb-2 gap-2">
-                  <img src={auth?.avatar_url} alt="Mon profil" className="w-12 border-primary border-2 rounded-full" />
+                  <img src={auth?.avatar_url || "/assets/images/logo-color-full.svg"} alt="Mon profil" className="w-12 border-primary border-2 rounded-full" />
                   <div className="flex flex-col">
                     <p>{auth?.pseudonym}</p>
                     <p className="text-xs text-gray-400">{auth?.email}</p>

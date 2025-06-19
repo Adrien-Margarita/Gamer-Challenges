@@ -279,7 +279,6 @@ function ProfilePage() {
                         Jeu : {challenge.game.title} • {challenge.participation.length} participations
                       </p>
                     </div>
-                  </Link>
                   <div>
                     <button
                       type="button"
@@ -301,6 +300,7 @@ function ProfilePage() {
                       Supprimer
                     </button>
                   </div>
+                  </Link>
                 </>
               ))}
             </div>
