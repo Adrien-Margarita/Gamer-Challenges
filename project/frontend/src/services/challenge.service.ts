@@ -1,5 +1,6 @@
 import type {
   IChallenge,
+  IChallengeEditData,
   IChallengeFormData,
   ILatestChallenge,
   IPopularChallenge,
@@ -67,10 +68,13 @@ const challengeService = {
   /**
    * Met à jour un challenge existant.
    */
-  async updateChallenge(id: string, challenge: IChallenge) {
+  async updateChallenge(
+    challenge_id: string,
+    challenge: Omit<IChallengeEditData, "challenge_id">
+  ) {
     await ensureCsrfToken()
-    const challengeResponse = await api.put(`/challenges/${id}`, challenge)
-    return challengeResponse.data as IChallenge
+    const challengeResponse = await api.put(`/challenges/${challenge_id}`, challenge);
+    return challengeResponse.data as IChallengeEditData
   },
 
   /**

@@ -1,10 +1,11 @@
 import challengeService from "@/services/challenge.service";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { IChallenge } from "@/@types/IChallenge";
+import { IChallenge, IChallengeEditData } from "@/@types/IChallenge";
+import { playerKeys } from "@/hooks/usePlayer";
 import { IParticipation } from "@/@types/IParticipation";
-
 const challengeKeys = {
   all: ["challenges"] as const,
+  byUser: (userId: string) => [...challengeKeys.all, "by-user", userId] as const,
 };
 
 /**
@@ -108,7 +109,7 @@ export function useCreateChallenge() {
  * const mutation = useUpdateChallenge();
  * mutation.mutate({ challenge_id: 'uuid', challenge: updatedChallenge });
  */
-export function useUpdateChallenge() {
+export function useUpdateChallenge(userId?: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -117,10 +118,13 @@ export function useUpdateChallenge() {
       challenge,
     }: {
       challenge_id: string;
-      challenge: IChallenge;
+      challenge: Omit<IChallengeEditData, "challenge_id">;
     }) => challengeService.updateChallenge(challenge_id, challenge),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: challengeKeys.all });
+      if (userId) {
+        queryClient.invalidateQueries({ queryKey: playerKeys.challenges(userId) });
+      }
     },
   });
 }

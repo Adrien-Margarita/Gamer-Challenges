@@ -26,6 +26,16 @@ export type IChallengeFormData = {
   user_id: string;
 };
 
+export type IChallengeEditData = {
+  game_id: string,
+  challenge_id: string;
+  title: string;
+  description: string;
+  rules: string;
+  image_url: string;
+};
+
+
 export interface ILatestChallenge extends IChallenge {
   game: {
     title: string;
