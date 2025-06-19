@@ -109,45 +109,61 @@ hr {
   object-fit: cover;
 }
 
-/* 
-
-.input, .input-bordered {
-  background-color: white;
+/* Liquid glass card styling */
+.glass-card {
+  position: relative;
+  width: 300px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
-.link, .link:hover {
-  color: var(--color-primary);
+/* Hover effect for interactivity */
+.glass-card:hover {
+  transform: translateY(-5px);
 }
 
-.text-primary {
-  color: var(--color-primary) !important;
+/* Typography */
+.glass-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
 }
 
-.border-primary {
-  border-color: var(--color-primary) !important;
+.glass-card p {
+  font-size: 1rem;
 }
 
-.ring-primary {
-  border-color: var(--color-primary);  
+/* Add a pseudo-element for a glossy overlay */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  border-radius: 20px;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-.checkbox-primary, .checkbox-primary:not(checked) {
-  --chkfg: white;
-  --chkbx: var(--color-primary);
-  border: 1px solid var(--color-primary);
+@supports not (backdrop-filter: blur(10px)) {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.3);
+  }
 }
 
-.checkbox-primary:checked {
-  --chkbg: var(--color-primary);
+.glass-card:hover::before {
+  opacity: 0.8;
 }
-
-.btn-active {
-  background-color: rgba(230, 30, 90, .1);  
-}
-
-.white {
-  color: white;
-} */
 
 .backdrop-blur-md {
   --tw-backdrop-blur: blur(14px);
