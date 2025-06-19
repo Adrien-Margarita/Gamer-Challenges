@@ -12,13 +12,14 @@ import { useState } from "react";
 import { Dialog } from "@/components/ui";
 import { useUpdateChallenge } from "@/hooks/useChallenge";
 import { IChallengeEditData } from "@/@types/IChallenge";
-import { mdiThumbUp } from "@mdi/js";
+import { mdiPencil, mdiThumbUp, mdiTrashCan } from "@mdi/js";
 import { useDeleteChallenge } from "@/hooks/useChallenge";
 import {
   useDeleteParticipation,
   useUpdateParticipation,
 } from "@/hooks/useParticipation";
 import { IParticipationEditData } from "@/@types/IParticipation";
+import { toast } from "react-hot-toast";
 
 function ProfilePage() {
   const { auth } = useAuth();
@@ -95,10 +96,12 @@ function ProfilePage() {
       },
       {
         onSuccess: () => {
+          toast.success("Challenge mis à jour avec succès");
           setShowForm(false);
         },
         onError: (err) => {
-          console.error("Erreur mise à jour challenge", err);
+          toast.error("Erreur lors de la mise à jour du challenge");
+          console.error("Erreur de mise à jour du challenge", err);
         },
       }
     );
@@ -114,10 +117,13 @@ function ProfilePage() {
       },
       {
         onSuccess: () => {
+          toast.success("Participation mise à jour avec succès");
           setShowFormParticipation(false);
         },
         onError: (err) => {
-          console.error("Erreur mise à jour challenge", err);
+          toast.error("Erreur lors de la mise à jour de la participation");
+          setShowFormParticipation(false);
+          console.error("Erreur de mise à jour de la participation", err);
         },
       }
     );
@@ -368,34 +374,40 @@ function ProfilePage() {
 
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-1 p-4 space-y-12 bg-gradient-to-r from-[#12243E]  to-[#314C6B]">
+        <main className="flex-1 p-4 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
           {/* Profil */}
-          <h2 className="text-2xl font-bold m-4">Mon Profil</h2>
-          <section className="flex gap-3 m-4">
-            <div className="w-[50%] border-1 flex flex-col gap-1">
+          <section>
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold mr-4 ml-4">Mon Profil</h2>
+              <button className="btn btn-primary text-xs">Modifier mon mot de passe</button>
+            </div>
+            <hr className="ml-4 mt-4" />
+            <div className="grid grid-cols-1 md:grid-cols-2 md:items-center gap-8">
               <img
                 src={auth?.avatar_url || "/assets/images/logo-color-full.svg"}
                 alt="avatar du profil"
-                className="p-4 rounded-[20%]"
+                className="rounded-full border-4 border-primary shadow-lg max-w-[200px] max-h-[200px] mx-auto mt-6 mb-4 md:mb-0 md:mt-0 md:ml-6 md:mr-0 md:justify-center"
               />
-              <div className="flex justify-center gap-2 text-white mb-4">
-                <Icon path={mdiThumbUp} size={1} />
-                <p>{totalVotes}</p>
-              </div>
-              <div className="flex flex-col gap-3 w-full border-1 p-6">
-                <p>
-                  Pseudo <strong>{auth?.pseudonym}</strong>
+              <div className="flex flex-col gap-3 w-full p-6">
+                <p className="text-secondary text-3xl">
+                  <strong>{auth?.pseudonym}</strong>
                 </p>
-                <p>Email {auth?.email}</p>
+                <p className="text-muted text-sm">{auth?.email}</p>
               </div>
             </div>
+            <hr className="mt-8" />
+            <div className="flex justify-center gap-8 text-white mb-4">
+              <span className="text-secondary flex items-center gap-4"><Icon className="text-secondary" path={mdiThumbUp} size={1.4} /> {totalVotes}</span>
+            </div>
+            <hr className="mt-4" />
           </section>
 
           {/* Section mes participations */}
           <section className="m-4">
-            <h3 className="text-2xl font-bold text-white mb-4">
+            <h2 className="text-xl md:text-2xl font-semibold text-secondary mb-4">
               Mes participations
-            </h3>
+            </h2>
+            <hr />
 
             {isParticipationsLoading && (
               <p className="text-white">Chargement...</p>
@@ -414,78 +426,97 @@ function ProfilePage() {
                 </p>
               )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {participations?.map((participation) => (
                 <>
-                  <div
-                    key={participation.participation_id}
-                    className="bg-white/10 p-4 rounded-lg shadow-md"
-                  >
-                    <h4 className="text-lg font-semibold text-white mb-1">
-                      {participation.challenge.title}
-                    </h4>
-                    <p className="text-white/80 text-sm mb-2">
-                      {participation.description}
-                    </p>
-                    {participation.video_url ? (
-                      <iframe
-                        src={getEmbedUrl(participation.video_url) ?? ""}
-                        className="w-full h-[500px] rounded-xl shadow-xl"
-                        allowFullScreen
-                        title="Vidéo de participation"
-                      />
-                    ) : (
-                      <img
-                        src={participation.image_url}
-                        className="w-full h-[500px] object-cover rounded-xl shadow-xl"
-                      />
-                    )}
+                <div
+                  key={participation.participation_id}
+                >
 
-                    <div className="flex justify-between items-center">
-                      <p className="text-white/60 text-sm">
-                        Jeu : {participation.challenge.game.title} •{" "}
-                        {participation.participation_vote.length} votes
-                      </p>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setFormParticipation({
-                            participation_id: participation.participation_id,
-                            video_url: participation.video_url,
-                            image_url: participation.image_url,
-                            description: participation.description,
-                            challenge_id: participation.challenge_id,
-                            mediaType: "image",
-                          });
-                          setShowFormParticipation(true);
-                        }}
-                        className="btn btn-primary cursor-pointer"
-                      >
-                        Modifier
-                      </button>
-                      <button
-                        type="submit"
-                        className="btn btn-error ml-4"
-                        onClick={() =>
-                          handleDeleteParticipation(
-                            participation.participation_id
-                          )
-                        }
-                      >
-                        Supprimer
-                      </button>
+                  {participation.video_url ? (
+                    <iframe
+                      src={getEmbedUrl(participation.video_url) ?? ""}
+                      className="w-full object-cover min-h-[300px] rounded-lg border-1 border-primary mb-2 transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100"
+                      allowFullScreen
+                      title="Vidéo de participation"
+                    />
+                  ) : (
+                    <img
+                      src={participation.image_url}
+                      className="w-full min-h-[300px] object-cover rounded-lg border-1 border-primary mb-2 transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100"
+                    />
+                  )}
+                </div>
+                <div>
+                  <div className="flex flex-col">
+                    <div className="flex w-full justify-between items-center">
+                      <h4 className="text-xl w-full font-semibold text-white mb-1 mr-8">
+                        {participation.challenge.title}
+                      </h4>
+                      <div className="flex gap-2 items-end justify-center bg-slate-800 shadow-lg p-2 rounded-lg">
+                        <button
+                          type="submit"
+                          className="cursor-pointer"
+                          onClick={() =>
+                            handleDeleteParticipation(
+                              participation.participation_id
+                            )
+                          }
+                          title="Supprimer la participation"
+                        >
+                          <Icon
+                            path={mdiTrashCan}
+                            size={1}
+                            className="mr-2 text-red-400"
+                          />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setFormParticipation({
+                              participation_id: participation.participation_id,
+                              video_url: participation.video_url,
+                              image_url: participation.image_url,
+                              description: participation.description,
+                              challenge_id: participation.challenge_id,
+                              mediaType: "image",
+                            });
+                            setShowFormParticipation(true);
+                          }}
+                          className="cursor-pointer"
+                          title="Modifier la participation"
+                        >
+                          <Icon
+                            path={mdiPencil}
+                            size={1}
+                            className="mr-2"
+                          />
+                        </button>
+                      </div>
                     </div>
+                    <h3 className="text-muted text-sm m-0 mb-2 mt-2">
+                      {participation.description}
+                    </h3>
+                    <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
+                    <p className="text-muted text-sm text-right mr-4 text-warning">
+                      Jeu : {participation.challenge.game.title} • {" "}
+                      {participation.participation_vote.length} votes
+                    </p>
+                    <hr className="mt-2 mb-8" style={{ borderColor: "rgba(255, 255, 255, 0.2)" }} />
+
                   </div>
+                </div>
                 </>
               ))}
             </div>
           </section>
 
           {/* Section mes challenges */}
-          <section className="m-4">
-            <h3 className="text-2xl font-bold text-white mb-4">
+          <section className="m-4 mt-12">
+            <h2 className="text-xl lg:text-2xl font-semibold text-secondary mb-4">
               Mes challenges
-            </h3>
+            </h2>
+            <hr className="mb-4" /> 
 
             {isLoading && <p className="text-white">Chargement...</p>}
             {isError && (
@@ -500,59 +531,76 @@ function ProfilePage() {
               </p>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {challenges?.map((challenge) => (
                 <>
                   <div
                     key={challenge.challenge_id}
-                    className="bg-white/10 p-4 rounded-lg shadow-md"
                   >
                     <Link to={`/challenges/${challenge.challenge_id}`}>
-                      <h4 className="text-lg font-semibold text-white mb-1">
-                        {challenge.title}
-                      </h4>
-                      <p className="text-white/80 text-sm mb-2">
-                        {challenge.description}
-                      </p>
                       <img
                         src={challenge.image_url}
                         alt={challenge.title}
-                        className="w-full h-32 object-cover rounded mb-2"
+                        className="w-full h-full object-cover rounded-lg border-1 border-primary mb-2 transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100"
                       />
                     </Link>
-                    <p className="text-white/60 text-sm">
-                      Jeu : {challenge.game.title} •{" "}
-                      {challenge.participation.length} participations
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setForm({
-                          game_id: challenge.game_id,
-                          challenge_id: challenge.challenge_id,
-                          title: challenge.title,
-                          description: challenge.description,
-                          rules: challenge.rules,
-                          image_url: challenge.image_url,
-                        });
-                        setShowForm(true);
-                      }}
-                      className="btn btn-primary cursor-pointer"
-                    >
-                      Modifier
-                    </button>
-                    <button
-                      onClick={() =>
-                        handleDeleteChallenge(challenge.challenge_id)
-                      }
-                      disabled={deleteChallenge.isPending}
-                      className="btn btn-error"
-                    >
-                      Supprimer
-                    </button>
                   </div>
 
-                  <div></div>
+                  <div>
+                    <div className="flex flex-col">
+                      <div className="flex w-full justify-between items-center">
+                        <h4 className="text-xl w-full font-semibold text-white">
+                          {challenge.title}
+                        </h4>
+                        <div className="flex gap-2 items-end justify-center bg-slate-800 shadow-lg p-2 rounded-lg">
+                          <button
+                            onClick={() =>
+                              handleDeleteChallenge(challenge.challenge_id)
+                            }
+                            disabled={deleteChallenge.isPending}
+                            className="cursor-pointer"
+                          >
+                            <Icon
+                              path={mdiTrashCan}
+                              size={1}
+                              className="mr-2 text-red-400">
+                            </Icon>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setForm({
+                                game_id: challenge.game_id,
+                                challenge_id: challenge.challenge_id,
+                                title: challenge.title,
+                                description: challenge.description,
+                                rules: challenge.rules,
+                                image_url: challenge.image_url,
+                              });
+                              setShowForm(true);
+                            }}
+                            className="cursor-pointer"
+                            >
+                            <Icon
+                              path={mdiPencil}
+                              size={1}
+                              className="mr-2">
+                            </Icon>
+                          </button>
+                        </div>
+                      </div>
+                      {/* <hr className="mt-2" /> */}
+                      <h3 className="text-muted text-sm mb-2 mt-4">
+                        {challenge.description}
+                      </h3>
+                      <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
+                      <h3 className="text-muted text-sm text-right mr-4 text-warning">
+                        Jeu : {challenge.game.title} •{" "}
+                        {challenge.participation.length} participations
+                      </h3>
+                      <hr className="mt-2 mb-8" style={{ borderColor: "rgba(255, 255, 255, 0.2)" }} />
+                    </div>
+                  </div>
                 </>
               ))}
             </div>
