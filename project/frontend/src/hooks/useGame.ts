@@ -86,3 +86,25 @@ export function useCreateGame() {
     },
   });
 }
+
+/**
+ * Hook pour supprimer un jeu par son ID.
+ */
+export function useDeleteGame() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ game_id }: { game_id: string }) => {
+      logger("🗑️ useDeleteGame → suppression du jeu", game_id);
+      await gameService.deleteGame(game_id);
+      logger("✅ useDeleteGame → jeu supprimé", game_id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: gameKeys.all });
+      logger("🔄 useDeleteGame → réactualisation des jeux après suppression");
+    },
+    onError: (error) => {
+      logger("❌ useDeleteGame → erreur suppression jeu", error);
+    },
+  });
+}

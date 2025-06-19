@@ -7,7 +7,7 @@ import {
 } from "@/hooks/useChallenge";
 import { useMemo, useState } from "react";
 import { useParams } from "react-router";
-import { getEmbedUrl } from "@/utils/getEbedUrl";
+import { getEmbedUrl } from "@/utils/getEmbedUrl";
 import { useCreateParticipation } from "@/hooks/useParticipation";
 import { IParticipationFormData } from "@/@types/IParticipation";
 import { VoteButtonParticipation } from "@/components/ui/VoteButtonParticipation";

@@ -162,6 +162,6 @@ gameRouter.put("/:id", validate(gameSchema), errorHandler, updateGame);
  *       404:
  *         description: Jeu non trouvé
  */
-gameRouter.delete("/:id", errorHandler, deleteGame);
+gameRouter.delete("/:game_id", errorHandler, deleteGame);
 
 export default gameRouter;
