@@ -91,7 +91,6 @@ function ProfilePage() {
                 onChange={handleChange}
                 required
               />
-            </div>
             <div className="mb-4">
               <label htmlFor="description">Description</label>
               <input
@@ -163,11 +162,12 @@ function ProfilePage() {
               <div className="flex justify-center gap-2 text-white mb-4">
                 <Icon path={mdiThumbUp} size={1} />
                 <p>{totalVotes}</p>
-          </div>
-          <div className="flex flex-col gap-3 w-full border-1 p-6">
-          <p>Pseudo <strong>{auth?.pseudonym}</strong></p>
-          <p>Email {auth?.email}</p>
-          </div>
+              </div>
+              <div className="flex flex-col gap-3 w-full border-1 p-6">
+                <p>Pseudo <strong>{auth?.pseudonym}</strong></p>
+                <p>Email {auth?.email}</p>
+              </div>
+            </div>
         </section>
 
         {/* Section mes challenges */}
@@ -218,6 +218,7 @@ function ProfilePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {participations?.map((participation) => (
+              <>
               <div key={participation.participation_id} className="bg-white/10 p-4 rounded-lg shadow-md">
                 <h4 className="text-lg font-semibold text-white mb-1">{participation.challenge.title}</h4>
                 <p className="text-white/80 text-sm mb-2">{participation.description}</p>
@@ -241,11 +242,13 @@ function ProfilePage() {
                   <Icon path={mdiTrashCanOutline} size={1} />
                 </button>
               </div>
-            </div>
             <div className="flex flex-col gap-3 w-full border-1 p-6">
               <p>Pseudo <strong>{auth?.pseudonym}</strong></p>
               <p>Email {auth?.email}</p>
             </div>
+            </>
+            ))}
+          </div>  
           </section>
 
           {/* Section mes challenges */}
