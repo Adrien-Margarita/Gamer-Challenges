@@ -185,7 +185,7 @@ challengeRouter.get("/:id", getChallengeById);
  *         description: Challenge mis à jour avec succès
  */
 challengeRouter.put(
-  "/:id",
+  "/:challenge_id",
   isAuthenticated,
   sanitizeBody(forbiddenFields),
   validate(challengeSchema),

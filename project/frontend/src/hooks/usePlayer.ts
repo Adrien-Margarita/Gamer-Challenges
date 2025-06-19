@@ -5,7 +5,7 @@ import { IMostVotedPlayer } from "@/@types/IPlayer";
 import { IChallengeWithRelations } from "@/@types/IChallenge";
 import { IParticipationWithRelations } from "@/@types/IParticipation";
 
-const playerKeys = {
+export const playerKeys = {
   all: ["players"] as const,
   challenges: (id: string) => [...playerKeys.all, "challenges", id] as const,
   participations: (id: string) => [...playerKeys.all, "participations", id] as const,

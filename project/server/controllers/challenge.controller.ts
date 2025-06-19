@@ -196,6 +196,7 @@ export const updateChallenge = async (
   next: NextFunction
 ) => {
   const { challenge_id } = req.params;
+  const { title, description, rules, image_url, game_id } = req.body;
 
   try {
     const challenge = await prisma.challenge.findUnique({
@@ -207,12 +208,17 @@ export const updateChallenge = async (
     }
 
     const challengeToUpdate = await prisma.challenge.update({
-      data: {
-        ...req.body,
-        updatedAt: new Date(),
-      },
       where: { challenge_id },
+      data: {
+        title,
+        description,
+        rules,
+        image_url,
+        game_id,
+        updated_at: new Date(),
+      },
     });
+
     res.status(200).json({
       message: `Challenge ${challengeToUpdate.title} mis à jour avec succès`,
     });
@@ -248,15 +254,4 @@ export const deleteChallenge = async (
     next(error);
   }
 };
-function sanitize(
-  body: any,
-  allowedFields: readonly [
-    "title",
-    "description",
-    "rules",
-    "image_url",
-    "game_id",
-  ]
-) {
-  throw new Error("Function not implemented.");
-}
+
