@@ -1,5 +1,6 @@
 import type {
   IParticipation,
+  IParticipationEditData,
   IParticipationFormData,
 } from "@/@types/IParticipation";
 import api from "@/lib/axios";
@@ -57,12 +58,16 @@ const participationService = {
    * @returns {Promise<IParticipation>} L'objet `IParticipation` mis à jour.
    * @throws {Error} En cas d'échec de la requête HTTP.
    */
-  async updateParticipation(id: string, participation: IParticipation) {
+  async updateParticipation(
+    participation_id: string,
+    participation: Omit<IParticipationEditData, "participation_id">
+  ) {
+    await ensureCsrfToken();
     const participationResponse = await api.put(
-      `/participations/${id}`,
+      `/participations/${participation_id}`,
       participation
     );
-    return participationResponse.data as IParticipation;
+    return participationResponse.data as IParticipationEditData;
   },
 
   /**

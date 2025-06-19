@@ -1,27 +1,49 @@
-import Footer from "@/components/Footer"
-import { Navbar } from "@/components/homepage"
-import { useAuth } from "@/hooks/useAuth"
-import { usePlayerChallenges, usePlayerParticipations } from "@/hooks/usePlayer"
-import { getEmbedUrl } from "@/utils/getEmbedUrl"
-import { Link } from "react-router"
-import Icon from '@mdi/react';
-import { useState } from "react"
-import { Dialog } from "@/components/ui"
-import { useUpdateChallenge } from "@/hooks/useChallenge"
-import { IChallengeEditData } from "@/@types/IChallenge"
-import { mdiThumbUp, mdiTrashCanOutline } from '@mdi/js';
-import { useDeleteChallenge } from "@/hooks/useChallenge"
-import { useDeleteParticipation } from "@/hooks/useParticipation"
+import Footer from "@/components/Footer";
+import { Navbar } from "@/components/homepage";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  usePlayerChallenges,
+  usePlayerParticipations,
+} from "@/hooks/usePlayer";
+import { getEmbedUrl } from "@/utils/getEmbedUrl";
+import { Link } from "react-router";
+import Icon from "@mdi/react";
+import { useState } from "react";
+import { Dialog } from "@/components/ui";
+import { useUpdateChallenge } from "@/hooks/useChallenge";
+import { IChallengeEditData } from "@/@types/IChallenge";
+import { mdiThumbUp } from "@mdi/js";
+import { useDeleteChallenge } from "@/hooks/useChallenge";
+import {
+  useDeleteParticipation,
+  useUpdateParticipation,
+} from "@/hooks/useParticipation";
+import { IParticipationEditData } from "@/@types/IParticipation";
 
 function ProfilePage() {
-  const { auth } = useAuth()
-  const userId = auth?.user_id
-  const { data: challenges, isLoading, isError } = usePlayerChallenges(userId || "")
-  const { data: participations, isLoading: isParticipationsLoading, isError: isParticipationsError } = usePlayerParticipations(userId ?? "")
-  const totalVotes = participations?.reduce((total, participation) => total + participation.participation_vote.length, 0);
+  const { auth } = useAuth();
+  const userId = auth?.user_id;
+  const {
+    data: challenges,
+    isLoading,
+    isError,
+  } = usePlayerChallenges(userId || "");
+
+  const {
+    data: participations,
+    isLoading: isParticipationsLoading,
+    isError: isParticipationsError,
+  } = usePlayerParticipations(userId || "");
+
+  const totalVotes = participations?.reduce(
+    (total, participation) => total + participation.participation_vote.length,
+    0
+  );
 
   const [showForm, setShowForm] = useState(false);
-  const { mutate } = useUpdateChallenge(userId);
+  const [showFormParticipation, setShowFormParticipation] = useState(false);
+  const { mutate: mutateChallenge } = useUpdateChallenge(userId);
+  const { mutate: mutateParticipation } = useUpdateParticipation(userId);
   const [form, setForm] = useState<IChallengeEditData>({
     game_id: "",
     challenge_id: "",
@@ -30,11 +52,34 @@ function ProfilePage() {
     rules: "",
     image_url: "",
   });
+  const [formParticipation, setFormParticipation] = useState<
+    IParticipationEditData & { mediaType: "image" | "video" }
+  >({
+    participation_id: "",
+    video_url: "",
+    image_url: "",
+    description: "",
+    challenge_id: "",
+    mediaType: "image",
+  });
   const { challenge_id, ...payload } = form;
+  const { participation_id, ...payloadParticipation } = formParticipation;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleChangeParticipation = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormParticipation((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -43,41 +88,71 @@ function ProfilePage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    mutate(
+    mutateChallenge(
       {
-        challenge_id, challenge: payload
-      }, {
-      onSuccess: () => {
-        setShowForm(false);
+        challenge_id,
+        challenge: payload,
       },
-      onError: (err) => {
-        console.error("Erreur mise à jour challenge", err);
+      {
+        onSuccess: () => {
+          setShowForm(false);
+        },
+        onError: (err) => {
+          console.error("Erreur mise à jour challenge", err);
+        },
+      }
+    );
+  };
+
+  const handleSubmitParticipation = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    mutateParticipation(
+      {
+        participation_id,
+        participation: payloadParticipation,
       },
-    });
+      {
+        onSuccess: () => {
+          setShowFormParticipation(false);
+        },
+        onError: (err) => {
+          console.error("Erreur mise à jour challenge", err);
+        },
+      }
+    );
   };
 
   // Suppression du challenge avec confirmation
   const deleteChallenge = useDeleteChallenge();
 
   const handleDeleteChallenge = (challenge_id: string) => {
-    if (window.confirm("Es-tu sûr de vouloir supprimer ce challenge ? Cette action est irréversible.")) {
+    if (
+      window.confirm(
+        "Es-tu sûr de vouloir supprimer ce challenge ? Cette action est irréversible."
+      )
+    ) {
       deleteChallenge.mutate({ challenge_id });
     }
-};
+  };
 
-// Suppression de la participation avec confirmation
+  // Suppression de la participation avec confirmation
   const deleteParticipation = useDeleteParticipation();
 
   const handleDeleteParticipation = (participation_id: string) => {
-    if (window.confirm("Es-tu sûr de vouloir supprimer cette participation ? Cette action est irréversible.")) {
+    if (
+      window.confirm(
+        "Es-tu sûr de vouloir supprimer cette participation ? Cette action est irréversible."
+      )
+    ) {
       deleteParticipation.mutate({ participation_id });
     }
-};
+  };
 
   return (
     <>
       {showForm && (
-        <Dialog onClose={() => setShowForm(false)} closeOnOutsideClick>
+        <Dialog onClose={() => setShowForm(false)} closeOnOutsideClick={false}>
           <form onSubmit={handleSubmit}>
             <h2 className="mb-2 font-semibold">Modifier un challenge</h2>
             <hr />
@@ -133,14 +208,154 @@ function ProfilePage() {
                     alt="Aperçu"
                     className="w-full max-h-[200px] object-cover rounded border border-gray-700"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = "/images/image-placeholder.png";
+                      (e.target as HTMLImageElement).src =
+                        "/images/image-placeholder.png";
                     }}
                   />
                 </div>
               )}
             </div>
             <div className="flex justify-end gap-2 mt-4">
-              <button type="button" onClick={() => setShowForm(false)} className="btn-ghost cursor-pointer">
+              <button
+                type="button"
+                onClick={() => setShowForm(false)}
+                className="btn-ghost cursor-pointer"
+              >
+                Annuler
+              </button>
+              <button type="submit" className="btn btn-primary ml-4">
+                Modifier
+              </button>
+            </div>
+          </form>
+        </Dialog>
+      )}
+
+      {showFormParticipation && (
+        <Dialog
+          onClose={() => setShowFormParticipation(false)}
+          closeOnOutsideClick={false}
+        >
+          <form onSubmit={handleSubmitParticipation}>
+            <h2 className="mb-2 font-semibold">
+              Modifier une participation à un challenge
+            </h2>
+            <hr />
+
+            {/* Description */}
+            <div className="mb-4">
+              <label htmlFor="description">Description</label>
+              <input
+                className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+                id="description"
+                name="description"
+                value={formParticipation?.description || ""}
+                onChange={handleChangeParticipation}
+                required
+              />
+            </div>
+
+            {/* Type de média */}
+            <div className="mb-4">
+              <label className="block mb-2">Type de média</label>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFormParticipation((f) => ({
+                      ...f,
+                      mediaType: "image",
+                      video_url: "",
+                    }))
+                  }
+                  className={`px-4 py-2 rounded border ${
+                    formParticipation.mediaType === "image"
+                      ? "bg-primary text-white"
+                      : "bg-gray-800"
+                  }`}
+                >
+                  Image
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFormParticipation((f) => ({
+                      ...f,
+                      mediaType: "video",
+                      image_url: "",
+                    }))
+                  }
+                  className={`px-4 py-2 rounded border ${
+                    formParticipation.mediaType === "video"
+                      ? "bg-primary text-white"
+                      : "bg-gray-800"
+                  }`}
+                >
+                  Vidéo
+                </button>
+              </div>
+            </div>
+
+            {/* URL selon le type */}
+            <div className="mb-4">
+              <label htmlFor="media_url" className="block mb-2">
+                {formParticipation.mediaType === "image"
+                  ? "URL de l'image"
+                  : "URL de la vidéo"}
+              </label>
+              <input
+                className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+                id="media_url"
+                name={
+                  formParticipation.mediaType === "image"
+                    ? "image_url"
+                    : "video_url"
+                }
+                value={
+                  formParticipation.mediaType === "image"
+                    ? formParticipation.image_url
+                    : formParticipation.video_url
+                }
+                onChange={handleChange}
+                required
+              />
+
+              {/* Aperçu */}
+              {formParticipation.mediaType === "image" && form.image_url && (
+                <div className="mt-4">
+                  <p className="text-sm text-gray-400 mb-2">Aperçu :</p>
+                  <img
+                    src={form.image_url}
+                    alt="Aperçu"
+                    className="w-full max-h-[200px] object-cover rounded border border-gray-700"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        "/images/image-placeholder.png";
+                    }}
+                  />
+                </div>
+              )}
+
+              {formParticipation.mediaType === "video" &&
+                formParticipation.video_url && (
+                  <div className="mt-4">
+                    <p className="text-sm text-gray-400 mb-2">Aperçu :</p>
+                    <iframe
+                      src={getEmbedUrl(formParticipation.video_url) ?? ""}
+                      className="w-full h-[200px] rounded border border-gray-700"
+                      allowFullScreen
+                    />
+                  </div>
+                )}
+            </div>
+
+            {/* Boutons */}
+            <div className="flex justify-end gap-2 mt-4">
+              <button
+                type="button"
+                onClick={() => setShowFormParticipation(false)}
+                className="btn-ghost cursor-pointer"
+              >
                 Annuler
               </button>
               <button type="submit" className="btn btn-primary ml-4">
@@ -154,138 +369,161 @@ function ProfilePage() {
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 p-4 space-y-12 bg-gradient-to-r from-[#12243E]  to-[#314C6B]">
-
           {/* Profil */}
           <h2 className="text-2xl font-bold m-4">Mon Profil</h2>
           <section className="flex gap-3 m-4">
             <div className="w-[50%] border-1 flex flex-col gap-1">
-              <img src={auth?.avatar_url || "/assets/images/logo-color-full.svg"} alt="avatar du profil" className="p-4 rounded-[20%]" />
+              <img
+                src={auth?.avatar_url || "/assets/images/logo-color-full.svg"}
+                alt="avatar du profil"
+                className="p-4 rounded-[20%]"
+              />
               <div className="flex justify-center gap-2 text-white mb-4">
                 <Icon path={mdiThumbUp} size={1} />
                 <p>{totalVotes}</p>
               </div>
               <div className="flex flex-col gap-3 w-full border-1 p-6">
-                <p>Pseudo <strong>{auth?.pseudonym}</strong></p>
+                <p>
+                  Pseudo <strong>{auth?.pseudonym}</strong>
+                </p>
                 <p>Email {auth?.email}</p>
               </div>
             </div>
-        </section>
+          </section>
 
-        {/* Section mes challenges */}
-        {/* <section className="m-4">
-          <h3 className="text-2xl font-bold text-white mb-4">Mes challenges</h3>
+          {/* Section mes participations */}
+          <section className="m-4">
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Mes participations
+            </h3>
 
-          {isLoading && <p className="text-white">Chargement...</p>}
-          {isError && <p className="text-red-400">Erreur lors du chargement des challenges.</p>}
+            {isParticipationsLoading && (
+              <p className="text-white">Chargement...</p>
+            )}
+            {isParticipationsError && (
+              <p className="text-red-400">
+                Erreur lors du chargement des participations.
+              </p>
+            )}
 
-          {!isLoading && !isError && challenges?.length === 0 && (
-            <p className="text-white">Aucun challenge créé pour l’instant.</p>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {challenges?.map((challenge) => (
-              <div key={challenge.challenge_id} className="bg-white/10 p-4 rounded-lg shadow-md">
-                 <Link to={`/challenges/${challenge.challenge_id}`}>
-                <h4 className="text-lg font-semibold text-white mb-1">{challenge.title}</h4>
-                <p className="text-white/80 text-sm mb-2">{challenge.description}</p>
-                <img
-                  src={challenge.image_url}
-                  alt={challenge.title}
-                  className="w-full h-32 object-cover rounded mb-2"
-                />
-                </Link>
-                <div className="flex justify-between items-center">
-                <p className="text-white/60 text-sm">
-                  Jeu : {challenge.game.title} • {challenge.participation.length} participations
+            {!isParticipationsLoading &&
+              !isParticipationsError &&
+              participations?.length === 0 && (
+                <p className="text-white">
+                  Aucune participation pour l’instant.
                 </p>
-                  <button onClick={() => 
-                    handleDeleteChallenge(challenge.challenge_id)
-                    }
-                    disabled={deleteChallenge.isPending}
-                    className="p-1 rounded hover:text-red-400 disabled:opacity-50 text-white">
-                  <Icon path={mdiTrashCanOutline} size={1} />
-                  </button>
-                </div>
-                
-              </div>
-              
-            ))}
-          </div>
-        </section> */}
+              )}
 
-        {/* Section mes participations */}
-        <section className="m-4">
-          <h3 className="text-2xl font-bold text-white mb-4">Mes participations</h3>
-
-          {isParticipationsLoading && <p className="text-white">Chargement...</p>}
-          {isParticipationsError && <p className="text-red-400">Erreur lors du chargement des participations.</p>}
-
-          {!isParticipationsLoading && !isParticipationsError && participations?.length === 0 && (
-            <p className="text-white">Aucune participation pour l’instant.</p>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {participations?.map((participation) => (
-              <div key={participation.participation_id} className="bg-white/10 p-4 rounded-lg shadow-md">
-                <h4 className="text-lg font-semibold text-white mb-1">{participation.challenge.title}</h4>
-                <p className="text-white/80 text-sm mb-2">{participation.description}</p>
-                {participation.video_url ? (
-                  <iframe
-                    src={getEmbedUrl(participation.video_url) ?? ""}
-                    className="w-full h-[500px] rounded-xl shadow-xl"
-                    allowFullScreen
-                    title="Vidéo de participation"
-                  />
-                ) : (
-                  <img
-                    src={participation.image_url}
-                    className="w-full h-[500px] object-cover rounded-xl shadow-xl"
-                  />
-                )}
-                <div className="flex justify-between items-center">
-                  <p className="text-white/60 text-sm">
-                    Jeu : {participation.challenge.game.title} • {participation.participation_vote.length} votes
-                  </p>
-                  <button
-                    onClick={() => handleDeleteParticipation(participation.participation_id)}
-                    className="p-1 rounded hover:text-red-400 disabled:opacity-50 text-white"
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {participations?.map((participation) => (
+                <>
+                  <div
+                    key={participation.participation_id}
+                    className="bg-white/10 p-4 rounded-lg shadow-md"
                   >
-                    <Icon path={mdiTrashCanOutline} size={1} />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>  
+                    <h4 className="text-lg font-semibold text-white mb-1">
+                      {participation.challenge.title}
+                    </h4>
+                    <p className="text-white/80 text-sm mb-2">
+                      {participation.description}
+                    </p>
+                    {participation.video_url ? (
+                      <iframe
+                        src={getEmbedUrl(participation.video_url) ?? ""}
+                        className="w-full h-[500px] rounded-xl shadow-xl"
+                        allowFullScreen
+                        title="Vidéo de participation"
+                      />
+                    ) : (
+                      <img
+                        src={participation.image_url}
+                        className="w-full h-[500px] object-cover rounded-xl shadow-xl"
+                      />
+                    )}
+
+                    <div className="flex justify-between items-center">
+                      <p className="text-white/60 text-sm">
+                        Jeu : {participation.challenge.game.title} •{" "}
+                        {participation.participation_vote.length} votes
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormParticipation({
+                            participation_id: participation.participation_id,
+                            video_url: participation.video_url,
+                            image_url: participation.image_url,
+                            description: participation.description,
+                            challenge_id: participation.challenge_id,
+                            mediaType: "image",
+                          });
+                          setShowFormParticipation(true);
+                        }}
+                        className="btn btn-primary cursor-pointer"
+                      >
+                        Modifier
+                      </button>
+                      <button
+                        type="submit"
+                        className="btn btn-error ml-4"
+                        onClick={() =>
+                          handleDeleteParticipation(
+                            participation.participation_id
+                          )
+                        }
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
           </section>
 
           {/* Section mes challenges */}
           <section className="m-4">
-            <h3 className="text-2xl font-bold text-white mb-4">Mes challenges</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Mes challenges
+            </h3>
 
             {isLoading && <p className="text-white">Chargement...</p>}
-            {isError && <p className="text-red-400">Erreur lors du chargement des challenges.</p>}
+            {isError && (
+              <p className="text-red-400">
+                Erreur lors du chargement des challenges.
+              </p>
+            )}
 
             {!isLoading && !isError && challenges?.length === 0 && (
-              <p className="text-white">Aucun challenge créé pour l’instant.</p>
+              <p className="text-white">
+                Aucun challenge modifié pour l’instant.
+              </p>
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {challenges?.map((challenge) => (
                 <>
-                  <Link to={`/challenges/${challenge.challenge_id}`}>
-                    <div key={challenge.challenge_id} className="bg-white/10 p-4 rounded-lg shadow-md">
-                      <h4 className="text-lg font-semibold text-white mb-1">{challenge.title}</h4>
-                      <p className="text-white/80 text-sm mb-2">{challenge.description}</p>
+                  <div
+                    key={challenge.challenge_id}
+                    className="bg-white/10 p-4 rounded-lg shadow-md"
+                  >
+                    <Link to={`/challenges/${challenge.challenge_id}`}>
+                      <h4 className="text-lg font-semibold text-white mb-1">
+                        {challenge.title}
+                      </h4>
+                      <p className="text-white/80 text-sm mb-2">
+                        {challenge.description}
+                      </p>
                       <img
                         src={challenge.image_url}
                         alt={challenge.title}
                         className="w-full h-32 object-cover rounded mb-2"
                       />
-                      <p className="text-white/60 text-sm">
-                        Jeu : {challenge.game.title} • {challenge.participation.length} participations
-                      </p>
-                    </div>
-                  <div>
+                    </Link>
+                    <p className="text-white/60 text-sm">
+                      Jeu : {challenge.game.title} •{" "}
+                      {challenge.participation.length} participations
+                    </p>
                     <button
                       type="button"
                       onClick={() => {
@@ -299,60 +537,31 @@ function ProfilePage() {
                         });
                         setShowForm(true);
                       }}
-                      className="btn btn-primary cursor-pointer">
+                      className="btn btn-primary cursor-pointer"
+                    >
                       Modifier
                     </button>
-                    <button type="submit" className="btn btn-error ml-4">
+                    <button
+                      onClick={() =>
+                        handleDeleteChallenge(challenge.challenge_id)
+                      }
+                      disabled={deleteChallenge.isPending}
+                      className="btn btn-error"
+                    >
                       Supprimer
                     </button>
                   </div>
-                  </Link>
+
+                  <div></div>
                 </>
               ))}
             </div>
           </section>
-
-          {/* Section mes participations */}
-          {/* <section className="m-4">
-            <h3 className="text-2xl font-bold text-white mb-4">Mes participations</h3>
-
-            {isParticipationsLoading && <p className="text-white">Chargement...</p>}
-            {isParticipationsError && <p className="text-red-400">Erreur lors du chargement des participations.</p>}
-
-            {!isParticipationsLoading && !isParticipationsError && participations?.length === 0 && (
-              <p className="text-white">Aucune participation pour l’instant.</p>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {participations?.map((participation) => (
-                <div key={participation.participation_id} className="bg-white/10 p-4 rounded-lg shadow-md">
-                  <h4 className="text-lg font-semibold text-white mb-1">{participation.challenge.title}</h4>
-                  <p className="text-white/80 text-sm mb-2">{participation.description}</p>
-                  {participation.video_url ? (
-                    <iframe
-                      src={getEmbedUrl(participation.video_url) ?? ""}
-                      className="w-full h-[500px] rounded-xl shadow-xl"
-                      allowFullScreen
-                      title="Vidéo de participation"
-                    />
-                  ) : (
-                    <img
-                      src={participation.image_url}
-                      className="w-full h-[500px] object-cover rounded-xl shadow-xl"
-                    />
-                  )}
-                  <p className="text-white/60 text-sm">
-                    Jeu : {participation.challenge.game.title} • {participation.participation_vote.length} votes
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section> */}
         </main>
         <Footer />
       </div>
     </>
-  )
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;

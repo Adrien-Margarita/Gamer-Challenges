@@ -20,7 +20,14 @@ export interface IParticipationFormData {
   video_url: string;
   image_url: string;
   description: string;
-  // user_id: string;
+  challenge_id: string;
+}
+
+export interface IParticipationEditData {
+  participation_id: string;
+  video_url: string;
+  image_url: string;
+  description: string;
   challenge_id: string;
 }
 
