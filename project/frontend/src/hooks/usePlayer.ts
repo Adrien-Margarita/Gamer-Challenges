@@ -1,5 +1,5 @@
 import playerService from "@/services/playerService";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { IUser } from "@/@types/IAuth";
 import { IMostVotedPlayer } from "@/@types/IPlayer";
 import { IChallengeWithRelations } from "@/@types/IChallenge";
@@ -48,3 +48,14 @@ export function usePlayerParticipations(id: string) {
   });
 }
 
+export function usePlayerToDelete() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id }: { id : string }) =>
+      playerService.deletePlayer(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: playerKeys.all });
+    }
+  });
+}

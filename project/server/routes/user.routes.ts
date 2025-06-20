@@ -184,6 +184,6 @@ userRouter.put('/:id', validate(userSchema), errorHandler, updateUser);
  *       404:
  *         description: Utilisateur non trouvé
  */
-userRouter.delete('/:id', errorHandler, deleteUser);
+userRouter.delete('/:user_id', errorHandler, deleteUser);
 
 export default userRouter;

@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import {
   usePlayerChallenges,
   usePlayerParticipations,
+  usePlayerToDelete,
 } from "@/hooks/usePlayer";
 import { getEmbedUrl } from "@/utils/getEmbedUrl";
 import { Link } from "react-router";
@@ -154,6 +155,29 @@ function ProfilePage() {
       deleteParticipation.mutate({ participation_id });
     }
   };
+
+  // Suppression du compte utilisateur
+const deleteUser = usePlayerToDelete();
+
+const handleDeleteUser = (user_id: string) => {
+  if (
+    window.confirm(
+      "Es-tu sûr de vouloir supprimer ton compte ? Cette action est irréversible."
+    )
+  ) {
+    deleteUser.mutate({ id: user_id }, {
+      onSuccess: () => {
+        toast.success("Compte supprimé avec succès");
+        // Rediriger l'utilisateur, par exemple :
+        window.location.href = "/";
+      },
+      onError: (err) => {
+        toast.error("Erreur lors de la suppression du compte");
+        console.error("Erreur de suppression du compte", err);
+      },
+    });
+  }
+};
 
   return (
     <>
@@ -605,6 +629,13 @@ function ProfilePage() {
                   </div>
                 </>
               ))}
+              <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
+                <button 
+                className="btn btn-primary text-xs bg-red-500 hover:bg-red-600"
+                onClick={() => handleDeleteUser(userId || "")}>
+                  Supprimer mon compte
+                  </button>
+              <hr className="mt-2 mb-8" style={{ borderColor: "rgba(255, 255, 255, 0.2)" }} />
             </div>
           </section>
         </main>

@@ -10,7 +10,6 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 
 export default function GamesPage() {
-//TODO 1 Formulaire d'edition du jeu
   
   const [gameToEdit, setGameToEdit] = useState<IGame | null>(null);
 
@@ -30,7 +29,6 @@ export default function GamesPage() {
     platform:"",
   }); 
 
-  // TODO 5 
   const [formEdit, setFormEdit] = useState<IGameFormData>({
     title: "",
     category: "",
@@ -41,7 +39,6 @@ export default function GamesPage() {
   });
 
   const { mutate: CreateGame } = useCreateGame();
-  // TODO 4 Utilisation du hook useUpdateGame
   const { mutate: updateGame } = useUpdateGame();
 
   const games = useMemo(() => {
@@ -89,7 +86,6 @@ export default function GamesPage() {
     });
   };
 
-  //TODO 2 Formulaire d'edition du jeu
 const handleOpenEdit = (game: IGame) => {
   setGameToEdit(game);
   setFormEdit({
@@ -227,7 +223,6 @@ const handleOpenEdit = (game: IGame) => {
         </Dialog>
       )}
 
-    {/* TODO: 3 formulaire d'édition */}
     {showEditForm && gameToEdit && (
     <Dialog onClose={() => setShowEditForm(false)} closeOnOutsideClick={false}>
       <form
