@@ -56,7 +56,7 @@ export default function ChallengesPage() {
 
       {/* Main Content */}
       <main className="flex-1 p-4 space-y-12 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
-      <h2 className="text-2xl font-bold mb-4">Les challenges les plus populaires</h2>
+      <h2 className="text-2xl font-semibold mb-4">Les challenges les plus populaires</h2>
         <hr />
         <p className="text-lg text-muted-foreground mb-4">
           Découvrez les challenges les plus populaires de la plateforme.
@@ -100,7 +100,7 @@ export default function ChallengesPage() {
 
         {/* Section des challenges */}
         <div className="flex mt-8 mb-4 justify-center">
-          <h2 className="text-2xl font-bold w-full mt-4">Tous les challenges</h2>
+          <h2 className="text-2xl font-semibold w-full mt-4">Tous les challenges</h2>
           <SearchBar  value={search} onChange={setSearch} placeholder="Rechercher un challenge..." />
         </div>
         <hr />

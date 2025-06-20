@@ -27,7 +27,7 @@ export default function GameCard({
         alt={game.title}
         className="w-full h-[300px] object-cover border border-primary
         transition-transform transition-filter duration-300 ease-in-out
-        filter hover:grayscale hover:contrast-100 transform scale-100 hover:scale-110"
+        filter hover:grayscale hover:contrast-100"
         draggable="false"
         loading="lazy"
       />

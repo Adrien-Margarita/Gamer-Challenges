@@ -12,7 +12,7 @@ function PopularGames() {
   return (
     <section className="h-full">
       <div className="flex items-center justify-between text-secondary">
-        <h2 className="text-2xl font-bold mb-4 mt-8">
+        <h2 className="text-3xl font-semibold mb-4 mt-8">
           Les jeux les plus populaires
         </h2>
         <Link to="/games">
@@ -28,16 +28,18 @@ function PopularGames() {
           : games.slice(0, 4).map((game) => (
             <Link to={`/games/${game.game_id}`}>
               <div className="flex flex-col" key={game.game_id}>
-                <p className="text-lg font-semibold text-white mb-4">
+                <h2 className="mb-2 text-xl lg:mt-4 font-semibold">
                   {game.title}
-                </p>
+                </h2>
                 <div
                   style={{
                     backgroundImage: `url(${game?.image_url})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
-                  className="card bg-base-200  shadow-lg p-4 h-64 flex items-center justify-center border-1 border-primary"
+                  className="card bg-base-200 shadow-lg p-4 h-64 flex items-center justify-center object-cover rounded-lg border-1 border-primary w-full
+                          transition-transform transition-filter duration-300 ease-in-out
+                          filter hover:grayscale hover:contrast-100"
                 ></div>
               </div>
               </Link>
