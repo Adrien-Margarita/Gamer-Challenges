@@ -189,7 +189,10 @@ const handleSubmit = (e: React.FormEvent) => {
             {!isLoading && game && (
               <>
                 {/* Image et description du jeu */}
-                <div className="flex w-full justify-end mb-4">
+                <div className="flex w-full justify-between items-center mb-4">
+                  <div className="py-2">
+                    <h2 className="text-xl lg:text-3xl font-semibold">{game.title}</h2>
+                  </div>
                   <button
                     className="btn btn-primary"
                     onClick={() => {
@@ -207,16 +210,14 @@ const handleSubmit = (e: React.FormEvent) => {
                     Ajouter un challenge
                   </button>
                 </div>
-                <div className="relative w-full mx-auto mb-12">
+                <hr />
+                <p className="text-gray-300 mb-8">{game.description}</p>
+                <div className="w-full mx-auto mb-12">
                   <img
                     src={game.image_url}
                     alt={game.title}
-                    className="w-full h-[580px] object-cover rounded-xl shadow-xl"
+                    className="w-full h-[580px] object-cover rounded-xl shadow-lg border-1 border-primary"
                   />
-                  <div className="absolute bottom-4 left-6 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200 ">
-                    <h2 className="text-2xl font-semibold">{game.title}</h2>
-                    <p className="text-sm text-gray-300">{game.description}</p>
-                  </div>
                 </div>
               </>
             )}
@@ -226,8 +227,11 @@ const handleSubmit = (e: React.FormEvent) => {
             )}
           </section>
           <section>
-            <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher un challenge ..." />
-            <h2 className="text-2xl font-semibold my-4">Tous les challenges</h2>
+            <div className="flex flex-col md:flex-row w-full justify-between lg:items-center mb-4">
+              <h2 className="text-xl lg:text-2xl font-semibold">Tous les challenges</h2>
+              <SearchBar value= {search} onChange={setSearch} placeholder="Rechercher un challenge ..." />
+            </div>
+            <hr />
             {isLoading && challenges && !isError
               ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />
@@ -239,31 +243,30 @@ const handleSubmit = (e: React.FormEvent) => {
                         <img
                           src={challenge.image_url}
                           alt={challenge.title}
-                          className="w-full h-full rounded-lg object-cover border border-primary
+                          className="w-full h-[350px] rounded-lg object-cover border-1 border-primary
                           transition-transform transition-filter duration-300 ease-in-out
                           filter hover:grayscale hover:contrast-100"
                         />
                         </Link>
 
                         {/* Boutton en dehors du Link */}
-                        <div className="absolute bottom-2 right-2 bg-black/40 p-3 rounded-full flex gap-1">
+                        <div className="absolute bottom-4 right-4 bg-black/40 p-3 rounded-full flex gap-1">
                            <VoteButtonChallenge challengeId={challenge.challenge_id} />
                         </div>
                       </div>
 
                       {/* Bloc titre + description */}
-                      <div className="w-full py-4">
-                         <Link to={`/challenges/${challenge.challenge_id}`} className="w-full block">
-                        <h2 className="md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h2>
-                        <hr />
-                        <p className="text-lg text-muted-foreground mb-4">
-                          <p className="font-semibold">Description:</p>
-                          {challenge.description}
-                        </p>
-                        <p className="text-md text-muted-foreground">
-                        <p className="font-semibold">Règles:</p>
-                          {challenge.rules}
-                        </p>
+                      <div className="w-full">
+                        <Link to={`/challenges/${challenge.challenge_id}`} className="w-full">
+                          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-2">{challenge.title}</h2>
+                          <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
+                          <p className="text-lg text-muted-foreground mb-2">
+                            {challenge.description}
+                          </p>
+                          <hr style={{marginBottom: "1rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
+                          <p className="text-md text-muted-foreground">
+                            {challenge.rules}
+                          </p>
                         </Link>
                       </div>
                   </div>

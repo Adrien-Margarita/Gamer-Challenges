@@ -213,18 +213,18 @@ export default function ChallengeDetailPage() {
       <div className="min-h-screen flex flex-col bg-gradient-to-r from-[#12243E] to-[#314C6B]">
         {/* Navbar */}
         <Navbar />
-        <main className="flex-1 p-4 space-y-12">
+        <main className="flex-1 p-4 lg:mx-6 space-y-12">
           <section>
             {isLoading && <p className="text-center">Chargement...</p>}
 
             {!isLoading && challenge && (
               <>
-                <div className="flex w-full justify-between mb-4">
-                  <h2 className="text-4xl text-semibold mb-10">
+                <div className="flex flex-col lg:flex-row w-full justify-between mb-4">
+                  <h2 className="text-3xl text-center lg:text-4xl text-semibold mb-4 lg:mb-10 lg:text-left">
                     {challenge.game.title}
                   </h2>
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-primary mb-4 lg:mb-0"
                     onClick={() => {
                       setForm({
                         description: "",
@@ -240,7 +240,7 @@ export default function ChallengeDetailPage() {
                   </button>
                 </div>
                 {/* Image et description du challenge */}
-                <div className="relative w-full mx-auto mb-12">
+                <div className="relative w-full mx-auto mb-4 lg:mb-12">
                   <img
                     src={challenge.image_url}
                     alt={challenge.title}
@@ -248,8 +248,8 @@ export default function ChallengeDetailPage() {
                           transition-transform transition-filter duration-300 ease-in-out
                           filter hover:grayscale hover:contrast-100 rounded-lg"
                   />
-                  <div className="absolute bottom-4 left-6 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200 ">
-                    <h2 className="text-2xl font-semibold text-white">
+                  <div className="absolute bottom-4 mx-4 lg:mx-0 lg:left-6 px-4 py-2 rounded-lg backdrop-blur-sm bg-base-200 ">
+                    <h2 className="text-2xl font-semibold">
                       {challenge.title}
                     </h2>
                     <p className="text-sm text-gray-300">
@@ -258,35 +258,41 @@ export default function ChallengeDetailPage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold mb-4">Règles</h3>
-                  <p className="text-lg text-muted-foreground mb-4">
+                  <h2 className="text-2xl font-semibold mb-4">Règles</h2>
+                  {/* Règles du challenge */}
+                  <p className="text-muted-foreground mb-4">
                     {challenge.rules}
                   </p>
                 </div>
 
                 {/* Bouton de vote pour un challenge et icon de nombre de participations */}
-                <div className="flex gap-2 justify-between">
-                  <div className="flex gap-1 text-primary">
-                    <p className="font-semibold">{participations.length}</p>
-                    <Icon path={mdiAccountCircleOutline} size={1} />
+                <div className="flex flex-col lg:flex-row gap-2 justify-between">
+                  <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
+                  <div className="flex justify-between items-center gap-4 mx-4">
+                    <div className="flex gap-1 text-primary">
+                      <p className="font-semibold">{participations.length}</p>
+                      <Icon path={mdiAccountCircleOutline} size={1} />
+                    </div>
+                    <div className="text-primary">
+                      <VoteButtonChallenge challengeId={challenge.challenge_id} />
+                    </div>
                   </div>
-                  <div className="text-primary">
-                    <VoteButtonChallenge challengeId={challenge.challenge_id} />
-                  </div>
+                  <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
                 </div>
-                <div>
+                <div className="mt-4">
                   <SearchBar
                     value={search}
                     onChange={setSearch}
                     placeholder="Rechercher une participation ..."
                   />
-                  <h2 className="text-2xl font-semibold mb-4">
+                  <h2 className="text-2xl font-semibold mt-4 mb-2">
                     Toutes les participations
                   </h2>
+                  <hr />
                 </div>
 
                 {/* Affichage des participations */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 mt-4">
                   {isLoading
                     ? Array.from({ length: 4 }).map((_, index) => (
                         <Skeleton key={index} className="h-32 w-full" />
