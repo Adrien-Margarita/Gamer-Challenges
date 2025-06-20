@@ -229,181 +229,181 @@ const handleOpenEdit = (game: IGame) => {
 
     {/* TODO: 3 formulaire d'édition */}
     {showEditForm && gameToEdit && (
-  <Dialog onClose={() => setShowEditForm(false)} closeOnOutsideClick>
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (!gameToEdit) return;
-
-        updateGame(
-          {
-            game_id: gameToEdit.game_id,
-            updatedGame: {
-              title: gameToEdit.title,
-              category: gameToEdit.category,
-              description: gameToEdit.description,
-              release_date: new Date(gameToEdit.release_date),
-              image_url: gameToEdit.image_url,
-              platform: gameToEdit.platform,
-            },
-          },
-          {
-            onSuccess: () => setShowEditForm(false),
-            onError: (err) => console.error("Erreur modification jeu", err),
-          }
-        );
-      }}
-    >
-      <h2 className="mb-2 font-semibold">Modifier un jeu</h2>
-      <hr />
-      <div className="mb-4">
-        <label htmlFor="title">Titre</label>
-        <input
-          className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
-          id="title"
-          name="title"
-          value={gameToEdit.title}
-          onChange={(e) =>
-            setGameToEdit((prev) =>
-              prev ? { ...prev, title: e.target.value } : null
-            )
-          }
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="category">Catégorie</label>
-        <input
-          className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
-          id="category"
-          name="category"
-          value={gameToEdit.category}
-          onChange={(e) =>
-            setGameToEdit((prev) =>
-              prev ? { ...prev, category: e.target.value } : null
-            )
-          }
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="description">Description</label>
-        <textarea
-          className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
-          id="description"
-          name="description"
-          value={gameToEdit.description}
-          onChange={(e) =>
-            setGameToEdit((prev) =>
-              prev ? { ...prev, description: e.target.value } : null
-            )
-          }
-          rows={4}
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="release_date">Date de sortie</label>
-        <input
-          type="date"
-          className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
-          id="release_date"
-          name="release_date"
-          value={
-            new Date(gameToEdit.release_date).toISOString().split("T")[0]
-          }
-          onChange={(e) =>
-            setGameToEdit((prev) =>
-              prev
-                ? {
-                    ...prev,
-                    release_date: new Date(e.target.value),
-                  }
-                : null
-            )
-          }
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="platform">Plateforme</label>
-        <input
-          className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
-          id="platform"
-          name="platform"
-          value={gameToEdit.platform}
-          onChange={(e) =>
-            setGameToEdit((prev) =>
-              prev ? { ...prev, platform: e.target.value } : null
-            )
-          }
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="image_url">Image du jeu (url)</label>
-        <input
-          className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
-          id="image_url"
-          name="image_url"
-          value={gameToEdit.image_url}
-          onChange={(e) =>
-            setGameToEdit((prev) =>
-              prev ? { ...prev, image_url: e.target.value } : null
-            )
-          }
-        />
-        {gameToEdit.image_url && (
-          <div className="mt-4">
-            <p className="text-sm text-gray-400 mb-2">Aperçu :</p>
-            <img
-              src={gameToEdit.image_url}
-              alt="Aperçu"
-              className="w-full max-h-[200px] object-cover rounded border border-gray-700"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src =
-                  "/images/image-placeholder.png";
-              }}
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="flex justify-end gap-2 mt-4">
-        <button
-          type="button"
-          onClick={() => setShowEditForm(false)}
-          className="btn-ghost cursor-pointer"
-        >
-          Annuler
-        </button>
-        <button 
-        type="submit" 
-        className="btn btn-primary ml-4"
+    <Dialog onClose={() => setShowEditForm(false)} closeOnOutsideClick={false}>
+      <form
         onSubmit={(e) => {
-        e.preventDefault();
-        if (!gameToEdit) return;
+          e.preventDefault();
+          if (!gameToEdit) return;
 
-        updateGame(
-          {
-            game_id: gameToEdit.game_id,
-            updatedGame: formEdit,
-          },
-          {
-            onSuccess: () => {
-              setShowEditForm(false);
+          updateGame(
+            {
+              game_id: gameToEdit.game_id,
+              updatedGame: {
+                title: gameToEdit.title,
+                category: gameToEdit.category,
+                description: gameToEdit.description,
+                release_date: new Date(gameToEdit.release_date),
+                image_url: gameToEdit.image_url,
+                platform: gameToEdit.platform,
+              },
             },
-            onError: (err) => {
-              console.error("Erreur lors de la mise à jour", err);
-            },
-          }
+            {
+              onSuccess: () => setShowEditForm(false),
+              onError: (err) => console.error("Erreur modification jeu", err),
+            }
           );
-          }}>
-          Sauvegarder
-        </button>
-      </div>
-    </form>
-  </Dialog>
-)}
+        }}
+      >
+        <h2 className="mb-2 font-semibold">Modifier un jeu</h2>
+        <hr />
+        <div className="mb-4">
+          <label htmlFor="title">Titre</label>
+          <input
+            className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+            id="title"
+            name="title"
+            value={gameToEdit.title}
+            onChange={(e) =>
+              setGameToEdit((prev) =>
+                prev ? { ...prev, title: e.target.value } : null
+              )
+            }
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="category">Catégorie</label>
+          <input
+            className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+            id="category"
+            name="category"
+            value={gameToEdit.category}
+            onChange={(e) =>
+              setGameToEdit((prev) =>
+                prev ? { ...prev, category: e.target.value } : null
+              )
+            }
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="description">Description</label>
+          <textarea
+            className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+            id="description"
+            name="description"
+            value={gameToEdit.description}
+            onChange={(e) =>
+              setGameToEdit((prev) =>
+                prev ? { ...prev, description: e.target.value } : null
+              )
+            }
+            rows={4}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="release_date">Date de sortie</label>
+          <input
+            type="date"
+            className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+            id="release_date"
+            name="release_date"
+            value={
+              new Date(gameToEdit.release_date).toISOString().split("T")[0]
+            }
+            onChange={(e) =>
+              setGameToEdit((prev) =>
+                prev
+                  ? {
+                      ...prev,
+                      release_date: new Date(e.target.value),
+                    }
+                  : null
+              )
+            }
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="platform">Plateforme</label>
+          <input
+            className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+            id="platform"
+            name="platform"
+            value={gameToEdit.platform}
+            onChange={(e) =>
+              setGameToEdit((prev) =>
+                prev ? { ...prev, platform: e.target.value } : null
+              )
+            }
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="image_url">Image du jeu (url)</label>
+          <input
+            className="w-full p-3 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1"
+            id="image_url"
+            name="image_url"
+            value={gameToEdit.image_url}
+            onChange={(e) =>
+              setGameToEdit((prev) =>
+                prev ? { ...prev, image_url: e.target.value } : null
+              )
+            }
+          />
+          {gameToEdit.image_url && (
+            <div className="mt-4">
+              <p className="text-sm text-gray-400 mb-2">Aperçu :</p>
+              <img
+                src={gameToEdit.image_url}
+                alt="Aperçu"
+                className="w-full max-h-[200px] object-cover rounded border border-gray-700"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src =
+                    "/images/image-placeholder.png";
+                }}
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="flex justify-end gap-2 mt-4">
+          <button
+            type="button"
+            onClick={() => setShowEditForm(false)}
+            className="btn-ghost cursor-pointer"
+          >
+            Annuler
+          </button>
+          <button 
+          type="submit" 
+          className="btn btn-primary ml-4"
+          onSubmit={(e) => {
+          e.preventDefault();
+          if (!gameToEdit) return;
+
+          updateGame(
+            {
+              game_id: gameToEdit.game_id,
+              updatedGame: formEdit,
+            },
+            {
+              onSuccess: () => {
+                setShowEditForm(false);
+              },
+              onError: (err) => {
+                console.error("Erreur lors de la mise à jour", err);
+              },
+            }
+            );
+            }}>
+            Sauvegarder
+          </button>
+        </div>
+      </form>
+    </Dialog>
+  )}
 
 
       <div className="min-h-screen flex flex-col">
@@ -475,17 +475,6 @@ const handleOpenEdit = (game: IGame) => {
               </div>
             </div>
           )}
-
-          {/* Section des jeux */}
-          <div className="flex mt-8 mb-4 justify-center">
-            <h2 className="text-2xl font-bold w-full mt-4">Tous les jeux</h2>
-            <SearchBar
-              value={search}
-              onChange={setSearch}
-              placeholder="Rechercher un jeu ..."
-            />
-          </div>
-        )}
         
         {/* Section des jeux */}
         <div className="flex mt-8 mb-4 justify-center">
@@ -513,25 +502,6 @@ const handleOpenEdit = (game: IGame) => {
               </div>
             ))}
         </div>
-          <hr />
-          <p className="text-lg text-muted-foreground mb-8 mt-8">
-            Explorez tous les jeux disponibles sur la plateforme.
-          </p>
-
-          {/* Affichage des jeux */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {isLoading
-              ? Array.from({ length: 8 }).map((_, index) => (
-                  <Skeleton key={index} className="h-32 w-full" />
-                ))
-              : filteredGames.slice(0, visibleCount).map((game) => (
-                  <div className="relative">
-                    <Link to={`/game/${game.game_id}`} key={game.game_id}>
-                      <GameCard game={game} />
-                    </Link>
-                  </div>
-                ))}
-          </div>
 
           {/* Bouton voir plus */}
           {showMoreButton && (
