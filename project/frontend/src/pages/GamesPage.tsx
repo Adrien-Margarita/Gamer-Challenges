@@ -413,7 +413,7 @@ const handleOpenEdit = (game: IGame) => {
         {/* Main Content */}
         <main className="flex-1 p-4 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Les jeux les plus populaires</h2>
+            <h2 className="text-2xl font-semibold">Les jeux les plus populaires</h2>
             {isAdmin && (
               <button
                 className="btn btn-primary"
@@ -478,7 +478,7 @@ const handleOpenEdit = (game: IGame) => {
         
         {/* Section des jeux */}
         <div className="flex mt-8 mb-4 justify-center">
-          <h2 className="text-2xl font-bold w-full mt-4">Tous les jeux</h2>
+          <h2 className="text-2xl font-semibold w-full mt-4">Tous les jeux</h2>
           <SearchBar  value={search} onChange={setSearch} placeholder="Rechercher un jeu ..." />
         </div>
         <hr />

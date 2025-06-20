@@ -227,7 +227,7 @@ const handleSubmit = (e: React.FormEvent) => {
           </section>
           <section>
             <SearchBar  value= {search} onChange={setSearch} placeholder="Rechercher un challenge ..." />
-            <h2 className="text-2xl font-bold my-4">Tous les challenges</h2>
+            <h2 className="text-2xl font-semibold my-4">Tous les challenges</h2>
             {isLoading && challenges && !isError
               ? Array.from({ length: 8 }).map((_, index) => (
                 <Skeleton key={index} className="h-32 w-full" />

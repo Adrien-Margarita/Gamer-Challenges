@@ -12,7 +12,7 @@ function LastGames() {
   return (
     <section className="h-full">
       <div className="flex items-center justify-between text-secondary">
-      <h2 className="text-2xl font-bold mb-4 mt-4">Les derniers jeux ajoutés</h2>
+      <h2 className="text-2xl font-semibold mb-4 mt-4">Les derniers jeux ajoutés</h2>
 
         <Link className="m-0" to="/games">
           <Icon path={mdiArrowRightCircleOutline} size={1.4} />
@@ -26,15 +26,18 @@ function LastGames() {
             ))
           : games.map((game) => (
               <div className="flex flex-col" key={game.game_id}>
-                <p className="text-lg font-semibold text-white mb-4">
+                <h2 className="mb-2 text-xl lg:mt-4 font-semibold">
                   {game.title}
-                </p>
+                </h2>
                 <div
                   style={{
                     backgroundImage: `url(${game?.image_url})`,
                     backgroundSize: "cover",
                   }}
-                  className="card shadow-lg p-4 h-64 flex items-center justify-center border-1 border-primary mb-10"
+                  className="cursor-pointer card shadow-lg p-4 h-64 flex items-center justify-center border-1 border-primary mb-10 object-cover rounded-lg w-full
+                          transition-transform transition-filter duration-300 ease-in-out
+                          filter hover:grayscale hover:contrast-100"
+                draggable="false"
                 ></div>
               </div>
             ))}

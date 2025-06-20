@@ -41,11 +41,11 @@ export default function LeaderboardTable({ players, offset = 0 }: Props) {
             className="bg-base-200 p-4 rounded-lg shadow-lg space-y-2"
           >
             <div>
-            <img
-            src={player.user.avatar_url || "/images/default-avatar.png"}
-            alt={player.user.pseudonym}
-            className="w-16 h-16 rounded-full object-cover"
-            />
+              <img
+                src={player.user.avatar_url || "/images/default-avatar.png"}
+                alt={player.user.pseudonym}
+                className="w-16 h-16 rounded-full object-cover"
+              />
             </div>
             <div className="text-primary font-semibold text-lg">
               #{i + 1 + offset} - {player.user.pseudonym}
@@ -56,7 +56,7 @@ export default function LeaderboardTable({ players, offset = 0 }: Props) {
             <div className="text-sm">
               <strong>Points:</strong> {player.votes.toLocaleString()}
             </div>
-            <div className="text-sm text-right font-bold text-secondary">
+            <div className="text-sm text-right font-semibold text-secondary">
               Reward: {player.votes >= 1 ? 1000 : 0}
             </div>
           </div>

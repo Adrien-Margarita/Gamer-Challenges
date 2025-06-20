@@ -378,7 +378,7 @@ function ProfilePage() {
           {/* Profil */}
           <section>
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold mr-4 ml-4">Mon Profil</h2>
+              <h2 className="text-2xl font-semibold mr-4 ml-4">Mon Profil</h2>
               <button className="btn btn-primary text-xs">Modifier mon mot de passe</button>
             </div>
             <hr className="ml-4 mt-4" />

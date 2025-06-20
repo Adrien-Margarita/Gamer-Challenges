@@ -256,7 +256,7 @@ export default function ChallengeDetailPage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-4">Règles</h3>
+                  <h3 className="text-2xl font-semibold mb-4">Règles</h3>
                   <p className="text-lg text-muted-foreground mb-4">
                     {challenge.rules}
                   </p>
@@ -265,7 +265,7 @@ export default function ChallengeDetailPage() {
                 {/* Bouton de vote pour un challenge et icon de nombre de participations */}
                 <div className="flex gap-2 justify-between">
                   <div className="flex gap-1 text-primary">
-                    <p className="font-bold">{participations.length}</p>
+                    <p className="font-semibold">{participations.length}</p>
                     <Icon path={mdiAccountCircleOutline} size={1} />
                   </div>
                   <div className="text-primary">
@@ -278,7 +278,7 @@ export default function ChallengeDetailPage() {
                     onChange={setSearch}
                     placeholder="Rechercher une participation ..."
                   />
-                  <h2 className="text-2xl font-bold mb-4">
+                  <h2 className="text-2xl font-semibold mb-4">
                     Toutes les participations
                   </h2>
                 </div>

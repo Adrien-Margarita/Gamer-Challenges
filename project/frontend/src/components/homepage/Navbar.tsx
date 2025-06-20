@@ -27,7 +27,7 @@ function Navbar() {
     <div className="drawer drawer-end">
       <input ref={drawerToggle} id="menu-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
-        <header className="navbar bg-base-100 shadow p-4 md:p-6 w-full">
+        <header className="navbar bg-base-100 shadow p-4 md:p-6 w-full h-24">
           <div className="flex w-full justify-between items-center">
             <Link to="/" onClick={closeDrawer} className="flex items-baseline gap-4 text-white">
               <img src={LogoWhite} alt="Gamer Challenge" className="h-4 md:h-6" />
