@@ -26,7 +26,7 @@ function LastGames() {
             ))
           : games.map((game) => (
               <div className="flex flex-col" key={game.game_id}>
-                <h2 className="mb-2 text-xl lg:mt-4 font-semibold">
+                <h2 className="mb-2 md:h-[60px] lg:h-auto text-xl lg:mt-4 font-semibold">
                   {game.title}
                 </h2>
                 <div
