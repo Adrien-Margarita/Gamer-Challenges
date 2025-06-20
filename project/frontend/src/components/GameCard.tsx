@@ -3,6 +3,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useDeleteGame } from "@/hooks/useGame";
 import { mdiCogOutline, mdiMicrosoftWindows, mdiTrashCanOutline } from "@mdi/js";
 import Icon from "@mdi/react";
+import { motion } from "motion/react";
 
 export default function GameCard({
   game,
@@ -21,8 +22,22 @@ export default function GameCard({
   };
 
   return (
-    <div className="rounded-lg overflow-hidden shadow-lg border-1 border-primary relative">
-      <img
+    <motion.div
+    initial={{ opacity: 0, scale: 0.8, y: 30 }}
+    animate={{ opacity: 1, scale: 1, y: 0 }}
+    transition={{
+      duration: 0.5 ,
+      ease: "easeInOut",
+    }}  
+    
+    className="rounded-lg overflow-hidden shadow-lg border-1 border-primary relative">
+      <motion.img
+        initial={{ opacity: 0, scale: 0.8, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          duration: 0.5 ,
+          ease: "easeInOut",
+        }}
         src={game.image_url}
         alt={game.title}
         className="w-full h-[300px] object-cover border border-primary
@@ -63,6 +78,6 @@ export default function GameCard({
         <h3 className="text-lg font-semibold text-white">{game.title}</h3>
         <Icon path={mdiMicrosoftWindows} size={1} />
       </div>
-    </div>
+    </motion.div>
   );
 }

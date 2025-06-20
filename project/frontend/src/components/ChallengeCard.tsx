@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { VoteButtonChallenge } from "./ui/VoteButtonChallenge";
+import { motion } from "motion/react";
 
 type Props = {
   challenge: {
@@ -11,7 +12,15 @@ type Props = {
 
 export default function ChallengeCard({ challenge }: Props) {
   return (
-    <div className="rounded-lg overflow-hidden shadow-lg border-1 border-primary relative group transition-transform transition-filter duration-300 ease-in-out">
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      initial={{ opacity: 0, scale: 0.8, y: 30 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{
+        duration: 0.5 ,
+        ease: "easeInOut",
+      }}  
+      className="rounded-lg overflow-hidden shadow-lg border-1 border-primary relative group transition-transform transition-filter duration-300 ease-in-out">
       <Link to={`/challenges/${challenge.challenge_id}`} className="flex flex-col h-full">
         <img
           src={challenge.image_url}
@@ -32,6 +41,6 @@ export default function ChallengeCard({ challenge }: Props) {
           {/* </div> */}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
