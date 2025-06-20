@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, getAllUsers, getUserById, updateUser, deleteUser, getChallengesByUserId, getParticipationByUserId } from "@/controllers/user.controller";
+import { createUser, getAllUsers, getUserById, updateUser, getChallengesByUserId, getParticipationByUserId, deleteAccount, deleteUserByAdmin } from "@/controllers/user.controller";
 import errorHandler from "@/middlewares/errorHandler";
 import { validate } from "@/middlewares/validate";
 import { userSchema } from "@/validators/user.validator";
@@ -184,6 +184,29 @@ userRouter.put('/:id', validate(userSchema), errorHandler, updateUser);
  *       404:
  *         description: Utilisateur non trouvé
  */
-userRouter.delete('/:user_id', errorHandler, deleteUser);
+userRouter.delete('/:user_id', errorHandler, deleteAccount);
+
+/**
+ * @swagger
+ * /api/users/user-to-delete/{id}:
+ *   delete:
+ *     summary: Supprimer un utilisateur
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           format: cuid
+ *         required: true
+ *         description: ID de l'utilisateur
+ *     responses:
+ *       200:
+ *         description: Utilisateur supprimé avec succès
+ *       404:
+ *         description: Utilisateur non trouvé
+ */
+userRouter.delete('/user-to-delete/:user_id', errorHandler, deleteUserByAdmin);
+
 
 export default userRouter;

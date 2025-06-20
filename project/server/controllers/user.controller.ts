@@ -31,12 +31,18 @@ export const getAllUsers = async (
       orderBy: {
         pseudonym: "asc",
       },
-      omit: {
-        password_hash: true,
+      include: {
+        role: {
+          select: {
+            role_name: true
+          }
+        }
       },
     });
 
-    res.status(200).json(users);
+    const safeUsers = users.map(({ password_hash, ...rest }) => rest);
+
+    res.status(200).json(safeUsers);
   } catch (error) {
     next(error);
   }
@@ -169,7 +175,7 @@ export const updateUser = async (
 };
 
 // Supprimer un utilisateur
-export const deleteUser = async (
+export const deleteAccount = async (
   req: Request<{ user_id: string }>,
   res: Response,
   next: NextFunction
@@ -198,3 +204,43 @@ export const deleteUser = async (
     next(error);
   }
 };
+
+// Suppression d’un utilisateur par un admin
+export const deleteUserByAdmin = async (
+  req: Request<{ user_id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  const adminId = req.session.userId;
+  const { user_id: userIdToDelete } = req.params;
+
+  try {
+    const adminUser = await prisma.user.findUnique({
+      where: { user_id: adminId },
+      select: { role: true },
+    });
+
+    if (!adminUser || adminUser.role.role_name !== 'admin') {
+      throw createHttpError(403, `Accès refusé : seuls les administrateurs peuvent supprimer un utilisateur.`);
+    }
+
+    const userToDelete = await prisma.user.findUnique({
+      where: { user_id: userIdToDelete },
+    });
+
+    if (!userToDelete) {
+      throw createHttpError(404, `Utilisateur à supprimer non trouvé.`);
+    }
+
+    await prisma.user.delete({
+      where: { user_id: userIdToDelete },
+    });
+
+    res.status(200).json({
+      message: `L'utilisateur avec l'ID ${userIdToDelete} a été supprimé avec succès.`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

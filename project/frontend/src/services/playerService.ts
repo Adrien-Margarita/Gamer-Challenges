@@ -1,5 +1,5 @@
 import type { IUser } from "@/@types/IAuth";
-import { IMostVotedPlayer } from "@/@types/IPlayer";
+import { IMostVotedPlayer, IUserData } from "@/@types/IPlayer";
 import api from "@/lib/axios";
 import { logger } from "@/utils/logger";
 
@@ -10,7 +10,7 @@ const playerService = {
    */
   async getAllPlayers() {
     const playerResponse = await api.get("/users");
-    return playerResponse.data as IUser[];
+    return playerResponse.data as IUserData[];
   },
 
   /**
@@ -70,12 +70,22 @@ const playerService = {
 
   /**
    * Supprime un joueur existant via son ID.
-   * @param {string} id - L'identifiant du joueur à supprimer.
-   * @returns {Promise<IUser>} Une promesse contenant les données du joueur supprimé.
+   * @param {string} id - L'identifiant du compte à supprimer.
+   * @returns {Promise<IUser>} Une promesse contenant les données du compte supprimé.
    */
-  async deletePlayer(id: string) {
+  async deleteAccount(id: string) {
     const playerResponse = await api.delete(`/users/${id}`);
     return playerResponse.data as IUser;
+  },
+
+  /**
+   * Supprime un joueur existant via son ID.
+   * @param {string} id - L'identifiant du joueur à supprimer.
+   * @returns {Promise<IUserData>} Une promesse contenant les données du joueur supprimé.
+   */
+  async deleteUser(id: string) {
+    const playerResponse = await api.delete(`/users/user-to-delete/${id}`);
+    return playerResponse.data as IUserData;
   },
 };
 

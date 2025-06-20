@@ -12,6 +12,7 @@ import GameDetailPage from "./pages/GameDetailPage";
 import ChallengesPage from "./pages/ChallengesPage";
 import ChallengeDetailPage from "./pages/ChallengeDetailPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
+import AmdinistraionPage from "./pages/AdministrationPage";
 
 export default function Router() {
   return (
@@ -34,6 +35,7 @@ export default function Router() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/challenges/:id" element={<ChallengeDetailPage />} />
+        <Route path="/administration" element={<AmdinistraionPage />} />
       </Route>
     </Routes>
   );
