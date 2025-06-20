@@ -456,13 +456,13 @@ function ProfilePage() {
                       <div className="flex gap-2 items-end justify-center bg-slate-800 shadow-lg p-2 rounded-lg">
                         <button
                           type="submit"
-                          className="cursor-pointer"
+                          className="cursor-pointer tooltip tooltip-left"
+                          data-tip="Supprimer la participation"
                           onClick={() =>
                             handleDeleteParticipation(
                               participation.participation_id
                             )
                           }
-                          title="Supprimer la participation"
                         >
                           <Icon
                             path={mdiTrashCan}
@@ -483,8 +483,8 @@ function ProfilePage() {
                             });
                             setShowFormParticipation(true);
                           }}
-                          className="cursor-pointer"
-                          title="Modifier la participation"
+                          className="cursor-pointer tooltip tooltip-left"
+                          data-tip="Modifier la participation"
                         >
                           <Icon
                             path={mdiPencil}
@@ -558,7 +558,8 @@ function ProfilePage() {
                               handleDeleteChallenge(challenge.challenge_id)
                             }
                             disabled={deleteChallenge.isPending}
-                            className="cursor-pointer"
+                            className="cursor-pointer tooltip tooltip-left"
+                            data-tip="Supprimer le challenge"
                           >
                             <Icon
                               path={mdiTrashCan}
@@ -579,7 +580,8 @@ function ProfilePage() {
                               });
                               setShowForm(true);
                             }}
-                            className="cursor-pointer"
+                            data-tip="Modifier le challenge"
+                            className="cursor-pointer tooltip tooltip-left"
                             >
                             <Icon
                               path={mdiPencil}

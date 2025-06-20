@@ -123,6 +123,4 @@ participationVoteRouter.delete(
   deleteParticipationVote
 );
 
-console.log("✅ participationVoteRouter chargé");
-
 export default participationVoteRouter;
