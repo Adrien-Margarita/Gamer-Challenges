@@ -2,9 +2,9 @@ import Footer from "@/components/Footer";
 import { Navbar } from "@/components/homepage";
 import { useAuth } from "@/hooks/useAuth";
 import {
+  useAccountToDelete,
   usePlayerChallenges,
-  usePlayerParticipations,
-  usePlayerToDelete,
+  usePlayerParticipations,  
 } from "@/hooks/usePlayer";
 import { getEmbedUrl } from "@/utils/getEmbedUrl";
 import { Link } from "react-router";
@@ -157,7 +157,7 @@ function ProfilePage() {
   };
 
   // Suppression du compte utilisateur
-const deleteUser = usePlayerToDelete();
+const deleteUser = useAccountToDelete();
 
 const handleDeleteUser = (user_id: string) => {
   if (

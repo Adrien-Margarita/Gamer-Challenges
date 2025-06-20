@@ -60,7 +60,7 @@ function Navbar() {
                     Leaderboard
                   </Link>
                   {isAdmin && (
-                    <Link to="/settings" className="hover:bg-primary hover:text-white rounded px-4 py-2 flex items-center gap-2 group">
+                    <Link to="/administration" className="hover:bg-primary hover:text-white rounded px-4 py-2 flex items-center gap-2 group">
                       <Icon className="opacity-50 text-primary group-hover:text-white" path={mdiCogOutline} size={1} />
                       Administration
                     </Link>
