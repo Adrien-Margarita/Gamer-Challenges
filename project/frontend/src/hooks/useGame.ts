@@ -119,3 +119,34 @@ export function useDeleteGame() {
     },
   });
 }
+
+/**
+ * Hook pour mettre à jour un jeu existant.
+ */
+export function useUpdateGame() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      game_id,
+      updatedGame,
+    }: {
+      game_id: string;
+      updatedGame: IGameFormData;
+    }) => {
+      logger("✏️ useUpdateGame → mise à jour du jeu", { game_id, updatedGame });
+      const updated = await gameService.updateGame(game_id, updatedGame);
+      logger("✅ useUpdateGame → jeu mis à jour", updated);
+      return updated;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: gameKeys.all });
+      logger("🔄 useUpdateGame → rafraîchissement des jeux après mise à jour");
+    },
+    onError: (error) => {
+      logger("❌ useUpdateGame → erreur mise à jour jeu", error);
+    },
+  });
+}
+
+
