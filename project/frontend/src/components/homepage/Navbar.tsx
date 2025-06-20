@@ -31,7 +31,7 @@ function Navbar() {
           <div className="flex w-full justify-between items-center">
             <Link to="/" onClick={closeDrawer} className="flex items-baseline gap-4 text-white">
               <img src={LogoWhite} alt="Gamer Challenge" className="h-4 md:h-6" />
-              <h1 className="lg:text-2xl font-normal sm:text-xl">Gamer Challenge</h1>
+              <h1 className="text-xl font-normal md:hidden">Gamer Challenge</h1>
             </Link>
     
             {/* Menu visible en md+ */}

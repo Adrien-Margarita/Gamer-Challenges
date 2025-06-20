@@ -56,7 +56,7 @@ export default function ChallengesPage() {
 
       {/* Main Content */}
       <main className="flex-1 p-4 space-y-12 bg-gradient-to-r from-[#12243E] to-[#314C6B]">
-      <h2 className="text-2xl font-semibold mb-4">Les challenges les plus populaires</h2>
+        <h2 className="text-2xl font-semibold mb-4">Les challenges les plus populaires</h2>
         <hr />
         <p className="text-lg text-muted-foreground mb-4">
           Découvrez les challenges les plus populaires de la plateforme.
@@ -67,17 +67,19 @@ export default function ChallengesPage() {
 
         {/* Carousel */}
         {popularChallenges.length > 0  && (
-          <div className="relative w-full mx-auto mb-12 rounded-xl overflow-hidden shadow-xl">
+          <div className="relative w-full mx-auto mb-12 rounded-lg overflow-hidden shadow-lg">
             <Link to={`/games/${popularChallenges[currentSlide].game_id}`}>
               <img
                 src={popularChallenges[currentSlide].image_url}
                 alt={popularChallenges[currentSlide].title}
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[500px] object-cover border border-primary
+                          transition-transform transition-filter duration-300 ease-in-out
+                          filter hover:grayscale hover:contrast-100 rounded-lg"
               />
             </Link>
 
             {/* Overlay titre */}
-            <div className="absolute bottom-4 left-4 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200/80">
+            <div className="absolute bottom-4 left-4 px-4 py-2 rounded-lg backdrop-blur-sm bg-base-200/80">
               <h3 className="text-2xl font-semibold">
                 {popularChallenges[currentSlide].title}
               </h3>

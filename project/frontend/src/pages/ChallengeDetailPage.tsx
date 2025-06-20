@@ -240,11 +240,13 @@ export default function ChallengeDetailPage() {
                   </button>
                 </div>
                 {/* Image et description du challenge */}
-                <div className="relative w-full max-w-7xl mx-auto mb-12">
+                <div className="relative w-full mx-auto mb-12">
                   <img
                     src={challenge.image_url}
                     alt={challenge.title}
-                    className="w-full h-[500px] object-cover rounded-xl shadow-xl"
+                    className="w-full h-[500px] object-cover border border-primary
+                          transition-transform transition-filter duration-300 ease-in-out
+                          filter hover:grayscale hover:contrast-100 rounded-lg"
                   />
                   <div className="absolute bottom-4 left-6 px-4 py-2 rounded-xl backdrop-blur-sm bg-base-200 ">
                     <h2 className="text-2xl font-semibold text-white">
