@@ -61,10 +61,12 @@ const gameService = {
    * @param {IGame} game - Les nouvelles données du jeu.
    * @returns {Promise<IGame>} Une promesse contenant le jeu mis à jour.
    */
-  async updateGame(id: string, game: IGame) {
+  async updateGame(id: string, game: IGameFormData) {
     const gameResponse = await api.put(`/games/${id}`, game);
     return gameResponse.data as IGame;
   },
+
+  
 
   /**
    * Supprime un jeu existant via son ID.

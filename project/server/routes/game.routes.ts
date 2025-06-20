@@ -140,6 +140,38 @@ gameRouter.get("/challenges/:id", errorHandler, getChallengesByGameId);
  *       404:
  *         description: Jeu non trouvé
  */
+gameRouter.put("/:game_id", validate(gameSchema), errorHandler, updateGame);
+
+/**
+ * @swagger
+ * /api/games/{id}:
+ *   put:
+ *     summary: Mettre à jour un jeu
+ *     tags: [Games]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           format: cuid
+ *         required: true
+ *         description: ID du jeu
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Game'
+ *     responses:
+ *       200:
+ *         description: Jeu mis à jour avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Game'
+ *       404:
+ *         description: Jeu non trouvé
+ */
 gameRouter.put("/:id", validate(gameSchema), errorHandler, updateGame);
 
 /**
