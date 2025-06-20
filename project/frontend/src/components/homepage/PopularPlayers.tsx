@@ -11,7 +11,7 @@ function PopularPlayers() {
           Voici les <b>joueurs</b> les plus <b>populaires</b> de la plateforme !
         </h2>
       </div>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 md:justify-center lg:grid-cols-3 gap-6 w-fit mx-auto">
+      <div className="grid md:justify-center lg:grid-cols-3 gap-6 w-fit mx-auto">
         {players?.slice(0, 3).map((player, index) => (
           <PlayerCard
             user={player.user}
