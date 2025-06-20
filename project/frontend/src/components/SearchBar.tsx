@@ -10,7 +10,7 @@ export default function SearchBar ({
 }: ISearchBar) {
     
   return (        
-    <div className="relative w-96 mt-1">
+    <div className="relative w-full md:w-96 mt-1">
       {/* Icone de loupe */}
       <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <Icon path={mdiMagnify} size={1} className="text-gray-400" />

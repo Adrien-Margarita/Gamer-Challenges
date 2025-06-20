@@ -26,7 +26,6 @@ export default function ChallengesPage() {
     () => (Array.isArray(popularChallengesData) ? popularChallengesData : []),
     [popularChallengesData]
   );
-  console.log("Popular Challenges:", popularChallenges);
   
   const filteredChallenges = useMemo(
     () => 
@@ -47,7 +46,6 @@ export default function ChallengesPage() {
 
     return () => clearInterval(timer);
   }, [popularChallenges]);
-
 
   return (
     <div className="min-h-screen flex flex-col">
