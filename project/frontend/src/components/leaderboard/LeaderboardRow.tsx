@@ -25,7 +25,7 @@ export default function LeaderboardRow({ player, rank }: Props) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{
             duration: 0.2 ,
-            ease: "easeInOut",
+            ease: "circIn",
           }}        
           className="px-4 py-3 flex items-center gap-2">
             <img
@@ -51,7 +51,7 @@ export default function LeaderboardRow({ player, rank }: Props) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{
             duration: 0.2 ,
-            ease: "easeOut",
+            ease: "circOut",
           }}
           className="px-4 py-3">{player.votes.toLocaleString()}</motion.td>
         <motion.td
@@ -59,7 +59,7 @@ export default function LeaderboardRow({ player, rank }: Props) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{
             duration: 0.2 ,
-            ease: "easeIn",
+            ease: "backInOut",
           }}
           className="px-4 py-3 text-right">
           <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
