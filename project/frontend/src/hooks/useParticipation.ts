@@ -2,11 +2,15 @@ import participationService from "@/services/participation.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   IParticipation,
+  IParticipationEditData,
   IParticipationFormData,
 } from "@/@types/IParticipation";
+import { playerKeys } from "./usePlayer";
 
 const participationKeys = {
   all: ["participation"] as const,
+  byUser: (userId: string) =>
+    [...participationKeys.all, "by-user", userId] as const,
 };
 
 export function useParticipations() {
@@ -42,7 +46,27 @@ export function useCreateParticipation() {
   });
 }
 
-export function useUpdateParticipation() {
+// export function useUpdateParticipation(userId?: string) {
+//   const queryClient = useQueryClient();
+
+//   return useMutation({
+//     mutationFn: (
+//       formData: (Omit<IParticipationEditData, "participation_id"> & { mediaType?: "image" | "video" }) & { participation_id: string }
+//     ) => {
+//       const { mediaType, participation_id, ...payload } = formData; // Exclusion de mediaType
+//       return participationService.updateParticipation(participation_id, payload);
+//     },
+//     onSuccess: (_, variables) => {
+//       if (userId) {
+//         queryClient.invalidateQueries({
+//           queryKey: playerKeys.participations(userId),
+//         });
+//       }
+//     },
+//   });
+// }
+
+export function useUpdateParticipation(userId?: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -51,11 +75,24 @@ export function useUpdateParticipation() {
       participation,
     }: {
       participation_id: string;
-      participation: IParticipation;
-    }) =>
-      participationService.updateParticipation(participation_id, participation),
+      participation: Omit<IParticipationEditData, "participation_id"> & {
+        mediaType: "image" | "video";
+      };
+    }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { mediaType, ...participationData } = participation;
+      return participationService.updateParticipation(
+        participation_id,
+        participationData
+      );
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: participationKeys.all });
+      if (userId) {
+        queryClient.invalidateQueries({
+          queryKey: playerKeys.participations(userId),
+        });
+      }
     },
   });
 }

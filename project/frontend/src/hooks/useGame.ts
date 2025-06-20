@@ -64,6 +64,17 @@ export function useGame(id: string) {
   });
 }
 
+export function useLastGames() {
+  return useQuery<IGame[]>({
+    queryKey: [...gameKeys.all, "latest"],
+    queryFn: async () => {
+      const latestGames = await gameService.getLastGames();
+      logger("🕒 useLastGames → derniers jeux", latestGames);
+      return latestGames;
+    },
+  });
+}
+
 /**
  * Hook pour créer un nouveau jeu.
  */

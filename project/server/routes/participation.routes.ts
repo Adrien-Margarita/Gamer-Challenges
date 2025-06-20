@@ -142,7 +142,7 @@ participationRouter.get("/challenge/:id", getParticipationsByChallengeId);
  *         description: Participation non trouvée
  */
 participationRouter.put(
-  "/:id",
+  "/:participation_id",
   validate(participationSchema),
   errorHandler,
   updateParticipation
@@ -168,6 +168,10 @@ participationRouter.put(
  *       404:
  *         description: participation non trouvée
  */
-participationRouter.delete("/:participation_id", errorHandler, deleteParticipation);
+participationRouter.delete(
+  "/:participation_id",
+  errorHandler,
+  deleteParticipation
+);
 
 export default participationRouter;

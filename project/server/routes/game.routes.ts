@@ -7,6 +7,7 @@ import {
   updateGame,
   deleteGame,
   getMostPopularGames,
+  getLastGames,
 } from "@/controllers/game.controller";
 import { validate } from "@/middlewares/validate";
 import { gameSchema } from "@/validators/game.validator";
@@ -69,6 +70,27 @@ gameRouter.get("/popular", getMostPopularGames);
  *         description: Liste des jeux
  */
 gameRouter.get("/", errorHandler, getAllGames);
+
+/**
+ * @swagger
+ * /api/games/latest:
+ *   get:
+ *     summary: Récupérer les 4 derniers jeux créés
+ *     tags: [Games]
+ *     responses:
+ *       200:
+ *         description: Liste des derniers jeux
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Game'
+ *       500:
+ *         description: Erreur lors de la récupération des derniers jeux
+ */
+gameRouter.get("/latest", errorHandler, getLastGames);
+
 
 /**
  * @swagger
