@@ -174,7 +174,7 @@ export const deleteUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { user_id } = req.params;
+  const user_id = req.session.userId;
 
   try {
     const user = await prisma.user.findUnique({
@@ -192,7 +192,7 @@ export const deleteUser = async (
       where: { user_id },
     });
     res.status(200).json({
-      message: `Utilisateur ${userToDelete.pseudonym} supprimé avec succès`,
+      message: `Compte supprimé avec succès`,
     });
   } catch (error) {
     next(error);

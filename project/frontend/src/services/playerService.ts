@@ -60,8 +60,8 @@ const playerService = {
   /**
    * Met à jour un joueur existant identifié par son ID.
    * @param {string} id - L'identifiant du joueur à mettre à jour.
-   * @param {IGame} game - Les nouvelles données du joueur.
-   * @returns {Promise<IGame>} Une promesse contenant le joueur mis à jour.
+   * @param {IUser} player - Les nouvelles données du joueur.
+   * @returns {Promise<IUser>} Une promesse contenant le joueur mis à jour.
    */
   async updatePlayer(id: string, player: IUser) {
     const playerResponse = await api.put(`/users/${id}`, player);
@@ -71,7 +71,7 @@ const playerService = {
   /**
    * Supprime un joueur existant via son ID.
    * @param {string} id - L'identifiant du joueur à supprimer.
-   * @returns {Promise<IGame>} Une promesse contenant les données du joueur supprimé.
+   * @returns {Promise<IUser>} Une promesse contenant les données du joueur supprimé.
    */
   async deletePlayer(id: string) {
     const playerResponse = await api.delete(`/users/${id}`);
