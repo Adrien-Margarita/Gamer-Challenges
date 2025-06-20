@@ -30,7 +30,7 @@ function Navbar() {
         <header className="navbar bg-base-100 shadow p-4 md:p-6 w-full h-24">
           <div className="flex w-full justify-between items-center">
             <Link to="/" onClick={closeDrawer} className="flex items-baseline gap-4 text-white">
-              <img src={LogoWhite} alt="Gamer Challenge" className="h-4 md:h-6" />
+              <img src={LogoWhite} alt="Gamer Challenge" className="h-8 md:h-6" />
               <h1 className="text-xl font-normal md:hidden">Gamer Challenge</h1>
             </Link>
     

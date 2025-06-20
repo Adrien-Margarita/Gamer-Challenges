@@ -28,7 +28,7 @@ function PopularGames() {
           : games.slice(0, 4).map((game) => (
             <Link to={`/games/${game.game_id}`}>
               <div className="flex flex-col" key={game.game_id}>
-                <h2 className="mb-2 h-auto md:h-[60px] lg:h-auto text-xl lg:mt-4 font-semibold">
+              <h2 className="mb-2 h-auto md:h-[60px] lg:max-h-[60px] text-xl lg:mt-4 font-semibold">
                   {game.title}
                 </h2>
                 <div
