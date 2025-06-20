@@ -5,6 +5,7 @@ import { Navbar } from "@/components/homepage";
 import SearchBar from "@/components/SearchBar";
 import { Skeleton } from "@/components/ui";
 import { useChallenges, useMostPopularChallenges } from "@/hooks/useChallenge";
+import { motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 
@@ -65,7 +66,14 @@ export default function ChallengesPage() {
 
         {/* Carousel */}
         {popularChallenges.length > 0  && (
-          <div className="relative w-full mx-auto mb-12 rounded-lg overflow-hidden shadow-lg">
+          <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{
+            duration: 0.5 ,
+            ease: "easeInOut",
+          }}  
+          className="relative w-full mx-auto mb-12 rounded-lg overflow-hidden shadow-lg">
             <Link to={`/games/${popularChallenges[currentSlide].game_id}`}>
               <img
                 src={popularChallenges[currentSlide].image_url}
@@ -95,7 +103,7 @@ export default function ChallengesPage() {
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Section des challenges */}

@@ -5,6 +5,7 @@ import { handleApiError } from "@/utils/handleApiError"
 import { useAuth } from "@/hooks/useAuth"
 import { ILoginInput } from "@/@types/IAuth"
 import Logo from "/assets/images/logo-color-full.svg"
+import { motion } from "motion/react"
 
 export default function LoginPage() {
   const { loginMutation } = useAuth()
@@ -25,7 +26,16 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex w-screen h-screen items-center justify-center overflow-hidden bg-gradient-to-r from-[#12243E]  to-[#314C6B]">
+    <div
+      className="flex w-screen h-screen items-center justify-center overflow-hidden bg-gradient-to-r from-[#12243E]  to-[#314C6B]">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          duration: 0.4,
+          ease: "easeInOut",
+        }}
+      >
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md space-y-6 rounded-lg bg-base-100 p-8 shadow-lg"
@@ -80,6 +90,7 @@ export default function LoginPage() {
           </Link>
         </div>
       </form>
+      </motion.div>
     </div>
   )
 }

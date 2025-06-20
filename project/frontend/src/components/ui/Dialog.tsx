@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 import { createPortal } from "react-dom"
 import { mdiClose } from "@mdi/js"
 import Icon from "@mdi/react"
+import { motion } from "motion/react"
 
 type Props = {
   children: ReactNode
@@ -29,6 +30,18 @@ export default function Dialog({ children, onClose, closeOnOutsideClick = true }
         if (e.key === "Escape") onClose()
       }}
     >
+      
+      {/* Animation de la modale */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          duration: 0.2,
+          ease: "easeInOut",
+        }}
+        className=" w-full max-w-2xl"
+      >
+
       <dialog
         open
         className="relative w-full max-w-2xl bg-[#1e1e1e] text-white border border-[#2a2a2a] rounded-xl p-6 shadow-xl overflow-hidden"
@@ -51,6 +64,7 @@ export default function Dialog({ children, onClose, closeOnOutsideClick = true }
         {/* Contenu */}
         <div className="relative z-10">{children}</div>
       </dialog>
+      </motion.div>
     </div>,
     document.body
   )

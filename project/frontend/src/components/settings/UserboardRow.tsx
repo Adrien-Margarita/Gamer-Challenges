@@ -2,6 +2,7 @@ import type { IUserData } from "@/@types/IPlayer";
 import { useUserToDelete } from "@/hooks/usePlayer";
 import { mdiPencil, mdiTrashCan } from "@mdi/js";
 import Icon from "@mdi/react";
+import { motion } from "motion/react";
 import toast from "react-hot-toast";
 
 type Props = {
@@ -35,8 +36,16 @@ export default function LeaderboardRow({ player }: Props) {
   };
 
   return (
-    <tr className="border-b border-gray-700 hover:bg-base-300 transition">
-      <td className="px-4 py-3 flex items-center gap-2">
+    <tr
+     className="border-b border-gray-700 hover:bg-base-300 transition">
+      <motion.td
+        initial={{ opacity: 0, scale: 0.8, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          duration: 0.4 ,
+          ease: "anticipate",
+        }}  
+        className="px-4 py-3 flex items-center gap-2">
         <img
           src={player.avatar_url || "/images/default-avatar.png"}
           alt={player.pseudonym}
@@ -48,10 +57,33 @@ export default function LeaderboardRow({ player }: Props) {
             @{player.pseudonym.toLowerCase()}
           </div>
         </div>
-      </td>
-      <td className="px-4 py-3">{player.email}</td>
-      <td className="px-4 py-3">{player.role.role_name}</td>
-      <td className="py-3 text-center">
+      </motion.td>
+      <motion.td
+        initial={{ opacity: 0, scale: 0.8, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          duration: 0.4 ,
+          ease: "anticipate",
+        }}  
+        className="px-4 py-3">{player.email}
+      </motion.td>
+      <motion.td
+        initial={{ opacity: 0, scale: 0.8, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          duration: 0.4 ,
+          ease: "anticipate",
+        }}  
+        className="px-4 py-3">{player.role.role_name}
+      </motion.td>
+      <motion.td
+        initial={{ opacity: 0, scale: 0.8, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          duration: 0.4 ,
+          ease: "anticipate",
+        }}  
+        className="py-3 text-center">
         <button
           type="submit"
           onClick={() => handleDeleteUser(player.user_id)}
@@ -68,7 +100,7 @@ export default function LeaderboardRow({ player }: Props) {
         >
           <Icon path={mdiPencil} size={1} />
         </button>
-      </td>
+      </motion.td>
     </tr>
   );
 }

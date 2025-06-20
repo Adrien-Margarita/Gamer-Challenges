@@ -6,6 +6,7 @@ import SearchBar from "@/components/SearchBar";
 import { Dialog, Skeleton } from "@/components/ui";
 import { useAuth } from "@/hooks/useAuth";
 import { useCreateGame, useGames, useMostPopularGames, useUpdateGame } from "@/hooks/useGame";
+import { motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 
@@ -438,9 +439,24 @@ const handleOpenEdit = (game: IGame) => {
           {/* Section des jeux populaires */}
           {/* Carousel */}
           {popularGames.length > 0 && (
-            <div className="relative w-full mx-auto mb-8 rounded-xl overflow-hidden shadow-xl border border-primary">
+            <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              duration: 0.4 ,
+              ease: "easeIn",
+            }} 
+            className="relative w-full mx-auto mb-8 rounded-xl overflow-hidden shadow-xl border border-primary">
               <Link to={`/games/${popularGames[currentSlide].game_id}`}>
-                <img
+                <motion.img
+                  initial={{ opacity: 0, scale: 0.8, y: 30 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{
+                    duration: 0.4 ,
+                    ease: "easeInOut",
+                  }}
+                  draggable="false"
+                  loading="lazy"                
                   src={popularGames[currentSlide].image_url}
                   alt={popularGames[currentSlide].title}
                   className="w-full h-[500px] object-cover transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100 transform scale-100 hover:scale-110"
@@ -468,7 +484,7 @@ const handleOpenEdit = (game: IGame) => {
                   />
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
         
         {/* Section des jeux */}
@@ -489,11 +505,17 @@ const handleOpenEdit = (game: IGame) => {
               ))
             : filteredGames.slice(0, visibleCount).map((game) => (
               <div className="relative">
-                  <div key={game.game_id}>
+                  <motion.div key={game.game_id}
+                    initial={{ opacity: 0, scale: 0.8, y: 30 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{
+                      duration: 0.2 * (visibleCount / 8),
+                      ease: "easeInOut",
+                    }} >
                     <Link to={`/game/${game.game_id}`}>
                       <GameCard game={game} onEdit={handleOpenEdit} />
                     </Link>
-                </div>
+                </motion.div>
               </div>
             ))}
         </div>
