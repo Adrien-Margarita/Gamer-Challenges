@@ -240,7 +240,7 @@ export default function ChallengeDetailPage() {
                   </button>
                 </div>
                 {/* Image et description du challenge */}
-                <div className="relative w-full mx-auto mb-4 lg:mb-12">
+                <div className="relative w-full mx-auto mb-4 lg:mb-6">
                   <img
                     src={challenge.image_url}
                     alt={challenge.title}
@@ -257,17 +257,8 @@ export default function ChallengeDetailPage() {
                     </p>
                   </div>
                 </div>
-                <div>
-                  <h2 className="text-2xl font-semibold mb-4">Règles</h2>
-                  {/* Règles du challenge */}
-                  <p className="text-muted-foreground mb-4">
-                    {challenge.rules}
-                  </p>
-                </div>
-
-                {/* Bouton de vote pour un challenge et icon de nombre de participations */}
-                <div className="flex flex-col lg:flex-row gap-2 justify-between">
-                  <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
+                <div className="flex flex-col gap-2 justify-between">
+                  <hr className="mt-2 w-full" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
                   <div className="flex justify-between items-center gap-4 mx-4">
                     <div className="flex gap-1 text-primary">
                       <p className="font-semibold">{participations.length}</p>
@@ -279,8 +270,17 @@ export default function ChallengeDetailPage() {
                   </div>
                   <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
                 </div>
+                <div>
+                  <h2 className="text-2xl font-semibold mb-4 mt-6">Règles</h2>
+                  {/* Règles du challenge */}
+                  <p className="text-muted-foreground mb-4">
+                    {challenge.rules}
+                  </p>
+                </div>
+
+                {/* Bouton de vote pour un challenge et icon de nombre de participations */}
                 <div className="flex justify-between mt-4 w-full">
-                  <h2 className="text-2xl font-semibold mt-4 mb-2">
+                  <h2 className="text-2xl font-semibold mt-4 mb-2 w-full">
                     Toutes les participations
                   </h2>
                   <SearchBar
@@ -288,8 +288,8 @@ export default function ChallengeDetailPage() {
                     onChange={setSearch}
                     placeholder="Rechercher une participation ..."
                   />
-                  <hr />
                 </div>
+                <hr className="w-full mt-2" />
 
                 {/* Affichage des participations */}
                 <div className="flex flex-col gap-4 mt-4">
