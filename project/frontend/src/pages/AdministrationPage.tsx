@@ -10,14 +10,19 @@ export default function AmdinistraionPage(){
     const players: IUserData[] = data ?? [];
 
     return (
-        <>
+      <div className="min-h-screen flex flex-col">
       <Navbar />
+
       <main className="flex-1 p-4 space-y-12 bg-gradient-to-r from-[#12243E]  to-[#314C6B]">
-       
-        <div className="separator"></div>
+      <div className="flex flex-col mb-4">
+        <div className="flex flex-col mx-4">
+          <h2 className="text-2xl font-semibold ">Administration: utilisateurs</h2>
+          <hr className="mt-4" />
+        </div>
         <UserboardTable players={players} offset={3}/>
+      </div>
       </main>
-    <Footer />
-      </>
+      <Footer />
+      </div>
     )
 }
