@@ -26,19 +26,21 @@ function LastGames() {
             ))
           : games.map((game) => (
               <div className="flex flex-col" key={game.game_id}>
-                <h2 className="mb-2 h-auto md:h-[60px] lg:max-h-[60px] text-xl lg:mt-4 font-semibold">
-                  {game.title}
-                </h2>
-                <div
-                  style={{
-                    backgroundImage: `url(${game?.image_url})`,
-                    backgroundSize: "cover",
-                  }}
-                  className="cursor-pointer card shadow-lg p-4 h-64 flex items-center justify-center border-1 border-primary mb-10 object-cover rounded-lg w-full
-                          transition-transform transition-filter duration-300 ease-in-out
-                          filter hover:grayscale hover:contrast-100"
-                draggable="false"
-                ></div>
+                <Link to={`/games/${game.game_id}`}>
+                  <h2 className="mb-2 h-auto md:h-[60px] lg:max-h-[60px] text-xl lg:mt-4 font-semibold">
+                    {game.title}
+                  </h2>
+                  <div
+                    style={{
+                      backgroundImage: `url(${game?.image_url})`,
+                      backgroundSize: "cover",
+                    }}
+                    className="cursor-pointer card shadow-lg p-4 h-64 flex items-center justify-center border-1 border-primary mb-10 object-cover rounded-lg w-full
+                            transition-transform transition-filter duration-300 ease-in-out
+                            filter hover:grayscale hover:contrast-100"
+                  draggable="false"
+                  ></div>
+                </Link>
               </div>
             ))}
       </div>
