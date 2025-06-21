@@ -460,14 +460,14 @@ const handleDeleteUser = (user_id: string) => {
                   {participation.video_url ? (
                     <iframe
                       src={getEmbedUrl(participation.video_url) ?? ""}
-                      className="w-full object-cover min-h-[300px] rounded-lg border-1 border-primary mb-2 transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100"
+                      className="w-full object-cover min-h-[400px] rounded-lg border-1 border-primary mb-2 transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100"
                       allowFullScreen
                       title="Vidéo de participation"
                     />
                   ) : (
                     <img
                       src={participation.image_url}
-                      className="w-full min-h-[300px] object-cover rounded-lg border-1 border-primary mb-2 transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100"
+                      className="w-full min-h-[400px] object-cover rounded-lg border-1 border-primary mb-2 transition duration-300 ease-in-out filter hover:grayscale hover:contrast-100"
                     />
                   )}
                 </div>
@@ -629,14 +629,17 @@ const handleDeleteUser = (user_id: string) => {
                   </div>
                 </>
               ))}
-              <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
-                <button 
-                className="btn btn-primary text-xs bg-red-500 hover:bg-red-600"
-                onClick={() => handleDeleteUser(userId || "")}>
-                  Supprimer mon compte
-                  </button>
-              <hr className="mt-2 mb-8" style={{ borderColor: "rgba(255, 255, 255, 0.2)" }} />
             </div>
+              <div className="flex flex-col gap-2 w-full mt-4">
+                <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
+                <button 
+                  type="button"
+                  className="btn self-center bg-red-500 text-xl p-6 w-lg hover:bg-red-600"
+                  onClick={() => handleDeleteUser(userId || "")}>
+                  Supprimer mon compte
+                </button>
+                <hr className="mt-2 mb-8" style={{ borderColor: "rgba(255, 255, 255, 0.2)" }} />
+              </div>
           </section>
         </main>
         <Footer />

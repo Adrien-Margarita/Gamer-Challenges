@@ -90,9 +90,7 @@ hr {
 }
 
 .btn {
-  @apply btn btn-primary;
   border-radius: .8rem;
-  font-weight: 400;
 }
 
 .btn-primary {
