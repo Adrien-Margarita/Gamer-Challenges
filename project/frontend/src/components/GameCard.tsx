@@ -1,7 +1,7 @@
 import { IGame } from "@/@types/IGame";
 import { useAuth } from "@/hooks/useAuth";
 import { useDeleteGame } from "@/hooks/useGame";
-import { mdiCogOutline, mdiMicrosoftWindows, mdiTrashCanOutline } from "@mdi/js";
+import { mdiMicrosoftWindows, mdiPencilOutline, mdiTrashCanOutline } from "@mdi/js";
 import Icon from "@mdi/react";
 import { motion } from "motion/react";
 
@@ -48,16 +48,16 @@ export default function GameCard({
       />
 
       {isAdmin && (
-        <div className="absolute top-4 right-2 flex gap-2">
+        <div className="absolute bottom-13 right-2 flex gap-2 items-end justify-center bg-slate-800 shadow-lg p-2 rounded-lg">
           <button
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
               onEdit?.(game); // Appelle la fonction parent
             }}
-            className="p-1 rounded hover:text-yellow-400 bg-black/40 text-white"
+            className="p-1 rounded hover:text-yellow-400 text-white cursor-pointer disabled:opacity-50"
           >
-            <Icon path={mdiCogOutline} size={1} />
+            <Icon path={mdiPencilOutline} size={1} />
           </button>
 
           <button
@@ -67,7 +67,7 @@ export default function GameCard({
               handleDeleteGame(game.game_id);
             }}
             disabled={deleteGame.isPending}
-            className="p-1 rounded hover:text-red-400 disabled:opacity-50 bg-black/40 text-white"
+            className="p-1 rounded text-red-500 hover:text-red-700 disabled:opacity-50 cursor-pointer"
           >
             <Icon path={mdiTrashCanOutline} size={1} />
           </button>
