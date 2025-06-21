@@ -279,15 +279,15 @@ export default function ChallengeDetailPage() {
                   </div>
                   <hr className="mt-2" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
                 </div>
-                <div className="mt-4">
+                <div className="flex justify-between mt-4 w-full">
+                  <h2 className="text-2xl font-semibold mt-4 mb-2">
+                    Toutes les participations
+                  </h2>
                   <SearchBar
                     value={search}
                     onChange={setSearch}
                     placeholder="Rechercher une participation ..."
                   />
-                  <h2 className="text-2xl font-semibold mt-4 mb-2">
-                    Toutes les participations
-                  </h2>
                   <hr />
                 </div>
 

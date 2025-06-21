@@ -46,7 +46,7 @@ export function useAuth() {
     } finally {
       setIsLoading(false)
     }
-  }, [setAuth])
+  }, [setAuth, setIsLoading, store])
 
   useEffect(() => {
     logger("📦 useAuth → auth:", auth)
