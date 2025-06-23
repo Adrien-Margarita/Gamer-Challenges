@@ -244,9 +244,7 @@ export default function ChallengeDetailPage() {
                   <img
                     src={challenge.image_url}
                     alt={challenge.title}
-                    className="w-full h-[500px] object-cover border border-primary
-                          transition-transform transition-filter duration-300 ease-in-out
-                          filter hover:grayscale hover:contrast-100 rounded-lg"
+                    className="w-full h-[500px] object-cover border border-primary rounded-lg"
                   />
                   <div className="absolute bottom-4 mx-4 lg:mx-0 lg:left-6 px-4 py-2 rounded-lg backdrop-blur-sm bg-base-200 ">
                     <h2 className="text-2xl font-semibold">
