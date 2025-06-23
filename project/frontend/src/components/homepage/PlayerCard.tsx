@@ -2,10 +2,23 @@ import type { IMostVotedPlayer } from "@/@types/IPlayer";
 import { motion } from "motion/react";
 
 import StarExplosion from "../StarExplosion";
+import { mdiMedal, mdiMedalOutline, mdiTrophyOutline } from "@mdi/js";
+import Icon from "@mdi/react";
 
 export default function PlayerCard({ user, index }: IMostVotedPlayer & { index: number }) {
   const isCenter = index === 0;
-
+  const getIcon = () => {
+    if (index === 0) return mdiMedal;
+    if (index === 1) return mdiMedalOutline;
+    return mdiTrophyOutline;
+  };
+  
+  const getIconColor = () => {
+    if (index === 0) return "text-success";
+    if (index === 1) return "text-warning";
+    return "text-error";
+  };
+  
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8, y: 30 }}
@@ -28,12 +41,25 @@ export default function PlayerCard({ user, index }: IMostVotedPlayer & { index: 
         src={user.avatar_url}
         alt={user.pseudonym}
       />
-      <div className="flex items-center justify-center gap-4">
-        <h2 className="badge badge-primary rounded-full h-8 w-8 font-semibold">{index + 1}</h2>
+      <div className="flex flex-col items-center gap-2">
+        <div className="flex items-center gap-2">
+          <h2
+            className={`!text-black badge rounded-full h-8 w-8 font-bold text-xl ${
+              index === 0 ? "badge-success"
+              : index === 1 ? "badge-warning"
+              : "badge-error"
+            }`}
+          >
+            {index + 1}
+          </h2>
+          <Icon path={getIcon()} size={1} className={getIconColor()} />
+        </div>
+
         <h1 className={`text-xl font-light ${isCenter ? "text-2xl font-semibold" : ""}`}>
           {user.pseudonym}
         </h1>
       </div>
+
     </motion.div>
   );
 }
