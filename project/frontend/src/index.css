@@ -187,3 +187,29 @@ hr {
 .m-none {
   margin: 0 !important;
 }
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 8px #9333ea, 0 0 16px #9333ea;
+  }
+  100% {
+    box-shadow: 0 0 16px #9333ea, 0 0 32px #9333ea;
+  }
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes goldGlow {
+  0% {
+    box-shadow: 0 0 10px #facc15, 0 0 20px #facc15;
+  }
+  100% {
+    box-shadow: 0 0 20px #facc15, 0 0 40px #facc15;
+  }
+}
+
+.gold-glow {
+  animation: goldGlow 2s ease-in-out infinite alternate;
+}
