@@ -13,7 +13,7 @@ function PopularPlayers() {
         </h2>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center items-end gap-12 mb-10">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-12 mb-10">
       {[1, 0, 2].map((index) => {
         const player = players?.[index];
         if (!player) return null;
@@ -24,10 +24,9 @@ function PopularPlayers() {
           votes={player.votes}
           index={index}
         />
-    );
-  })}
-</div>
-
+          );
+        })}
+      </div>
     </>
   );
 }
