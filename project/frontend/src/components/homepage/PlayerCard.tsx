@@ -28,7 +28,7 @@ export default function PlayerCard({ user, index }: IMostVotedPlayer & { index: 
         ease: "easeInOut",
       }}
       key={user.user_id}
-      className={`relative card bg-base-200 p-6 flex flex-col items-center shadow-lg transition-transform duration-300 ${
+      className={`relative card bg-base-200 p-8 flex flex-col items-center shadow-lg gap-4 transition-transform duration-300 ${
         isCenter ? "scale-110 z-10 -translate-y-6 gold-glow" : "scale-95"
       }`}
     >
@@ -41,8 +41,8 @@ export default function PlayerCard({ user, index }: IMostVotedPlayer & { index: 
         src={user.avatar_url}
         alt={user.pseudonym}
       />
-      <div className="flex flex-col items-center gap-2">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col items-center gap-3">
+        <div className="flex items-center gap-3">
           <h2
             className={`!text-black badge rounded-full h-8 w-8 font-bold text-xl ${
               index === 0 ? "badge-success"
@@ -55,7 +55,7 @@ export default function PlayerCard({ user, index }: IMostVotedPlayer & { index: 
           <Icon path={getIcon()} size={1} className={getIconColor()} />
         </div>
 
-        <h1 className={`text-xl font-light ${isCenter ? "text-2xl font-semibold" : ""}`}>
+        <h1 className={`text-xl font-light ${isCenter ? "text-3xl font-semibold" : "text-2xl"}`}>
           {user.pseudonym}
         </h1>
       </div>
