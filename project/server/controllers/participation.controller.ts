@@ -59,16 +59,25 @@ export const getAllParticipations = async (
 
 // Récupérer une participation par son ID
 export const getParticipationById = async (
-  req: Request<{ participation_id: string }>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { participation_id } = req.params;
-
   try {
+    const { id } = req.params;
+    
+    if (!id) {
+      throw createHttpError(400, 'ID de participation requis');
+    }
+
     const participation = await prisma.participation.findUnique({
-      where: { participation_id },
+      where: { participation_id: id },
     });
+
+    if (!participation) {
+      throw createHttpError(404, 'Participation non trouvée');
+    }
+
     res.status(200).json({ participation });
   } catch (error) {
     next(error);
@@ -108,25 +117,34 @@ export const updateParticipation = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { participation_id } = req.params;
-
   try {
-    const participation = await prisma.participation.findUnique({
+    const { participation_id } = req.params;
+    
+    if (!participation_id) {
+      throw createHttpError(400, 'ID de participation requis');
+    }
+
+    // Vérifier si la participation existe
+    const existingParticipation = await prisma.participation.findUnique({
       where: { participation_id },
     });
 
-    if (!participation) {
-      throw createHttpError(404, `Participation non trouvée`);
+    if (!existingParticipation) {
+      throw createHttpError(404, 'Participation non trouvée');
     }
 
-    const participationToUpdate = await prisma.participation.update({
+    const updatedParticipation = await prisma.participation.update({
+      where: { participation_id },
       data: {
         ...req.body,
         updated_at: new Date(),
       },
-      where: { participation_id },
     });
-    res.status(200).json({ message: `Participation mise à jour avec succès` });
+
+    res.status(200).json({ 
+      message: 'Participation mise à jour avec succès',
+      participation: updatedParticipation 
+    });
   } catch (error) {
     next(error);
   }
@@ -146,13 +164,13 @@ export const deleteParticipation = async (
     });
 
     if (!participation) {
-      throw createHttpError(404, `Participation non trouvée`);
+      throw createHttpError(404, 'Participation non trouvée');
     }
 
     const participationToDelete = await prisma.participation.delete({
       where: { participation_id },
     });
-    res.status(200).json({ message: `Participation supprimée avec succès` });
+    res.status(200).json({ message: 'Participation supprimée avec succès' });
   } catch (error) {
     next(error);
   }
