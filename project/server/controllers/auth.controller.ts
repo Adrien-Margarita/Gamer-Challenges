@@ -44,7 +44,20 @@ export const register = async (req: Request, res: Response, next: NextFunction):
 
     const fullUser = await prisma.user.findUnique({
       where: { user_id: user.user_id },
-      include: { role: true },
+      select: {
+        user_id: true,
+        email: true,
+        pseudonym: true,
+        avatar_url: true,
+        created_at: true,
+        updated_at: true,
+        role: {
+          select: {
+            role_id: true,
+            role_name: true
+          }
+        }
+      }
     })
 
     if (!fullUser) {
@@ -68,7 +81,21 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
   try {
     const user = await prisma.user.findUnique({
       where: { email },
-      include: { role: true }
+      select: {
+        user_id: true,
+        email: true,
+        password_hash: true,
+        pseudonym: true,
+        avatar_url: true,
+        created_at: true,
+        updated_at: true,
+        role: {
+          select: {
+            role_id: true,
+            role_name: true
+          }
+        }
+      }
     })
 
     if (!user) {
@@ -85,7 +112,9 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
     req.session.userId = user.user_id
 
-    res.status(200).json(user)
+    // Exclude sensitive fields from response
+    const { password_hash, ...userWithoutPassword } = user
+    res.status(200).json(userWithoutPassword)
   } catch (error) {
     console.error("Erreur login:", error)
     res.status(500).json({ message: "Erreur serveur." })
@@ -96,20 +125,32 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
  * Récupérer l’utilisateur courant via la session
  */
 export const getMe = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const userId = req.session.userId
-
-  if (!userId) {
-    res.status(401).json({ message: "Vous n'êtes pas authentifié." })
-    return
-  }
-
   try {
+    if (!req.session.userId) {
+      res.status(401).json({ message: "Non autorisé" });
+      return;
+    }
+
     const user = await prisma.user.findUnique({
-      where: { user_id: userId }
+      where: { user_id: req.session.userId },
+      select: {
+        user_id: true,
+        email: true,
+        pseudonym: true,
+        avatar_url: true,
+        created_at: true,
+        updated_at: true,
+        role: {
+          select: {
+            role_id: true,
+            role_name: true
+          }
+        }
+      }
     })
 
     if (!user) {
-      res.status(401).json({ message: "Utilisateur introuvable." })
+      res.status(404).json({ message: "Utilisateur non trouvé" })
       return
     }
 
