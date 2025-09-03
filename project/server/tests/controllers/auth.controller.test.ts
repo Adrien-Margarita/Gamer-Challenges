@@ -1,4 +1,4 @@
-import request from "supertest";
+import request, { Agent } from "supertest";
 import { app } from "@/server";
 import { PrismaClient } from "@/generated/prisma";
 import { v4 as uuidv4 } from "uuid";
@@ -17,7 +17,7 @@ type TestUser = {
 };
 
 describe("Auth Controller", () => {
-  let agent: request.SuperAgentTest;
+  let agent: Agent;
   let csrfToken: string;
   let testUser: TestUser;
 
@@ -35,10 +35,11 @@ describe("Auth Controller", () => {
       }
     });
 
+    const timestamp = new Date().getTime();
     const user = {
-      email: `test-${uuidv4()}@example.com`,
-      password: "testpassword123",
-      pseudonym: `testuser-${uuidv4().substring(0, 8)}`,
+      email: `test-${timestamp}@example.com`,
+      password: "TestPassword123!",
+      pseudonym: `testuser-${timestamp.toString().slice(-6)}`,
     };
 
     const createdUser = await prisma.user.create({
@@ -47,6 +48,9 @@ describe("Auth Controller", () => {
         password_hash: await argon2.hash(user.password),
         pseudonym: user.pseudonym,
         role_id: 0,
+        created_at: new Date(),
+        updated_at: new Date(),
+        avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.pseudonym}`
       },
     });
 
