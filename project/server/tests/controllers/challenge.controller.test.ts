@@ -103,12 +103,15 @@ describe("Challenge Controller", () => {
           description: "Challenge description",
           game_id: testGame.game_id,
           rules: "Test rules",
-          user_id: authData.userId
+          image_url: "test.jpg"
         });
 
       expect(res.status).toBe(201);
       expect(res.body).toHaveProperty("challenge_id");
       expect(res.body.title).toBe("Test Challenge");
+      expect(res.body.description).toBe("Challenge description");
+      expect(res.body.rules).toBe("Test rules");
+      expect(res.body.game_id).toBe(testGame.game_id);
     });
 
     it("should not create a challenge with missing required fields", async () => {
@@ -198,6 +201,7 @@ describe("Challenge Controller", () => {
         title: "Updated Challenge",
         description: "Updated desc",
         rules: "Updated rules",
+        game_id: testGame.game_id
       };
 
       const res = await agent
@@ -210,6 +214,8 @@ describe("Challenge Controller", () => {
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty("challenge_id", createdChallenge.challenge_id);
       expect(res.body.title).toBe(updatedData.title);
+      expect(res.body.description).toBe(updatedData.description);
+      expect(res.body.rules).toBe(updatedData.rules);
     });
   });
 

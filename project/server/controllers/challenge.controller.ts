@@ -28,13 +28,13 @@ export const createChallenge = async (
         title,
         description,
         rules,
-        image_url,
+        image_url: image_url || "",
         game_id,
         user_id: userId,
       },
     });
 
-    res.status(201).json({ challenge: newChallenge });
+    res.status(201).json(newChallenge);
   } catch (error) {
     next(error);
   }
@@ -78,6 +78,11 @@ export const getChallengeById = async (
         },
       },
     });
+
+    if (!challenge) {
+      return res.status(404).json({ message: "Challenge non trouvé" });
+    }
+
     res.status(200).json(challenge);
   } catch (error) {
     next(error);
@@ -199,15 +204,7 @@ export const updateChallenge = async (
   const { title, description, rules, image_url, game_id } = req.body;
 
   try {
-    const challenge = await prisma.challenge.findUnique({
-      where: { challenge_id },
-    });
-
-    if (!challenge) {
-      throw createHttpError(404, `Challenge non trouvé`);
-    }
-
-    const challengeToUpdate = await prisma.challenge.update({
+    const updatedChallenge = await prisma.challenge.update({
       where: { challenge_id },
       data: {
         title,
@@ -219,10 +216,11 @@ export const updateChallenge = async (
       },
     });
 
-    res.status(200).json({
-      message: `Challenge ${challengeToUpdate.title} mis à jour avec succès`,
-    });
+    res.status(200).json(updatedChallenge);
   } catch (error) {
+    if (error.code === 'P2025') {
+      return res.status(404).json({ message: "Challenge non trouvé" });
+    }
     next(error);
   }
 };
@@ -254,4 +252,3 @@ export const deleteChallenge = async (
     next(error);
   }
 };
-
