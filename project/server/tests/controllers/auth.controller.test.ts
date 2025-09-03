@@ -1,20 +1,14 @@
-import request from "supertest";
+import supertest, { SuperAgentTest } from "supertest";
 import { app, createTestUser } from "@/tests/test-setup";
-import { PrismaClient } from "@/generated/prisma";
 import { v4 as uuidv4 } from "uuid";
 
-const prisma = new PrismaClient();
 
 describe("Auth Controller", () => {
-  let testUser: { id: number; email: string; password: string; pseudonym: string };
+  let testUser: { user_id: string; email: string; password_hash: string; pseudonym: string };
 
   beforeAll(async () => {
     // Create a test user
     testUser = await createTestUser();
-  });
-
-  afterAll(async () => {
-    // Clean up is handled by test-setup.ts
   });
 
   describe("POST /api/auth/register", () => {
@@ -25,7 +19,7 @@ describe("Auth Controller", () => {
         pseudonym: `newuser-${uuidv4().substring(0, 8)}`,
       };
 
-      const res = await request(app)
+      const res = await supertest(app)
         .post("/api/auth/register")
         .send(newUser);
 
@@ -35,7 +29,7 @@ describe("Auth Controller", () => {
     });
 
     it("should not register with existing email", async () => {
-      const res = await request(app)
+      const res = await supertest(app)
         .post("/api/auth/register")
         .send({
           email: testUser.email,
@@ -50,7 +44,7 @@ describe("Auth Controller", () => {
 
   describe("POST /api/auth/login", () => {
     it("should login with correct credentials", async () => {
-      const res = await request(app)
+      const res = await supertest(app)
         .post("/api/auth/login")
         .send({
           email: testUser.email,
@@ -64,7 +58,7 @@ describe("Auth Controller", () => {
     });
 
     it("should not login with incorrect password", async () => {
-      const res = await request(app)
+      const res = await supertest(app)
         .post("/api/auth/login")
         .send({
           email: testUser.email,
@@ -77,12 +71,11 @@ describe("Auth Controller", () => {
   });
 
   describe("GET /api/auth/me", () => {
-    let agent: request.SuperTest<request.Test>;
     let authToken: string;
 
     beforeEach(async () => {
       // Login to get auth token
-      const loginRes = await request(app)
+      const loginRes = await supertest(app)
         .post("/api/auth/login")
         .send({
           email: testUser.email,
@@ -90,11 +83,10 @@ describe("Auth Controller", () => {
         });
       
       authToken = loginRes.body.token;
-      agent = request.agent(app);
     });
 
     it("should get current user when authenticated", async () => {
-      const res = await request(app)
+      const res = await supertest(app)
         .get("/api/auth/me")
         .set('Authorization', `Bearer ${authToken}`);
       
@@ -104,7 +96,7 @@ describe("Auth Controller", () => {
     });
 
     it("should return 401 when not authenticated", async () => {
-      const res = await request(app).get("/api/auth/me");
+      const res = await supertest(app).get("/api/auth/me");
       expect(res.status).toBe(401);
     });
   });
@@ -112,7 +104,7 @@ describe("Auth Controller", () => {
   describe("POST /api/auth/logout", () => {
     it("should logout user", async () => {
       // First login
-      const loginRes = await request(app)
+      const loginRes = await supertest(app)
         .post("/api/auth/login")
         .send({
           email: testUser.email,
@@ -122,7 +114,7 @@ describe("Auth Controller", () => {
       const authToken = loginRes.body.token;
       
       // Then logout
-      const res = await request(app)
+      const res = await supertest(app)
         .post("/api/auth/logout")
         .set('Authorization', `Bearer ${authToken}`);
       
@@ -133,7 +125,7 @@ describe("Auth Controller", () => {
 
   describe("POST /api/auth/forgot-password", () => {
     it("should send reset password email for existing user", async () => {
-      const res = await request(app)
+      const res = await supertest(app)
         .post("/api/auth/forgot-password")
         .send({ email: testUser.email });
 
@@ -142,7 +134,7 @@ describe("Auth Controller", () => {
     });
 
     it("should return success even for non-existent email", async () => {
-      const res = await request(app)
+      const res = await supertest(app)
         .post("/api/auth/forgot-password")
         .send({ email: "nonexistent@example.com" });
 

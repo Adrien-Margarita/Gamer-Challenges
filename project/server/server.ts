@@ -92,9 +92,22 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // --- Launch server ---
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`API docs: http://localhost:${PORT}/api-docs`);
-});
+let server: ReturnType<typeof app.listen>;
 
-export default app;
+// Only start the server if not in test environment
+if (process.env.NODE_ENV !== 'test') {
+  server = app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`API docs: http://localhost:${PORT}/api-docs`);
+  });
+} else {
+  // In test environment, create a mock server that doesn't actually listen
+  server = {
+    close: (callback?: (err?: Error) => void) => {
+      if (callback) process.nextTick(callback);
+      return this as any;
+    }
+  } as any;
+}
+
+export { app, server };

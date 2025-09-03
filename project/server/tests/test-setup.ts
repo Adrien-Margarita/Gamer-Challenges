@@ -9,33 +9,32 @@ const prisma = new PrismaClient();
 // Disable CSRF protection for tests
 process.env.NODE_ENV = 'test';
 
-let server: Server;
+// Create a test server instance
+const server = app.listen(0); // Use port 0 to get a random available port
 
 // Start server before all tests
-beforeAll(async (done) => {
+beforeAll(async () => {
   // Clear any existing test data
   await prisma.user.deleteMany({});
-  
-  // Start the server on a random available port
-  server = app.listen(0, 'localhost', () => {
-    console.log(`Test server running on port ${(server.address() as any).port}`);
-    done();
-  });
 });
 
 // Close server after all tests
-afterAll(async (done) => {
-  // Clean up test data
-  await prisma.user.deleteMany({});
-  
-  if (server) {
-    server.close(() => {
-      prisma.$disconnect().then(() => done());
+afterAll(async () => {
+  // Close the server
+  await new Promise<void>((resolve, reject) => {
+    server.close((err) => {
+      if (err) {
+        console.error('Error closing server:', err);
+        reject(err);
+      } else {
+        console.log('Test server closed');
+        resolve();
+      }
     });
-  } else {
-    await prisma.$disconnect();
-    done();
-  }
+  });
+  
+  // Clean up test data and close database connection
+  await prisma.$disconnect();
 });
 
 // Clean up after each test
