@@ -20,7 +20,7 @@ describe("Game Controller", () => {
     category: "Action"
   };
 
-  let authData: { csrfToken: string; cookies: string; authToken: string; userId: number };
+  let authData: { csrfToken: string; cookies: string; authToken: string; userId: string };
   let agent: request.SuperTest<request.Test>;
 
   beforeAll(async () => {
@@ -36,7 +36,7 @@ describe("Game Controller", () => {
     await prisma.user_role.deleteMany({});
     
     // Create test agent
-    agent = request.agent(app);
+    agent = request.agent(app) as unknown as request.SuperTest<request.Test>;
     
     // Get CSRF token
     const csrfRes = await agent.get('/api/csrf-token');
@@ -91,7 +91,7 @@ describe("Game Controller", () => {
     // Store auth data
     authData = {
       csrfToken,
-      cookies: loginRes.headers['set-cookie'].join('; '), // Join cookies with semicolon
+      cookies: Array.isArray(loginRes.headers['set-cookie']) ? loginRes.headers['set-cookie'].join('; ') : loginRes.headers['set-cookie'],
       authToken: loginRes.body.token,
       userId: testUser.user_id
     };
