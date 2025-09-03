@@ -6,15 +6,23 @@ export const validate = (
   property: 'body' | 'params' | 'query' = 'body'
 ): RequestHandler => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const { error, value } = schema.validate(req[property], { abortEarly: false});
+    const { error, value } = schema.validate(req[property], { 
+      abortEarly: false,
+      allowUnknown: false,
+      stripUnknown: true
+    });
 
     if (error) {
-      return next(error);
+      const errorMessage = error.details
+        .map(detail => detail.message)
+        .join(', ');
+      const err = new Error(errorMessage);
+      (err as any).status = 400;
+      return next(err);
     }
 
-    // Assigne les valeurs validées (utile si le schéma transforme les données)
+    // Assign the validated values to the request object
     req[property] = value;
-
     next();
   };
 };
