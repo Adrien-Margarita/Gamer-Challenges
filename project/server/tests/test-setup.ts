@@ -1,10 +1,8 @@
 import { Server } from 'http';
 import { app } from '@/server';
-import { PrismaClient } from '@/generated/prisma';
+import prisma from './test-db';
 import { v4 as uuidv4 } from 'uuid';
 import { hash } from 'argon2';
-
-const prisma = new PrismaClient();
 
 // Disable CSRF protection for tests
 process.env.NODE_ENV = 'test';
@@ -15,7 +13,12 @@ const server = app.listen(0); // Use port 0 to get a random available port
 // Start server before all tests
 beforeAll(async () => {
   // Clear any existing test data
-  await prisma.user.deleteMany({});
+  await prisma.$executeRaw`TRUNCATE TABLE "user" CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE challenge CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE game CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE participation CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE participation_vote CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE challenge_vote CASCADE;`;
 });
 
 // Close server after all tests
@@ -40,7 +43,12 @@ afterAll(async () => {
 // Clean up after each test
 afterEach(async () => {
   // Reset any test data
-  await prisma.user.deleteMany({});
+  await prisma.$executeRaw`TRUNCATE TABLE "user" CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE challenge CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE game CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE participation CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE participation_vote CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE challenge_vote CASCADE;`;
 });
 
 // Helper function to create a test user
