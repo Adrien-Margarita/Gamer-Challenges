@@ -9,16 +9,20 @@ const prisma = new PrismaClient({
   log: ['query', 'info', 'warn', 'error']
 });
 
+// Helper function to create a test game with all required fields
+const createTestGame = (overrides = {}) => ({
+  title: `Test Game ${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+  description: "A test game description",
+  release_date: new Date().toISOString(),
+  platform: "PC",
+  category: "Action",
+  image_url: "https://example.com/game.jpg",
+  ...overrides
+});
+
 describe("Game Controller", () => {
   // Test game data
-  const testGameTitle = `Test Game ${Date.now()}`;
-  const testGame = {
-    title: testGameTitle,
-    description: "A test game description",
-    release_date: new Date(),
-    platform: "PC",
-    category: "Action"
-  };
+  const testGame = createTestGame();
 
   let authData: { csrfToken: string; cookies: string; authToken: string; userId: string };
   let agent: request.SuperTest<request.Test>;

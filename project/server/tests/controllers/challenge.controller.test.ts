@@ -9,6 +9,20 @@ const prisma = new PrismaClient({
   log: ['query', 'info', 'warn', 'error']
 });
 
+// Helper function to create a test challenge with all required fields
+const createTestChallenge = async (gameId: string, userId: string, overrides = {}) => {
+  const challengeTitle = `Test Challenge ${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
+  return {
+    title: challengeTitle,
+    description: "A test challenge description",
+    rules: "1. Rule one\n2. Rule two\n3. Rule three",
+    image_url: "https://example.com/challenge.jpg",
+    user_id: userId,
+    game_id: gameId,
+    ...overrides
+  };
+};
+
 describe("Challenge Controller", () => {
   let agent: request.SuperTest<request.Test>;
   let authData: { csrfToken: string; cookies: string; authToken: string; userId: string };
@@ -93,25 +107,28 @@ describe("Challenge Controller", () => {
 
   describe("POST /api/challenges", () => {
     it("should create a new challenge", async () => {
+      const challengeData = {
+        title: `Test Challenge ${Date.now()}`,
+        description: "Test challenge description",
+        rules: "1. Rule one\n2. Rule two\n3. Rule three",
+        game_id: testGame.game_id,
+        image_url: "https://example.com/challenge.jpg"
+      };
+      
       const res = await agent
         .post("/api/challenges")
         .set('X-CSRF-Token', authData.csrfToken)
         .set('Cookie', authData.cookies)
         .set('Authorization', `Bearer ${authData.authToken}`)
-        .send({
-          title: "Test Challenge",
-          description: "Challenge description",
-          game_id: testGame.game_id,
-          rules: "Test rules",
-          image_url: "test.jpg"
-        });
+        .send(challengeData);
 
       expect(res.status).toBe(201);
       expect(res.body).toHaveProperty("challenge_id");
-      expect(res.body.title).toBe("Test Challenge");
-      expect(res.body.description).toBe("Challenge description");
-      expect(res.body.rules).toBe("Test rules");
+      expect(res.body.title).toBe(challengeData.title);
+      expect(res.body.description).toBe(challengeData.description);
+      expect(res.body.rules).toBe(challengeData.rules);
       expect(res.body.game_id).toBe(testGame.game_id);
+      expect(res.body.user_id).toBe(authData.userId);
     });
 
     it("should not create a challenge with missing required fields", async () => {
