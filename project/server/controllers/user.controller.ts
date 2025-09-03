@@ -56,6 +56,10 @@ export const getUserById = async (
 ) => {
   const { user_id } = req.params;
 
+  if (!user_id) {
+    return next(createHttpError(400, 'User ID is required'));
+  }
+
   try {
     const user = await prisma.user.findUnique({
       where: { user_id },
@@ -63,6 +67,11 @@ export const getUserById = async (
         password_hash: true,
       },
     });
+
+    if (!user) {
+      return next(createHttpError(404, 'User not found'));
+    }
+
     res.status(200).json({ user });
   } catch (error) {
     next(error);
@@ -144,30 +153,42 @@ export const getParticipationByUserId = async (
 
 // Mettre à jour un utilisateur existant
 export const updateUser = async (
-  req: Request,
+  req: Request<{ user_id: string }>,
   res: Response,
   next: NextFunction
 ) => {
   const { user_id } = req.params;
+  const updateData = req.body;
+
+  if (!user_id) {
+    return next(createHttpError(400, 'User ID is required'));
+  }
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { user_id },
+    // Vérifier si l'utilisateur existe
+    const existingUser = await prisma.user.findUnique({
+      where: { user_id }
     });
 
-    if (!user) {
-      throw createHttpError(404, `Utilisateur non trouvé`);
+    if (!existingUser) {
+      return next(createHttpError(404, 'User not found'));
     }
 
-    const userToUpdate = await prisma.user.update({
+    // Mettre à jour l'utilisateur
+    const updatedUser = await prisma.user.update({
+      where: { user_id },
       data: {
-        ...req.body,
+        ...updateData,
         updated_at: new Date(),
       },
-      where: { user_id },
+      omit: {
+        password_hash: true,
+      },
     });
+
     res.status(200).json({
-      message: `Utilisateur ${userToUpdate.pseudonym} mis à jour avec succès`,
+      message: 'User updated successfully',
+      user: updatedUser,
     });
   } catch (error) {
     next(error);
@@ -176,30 +197,48 @@ export const updateUser = async (
 
 // Supprimer un utilisateur
 export const deleteAccount = async (
-  req: Request<{ user_id: string }>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const user_id = req.session.userId;
+  const currentUser = (req as any).user; // User from auth middleware
+  const { user_id } = req.params;
+
+  // Vérifier si l'utilisateur est autorisé à supprimer ce compte
+  if (user_id && user_id !== currentUser.user_id) {
+    return next(createHttpError(403, 'You are not authorized to delete this account'));
+  }
+
+  const userIdToDelete = user_id || currentUser.user_id;
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { user_id },
-      omit: {
-        password_hash: true,
-      },
+    // Vérifier si l'utilisateur existe
+    const userToDelete = await prisma.user.findUnique({
+      where: { user_id: userIdToDelete }
     });
 
-    if (!user) {
-      throw createHttpError(404, `Utilisateur non trouvé`);
+    if (!userToDelete) {
+      return next(createHttpError(404, 'User not found'));
     }
 
-    const userToDelete = await prisma.user.delete({
-      where: { user_id },
+    // Supprimer l'utilisateur
+    await prisma.user.delete({
+      where: { user_id: userIdToDelete }
     });
-    res.status(200).json({
-      message: `Compte supprimé avec succès`,
-    });
+
+    // Retourner 204 No Content ou 200 avec message
+    if (req.headers.prefer === 'return=representation') {
+      res.status(200).json({
+        message: 'Your account has been deleted successfully',
+        deletedUser: {
+          user_id: userToDelete.user_id,
+          pseudonym: userToDelete.pseudonym,
+          email: userToDelete.email
+        }
+      });
+    } else {
+      res.status(204).send();
+    }
   } catch (error) {
     next(error);
   }
@@ -243,4 +282,3 @@ export const deleteUserByAdmin = async (
     next(error);
   }
 };
-

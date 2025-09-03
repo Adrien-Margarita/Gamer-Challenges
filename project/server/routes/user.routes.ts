@@ -53,13 +53,13 @@ userRouter.get('/', errorHandler, getAllUsers);
 
 /**
  * @swagger
- * /api/users/{id}:
+ * /api/users/{user_id}:
  *   get:
  *     summary: Récupérer un utilisateur par son ID
  *     tags: [Users]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: user_id
  *         schema:
  *           type: string
  *           format: cuid
@@ -75,17 +75,17 @@ userRouter.get('/', errorHandler, getAllUsers);
  *       404:
  *         description: Utilisateur non trouvé
  */
-userRouter.get('/:id', errorHandler, getUserById);
+userRouter.get('/:user_id', errorHandler, getUserById);
 
 /**
  * @swagger
- * /api/users/{id}/challenges:
+ * /api/users/{user_id}/challenges:
  *   get:
  *     summary: Récupérer les challenges créés par un utilisateur
  *     tags: [Users]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: user_id
  *         required: true
  *         schema:
  *           type: string
@@ -102,17 +102,17 @@ userRouter.get('/:id', errorHandler, getUserById);
  *       404:
  *         description: Utilisateur non trouvé
  */
-userRouter.get('/:id/challenges', errorHandler, getChallengesByUserId);
+userRouter.get('/:user_id/challenges', errorHandler, getChallengesByUserId);
 
 /**
  * @swagger
- * /api/users/{id}/participations:
+ * /api/users/{user_id}/participations:
  *   get:
  *     summary: Récupérer les participations d’un utilisateur
  *     tags: [Users]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: user_id
  *         required: true
  *         schema:
  *           type: string
@@ -129,18 +129,18 @@ userRouter.get('/:id/challenges', errorHandler, getChallengesByUserId);
  *       404:
  *         description: Utilisateur non trouvé
  */
-userRouter.get('/:id/participations', errorHandler, getParticipationByUserId);
+userRouter.get('/:user_id/participations', errorHandler, getParticipationByUserId);
 
 
 /**
  * @swagger
- * /api/users/{id}:
+ * /api/users/{user_id}:
  *   put:
  *     summary: Mettre à jour un utilisateur
  *     tags: [Users]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: user_id
  *         schema:
  *           type: string
  *           format: cuid
@@ -162,17 +162,17 @@ userRouter.get('/:id/participations', errorHandler, getParticipationByUserId);
  *       404:
  *         description: Utilisateur non trouvé
  */
-userRouter.put('/:id', validate(userSchema), errorHandler, updateUser);
+userRouter.put('/:user_id', validate(userSchema), errorHandler, updateUser);
 
 /**
  * @swagger
- * /api/users/{id}:
+ * /api/users/{user_id}:
  *   delete:
  *     summary: Supprimer un utilisateur
  *     tags: [Users]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: user_id
  *         schema:
  *           type: string
  *           format: cuid
@@ -188,13 +188,13 @@ userRouter.delete('/:user_id', errorHandler, deleteAccount);
 
 /**
  * @swagger
- * /api/users/user-to-delete/{id}:
+ * /api/users/user-to-delete/{user_id}:
  *   delete:
  *     summary: Supprimer un utilisateur
  *     tags: [Users]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: user_id
  *         schema:
  *           type: string
  *           format: cuid
