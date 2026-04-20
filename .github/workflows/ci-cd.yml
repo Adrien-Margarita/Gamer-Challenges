@@ -1,0 +1,125 @@
+name: CI-CD Gamer Challenges
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 1272
+          POSTGRES_DB: gamerchallenge
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d gamerchallenge"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:1272@localhost:5432/gamerchallenge?schema=public
+      FRONTEND_URL: http://localhost:5173
+      SESSION_SECRET: github-actions-secret
+      PORT: 3000
+      VITE_API_BASE_URL: http://localhost:3000/api
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: |
+            project/server/pnpm-lock.yaml
+            project/frontend/pnpm-lock.yaml
+
+      - name: Install backend dependencies
+        run: pnpm --dir project/server install --frozen-lockfile
+
+      - name: Run backend tests
+        run: pnpm --dir project/server test
+
+      - name: Install frontend dependencies
+        run: pnpm --dir project/frontend install --frozen-lockfile
+
+      - name: Build frontend
+        run: pnpm --dir project/frontend build
+
+      - name: Install Playwright browser
+        run: pnpm --dir project/frontend exec playwright install --with-deps chromium
+
+      - name: Prepare database schema
+        run: |
+          pnpm --dir project/server prisma generate
+          pnpm --dir project/server prisma db push
+          pnpm --dir project/server seed
+
+      - name: Start backend API
+        run: |
+          env NODE_ENV=development pnpm --dir project/server exec node --import=tsx server.ts > /tmp/server.log 2>&1 &
+          echo $! > /tmp/server.pid
+
+      - name: Wait for backend API
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:3000/api/games >/dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Backend API did not become ready"
+          cat /tmp/server.log
+          exit 1
+
+      - name: Start frontend app
+        run: |
+          env VITE_API_BASE_URL=http://localhost:3000/api pnpm --dir project/frontend exec vite --host localhost --port 5173 > /tmp/frontend.log 2>&1 &
+          echo $! > /tmp/frontend.pid
+
+      - name: Wait for frontend app
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:5173 >/dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Frontend app did not become ready"
+          cat /tmp/frontend.log
+          exit 1
+
+      - name: Run E2E minimal
+        run: pnpm --dir project/frontend e2e
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-cd-logs
+          path: |
+            /tmp/server.log
+            /tmp/frontend.log

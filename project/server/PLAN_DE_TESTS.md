@@ -231,3 +231,12 @@ Parcours de démonstration recommandé en soutenance (TP CDA):
 ## 12. Conclusion
 
 Ce plan de tests répond aux attendus d'une soutenance TP CDA BC03 avec une approche pragmatique: couverture des parcours critiques, exécution stable, et preuves de validation directement présentables au jury.
+
+## 13. CI/CD GitHub Actions
+
+- Fichier de workflow: `.github/workflows/ci-cd.yml`
+- Déclenchement: `push` sur `main` et `develop`, `pull_request` sur `main`, exécution manuelle via `workflow_dispatch`
+- Objectif CI: installer les dépendances, exécuter les tests backend, construire le frontend et lancer le test E2E minimal
+- Préparation technique: base PostgreSQL provisionnée dans GitHub Actions, backend seedé, frontend lancé sur `localhost`
+- Preuves attendues: statut du workflow GitHub Actions, logs du job, et artefacts en cas d'échec
+- Limite actuelle: aucun hébergeur externe n'est défini dans le projet; le workflow couvre donc la CI et la livraison automatisable, prête à être branchée sur une cible de déploiement si elle est précisée
