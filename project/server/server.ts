@@ -58,13 +58,14 @@ const csrfProtection = csrf({
 
 // Routes exclues de la protection CSRF
 const csrfExclude = [
-  "/api/auth/login",
-  "/api/auth/register",
-  "/api/auth/forgot-password",
-  "/api/auth/reset-password",
+  "/auth/login",
+  "/auth/register",
+  "/auth/forgot-password",
+  "/auth/reset-password",
 ];
 
-// CSRF appliqué seulement sur les routes protégées
+// req.path est relatif au préfixe /api dans ce middleware.
+// Exemple: POST /api/auth/login => req.path === "/auth/login".
 app.use("/api", (req, res, next) => {
   if (csrfExclude.includes(req.path)) {
     return next();

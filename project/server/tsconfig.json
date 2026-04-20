@@ -3,7 +3,7 @@
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "node",
-    "types": ["node","jest"],
+    "types": ["node"],
     "esModuleInterop": true,
     "isolatedModules": true,
     "strict": true,

@@ -1,0 +1,8 @@
+{
+  "name": "projet-gamer-challenges",
+  "private": true,
+  "scripts": {
+    "test": "pnpm --dir project/server test",
+    "test:watch": "pnpm --dir project/server test:watch"
+  }
+}
