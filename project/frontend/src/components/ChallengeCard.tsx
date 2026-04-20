@@ -36,9 +36,6 @@ export default function ChallengeCard({ challenge }: Props) {
         <h3 className="text-lg w-full font-semibold text-white">{challenge.title}</h3>
         <div className="flex justify-between items-center">
           <VoteButtonChallenge challengeId={challenge.challenge_id} />
-          {/* <div className="text-right text-2xl font-semibold"> */}
-            {/* TODO: Affichage des nombres de challenge par jeu */}
-          {/* </div> */}
         </div>
       </div>
     </motion.div>

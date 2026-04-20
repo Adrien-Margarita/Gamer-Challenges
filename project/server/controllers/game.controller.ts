@@ -113,8 +113,9 @@ export const getMostPopularGames = async (
 // Récupérer un jeu par son ID
 export const getGameById = async (
   req: Request,
-  res: Response
-): Promise<void> => {
+  res: Response,
+  next: NextFunction
+) => {
   const { id } = req.params;
 
   try {
@@ -122,16 +123,17 @@ export const getGameById = async (
       where: { game_id: id },
       include: {
         _count: { select: { challenge: true } },
-        challenge: true, // si tu veux les détails
+        challenge: true,
       },
     });
 
-    if (!game) res.status(404).json({ message: "Jeu non trouvé" });
+    if (!game) {
+      return next(createHttpError(404, "Jeu non trouvé"));
+    }
 
-    res.status(200).json(game);
+    res.status(200).json({ game });
   } catch (error) {
-    console.error("Erreur getGameById:", error);
-    res.status(500).json({ message: "Erreur serveur" });
+    next(error);
   }
 };
 
@@ -152,16 +154,15 @@ export const updateGame = async (
       throw createHttpError(404, `Jeu non trouvé`);
     }
 
-    const gameToUpdate = await prisma.game.update({
+    const updatedGame = await prisma.game.update({
       data: {
         ...req.body,
         updated_at: new Date(),
       },
       where: { game_id },
     });
-    res
-      .status(200)
-      .json({ message: `Jeu ${gameToUpdate.title} mis à jour avec succès` });
+    
+    res.status(200).json({ game: updatedGame });
   } catch (error) {
     next(error);
   }

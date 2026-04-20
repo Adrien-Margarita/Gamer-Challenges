@@ -275,10 +275,11 @@ export default function ChallengeDetailPage() {
                     {challenge.rules}
                   </p>
                 </div>
+                <hr className="mt-8" style={{marginBottom: "0.3rem", borderColor: "rgba(255, 255, 255, 0.2)" }} />
 
                 {/* Bouton de vote pour un challenge et icon de nombre de participations */}
-                <div className="flex justify-between mt-4 w-full">
-                  <h2 className="text-2xl font-semibold mt-4 mb-2 w-full">
+                <div className="flex justify-between w-full mt-10 items-center">
+                  <h2 className="text-2xl font-semibold w-full">
                     Toutes les participations
                   </h2>
                   <SearchBar
@@ -287,10 +288,10 @@ export default function ChallengeDetailPage() {
                     placeholder="Rechercher une participation ..."
                   />
                 </div>
-                <hr className="w-full mt-2" />
+                <hr className="w-full mt-4" />
 
                 {/* Affichage des participations */}
-                <div className="flex flex-col gap-4 mt-4">
+                <div className="flex flex-col gap-4">
                   {isLoading
                     ? Array.from({ length: 4 }).map((_, index) => (
                         <Skeleton key={index} className="h-32 w-full" />
@@ -308,7 +309,7 @@ export default function ChallengeDetailPage() {
                                     "/assets/images/logo-color-full.svg"
                                   }
                                   alt={`${participation.user.pseudonym} avatar`}
-                                  className="w-10 h-10 rounded-full object-cover border border-gray-500"
+                                  className="w-10 h-10 rounded-full object-cover border-2 border-primary shadow-lg"
                                 />
                                 <h3 className="text-lg font-semibold text-white">
                                   {participation.user.pseudonym}
@@ -321,14 +322,14 @@ export default function ChallengeDetailPage() {
                                   src={
                                     getEmbedUrl(participation.video_url) ?? ""
                                   }
-                                  className="w-full h-[500px] rounded-xl shadow-xl"
+                                  className="w-full h-[500px] rounded-xl border-2 border-primary shadow-lg"
                                   allowFullScreen
                                   title="Vidéo de participation"
                                 />
                               ) : (
                                 <img
                                   src={participation.image_url}
-                                  className="w-full h-[500px] object-cover rounded-xl shadow-xl"
+                                  className="w-full h-[500px] object-cover rounded-xl border-2 border-primary shadow-lg"
                                 />
                               )}
                             </div>

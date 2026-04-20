@@ -2,7 +2,7 @@ import { IGame } from "./IGame";
 import { IParticipation, IUserPreview } from "./IParticipation";
 
 export interface IChallenge {
-  challenge_vote: any;
+  challenge_vote: number;
   challenge_id: string; // UUID
   title: string; // Titre
   description: string; // Description
@@ -71,7 +71,7 @@ export interface IChallengeWithRelations extends IChallenge {
     }[];
     user: IUserPreview;
   })[];
-  challenge_vote: {
+  challenge_votes: {
     challenge_vote_id: string;
     user_id: string;
     challenge_id: string;

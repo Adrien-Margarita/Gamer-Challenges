@@ -1,3 +1,4 @@
 .pnpm-local/
 .pnpm-store/
-
+.DS_Store
+.vscode/

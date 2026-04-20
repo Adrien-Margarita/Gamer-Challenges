@@ -1,54 +1,54 @@
-# React + TypeScript + Vite
+# Frontend - Gamer Challenges
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application frontend du projet Gamer Challenges, developpee avec React, TypeScript et Vite.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Query
+- React Router
 
-## Expanding the ESLint configuration
+## Prerequis
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js 18+
+- pnpm
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Installation
+
+```bash
+pnpm install
+cp .env.example .env
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Variables d'environnement
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Le frontend utilise:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```env
+VITE_API_BASE_URL=http://localhost:3000/api
 ```
+
+## Lancer en developpement
+
+```bash
+pnpm dev
+```
+
+Application disponible sur `http://localhost:5173`.
+
+## Scripts
+
+```bash
+pnpm dev       # Serveur de developpement
+pnpm build     # Build production
+pnpm preview   # Preview du build
+```
+
+## Connexion au backend
+
+Le frontend attend une API disponible par defaut sur:
+
+`http://localhost:3000/api`
