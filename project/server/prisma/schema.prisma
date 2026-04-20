@@ -19,8 +19,8 @@ model challenge {
   created_at     DateTime?        @default(now()) @db.Timestamp(6)
   updated_at     DateTime?        @default(now()) @db.Timestamp(6)
   game           game             @relation(fields: [game_id], references: [game_id], onDelete: Cascade)
-  participation  participation[]
   challenge_vote challenge_vote[]
+  participation  participation[]
 }
 
 model game {
@@ -58,11 +58,11 @@ model user {
   avatar_url           String?
   created_at           DateTime?              @default(now()) @db.Timestamp(6)
   updated_at           DateTime?              @default(now()) @db.Timestamp(6)
-  participation        participation[]
+  role_id              Int
   challenge_vote       challenge_vote[]
+  participation        participation[]
   participation_vote   participation_vote[]
   password_reset_token password_reset_token[]
-  role_id              Int
   role                 user_role              @relation("UserToRole", fields: [role_id], references: [role_id])
 }
 
@@ -70,16 +70,16 @@ model participation_vote {
   participation_vote_id String        @id @default(uuid()) @db.Uuid
   user_id               String        @db.Uuid
   participation_id      String        @db.Uuid
-  user                  user          @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   participation         participation @relation(fields: [participation_id], references: [participation_id], onDelete: Cascade)
+  user                  user          @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 }
 
 model challenge_vote {
   challenge_vote_id String    @id @default(uuid()) @db.Uuid
   user_id           String    @db.Uuid
   challenge_id      String    @db.Uuid
-  user              user      @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   challenge         challenge @relation(fields: [challenge_id], references: [challenge_id], onDelete: Cascade)
+  user              user      @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 }
 
 model password_reset_token {
@@ -89,7 +89,7 @@ model password_reset_token {
   expires_at DateTime
   create_at  DateTime @default(now())
   user_id    String   @db.Uuid
-  user       user?    @relation(fields: [user_id], references: [user_id])
+  user       user     @relation(fields: [user_id], references: [user_id])
 }
 
 model user_role {

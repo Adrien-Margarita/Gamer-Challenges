@@ -1,31 +1,42 @@
-version: '3'
-
 services:
   database:
-    image: 'postgres:latest'
+    image: postgres:16-alpine
+    container_name: gamerchallenge-db
+    restart: unless-stopped
     ports:
-      - 15432:5432
+      - "15432:5432"
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - postgres-network
     volumes:
-      - ${PWD}/db-data/:/var/lib/postgresql/data/
-      - ${PWD}/init.sql:/docker-entrypoint-initdb.d/init.sql
-  
+      - postgres-data:/var/lib/postgresql/data
+
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:8
+    container_name: gamerchallenge-pgadmin
+    restart: unless-stopped
     ports:
-      - 15433:80
+      - "15433:80"
     env_file:
       - .env
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     networks:
       - postgres-network
     volumes:
-      - ${PWD}/pgadmin-data/:/var/lib/pgadmin/
+      - pgadmin-data:/var/lib/pgadmin
 
-networks: 
+networks:
   postgres-network:
     driver: bridge
+
+volumes:
+  postgres-data:
+  pgadmin-data:

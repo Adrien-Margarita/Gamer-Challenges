@@ -1,99 +1,196 @@
-# 🎮 Gamer Challenge
+# Gamer Challenges
 
-**Gamer Challenge** est une plateforme de partage de défis autour des jeux vidéo. Les joueurs peuvent créer des challenges, y participer avec des vidéos ou des images, et voter pour leurs participations préférées. C’est un lieu d’inspiration et de compétition entre passionnés de gaming.
+Application web communautaire autour des jeux video: les utilisateurs publient des challenges, partagent leurs participations (video/image), puis votent.
 
----
+Ce projet est utilise comme support pour le titre **Concepteur Developpeur d'Applications (CDA)**.
 
-## ✨ Fonctionnalités
-
-- ✅ Création de défis sur des jeux
-- 📷 Ajout de participations (image ou vidéo)
-- 🗳️ Système de votes
-- 🧑‍💼 Interface profil avec historique des participations et challenges
-
----
-
-## 🚀 Lancer le projet en local
-
-> Prérequis :
-> - Node.js ≥ 18
-> - pnpm installé globalement (`npm i -g pnpm`)
-> - PostgreSQL ou base de données compatible configurée dans `.env`
-
-### 1. Cloner le dépôt
+## Repository
 
 ```bash
-git clone https://github.com/<ton-utilisateur>/gamer-challenge.git
-cd gamer-challenge
+git clone https://github.com/Adrien-Margarita/Gamer-Challenges
+cd Gamer-Challenges
 ```
 
-### 2. Installation des dépendances et mise en place des serveurs
+## Stack Technique
 
-#### Backend
+- Frontend: React 19, TypeScript, Vite, Tailwind CSS, React Query
+- Backend: Node.js, Express, TypeScript, Prisma ORM
+- Base de donnees: PostgreSQL 16
+- Securite: sessions HTTP-only, CSRF, validation Joi, sanitization
+- Documentation API: Swagger
+- Qualite/Test: Jest, Supertest
+- Deploiement local: Docker Compose (PostgreSQL + PgAdmin)
+
+## Structure Du Projet
+
+```text
+.
+├── Deploy/                 # Infrastructure locale (Docker Compose)
+├── project/
+│   ├── frontend/           # Application React
+│   └── server/             # API Express + Prisma
+└── conception/             # Documents de conception (MCD, MLD, CDC...)
+```
+
+## Prerequis
+
+- Node.js 18+
+- pnpm (installe globalement)
+- Docker Desktop demarre
+
+## Installation Locale Complete
+
+### 1. Demarrer La Base De Donnees Locale
+
+Depuis la racine du projet:
 
 ```bash
-cd projet-gamer-challenges/project/server
+cd Deploy
+cp .env.example .env
+docker compose up -d
+docker compose ps
+```
+
+La base PostgreSQL est exposee sur `localhost:15432`.
+
+### 2. Configurer Et Lancer Le Backend
+
+Dans un nouveau terminal:
+
+```bash
+cd project/server
 pnpm install
-```
-
-Crée un fichier .env dans le dossier server/ :
-
-```bash
-DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/gamerchallenge"
-
-SMTP_HOST=
-SMTP_PORT=
-SMTP_USER=
-SMTP_PASS=
-
-SESSION_SECRET=
-```
-
-Génération du client Prisma
-
-```bash
+cp .env.example .env
 pnpm prisma generate
-```
-
-Lancer le serveur Backend
-
-```bash
+pnpm prisma db push
+pnpm seed
 pnpm dev
 ```
-Le backend s’exécute sur http://localhost:3000
 
-#### Frontend
+Backend disponible sur `http://localhost:3000`.
+Swagger disponible sur `http://localhost:3000/api-docs`.
 
-Dans un nouveau terminal
+### 3. Configurer Et Lancer Le Frontend
+
+Dans un autre terminal:
 
 ```bash
-cd projet-gamer-challenges/project/frontend
+cd project/frontend
 pnpm install
-```
-Crée un fichier .env dans le dossier frontend/ :
-
-```bash
-VITE_API_URL=
-```
-
-Lancer le serveur Frontend
-
-```bash
+cp .env.example .env
 pnpm dev
 ```
 
-Le frontend est accessible sur http://localhost:5173
-    
----
+Frontend disponible sur `http://localhost:5173`.
 
-## Technologies utilisées
+## Variables D'Environnement
 
-- Frontend : React, TypeScript, Tailwind CSS, Vite
-- Backend : Node.js, Express, Prisma ORM, PostgreSQL
-- Authentification : Express Session + httpOnly cookies
-- Gestion d’état : React Query
+- Backend: `project/server/.env.example`
+- Frontend: `project/frontend/.env.example`
+- Docker (BDD + PgAdmin): `Deploy/.env.example`
 
----
+### Backend (`project/server/.env`)
+
+| Variable | Obligatoire | Exemple | Description |
+|---|---|---|---|
+| DATABASE_URL | Oui | `postgresql://postgres:1272@localhost:15432/gamerchallenge?schema=public` | URL de connexion PostgreSQL utilisee par Prisma et l'API. |
+| SMTP_HOST | Oui pour l'envoi d'emails | `smtp.example.com` | Serveur SMTP utilise pour les emails applicatifs. |
+| SMTP_PORT | Oui pour l'envoi d'emails | `465` | Port SMTP. |
+| SMTP_USER | Oui pour l'envoi d'emails | `noreply@example.com` | Identifiant SMTP. |
+| SMTP_PASS | Oui pour l'envoi d'emails | `change_me` | Mot de passe SMTP. |
+| FRONTEND_URL | Oui pour reset password | `http://localhost:5173` | URL frontend injectee dans les liens emails (reset password). |
+| SESSION_SECRET | Oui | `change_me_super_secret_session_key` | Secret des sessions Express. |
+| PORT | Non | `3000` | Port d'ecoute de l'API (3000 par defaut). |
+| NODE_ENV | Non | `development` | Environnement Node (`development`, `test`, `production`). |
+| TEST_DATABASE_URL | Oui pour les tests | `postgresql://...` | URL de BDD utilisee par la suite de tests. |
+| DEBUG | Non | `false` | Active des logs supplementaires dans certains tests. |
+
+### Frontend (`project/frontend/.env`)
+
+| Variable | Obligatoire | Exemple | Description |
+|---|---|---|---|
+| VITE_API_BASE_URL | Oui | `http://localhost:3000/api` | URL de base de l'API backend consommee par Axios. |
+
+### Deploy (`Deploy/.env`)
+
+| Variable | Obligatoire | Exemple | Description |
+|---|---|---|---|
+| POSTGRES_USER | Oui | `postgres` | Utilisateur PostgreSQL du conteneur DB. |
+| POSTGRES_PASSWORD | Oui | `1272` | Mot de passe PostgreSQL du conteneur DB. |
+| POSTGRES_DB | Oui | `gamerchallenge` | Base creee automatiquement au demarrage du conteneur. |
+| PGADMIN_DEFAULT_EMAIL | Oui | `admin@gamerchallenge.local` | Identifiant de connexion PgAdmin. |
+| PGADMIN_DEFAULT_PASSWORD | Oui | `change_me_now` | Mot de passe de connexion PgAdmin. |
+
+### Tests (`project/server/.env.test`)
+
+| Variable | Obligatoire | Exemple | Description |
+|---|---|---|---|
+| NODE_ENV | Oui | `test` | Force le mode test Node/Jest. |
+| DATABASE_URL | Oui | `postgresql://...` | URL de secours pour Prisma pendant les tests. |
+| TEST_DATABASE_URL | Oui | `postgresql://...` | URL explicitement utilisee par les tests integration/controllers. |
+| SESSION_SECRET | Oui | `test-session-secret` | Secret de session pour les tests backend. |
+| PORT | Non | `0` | Port aleatoire pendant les tests. |
+| JWT_SECRET | Optionnel | `test-secret-key` | Reserve aux scenarios JWT (si actifs dans le projet). |
+| JWT_EXPIRES_IN | Optionnel | `1h` | Duree de validite JWT associee aux scenarios JWT. |
+
+## Comptes Seed Utiles
+
+- Admin:
+	- pseudonyme: `Froch`
+	- mot de passe: `admin`
+- Utilisateurs standards seedes:
+	- mot de passe: `password123`
+
+## Commandes Utiles
+
+### Backend
+
+```bash
+cd project/server
+pnpm dev
+pnpm test
+pnpm test:coverage
+pnpm seed
+```
+
+### Frontend
+
+```bash
+cd project/frontend
+pnpm dev
+pnpm build
+```
+
+## Depannage Rapide
+
+### Erreur Prisma `Can't reach database server at localhost:15432`
+
+Verifier d'abord la base:
+
+```bash
+cd Deploy
+docker compose ps
+```
+
+Si la base est arretee:
+
+```bash
+docker compose up -d
+```
+
+Puis reinitialiser schema + donnees:
+
+```bash
+cd ../project/server
+pnpm prisma db push
+pnpm seed
+```
+
+## Deploiement Et Documentation
+
+Pour la procedure de deploiement local securise et les preuves RNCP (tests, logs, pipeline), consulter:
+
+- `Deploy/README.md`
 
 
     
