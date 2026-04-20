@@ -8,10 +8,7 @@
     "dev": "node --import=tsx --watch server.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "seed": "tsx prisma/seed/index.ts",
-    "test": "NODE_OPTIONS='-r dotenv/config' DOTENV_CONFIG_PATH=.env.test npx jest --detectOpenHandles",
-    "test:watch": "NODE_OPTIONS='-r dotenv/config' DOTENV_CONFIG_PATH=.env.test npx jest --watch --detectOpenHandles",
-    "test:coverage": "NODE_OPTIONS='-r dotenv/config' DOTENV_CONFIG_PATH=.env.test npx jest --coverage --detectOpenHandles"
+    "seed": "tsx prisma/seed/index.ts"
   },
   "keywords": [],
   "author": "",
