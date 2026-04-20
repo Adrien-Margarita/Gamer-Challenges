@@ -68,15 +68,14 @@ pnpm dev
 Depuis project/server:
 
 ```bash
-pnpm test
-pnpm test:coverage
+pnpm dev
 ```
 
 Elements a archiver comme preuves:
 - Journal de lancement Docker (services UP)
 - Sortie prisma db push sans erreur
 - Sortie seed sans erreur
-- Rapport de tests et couverture
+- Journal de validation applicative
 - Capture du Swagger sur /api-docs
 
 ## 7) Bonnes pratiques securite/deploiement
