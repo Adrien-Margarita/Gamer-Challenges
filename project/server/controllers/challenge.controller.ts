@@ -45,7 +45,7 @@ export const getAllChallenges = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const challenges = await prisma.challenge.findMany({
       orderBy: {
@@ -64,7 +64,7 @@ export const getChallengeById = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const { id } = req.params;
 
   try {
@@ -80,7 +80,8 @@ export const getChallengeById = async (
     });
 
     if (!challenge) {
-      return res.status(404).json({ message: "Challenge non trouvé" });
+      res.status(404).json({ message: "Challenge non trouvé" });
+      return;
     }
 
     res.status(200).json(challenge);
@@ -94,7 +95,7 @@ export const getChallengesByGameId = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const { id } = req.params;
 
   try {
@@ -112,7 +113,7 @@ export const getMostPopularChallenges = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const challenges = await prisma.challenge.findMany({
       orderBy: {
@@ -153,7 +154,7 @@ export const getLastChallenges = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const challenges = await prisma.challenge.findMany({
       orderBy: {
@@ -199,7 +200,7 @@ export const updateChallenge = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const { challenge_id } = req.params;
   const { title, description, rules, image_url, game_id } = req.body;
 
@@ -218,8 +219,9 @@ export const updateChallenge = async (
 
     res.status(200).json(updatedChallenge);
   } catch (error) {
-    if (error.code === 'P2025') {
-      return res.status(404).json({ message: "Challenge non trouvé" });
+    if ((error as { code?: string }).code === "P2025") {
+      res.status(404).json({ message: "Challenge non trouvé" });
+      return;
     }
     next(error);
   }
@@ -230,7 +232,7 @@ export const deleteChallenge = async (
   req: Request<{ challenge_id: string }>,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const { challenge_id } = req.params;
 
   try {

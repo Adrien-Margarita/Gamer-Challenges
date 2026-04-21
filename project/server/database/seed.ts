@@ -95,7 +95,7 @@ async function main() {
   ]
 
   for (const ch of challengesData) {
-    const game = games.find(g => g.title === ch.gameTitle)
+    const game = games.find((g: { title: string }) => g.title === ch.gameTitle)
     const author = users[Math.floor(Math.random() * users.length)]
 
     if (!game) continue
