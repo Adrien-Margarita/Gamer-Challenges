@@ -15,8 +15,12 @@ dotenv.config();
 const app: Application = express();
 const PORT = parseInt(process.env.PORT || "3000", 10);
 
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 // --- Middleware CORS ---
-const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
+const allowedOrigins = ["http://localhost:5173", "http://localhost:3000", process.env.FRONTEND_URL].filter(Boolean) as string[];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -37,12 +41,12 @@ app.use(cookieParser());
 // --- Session ---
 app.use(session({
   secret: process.env.SESSION_SECRET || "secret",
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // true en prod
+    secure: process.env.NODE_ENV === "production", // true en prod
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 1000 * 60 * 60 * 24 * 7,
   }
 }));
@@ -97,7 +101,7 @@ let server: ReturnType<typeof app.listen>;
 
 // Only start the server if not in test environment
 if (process.env.NODE_ENV !== 'test') {
-  server = app.listen(PORT, () => {
+  server = app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on http://localhost:${PORT}`);
     console.log(`API docs: http://localhost:${PORT}/api-docs`);
   });
