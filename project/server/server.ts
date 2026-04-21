@@ -14,13 +14,23 @@ dotenv.config();
 
 const app: Application = express();
 const PORT = parseInt(process.env.PORT || "3000", 10);
+const isProduction = process.env.NODE_ENV === "production";
 
-if (process.env.NODE_ENV === "production") {
+if (isProduction) {
   app.set("trust proxy", 1);
 }
 
 // --- Middleware CORS ---
-const allowedOrigins = ["http://localhost:5173", "http://localhost:3000", process.env.FRONTEND_URL].filter(Boolean) as string[];
+const frontendOrigins = (process.env.FRONTEND_URLS ?? process.env.FRONTEND_URL ?? "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  ...frontendOrigins,
+];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -44,9 +54,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === "production", // true en prod
+    secure: isProduction,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: isProduction ? "none" : "lax",
     maxAge: 1000 * 60 * 60 * 24 * 7,
   }
 }));
@@ -55,8 +65,8 @@ app.use(session({
 const csrfProtection = csrf({
   cookie: {
     httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    sameSite: isProduction ? "none" : "lax",
+    secure: isProduction,
   },
 });
 
