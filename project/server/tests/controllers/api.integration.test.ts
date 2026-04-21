@@ -19,7 +19,7 @@ const prismaMock = {
 
 jest.mock("@/generated/prisma", () => ({
   PrismaClient: jest.fn(() => prismaMock),
-}), { virtual: true });
+}));
 
 jest.mock("argon2", () => ({
   __esModule: true,

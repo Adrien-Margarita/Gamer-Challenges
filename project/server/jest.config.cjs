@@ -5,6 +5,7 @@ module.exports = {
   testMatch: ["**/*.test.ts"],
   setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
   moduleNameMapper: {
+    "^@/generated/prisma$": "<rootDir>/tests/mocks/generatedPrisma.ts",
     "^@/(.*)$": "<rootDir>/$1",
   },
   transform: {
