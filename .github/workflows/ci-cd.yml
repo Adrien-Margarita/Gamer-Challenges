@@ -58,29 +58,36 @@ jobs:
             project/frontend/pnpm-lock.yaml
 
       - name: Install backend dependencies
-        run: pnpm --dir project/server install --frozen-lockfile
+        working-directory: project/server
+        run: pnpm install --frozen-lockfile
 
       - name: Run backend tests
-        run: pnpm --dir project/server test
+        working-directory: project/server
+        run: pnpm test
 
       - name: Install frontend dependencies
-        run: pnpm --dir project/frontend install --frozen-lockfile
+        working-directory: project/frontend
+        run: pnpm install --frozen-lockfile
 
       - name: Build frontend
-        run: pnpm --dir project/frontend build
+        working-directory: project/frontend
+        run: pnpm build
 
       - name: Install Playwright browser
-        run: pnpm --dir project/frontend exec playwright install --with-deps chromium
+        working-directory: project/frontend
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Prepare database schema
+        working-directory: project/server
         run: |
-          pnpm --dir project/server prisma generate
-          pnpm --dir project/server prisma db push
-          pnpm --dir project/server seed
+          pnpm prisma generate
+          pnpm prisma db push
+          pnpm seed
 
       - name: Start backend API
+        working-directory: project/server
         run: |
-          env NODE_ENV=development pnpm --dir project/server exec node --import=tsx server.ts > /tmp/server.log 2>&1 &
+          env NODE_ENV=development pnpm exec node --import=tsx server.ts > /tmp/server.log 2>&1 &
           echo $! > /tmp/server.pid
 
       - name: Wait for backend API
@@ -96,8 +103,9 @@ jobs:
           exit 1
 
       - name: Start frontend app
+        working-directory: project/frontend
         run: |
-          env VITE_API_BASE_URL=http://localhost:3000/api pnpm --dir project/frontend exec vite --host localhost --port 5173 > /tmp/frontend.log 2>&1 &
+          env VITE_API_BASE_URL=http://localhost:3000/api pnpm exec vite --host localhost --port 5173 > /tmp/frontend.log 2>&1 &
           echo $! > /tmp/frontend.pid
 
       - name: Wait for frontend app
@@ -113,7 +121,8 @@ jobs:
           exit 1
 
       - name: Run E2E minimal
-        run: pnpm --dir project/frontend e2e
+        working-directory: project/frontend
+        run: pnpm e2e
 
       - name: Upload logs on failure
         if: failure()
