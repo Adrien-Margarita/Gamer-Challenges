@@ -1,10 +1,10 @@
-# Deploiement local securise - Gamer Challenge
+# Déploiement Local Sécurisé - Gamer Challenges
 
 Ce dossier permet de lancer PostgreSQL et PgAdmin en local pour le backend.
 
-## 1) Prerequis
+## 1) Prérequis
 
-- Docker Desktop installe et demarre
+- Docker Desktop installé et démarré
 - Node.js 18+
 - pnpm
 
@@ -16,12 +16,12 @@ Ce dossier permet de lancer PostgreSQL et PgAdmin en local pour le backend.
 cp .env.example .env
 ```
 
-2. Verifier la coherence avec le backend:
+2. Vérifier la cohérence avec le backend:
 - Le backend attend PostgreSQL sur localhost:15432
 - La base cible est gamerchallenge
-- Le mot de passe par defaut est 1272
+- Le mot de passe par défaut est 1272
 
-## 3) Demarrage de la base locale
+## 3) Démarrage de la base locale
 
 Depuis le dossier Deploy:
 
@@ -29,13 +29,13 @@ Depuis le dossier Deploy:
 docker compose up -d
 ```
 
-Verification:
+Vérification:
 
 ```bash
 docker compose ps
 ```
 
-## 4) Initialisation schema + donnees de test
+## 4) Initialisation Schéma + Données de Test
 
 Depuis project/server:
 
@@ -63,37 +63,39 @@ cp .env.example .env
 pnpm dev
 ```
 
-## 6) Plan de tests minimum (RNCP)
+## 6) Plan de tests minimum
 
-Depuis project/server:
+Depuis `project/server`:
 
 ```bash
-pnpm dev
+pnpm test
 ```
 
-Elements a archiver comme preuves:
+Éléments à archiver comme preuves:
 - Journal de lancement Docker (services UP)
 - Sortie prisma db push sans erreur
 - Sortie seed sans erreur
 - Journal de validation applicative
 - Capture du Swagger sur /api-docs
 
-## 7) Bonnes pratiques securite/deploiement
+## 7) Bonnes Pratiques Sécurité/Déploiement
 
-- Ne jamais versionner les fichiers .env reels.
+- Ne jamais versionner les fichiers .env réels.
 - Faire tourner les secrets en environnement de recette/prod.
-- Limiter CORS aux domaines front autorises.
+- Limiter CORS aux domaines front autorisés.
 - En production, passer les cookies de session en secure=true.
-- Ajouter une etape CI: installation, lint, tests, build.
+- Ajouter une étape CI: installation, lint, tests, build.
 
-## 8) Mise en production (demarche DevOps)
+## 8) Mise en Production
 
-Pipeline cible conseille:
+Pipeline cible conseillé:
 
 1. Build + tests sur chaque Pull Request
-2. Build image backend/front taggee par commit
-3. Deploiement auto en environnement de recette
+2. Build image backend/front taggée par commit
+3. Déploiement auto en environnement de test
 4. Validation manuelle puis promotion en production
-5. Monitoring post-deploiement (logs + healthcheck)
+5. Monitoring post-déploiement (logs + healthcheck)
 
-Cette demarche couvre les attendus "Contribuer a la mise en production dans une demarche DevOps".
+## 9) Documentation Associée
+
+- Détail complet de la mise en production: `Deploy/MISE_EN_PRODUCTION.md`
